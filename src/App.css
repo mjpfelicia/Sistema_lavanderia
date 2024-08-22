@@ -3,6 +3,9 @@
   --color_border: #007399;
   --color_branca: #fff;
   --color-bg_menu: #F4F4F4;
+  --color-font: #000;
+  --color-line: rgb(35, 27, 27, 6%);
+
 
 }
 
@@ -10,39 +13,16 @@
   text-align: center;
 }
 
+a {
+  text-decoration: none;
+}
 
-
-.App-header {
-  min-height: 100vh;
+h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding-top: 1rem;
+  font-size: calc(10px + 1vw);
 }
 
-
-.responsive-menu {
-  border-bottom: 2px solid var(--color_border);
-  flex-direction: row;
-  display: flex;
-  justify-content: center;
-  background-color: var(--color_azul_bg)
-}
-
-
-
-.menu-item {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  white-space: nowrap;
-  background-color: var(--color_azul_bg);
-  color: var(--color_branca);
-  line-height: 1.5
-}
-
-.car {
-  padding: 10px 50px;
-  border-radius: 10px;
-}

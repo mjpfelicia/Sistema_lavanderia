@@ -1,45 +1,27 @@
 import React from 'react'
+import "./Header.css"
 import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button/';
+import { IconContext } from "react-icons";
 
-
-
-const Header = () => {
+const Header = ({ listaDeMenu }) => {
   return (
     <div>
-      <div>
-        <div>
-          <Nav className='responsive-menu'>
-            <Nav.Item>
-              <a className='menu-item' href="">Recepção</a>
-            </Nav.Item>
-            <Nav.Item>
-              <a className='menu-item' href="">Entrada de peças </a>
-            </Nav.Item>
-            <Nav.Item>
-              <a className='menu-item' href="">Delivery</a>
-            </Nav.Item>
-            <Nav.Item>
-              <a className='menu-item' href="">Retorno</a>
-            </Nav.Item>
-            <Nav.Item>
-              <a className='menu-item' href="">Entrega de peças</a>
-            </Nav.Item>
-            <Nav.Item>
-              <a className='menu-item' href="">mapa</a>
-            </Nav.Item>
-            <Nav.Item>
-              <a className='menu-item' href="">relatório</a>
-            </Nav.Item>
-            <Nav.Item>
-              <a className='menu-item' href="">WhatsApp</a>
-            </Nav.Item>
-          </Nav>
+      <h1>Sistema de lavanderia</h1>
+      <Nav className='responsive-menu'>
+        {listaDeMenu.map((car) => (
+          <Nav.Item>
+            <Button className='menu-item shadow-lg rounded'>
+              <IconContext.Provider value={{ size: "2rem", color: "blue" }}>
+                <car.icon></car.icon>
+              </IconContext.Provider>
+              <a href="">{car.name}</a>
+            </Button>
+          </Nav.Item>
 
-        </div>
-      </div>
-    </div>
-  )
+        ))}
+      </Nav>
+    </div>)
 }
 
-export default Header
+export default Header;
