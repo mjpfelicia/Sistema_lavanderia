@@ -1,40 +1,21 @@
+
 .responsive-menu {
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
-  height: 9rem;
+  gap: 1rem;
+  padding: 1rem;
   background-color: var(--color_branca);
-  border-top: 2px solid var(--color-line);
-  border-bottom: 2px solid var(--color-line);
+   border-top: 2px solid var(--color-line);
+  border-bottom: 2px solid var(--color-line); 
 
 }
-
-.menu-item {
+.title-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 9rem;
-  height: 7rem;
-  background: none;
-  border: none;
-  text-decoration: none;
-
-}
-
-.menu-item a {
-  color: var(--color-font);
-  font-size: 1.3vw;
-
-}
-
-.car {
-  padding: 10px 50px;
-  border-radius: 10px;
-}
-
-.responsive-menu span {
-  color: blue;
-  padding-bottom: 0.5rem;
+  padding-top: 1rem;
+  font-size: calc(10px + 1vw);
 }

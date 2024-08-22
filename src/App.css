@@ -5,7 +5,7 @@
   --color-bg_menu: #F4F4F4;
   --color-font: #000;
   --color-line: rgb(35, 27, 27, 6%);
-
+  
 
 }
 
@@ -17,12 +17,4 @@ a {
   text-decoration: none;
 }
 
-h1 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 1rem;
-  font-size: calc(10px + 1vw);
-}
 
