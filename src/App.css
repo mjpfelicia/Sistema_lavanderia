@@ -1,3 +1,9 @@
+body {
+  font-family: Open Sans, Poppins;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --color_azul_bg: #09c;
   --color_border: #007399;
@@ -5,9 +11,10 @@
   --color-bg_menu: #F4F4F4;
   --color-font: #000;
   --color-line: rgb(35, 27, 27, 6%);
-  
+
 
 }
+
 
 .App {
   text-align: center;
@@ -17,4 +24,7 @@ a {
   text-decoration: none;
 }
 
+header {
+  position: fixed;
 
+}

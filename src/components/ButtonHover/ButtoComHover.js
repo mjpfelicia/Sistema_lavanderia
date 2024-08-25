@@ -5,8 +5,8 @@ import "./ButtonHover.css"
 
 const BotaoHover = ({ card }) => {
 
-  const [isHovered, setIsHovered,estiloBase] = useState(false);
-  
+  const [isHovered, setIsHovered, estiloBase] = useState(false);
+
   const estiloHover = {
     color: 'White',
     background: 'linear-gradient(to top, #33ccff 34%, #3333ff 100%)',
@@ -18,10 +18,11 @@ const BotaoHover = ({ card }) => {
       style={isHovered ? { ...estiloBase, ...estiloHover } : estiloBase}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
-      <IconContext.Provider value={{ size: "2rem", color: "blue" }}>
-        <card.icon></card.icon>
-      </IconContext.Provider>
-      <a href="">{card.name}</a>
+      <a href={card.link}>
+        <IconContext.Provider value={{ size: "2rem", color: "blue" }}>
+          <card.icon></card.icon>
+        </IconContext.Provider>
+        {card.name}</a>
     </button>
   );
 }

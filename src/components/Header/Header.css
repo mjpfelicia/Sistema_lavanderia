@@ -1,16 +1,16 @@
-
 .responsive-menu {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
   gap: 1rem;
   padding: 1rem;
   background-color: var(--color_branca);
-   border-top: 2px solid var(--color-line);
-  border-bottom: 2px solid var(--color-line); 
+  border-top: 2px solid var(--color-line);
+  border-bottom: 2px solid var(--color-line);
 
 }
+
 .title-header {
   display: flex;
   flex-direction: column;
