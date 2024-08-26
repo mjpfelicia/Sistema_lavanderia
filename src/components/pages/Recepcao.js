@@ -1,9 +1,13 @@
 import React from 'react'
+import Header from "../Header/Header"
 
 const Recepcao = () => {
   return (
-    <div>recepcao</div>
+    <div>
+      recepcao
+      <Header ativaBotao ={"Recepção"} />
+    </div>
   )
 }
 
-export default Recepcao
+export default Recepcao;

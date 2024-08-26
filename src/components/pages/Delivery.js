@@ -1,8 +1,13 @@
-import React from 'react'
+import React from 'react';
+import Header from "../Header/Header"
+
 
 const Delivery = () => {
   return (
-    <div>Delivery</div>
+    <div>
+      Delivery
+      <Header ativaBotao={"Delivery"} />
+    </div>
   )
 }
 

@@ -11,7 +11,7 @@ import { GrDeliver } from "react-icons/gr";
 import { PiDressDuotone, PiStorefrontDuotone } from "react-icons/pi";
 
 
-const Header = () => {
+const Header = ({ativaBotao}) => {
 
   const MyCarMenu = [
     { name: "Recepção", icon: PiStorefrontDuotone, link: "/recepcao" },
@@ -29,13 +29,10 @@ const Header = () => {
       <Nav className='responsive-menu'>
         {MyCarMenu.map((card, id) => (
           <Nav.Item key={id}>
-            <ButtonComHover card={card} />
+            <ButtonComHover card={card} ativarHover={card.name == ativaBotao} />
           </Nav.Item>
-
         ))}
       </Nav>
-
-
 
     </div>)
 }
