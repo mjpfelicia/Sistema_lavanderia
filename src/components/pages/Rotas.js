@@ -9,6 +9,8 @@ import Retorno from "./Retorno";
 import Mapa from "./Mapa"
 import Relatorio from "./Relatorio"
 import Whatsapp from "./Whatsapp"
+import Login from "./Validacao.js"
+
 
 
 const Rotas = () => {
@@ -23,6 +25,9 @@ const Rotas = () => {
                 <Route path="/Mapa" element={<Mapa/>} />
                 <Route path="/Relatorio" element={<Relatorio/>} />
                 <Route path="/Whatsapp" element={<Whatsapp/>} />
+                <Route path="/Login" element={<Login/>} />
+
+
             </Routes>
         </BrowserRouter>
     )

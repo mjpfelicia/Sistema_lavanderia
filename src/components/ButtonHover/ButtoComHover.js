@@ -8,17 +8,18 @@ const BotaoHover = ({ card, ativarHover }) => {
   const [isHovered, setIsHovered, estiloBase] = useState(false);
 
   const estiloHover = {
-    color: 'White',
-    background: 'linear-gradient(to top, #33ccff 34%, #3333ff 100%)',
+    background: 'var(--color-hover-clicado)',
+    color: 'var(--color_branca)'
   };
-  
+
   return (
-    <button className='menu-item shadow-lg rounded estiloBase estiloHover'
+    <button className='menu-item shadow-lg  estiloBase estiloHover'
       style={isHovered || ativarHover ? { ...estiloBase, ...estiloHover } : estiloBase}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
+
       <a href={card.link}>
-        <IconContext.Provider value={{ size: "2rem", color: "blue" }}>
+        <IconContext.Provider value={{ size: "2rem", color: " #0000b3" }} >
           <card.icon></card.icon>
         </IconContext.Provider>
         {card.name}</a>

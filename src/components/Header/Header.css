@@ -13,9 +13,8 @@
 
 .title-header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding-top: 1rem;
-  font-size: calc(10px + 1vw);
+  justify-content: flex-start;
+  padding: 0.5rem 1rem 0 2rem;
+  font-size: calc(10px + 0.4vw);
 }
