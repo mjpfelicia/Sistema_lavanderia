@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Header.css"
 import Nav from 'react-bootstrap/Nav';
-import ButtonComHover from "../ButtonHover/ButtoComHover"
+import ButtonComHover from "../ButtonHover/buttons/ButtoComHover"
 import { Link } from 'react-router-dom';
 
 

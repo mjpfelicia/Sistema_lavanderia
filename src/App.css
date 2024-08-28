@@ -2,7 +2,9 @@ body {
   font-family: Open Sans, Poppins;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
+
 
 :root {
   --color_azul_bg: #09c;
@@ -13,6 +15,7 @@ body {
   --color-hover-clicado: #f2f2f2;
   --color-font: #000;
   --color-line: rgb(35, 27, 27, 6%);
+  --color-error:red;
 
 
 }

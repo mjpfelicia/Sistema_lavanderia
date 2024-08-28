@@ -9,7 +9,7 @@ import Retorno from "./Retorno";
 import Mapa from "./Mapa"
 import Relatorio from "./Relatorio"
 import Whatsapp from "./Whatsapp"
-import Login from "./Validacao.js"
+import Validacao from "./Validacao.js"
 
 
 
@@ -18,16 +18,14 @@ const Rotas = () => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/Recepcao" element={<Recepcao/>} />
+                <Route path="/Recepcao" element={<Recepcao />} />
                 <Route path="/EntregaPecas" element={<EntregaPecas />} />
-                <Route path="/Delivery" element={<Delivery/>} />
+                <Route path="/Delivery" element={<Delivery />} />
                 <Route path="/Retorno" element={<Retorno />} />
-                <Route path="/Mapa" element={<Mapa/>} />
-                <Route path="/Relatorio" element={<Relatorio/>} />
-                <Route path="/Whatsapp" element={<Whatsapp/>} />
-                <Route path="/Login" element={<Login/>} />
-
-
+                <Route path="/Mapa" element={<Mapa />} />
+                <Route path="/Relatorio" element={<Relatorio />} />
+                <Route path="/Whatsapp" element={<Whatsapp />} />
+                <Route path="/Validacao" element={<Validacao />} />
             </Routes>
         </BrowserRouter>
     )
