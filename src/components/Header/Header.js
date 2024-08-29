@@ -1,39 +1,48 @@
 import React from 'react'
 import "./Header.css"
 import Nav from 'react-bootstrap/Nav';
-import ButtonComHover from "../ButtonHover/buttons/ButtoComHover"
-import { Link } from 'react-router-dom';
+import ButtonComHover from "../ButtonHover/ButtoComHover"
+
+import recepcao from "../../img/recepcao.png"
+import peca from "../../img/peca.png"
+import delivery from "../../img/delivery.png"
+import retornoD from "../../img/retornoD.png"
+import entregaDePecas from "../../img/entrega.png"
+import mapa from "../../img/mapa.png"
+import relatorio from "../../img/relatorio.png"
+import WhatsApp from "../../img/whapp.png"
 
 
-import { FaMap, FaWhatsapp, } from 'react-icons/fa';
-import { TbTruckReturn, TbReportSearch } from "react-icons/tb";
-import { GrDeliver } from "react-icons/gr";
-import { PiDressDuotone, PiStorefrontDuotone } from "react-icons/pi";
 
 
-const Header = ({ativaBotao}) => {
+
+
+
+const Header = ({ ativaBotao }) => {
 
   const MyCarMenu = [
-    { name: "Recepção", icon: PiStorefrontDuotone, link: "/recepcao" },
-    { name: "Entrega de peças", icon: PiDressDuotone, link: "/EntregaPecas" },
-    { name: "Delivery", icon: GrDeliver, link: "/delivery" },
-    { name: "Retorno", icon: TbTruckReturn, link: "/retorno" },
-    { name: "mapa", icon: FaMap, link: "/mapa" },
-    { name: "relatório", icon: TbReportSearch, link: "/relatorio" },
-    { name: "WhatsApp", icon: FaWhatsapp, link: "/Whatsapp" }
+    { name: "Recepção", icon: recepcao, link: "/recepcao" },
+    { name: "Entrega de peças", icon: peca, link: "/EntregaPecas" },
+    { name: "Delivery", icon: delivery, link: "/delivery" },
+    { name: "Retorno", icon: retornoD, link: "/retorno" },
+    { name: "EntregaDePeca", icon: entregaDePecas, link: "/EntregaPecas" },
+    { name: "Mapa", icon: mapa, link: "/mapa" },
+    { name: "Relatório", icon: relatorio, link: "/relatorio" },
+    { name: "WhatsApp", icon: WhatsApp, link: "/Whatsapp" }
 
   ]
   return (
     <div>
-      <h1 className='title-header'>Sistema de lavanderia</h1>
-      <Nav className='responsive-menu'>
-        {MyCarMenu.map((card, id) => (
-          <Nav.Item key={id}>
-            <ButtonComHover card={card} ativarHover={card.name == ativaBotao} />
-          </Nav.Item>
-        ))}
-      </Nav>
-
+      <div className='Header'>
+        <h1 className='title-header'>Sistema de lavanderia</h1>
+        <Nav className='responsive-menu'>
+          {MyCarMenu.map((card, id) => (
+            <Nav.Item key={id}>
+              <ButtonComHover card={card} ativarHover={card.name == ativaBotao} />
+            </Nav.Item>
+          ))}
+        </Nav>
+      </div>
     </div>)
 }
 

@@ -1,9 +1,12 @@
 body {
-  font-family: Open Sans, Poppins;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", "Poppins", sans-serif !important;
+  font-weight: 100;
+  font-style: normal;
 }
+
 
 
 :root {
@@ -15,7 +18,7 @@ body {
   --color-hover-clicado: #f2f2f2;
   --color-font: #000;
   --color-line: rgb(35, 27, 27, 6%);
-  --color-error:red;
+  --color-error: red;
 
 
 }
@@ -26,10 +29,10 @@ body {
 }
 
 a {
-  text-decoration: none;
-}
+text-decoration: none;}
 
 header {
   position: fixed;
 
 }
+

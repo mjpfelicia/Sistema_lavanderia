@@ -1,14 +1,18 @@
 import React from 'react'
 import Header from "../Header/Header"
-import ButtonEnter from "../../components/ButtonHover/ButtonEnter"
+import FormInput from '../pages/FormInput'
+import CloseButton from "../buttons/CloseButton"
+
 
 
 const Recepcao = () => {
   return (
     <div>
-      <Header ativaBotao={"Recepção"} />
-      recepcao
-     < ButtonEnter/>
+      <div className='recepcao'>
+        <Header ativaBotao={"Recepção"} />
+        <FormInput />
+        <CloseButton/>
+      </div>
     </div>
   )
 }

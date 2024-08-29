@@ -21,7 +21,7 @@ export default function validacao() {
         },
         {
             name: "telefone",
-            type: "text",
+            type: "number",
             placeholder: "Telefone",
             label: "",
             errorMessage: "Deve ser um Numero de telefone válido!",
@@ -47,22 +47,24 @@ export default function validacao() {
         setValues({ ...values, [e.target.name]: e.target.value });
         console.log(e.target.name, e.target.value)
     };
-    
+
 
     return (
         <div>
-            <form action="" onSubmit={handleSubmit}>
-                {inputObjList.map((input, idx) => (
-                    <div className="field-control" key={idx}>
-                        <FormInput {...input} value={values[input.name]} onChange={onChange}
-                        />
-                    </div>
-                ))}
+            <div className="validacao">
+                <form action="" onSubmit={handleSubmit}>
+                    {inputObjList.map((input, idx) => (
+                        <div className="field-control" key={idx}>
+                            <FormInput {...input} value={values[input.name]} onChange={onChange}
+                            />
+                        </div>
+                    ))}
 
 
-                <button type="submit">Enter</button>
+                    <button type="submit">Enter</button>
 
-            </form>
+                </form>
+            </div>
         </div>
     );
 }

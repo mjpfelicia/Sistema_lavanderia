@@ -9,7 +9,6 @@ const BotaoHover = ({ card, ativarHover }) => {
 
   const estiloHover = {
     background: 'var(--color-hover-clicado)',
-    color: 'var(--color_branca)'
   };
 
   return (
@@ -20,7 +19,8 @@ const BotaoHover = ({ card, ativarHover }) => {
 
       <a href={card.link}>
         <IconContext.Provider value={{ size: "2rem", color: " #0000b3" }} >
-          <card.icon></card.icon>
+          <img src={card.icon} width={48} height={48} alt={card.name}></img>
+          {/* <card.icon></card.icon> */}
         </IconContext.Provider>
         {card.name}</a>
     </button>

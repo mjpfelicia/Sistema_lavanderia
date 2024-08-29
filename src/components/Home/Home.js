@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from "../Header/Header"
-import FormInput from '../pages/FormInput'
+import CadastroDeCliente from "../pages/CadastroDeCliente"
 
 
 
@@ -10,9 +10,8 @@ const Home = () => {
         <div className='content_home'>
             <div>
                 <Header />
-                <FormInput />
-
             </div>
+            <CadastroDeCliente/>
         </div>
     )
 }
