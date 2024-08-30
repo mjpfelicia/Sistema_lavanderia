@@ -19,7 +19,7 @@ const FormInput = (props) => {
                     focused={focused.toString()}
                 />
 
-                <span>{errorMessage}</span>
+                <span className="span_error">{errorMessage}</span>
             </div>
         </>
     );

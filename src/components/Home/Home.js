@@ -1,9 +1,6 @@
 import React from 'react'
 import Header from "../Header/Header"
-import CadastroDeCliente from "../pages/CadastroDeCliente"
-
-
-
+import CadastroDeCliente from "../pages/CadastroDeCliente/CadastroDeCliente.js"
 
 const Home = () => {
     return (

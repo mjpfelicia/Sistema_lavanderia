@@ -1,6 +1,6 @@
-import FormInput from "./Validacao";
+import FormInput from "../ValidacaoDeCliente/Validacao";
 import { useState } from "react";
-import "../pages/FormInput.css"
+import "../FormularioDEInput/FormInput.css"
 
 export default function validacao() {
     const [values, setValues] = useState({
@@ -52,16 +52,16 @@ export default function validacao() {
     return (
         <div>
             <div className="validacao">
-                <form action="" onSubmit={handleSubmit}>
+                <form action="" id="formulario" onSubmit={handleSubmit}>
                     {inputObjList.map((input, idx) => (
-                        <div className="field-control" key={idx}>
+                        <div className="controle_de_campo" key={idx}>
                             <FormInput {...input} value={values[input.name]} onChange={onChange}
                             />
                         </div>
                     ))}
 
 
-                    <button type="submit">Enter</button>
+                    <button type="submit" className="btn_enter">Enter</button>
 
                 </form>
             </div>

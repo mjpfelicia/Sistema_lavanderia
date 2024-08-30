@@ -5,9 +5,7 @@ import React from "react";
 
 const CloseButton = () => {
   return (
-    <div>
-      
-    </div>
+    <div>Home</div>
   )
 }
 

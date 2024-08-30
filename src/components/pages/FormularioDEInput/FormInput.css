@@ -1,7 +1,4 @@
-
-
-
-form {
+#formulario {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,47 +8,51 @@ form {
     height: 20vh;
 }
 
-.field-control {
+/* .controle_de_campo {
     margin: 2px 0px;
     padding: 4px 0rem;
     width: 33%;
-}
+} */
 
-.field-control label {
+.controle_de_campo label {
     display: block;
-    width: 80%;
+    width: 95%;
     margin: 0 auto;
     padding: 0px 24px;
     font-size: 15px;
-  }
-.field-control input {
-    width: 80%;
+}
+
+.controle_de_campo input{
+    width: 348px;
     display: block;
     margin: 2px auto;
-    height: 35px;
+    height: 40px;
     border-radius: 4px;
     border: none;
     outline: none;
     padding-left: 6px;
 }
 
-button {
+
+
+
+.btn_enter {
     display: block;
-    width: 15%;
+    width: 103px;
     color: var(--color_branca);
-    padding: 10px 6px;
+    padding: 7px 6px;
     border: none;
     outline: none;
     border-radius: 6px;
     background-color: var(--color-icon);
 }
 
-span {
+.span_error {
     display: none;
-    width: 65%;
+    width: 100%;
     font-size: 12px;
     padding: 3px;
-   text-align: center;
+    text-align: center;
     color: var(--color-error);
 }
 

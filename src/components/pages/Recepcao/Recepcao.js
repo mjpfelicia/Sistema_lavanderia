@@ -1,7 +1,7 @@
 import React from 'react'
-import Header from "../Header/Header"
-import FormInput from '../pages/FormInput'
-import CloseButton from "../buttons/CloseButton"
+import Header from "../../Header/Header"
+import FormInput from '../FormularioDEInput/FormInput'
+import CloseButton from "../../buttons/CloseButton"
 
 
 
