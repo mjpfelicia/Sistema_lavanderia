@@ -2,35 +2,39 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
     border-radius: 6px;
     padding: 10px 0px;
-    margin: 0 2rem;
     height: 20vh;
 }
 
-/* .controle_de_campo {
-    margin: 2px 0px;
-    padding: 4px 0rem;
-    width: 33%;
-} */
 
-.controle_de_campo label {
+.controle_de_campo,
+.passwordInput {
     display: block;
-    width: 95%;
-    margin: 0 auto;
     padding: 0px 24px;
     font-size: 15px;
 }
 
-.controle_de_campo input{
+
+
+.controle_de_campo input {
     width: 348px;
     display: block;
-    margin: 2px auto;
     height: 40px;
     border-radius: 4px;
     border: none;
     outline: none;
-    padding-left: 6px;
+}
+
+.passwordInput input {
+    width: 200px;
+    display: block;
+    height: 40px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
 }
 
 
@@ -41,6 +45,7 @@
     width: 103px;
     color: var(--color_branca);
     padding: 7px 6px;
+    margin-top: 1.2rem;
     border: none;
     outline: none;
     border-radius: 6px;

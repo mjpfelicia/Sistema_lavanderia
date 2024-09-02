@@ -35,9 +35,11 @@ const Header = ({ ativaBotao }) => {
   return (
     <div>
       <div className='Header'>
-        <h1 className='title-header'>Sistema de lavanderia</h1>
-        <CloseButton />
-        
+        <div className='headerTitle'>
+          <h1 className='title-header'>Sistema de lavanderia</h1>
+          <CloseButton />
+        </div>
+
         <Nav className='responsive-menu'>
           {MyCarMenu.map((card, id) => (
             <Nav.Item key={id}>

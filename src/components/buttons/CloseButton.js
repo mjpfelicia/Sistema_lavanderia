@@ -1,12 +1,23 @@
-import "bootstrap/dist/css/bootstrap.css";
-import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 
 
-const CloseButton = () => {
-  return (
-    <div>Home</div>
-  )
+function CloseButton() {
+  const navegar = useNavigate();
+
+  const redirecionarParaInicio = () => {
+    navegar("/");
+  };
+
+  return <button onClick={redirecionarParaInicio} type="button" style={buttonStyle} className="btn-close" aria-label="Close"></button>;
 }
 
-export default CloseButton
+
+
+const buttonStyle = {
+ 
+  border: 'none',
+  padding: '10px',
+  cursor: 'pointer'
+};
+export default CloseButton;
