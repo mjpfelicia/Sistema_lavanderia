@@ -16,10 +16,10 @@ body {
   --color_branca: #fff;
   --color-bg_menu: #F4F4F4;
   --color-hover-clicado: #f2f2f2;
-  --color-font: #000;
+  --color-font: #000000;
   --color-line: rgb(35, 27, 27, 6%);
   --color-error: red;
-
+  --color-titleCadastro: #1E1E1E;
 
 }
 
@@ -29,10 +29,10 @@ body {
 }
 
 a {
-text-decoration: none;}
+  text-decoration: none;
+}
 
 header {
   position: fixed;
 
 }
-

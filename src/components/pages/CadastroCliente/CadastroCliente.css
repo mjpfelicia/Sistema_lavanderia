@@ -1,0 +1,55 @@
+.container {
+    background: rgba(0, 0, 0, 0.125);
+    padding: 2rem;
+
+}
+
+
+.formGroup {
+    display: flex;
+    margin-top: 1rem;
+
+}
+
+.formGroup2 {
+    display: flex;
+    margin-left: 4rem;
+}
+
+.titleCadastro {
+    color: var(--color-titleCadastro);
+}
+
+.formGroup input {
+    width: 37.5rem;
+}
+
+.formGroup label {
+    width: 3.5rem;
+    margin-right: 4rem;
+    color: var(--color-font);
+}
+
+
+
+.formGroupCep,
+.formGroupTelefone input {
+    width: 18rem !important;
+}
+
+.formGroupNumero {
+    width: 12rem;
+}
+
+.formControlEstado,
+.formControlBairro {
+    width: 21rem !important;
+}
+
+
+.btn_cadastra {
+    margin-top: 2rem;
+}
+
+/* teste */
+

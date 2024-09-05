@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from "../Header/Header"
-import CadastroDeCliente from "../pages/CadastroDeCliente/CadastroDeCliente.js"
+import CadastroCliente from '../pages/CadastroCliente/CadastroCliente'
 
 const Home = () => {
     return (
@@ -8,7 +8,7 @@ const Home = () => {
             <div>
                 <Header />
             </div>
-            <CadastroDeCliente/>
+            < CadastroCliente/>
         </div>
     )
 }

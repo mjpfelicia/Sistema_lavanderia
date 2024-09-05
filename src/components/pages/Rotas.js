@@ -10,7 +10,7 @@ import Mapa from "./Mapa/Mapa"
 import Relatorio from "./Relatorio/Relatorio.js"
 import Whatsapp from "./Whatsapp"
 import Validacao from "./ValidacaoDeCliente/Validacao.js"
-import CadastroDeCliente from "./CadastroDeCliente/CadastroDeCliente.js"
+import CadastroCliente from "./CadastroCliente/CadastroCliente.js"
 import CloseButton from "../buttons/CloseButton.js"
 
 
@@ -29,7 +29,7 @@ const Rotas = () => {
                 <Route path="/Relatorio" element={<Relatorio />} />
                 <Route path="/Whatsapp" element={<Whatsapp />} />
                 <Route path="/ValidacaoDeCliente" element={<Validacao />} />
-                <Route path="/CadastroDeCliente" element={<CadastroDeCliente />} />
+                <Route path="/CadastroCliente" element={<CadastroCliente />} />
                 <Route path="/" element={<CloseButton />} />
 
 

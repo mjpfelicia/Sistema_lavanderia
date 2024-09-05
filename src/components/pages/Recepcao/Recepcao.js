@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from "../../Header/Header"
 import FormInput from '../FormularioDEInput/FormInput'
-import CloseButton from "../../buttons/CloseButton"
 
 
 
@@ -11,7 +10,6 @@ const Recepcao = () => {
       <div className='recepcao'>
         <Header ativaBotao={"Recepção"} />
         <FormInput />
-        <CloseButton/>
       </div>
     </div>
   )

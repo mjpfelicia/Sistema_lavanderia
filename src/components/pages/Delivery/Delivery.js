@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from "../../Header/Header"
+import FormInput from '../FormularioDEInput/FormInput'
 
 
 const Delivery = () => {
   return (
     <div>
-      Delivery
       <Header ativaBotao={"Delivery"} />
+      <FormInput/>
     </div>
   )
 }

@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
 
+const CloseButton = () => {
 
-function CloseButton() {
   const navegar = useNavigate();
 
   const redirecionarParaInicio = () => {
@@ -15,7 +15,7 @@ function CloseButton() {
 
 
 const buttonStyle = {
- 
+
   border: 'none',
   padding: '10px',
   cursor: 'pointer'
