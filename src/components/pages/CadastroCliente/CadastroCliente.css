@@ -1,9 +1,11 @@
-.container {
-    background: rgba(0, 0, 0, 0.125);
-    padding: 2rem;
+.menuCadastro {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 0.5rem;
 
 }
-
 
 .formGroup {
     display: flex;
@@ -22,15 +24,16 @@
 
 .formGroup input {
     width: 37.5rem;
+    margin-left: 2rem;
 }
 
 .formGroup label {
     width: 3.5rem;
-    margin-right: 4rem;
     color: var(--color-font);
+    float: left;
+    padding-top: 5px;
+    text-align: right;
 }
-
-
 
 .formGroupCep,
 .formGroupTelefone input {
@@ -52,4 +55,3 @@
 }
 
 /* teste */
-

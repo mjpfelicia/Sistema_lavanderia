@@ -29,26 +29,34 @@ const Header = ({ ativaBotao }) => {
     { name: "Entrega de Peças", icon: entregaDePecas, link: "/EntregaPecas" },
     { name: "Mapa", icon: mapa, link: "/mapa" },
     { name: "Relatório", icon: relatorio, link: "/relatorio" },
-    { name: "WhatsApp", icon: WhatsApp, link: "/Whatsapp" }
+    { name: "WhatsApp", icon: WhatsApp, link: "/Whatsapp" },
 
   ]
   return (
     <div>
-      <div className='Header'>
+      <div className='HeaderContent'>
         <div className='headerTitle'>
           <h1 className='title-header'>Sistema de lavanderia</h1>
+        </div>
+        <div className='linkCadastro'>
+          <a href="/CadastroCliente">cadastre</a>
+        </div>
+
+        <div>
           <CloseButton />
         </div>
 
-        <Nav className='responsive-menu'>
-          {MyCarMenu.map((card, id) => (
-            <Nav.Item key={id}>
-              <ButtonComHover card={card} ativarHover={card.name == ativaBotao} />
-            </Nav.Item>
-          ))}
-        </Nav>
       </div>
-    </div>)
+
+      <Nav className='responsive-menu'>
+        {MyCarMenu.map((card, id) => (
+          <Nav.Item key={id}>
+            <ButtonComHover card={card} ativarHover={card.name == ativaBotao} />
+          </Nav.Item>
+        ))}
+      </Nav>
+    </div>
+  )
 }
 
 export default Header;

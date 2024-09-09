@@ -11,16 +11,34 @@
 
 }
 
-.title-header {
+.HeaderContent {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
 
+}
+
+.title-header {
+  color: var(--color-font);
   padding: 0.5rem 1rem 0 2rem;
   font-size: calc(10px + 0.4vw);
 }
 
 .headerTitle {
   display: flex;
-    align-items: center;
-    justify-content: space-between;
-    align-content: center;
-    padding: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  padding: 0.5rem;
+}
+
+.linkCadastro a {
+  text-decoration: none;
+  padding: 0.5rem 1rem 0 2rem;
+  font-size: calc(10px + 0.4vw);
+  color: var(--color-font);
+
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CadastroCliente/CadastroCliente.css"
+import CloseButton from '../../buttons/CloseButton';
+
 
 
 const CadastroForm = () => {
@@ -32,10 +34,15 @@ const CadastroForm = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container pt-5 " style={{
+            width: '100vw', height: '100vh', flex: 3,
+            padding: 60, backgroundColor: 'white',
+        }}>
             <form onSubmit={handleSubmit}>
-
-                <h1 className='titleCadastro'>Cadastro de cliente</h1>
+                <div className='menuCadastro'>
+                    <CloseButton />
+                    <h1 className='titleCadastro'>Cadastro de cliente</h1>
+                </div>
 
                 <div className="form-group, formGroup">
                     <label>Nome completo</label>
@@ -45,7 +52,7 @@ const CadastroForm = () => {
                         <input type="tel" maxlength="14" mask="(99) 99999-9999" className="form-control" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(__) _____-____" />
                     </div>
                 </div>
-               
+
 
                 <div className="form-group formGroup">
                     <label>Endereço:</label>

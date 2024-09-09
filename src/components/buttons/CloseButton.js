@@ -18,6 +18,7 @@ const buttonStyle = {
 
   border: 'none',
   padding: '10px',
-  cursor: 'pointer'
+  cursor: 'pointer',
+
 };
 export default CloseButton;

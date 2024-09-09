@@ -1,6 +1,5 @@
 import React from 'react'
 import Header from "../Header/Header"
-import CadastroCliente from '../pages/CadastroCliente/CadastroCliente'
 
 const Home = () => {
     return (
@@ -8,7 +7,6 @@ const Home = () => {
             <div>
                 <Header />
             </div>
-            < CadastroCliente/>
         </div>
     )
 }
