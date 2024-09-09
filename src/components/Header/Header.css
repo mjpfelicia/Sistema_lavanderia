@@ -24,7 +24,7 @@
 .title-header {
   color: var(--color-font);
   padding: 0.5rem 1rem 0 2rem;
-  font-size: calc(10px + 0.4vw);
+  font-size: calc(0.5rem + 0.4vw);
 }
 
 .headerTitle {
@@ -38,7 +38,7 @@
 .linkCadastro a {
   text-decoration: none;
   padding: 0.5rem 1rem 0 2rem;
-  font-size: calc(10px + 0.4vw);
+  font-size: calc(0.5rem + 0.4vw);
   color: var(--color-font);
 
 }

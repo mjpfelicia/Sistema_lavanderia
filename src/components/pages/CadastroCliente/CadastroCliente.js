@@ -34,7 +34,7 @@ const CadastroForm = () => {
     };
 
     return (
-        <div className="container pt-5 " style={{
+        <div className="" style={{
             width: '100vw', height: '100vh', flex: 3,
             padding: 60, backgroundColor: 'white',
         }}>
@@ -49,7 +49,7 @@ const CadastroForm = () => {
                     <input type="text" className="form-control  formGroupName" name="nome" value={formData.nome} onChange={handleChange} />
                     <div className="formGroup2 formGroupTelefone">
                         <label>Telefone:</label>
-                        <input type="tel" maxlength="14" mask="(99) 99999-9999" className="form-control" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(__) _____-____" />
+                        <input type="tel" maxLength="14" mask="(99) 99999-9999" className="form-control" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(__) _____-____" />
                     </div>
                 </div>
 

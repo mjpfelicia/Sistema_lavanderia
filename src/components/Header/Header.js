@@ -39,7 +39,7 @@ const Header = ({ ativaBotao }) => {
           <h1 className='title-header'>Sistema de lavanderia</h1>
         </div>
         <div className='linkCadastro'>
-          <a href="/CadastroCliente">cadastre</a>
+          <a href="/CadastroCliente">Cadastrar Cliente</a>
         </div>
 
         <div>

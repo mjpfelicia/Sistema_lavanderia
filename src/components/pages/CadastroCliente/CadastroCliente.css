@@ -20,6 +20,8 @@
 
 .titleCadastro {
     color: var(--color-titleCadastro);
+    font-size: calc(1rem + 0.4vw);
+
 }
 
 .formGroup input {
