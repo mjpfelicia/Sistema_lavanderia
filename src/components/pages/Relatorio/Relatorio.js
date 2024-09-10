@@ -4,8 +4,8 @@ import Header from "../../Header/Header"
 const Relatorio = () => {
   return (
     <div>
-      Relatorio
       <Header ativaBotao={"Relatorio"} />
+      Relatorio
     </div>
   )
 }

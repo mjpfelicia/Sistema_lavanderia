@@ -4,8 +4,8 @@ import Header from "../../Header/Header"
 const Mapa = () => {
   return (
     <div>
-      Mapa
       <Header ativaBotao={"Mapa"} />
+      Mapa
     </div>
   )
 }

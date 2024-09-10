@@ -11,7 +11,7 @@ const CloseButton = () => {
   const redirecionarParaInicio = () => {
     navegar("/");
   };
-  return <button onClick={redirecionarParaInicio} type="button" style={{ borderRadius: '15%',border:'nome', backgroundColor:'#d6effb' }} aria-label="Close">
+  return <button onClick={redirecionarParaInicio} type="button" style={{ borderRadius: '15%',border:'solid 1px #000', backgroundColor:'#d6effb' }} aria-label="Close">
     <MdAddToHomeScreen/>
    
   </button>;

@@ -58,7 +58,7 @@ const CadastroForm = () => {
                     <label>Endereço:</label>
                     <input type="text" className="form-control" name="endereco" value={formData.endereco} onChange={handleChange} />
                     <div className="formGroup2 formGroupNumero">
-                        <label>numero:</label>
+                        <label>Número:</label>
                         <input type="text" className="form-control" name="numero" value={formData.numero} onChange={handleChange} />
                     </div>
                 </div>

@@ -17,16 +17,18 @@ export default function validacao() {
             placeholder: "nome",
             label: "",
             errorMessage: "O Nome de usuário",
-            class:"controle_de_campo",
+            class: "controle_de_campo",
             required: true,
         },
         {
+
+
             name: "telefone",
-            type: "number",
-            placeholder: "Telefone",
+            type: "text",
             label: "",
+            placeholder: "Telefone",
             errorMessage: "Deve ser um Numero de telefone válido!",
-            class:"controle_de_campo",
+            class: "controle_de_campo",
 
             required: true
         },
@@ -37,7 +39,7 @@ export default function validacao() {
             placeholder: "password",
             label: "",
             errorMessage: "A senha por favor!",
-            class:"passwordInput"
+            class: "passwordInput"
         },
 
 
