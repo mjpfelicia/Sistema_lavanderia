@@ -45,11 +45,11 @@ export default function validacao() {
 
     ];
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
     };
 
-    const onChange = (e) => {
+    const onChange = (e: any) => {
         setValues({ ...values, [e.target.name]: e.target.value });
         console.log(e.target.name, e.target.value)
     };
@@ -61,7 +61,7 @@ export default function validacao() {
                 <form action="" id="formulario" onSubmit={handleSubmit}>
                     {inputObjList.map((input, idx) => (
                         <div className={input.class} key={idx}>
-                            <FormInput {...input} value={values[input.name]} onChange={onChange}
+                            <FormInput {...input} value={input.name} onChange={onChange}
                             />
                         </div>
                     ))}

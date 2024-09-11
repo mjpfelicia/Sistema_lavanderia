@@ -4,22 +4,26 @@ import Nav from 'react-bootstrap/Nav';
 import ButtonComHover from "../ButtonHover/ButtoComHover"
 import CloseButton from '../buttons/CloseButton';
 
-import recepcao from "../../img/recepcao.png"
-import peca from "../../img/peca.png"
-import delivery from "../../img/delivery.png"
-import retornoD from "../../img/retornoD.png"
-import entregaDePecas from "../../img/entrega.png"
-import mapa from "../../img/mapa.png"
-import relatorio from "../../img/relatorio2.png"
-import WhatsApp from "../../img/whapp.png"
+const recepcao = require("../../img/recepcao.png");
+const peca = require("../../img/peca.png");
+const delivery = require("../../img/delivery.png");
+const retornoD = require("../../img/retornoD.png");
+const entregaDePecas = require("../../img/entrega.png");
+const mapa = require("../../img/mapa.png");
+const relatorio = require("../../img/relatorio2.png");
+const WhatsApp = require("../../img/whapp.png");
 
+export type BotaoPaginaAtiva ={
+  nomePagina: string
+}
 
+export type Card = {
+  name: string;
+  icon: any;
+  link: string;
+}
 
-
-
-
-
-const Header = ({ ativaBotao }) => {
+const Header = (botaoPaginaAtiva :BotaoPaginaAtiva) => {
 
   const MyCarMenu = [
     { name: "Recepção", icon: recepcao, link: "/recepcao" },
@@ -32,6 +36,7 @@ const Header = ({ ativaBotao }) => {
     { name: "WhatsApp", icon: WhatsApp, link: "/Whatsapp" },
 
   ]
+  
   return (
     <div>
       <div className='HeaderContent'>
@@ -49,9 +54,9 @@ const Header = ({ ativaBotao }) => {
       </div>
 
       <Nav className='responsive-menu'>
-        {MyCarMenu.map((card, id) => (
+        {MyCarMenu.map((card:Card, id: number) => (
           <Nav.Item key={id}>
-            <ButtonComHover card={card} ativarHover={card.name == ativaBotao} />
+            <ButtonComHover card={card} ativarHover={card.name === botaoPaginaAtiva.nomePagina} />
           </Nav.Item>
         ))}
       </Nav>
