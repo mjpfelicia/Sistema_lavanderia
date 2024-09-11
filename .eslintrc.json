@@ -3,15 +3,16 @@
         // ...
         "react/react-in-jsx-scope": "off",
         "react/jsx-uses-react": "off",
-        "react/jsx-filename-extension": [
-            "error",
-            {
-                "extensions": [
-                    ".js",
-                    ".jsx"
-                ]
-            }
-        ]
+        // "react/jsx-filename-extension": [
+        //     "error",
+        //     {
+        //         "extensions": [
+        //             ".js",
+        //             ".jsx"
+        //         ]
+        //     }
+        // ],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
     },
     "extends": [
         "plugin:react/jsx-runtime"
