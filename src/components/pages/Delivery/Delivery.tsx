@@ -5,7 +5,7 @@ import FormInput from '../FormularioDEInput/FormInput'
 const Delivery = () => {
   return (
     <div>
-      <Header nomePagina={"Delivery"} />
+      <Header nomePagina="Delivery"/>
       <FormInput/>
     </div>
   )

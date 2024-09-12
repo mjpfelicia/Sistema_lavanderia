@@ -4,7 +4,7 @@ import Header from "../../Header/Header"
 const DevolucaoDoDelivery = () => {
   return (
     <div>
-      <Header ativaBotao={"Retorno"} />
+      <Header nomePagina={"Retorno"} />
        DevolucaoDoDelivery
     </div>
   )

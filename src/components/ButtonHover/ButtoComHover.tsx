@@ -1,28 +1,37 @@
-import React, { useState } from 'react';
 import { IconContext } from "react-icons";
+import { Card } from "../Header/Header";
+
 import "./ButtonHover.css"
 
+const card: Card = {
+  name: "",
+  icon: undefined,
+  link: ""
+};
 
-const BotaoHover = ({ card, ativarHover }) => {
+export type BotaoHoverInput ={
+  card: Card,
+  ativarHover: boolean
+}
 
-  const [isHovered, setIsHovered, estiloBase] = useState(false);
+
+const BotaoHover = ({ card, ativarHover}:BotaoHoverInput) => {
+
 
   const estiloHover = {
     background: 'var(--color-hover-clicado)',
   };
 
   return (
-    <button className='menu-item shadow-lg  estiloBase estiloHover'
-      style={isHovered || ativarHover ? { ...estiloBase, ...estiloHover } : estiloBase}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}>
-
+    <button className='menu-item shadow-lg  estiloBase estiloHover'>
+      
       <a href={card.link}>
         <IconContext.Provider value={{ size: "2rem", color: " #0000b3" }} >
           <img src={card.icon} width={48} height={48} alt={card.name}></img>
           {/* <card.icon></card.icon> */}
         </IconContext.Provider>
-        {card.name}</a>
+        {card.name}
+      </a>
     </button>
   );
 }

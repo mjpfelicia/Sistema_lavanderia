@@ -5,7 +5,7 @@ const EntregaPeca = () => {
   return (
     <div>
       
-      <Header ativaBotao={"EntregaPecas"} />
+      <Header nomePagina={"EntregaPecas"} />
      
       EntregaPeca
     </div>

@@ -8,7 +8,7 @@ const Recepcao = () => {
   return (
     <div>
       <div className='recepcao'>
-        <Header ativaBotao={"Recepção"} />
+        <Header nomePagina={"Recepção"} />
         <FormInput />
       </div>
     </div>

@@ -1,7 +1,7 @@
 import './App.css';
 import * as React from "react";
 import Rotas from "./components/pages/Rotas";
-import background from "./img/bgcontainer.webp";
+import background from '../src/img/bgcontainer.jpg';
 
 const styles = {
   header: {
@@ -20,6 +20,7 @@ function App() {
     <div>
       <div className="App" style={styles.header}>
         <Rotas />
+        
       </div>
 
     </div>

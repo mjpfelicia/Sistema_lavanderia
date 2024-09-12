@@ -10,11 +10,8 @@ import Mapa from "./Mapa/Mapa"
 import Relatorio from "./Relatorio/Relatorio.js"
 import Whatsapp from "./Whatsapp"
 import Validacao from "./ValidacaoDeCliente/Validacao.js"
-import CadastroCliente from "./CadastroCliente/CadastroCliente.js"
-import CloseButton from "../buttons/CloseButton.js"
-
-
-
+import CadastroCliente from "./CadastroCliente/CadastroCliente"
+import CloseButton from "../buttons/CloseButton"
 
 const Rotas = () => {
     return (

@@ -4,8 +4,6 @@ import { BiBorderRadius } from 'react-icons/bi';
 import { MdAddToHomeScreen } from "react-icons/md";
 
 
-
-
 const CloseButton = () => {
   const navegar = useNavigate();
   const redirecionarParaInicio = () => {
@@ -18,15 +16,4 @@ const CloseButton = () => {
 }
 
 
-
-const buttonStyle = {
-
-  border: 'none',
-  // padding: '10px',
-  cursor: 'pointer',
-  animationDuration: '9s',
-  borderRadius:'50', 
-
-
-};
-export default CloseButton;
+export default CloseButton

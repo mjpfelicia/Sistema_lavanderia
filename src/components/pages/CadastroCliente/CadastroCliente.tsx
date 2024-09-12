@@ -3,7 +3,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CadastroCliente/CadastroCliente.css"
 import CloseButton from '../../buttons/CloseButton';
 
-
+export type FormularioDados ={
+    nome: string;
+    telefone: string;
+    endereco: string;
+    numero: string;
+    complemento: string;
+    estado: string;
+    cep: string;
+    bairro: string;
+}
 
 const CadastroForm = () => {
     const [formData, setFormData] = useState({
@@ -17,9 +26,9 @@ const CadastroForm = () => {
         bairro: '',
     });
 
-    const [lista, setLista] = useState([]);
+    const [lista, setLista] = useState(Array<FormularioDados>);
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -27,9 +36,10 @@ const CadastroForm = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:any) => {
         e.preventDefault();
-        setLista([...lista, formData]);
+        setLista([...lista])
+
         setFormData({ nome: '', telefone: '', endereco: '', numero: '', complemento: '', estado: '', bairro: '', cep: '' });
     };
 
@@ -49,7 +59,7 @@ const CadastroForm = () => {
                     <input type="text" className="form-control  formGroupName" name="nome" value={formData.nome} onChange={handleChange} />
                     <div className="formGroup2 formGroupTelefone">
                         <label>Telefone:</label>
-                        <input type="tel" maxLength="14" mask="(99) 99999-9999" className="form-control" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(__) _____-____" />
+                        <input type="tel" maxLength={14} className="form-control" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(__) _____-____" />
                     </div>
                 </div>
 

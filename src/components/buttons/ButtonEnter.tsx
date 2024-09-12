@@ -1,6 +1,5 @@
-
-import React, { useState } from 'react';
-import "../buttons/ButtonEnter.css"
+import { useState } from 'react';
+import '../buttons/ButtonEnter.css'
 
 const ButtonEnter = () => {
     const [password, setPassword] = useState('');

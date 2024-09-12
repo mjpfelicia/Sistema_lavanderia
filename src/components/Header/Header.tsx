@@ -47,9 +47,7 @@ const Header = (botaoPaginaAtiva :BotaoPaginaAtiva) => {
           <a href="/CadastroCliente">Cadastrar Cliente</a>
         </div>
 
-        <div>
-          <CloseButton />
-        </div>
+        <CloseButton />
 
       </div>
 
