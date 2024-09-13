@@ -1,15 +1,28 @@
 import FormInput from "../ValidacaoDeCliente/Validacao";
 import { useState } from "react";
-import "../FormularioDEInput/FormInput.css"
+import "../FormularioDEInput/FormInput.css";
 
-export default function validacao() {
+export type InputForm = {
+    name: string,
+    type: string,
+    placeholder: string,
+    label: string,
+    errorMessage: string,
+    class: string,
+    required?: boolean
+    id?: string
+}
+
+
+function validacao() {
     const [values, setValues] = useState({
         name: "",
         telefone: "",
         password: ""
     });
+  
 
-    const inputObjList = [
+    const inputObjList:InputForm[] = [
 
         {
             name: "name",
@@ -21,15 +34,12 @@ export default function validacao() {
             required: true,
         },
         {
-
-
             name: "telefone",
             type: "text",
             label: "",
             placeholder: "Telefone",
             errorMessage: "Deve ser um Numero de telefone válido!",
             class: "controle_de_campo",
-
             required: true
         },
 
@@ -39,9 +49,8 @@ export default function validacao() {
             placeholder: "password",
             label: "",
             errorMessage: "A senha por favor!",
-            class: "passwordInput"
+            class: "passwordInput",
         },
-
 
     ];
 
@@ -61,8 +70,7 @@ export default function validacao() {
                 <form action="" id="formulario" onSubmit={handleSubmit}>
                     {inputObjList.map((input, idx) => (
                         <div className={input.class} key={idx}>
-                            <FormInput {...input} value={input.name} onChange={onChange}
-                            />
+                            <FormInput {...input} />
                         </div>
                     ))}
                     <button type="submit" className="btn_enter">Enter</button>
@@ -72,3 +80,4 @@ export default function validacao() {
         </div>
     );
 }
+export default validacao;

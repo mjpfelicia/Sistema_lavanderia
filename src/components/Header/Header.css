@@ -34,7 +34,9 @@
   align-content: center;
   padding: 0.5rem;
 }
-
+.linkCadastro{
+  display: flex;
+}
 .linkCadastro a {
   text-decoration: none;
   padding: 0.5rem 1rem 0 2rem;

@@ -2,14 +2,14 @@ import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import Home from "../Home/Home";
-import Recepcao from "./Recepcao/Recepcao.js";
+import Recepcao from "./Recepcao/Recepcao";
 import EntregaPecas from "./EntregaDePeca/EntregaPeca";
 import Delivery from "./Delivery/Delivery";
-import DevolucaoDoDelivery from "./DevolucaoDoDelivery/DevolucaoDoDelivery.js";
+import DevolucaoDoDelivery from "./DevolucaoDoDelivery/DevolucaoDoDelivery";
 import Mapa from "./Mapa/Mapa"
-import Relatorio from "./Relatorio/Relatorio.js"
+import Relatorio from "./Relatorio/Relatorio"
 import Whatsapp from "./Whatsapp"
-import Validacao from "./ValidacaoDeCliente/Validacao.js"
+import Validacao from "./ValidacaoDeCliente/Validacao"
 import CadastroCliente from "./CadastroCliente/CadastroCliente"
 import CloseButton from "../buttons/CloseButton"
 

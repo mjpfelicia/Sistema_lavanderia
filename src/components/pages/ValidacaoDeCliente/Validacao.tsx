@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { InputForm } from "../FormularioDEInput/FormInput";
 
-const FormInput = (props) => {
+
+const FormInput = (input: InputForm) => {
     const [focused, setFocused] = useState(false);
-    const { errorMessage, label, onChange, id, ...inputProps } = props;
+    const { errorMessage, label, id, ...inputProps } = input;
 
 
-    const handleFocus = (e) => {
+    const handleFocus = (e: { preventDefault: () => void; }) => {
         setFocused(true);
         e.preventDefault();
     };
@@ -13,10 +15,9 @@ const FormInput = (props) => {
         <>
             <div>
                 <label>{label}</label>
-                <input onChange={onChange} {...inputProps} onBlur={handleFocus}
+                <input {...inputProps} onBlur={handleFocus}
                     onFocus={() => inputProps.name === "confirmPassword" && setFocused(true)
                     }
-                    focused={focused.toString()}
                 />
 
                 <span className="span_error">{errorMessage}</span>
