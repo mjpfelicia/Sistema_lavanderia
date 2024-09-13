@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CadastroCliente/CadastroCliente.css"
 import CloseButton from '../../buttons/CloseButton';
@@ -39,12 +39,13 @@ const CadastroForm = () => {
     const handleSubmit = (e:any) => {
         e.preventDefault();
         setLista([...lista])
-
         setFormData({ nome: '', telefone: '', endereco: '', numero: '', complemento: '', estado: '', bairro: '', cep: '' });
+    
     };
+    
 
     return (
-        <div className="" style={{
+        <div style={{
             width: '100vw', height: '100vh', flex: 3,
             padding: 60, backgroundColor: 'white',
         }}>
@@ -62,7 +63,6 @@ const CadastroForm = () => {
                         <input type="tel" maxLength={14} className="form-control" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(__) _____-____" />
                     </div>
                 </div>
-
 
                 <div className="form-group formGroup">
                     <label>Endereço:</label>
@@ -93,12 +93,15 @@ const CadastroForm = () => {
                 <button type="submit" className="btn btn-primary btn_cadastra">Cadastrar</button>
             </form>
             <ul className="list-group">
+            
                 {lista.map((item, index) => (
                     <li key={index} className="list-group-item">
                         {item.nome}- {item.telefone} - {item.endereco}, {item.bairro}, {item.cep}
                     </li>
+                    
                 ))}
             </ul>
+            
         </div>
     );
 };

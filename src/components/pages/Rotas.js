@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import Home from "../Home/Home";
@@ -9,7 +8,7 @@ import DevolucaoDoDelivery from "./DevolucaoDoDelivery/DevolucaoDoDelivery";
 import Mapa from "./Mapa/Mapa"
 import Relatorio from "./Relatorio/Relatorio"
 import Whatsapp from "./Whatsapp"
-import Validacao from "./ValidacaoDeCliente/Validacao"
+import Validacao from "./FormularioValidacao/Formulario"
 import CadastroCliente from "./CadastroCliente/CadastroCliente"
 import CloseButton from "../buttons/CloseButton"
 
@@ -25,11 +24,9 @@ const Rotas = () => {
                 <Route path="/Mapa" element={<Mapa />} />
                 <Route path="/Relatorio" element={<Relatorio />} />
                 <Route path="/Whatsapp" element={<Whatsapp />} />
-                <Route path="/ValidacaoDeCliente" element={<Validacao />} />
+                <Route path="/Validacao" element={<Validacao />} />
                 <Route path="/CadastroCliente" element={<CadastroCliente />} />
                 <Route path="/" element={<CloseButton />} />
-
-
 
             </Routes>
         </BrowserRouter>

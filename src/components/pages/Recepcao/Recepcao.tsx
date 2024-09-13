@@ -1,6 +1,6 @@
-import React from 'react'
 import Header from "../../Header/Header"
-import FormInput from '../FormularioDEInput/FormInput'
+// import FormInput from '../FormularioDEInput/FormInput'
+import FormularioValidacao from '../FormularioValidacao/Formulario'
 
 
 
@@ -9,7 +9,8 @@ const Recepcao = () => {
     <div>
       <div className='recepcao'>
         <Header nomePagina={"Recepção"} />
-        <FormInput />
+        {/* <FormInput /> */}
+        <FormularioValidacao/>
       </div>
     </div>
   )

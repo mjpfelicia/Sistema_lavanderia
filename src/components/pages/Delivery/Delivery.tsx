@@ -1,12 +1,12 @@
 import Header from "../../Header/Header"
-import FormInput from '../FormularioDEInput/FormInput'
+import FormularioValidacao from "../FormularioValidacao/Formulario"
 
 
 const Delivery = () => {
   return (
     <div>
       <Header nomePagina="Delivery"/>
-      <FormInput/>
+      <FormularioValidacao/>
     </div>
   )
 }
