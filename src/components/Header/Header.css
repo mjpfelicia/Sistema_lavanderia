@@ -1,3 +1,7 @@
+header{
+  position: fixed;
+}
+
 .responsive-menu {
   display: flex;
   justify-content: space-evenly;

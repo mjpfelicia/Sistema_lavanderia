@@ -16,4 +16,4 @@ const CloseButton = () => {
 }
 
 
-export default CloseButton
+export default CloseButton;

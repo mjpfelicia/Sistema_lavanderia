@@ -1,17 +1,16 @@
-import React from 'react'
 import "./Header.css"
 import Nav from 'react-bootstrap/Nav';
 import ButtonComHover from "../ButtonHover/ButtoComHover"
 import CloseButton from '../buttons/CloseButton';
 
-const recepcao = require("../../img/recepcao.png");
-const peca = require("../../img/peca.png");
-const delivery = require("../../img/delivery.png");
-const retornoD = require("../../img/retornoD.png");
-const entregaDePecas = require("../../img/entrega.png");
-const mapa = require("../../img/mapa.png");
-const relatorio = require("../../img/relatorio2.png");
-const WhatsApp = require("../../img/whapp.png");
+import recepcao from "../../img/recepcao.png";
+import peca from "../../img/peca.png";
+import delivery from "../../img/delivery.png";
+import retornoD from "../../img/retornoD.png";
+import entregaDePecas from "../../img/entrega.png";
+import mapa from "../../img/mapa.png";
+import relatorio from "../../img/relatorio2.png";
+import WhatsApp from "../../img/whapp.png";
 
 export type BotaoPaginaAtiva ={
   nomePagina: string

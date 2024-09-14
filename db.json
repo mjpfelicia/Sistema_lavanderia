@@ -1,0 +1,15 @@
+{
+  "clientes": [
+    {
+      "nome": "Sandra teste",
+      "telefone": "1199999999",
+      "endereco": "Rua Qualquer",
+      "numero": "470",
+      "complemento": "blc 1 ap 0",
+      "estado": "Centro",
+      "cep": "10000-000",
+      "bairro": "Qualquer",
+      "id": "1"
+    }
+  ]
+}

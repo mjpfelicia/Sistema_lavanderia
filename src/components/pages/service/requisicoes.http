@@ -1,0 +1,41 @@
+###
+# listar clientes 
+GET http://localhost:3008/clientes
+
+### 
+# Pegar cliente 1
+GET http://localhost:3008/clientes/1
+
+###
+# Criar cliente
+POST http://localhost:3008/clientes
+content-type: application/json
+
+{
+    "nome": "NOvo CLiente",
+    "telefone": "1199999999",
+    "endereco": "Rua Qualquer",
+    "numero": "470",
+    "complemento": "blc 1 ap 0",
+    "estado": "Centro",
+    "cep": "10000-000",
+    "bairro": "Qualquer"
+}
+###
+# alterar dados do cliente
+PUT http://localhost:3008/clientes/1
+content-type: application/json
+
+{
+    "nome": "Sandra teste",
+    "telefone": "1199999999",
+    "endereco": "Rua Qualquer",
+    "numero": "470",
+    "complemento": "blc 1 ap 0",
+    "estado": "Centro",
+    "cep": "10000-000",
+    "bairro": "Qualquer"
+}
+
+###
+
