@@ -10,7 +10,8 @@
 
 
 .controle_de_campo,
-.passwordInput {
+.passwordInput,
+.inputGroupButton {
     display: block;
     padding: 0px 24px;
     font-size: 15px;
@@ -45,18 +46,20 @@
 }
 
 
-
-
 .btn_enter {
-    display: block;
     width: 103px;
+    padding: 6px;
+    background-color: var(--colorBtnCadastra);
     color: var(--color_branca);
-    padding: 7px 6px;
-    margin-top: 2rem;
     border: none;
-    outline: none;
-    border-radius: 6px;
-    background-color: var(--color-icon);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 2rem;
+}
+
+.btn_enter:hover {
+    background-color: var(--colorHoverBtnCadastra);
 }
 
 .passwordInput p,
@@ -68,3 +71,5 @@
     text-align: center;
     color: var(--color-error);
 }
+
+/*    teste */

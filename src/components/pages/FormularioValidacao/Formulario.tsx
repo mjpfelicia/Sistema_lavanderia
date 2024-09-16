@@ -63,7 +63,9 @@ const FormularioValidacao = () => {
                 <input type="password" id="senha" name="senha" value={formData.senha} onChange={handleChange} required />
                 {erros.senha && <p className={classes.error}>{erros.senha}</p>}
             </div>
+            <div className={classes.inputGroupButton}>
             <button type="submit" className={classes.btn_enter}>Enviar</button>
+            </div>
         </form>
     );
 };

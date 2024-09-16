@@ -7,14 +7,14 @@ import { listarClientes, getCliente, Cliente } from "../service/apiCliente"
 const RespostaConsultaCl = () => {
 
   const clienteVazio: Cliente = {
-    nome: '',
-    telefone: '',
-    endereco: '',
-    numero: '',
-    complemento: '',
-    estado: '',
-    cep: '',
-    bairro: ''
+    nome: 'Sandra teste',
+    telefone: '000000',
+    endereco: 'Rua: teste',
+    numero: '000',
+    complemento: 'blc 00 ap 00',
+    estado: 'Estado teste',
+    cep: '0000-000',
+    bairro: 'Bairro teste'
   }
 
   const [cliente, setCliente] = useState<Cliente>(clienteVazio);
@@ -31,28 +31,28 @@ const RespostaConsultaCl = () => {
     };
 
     fetchClientes();
-  },[]);
+  }, []);
 
 
   console.info("clientes1: ", { clientes: cliente })
 
   return (
-    <div style={{ width: '100vw', height: '100vh', flex: 3, padding: 60, backgroundColor: 'white', }}>
-      <form className={classes.content}>
-        <div>
-          <h1 className={classes.titleCadastro}>Lista de Cliente</h1>
+    <div className={classes.registerContainer}>
+      <form className={classes.registerForm}>
+
+        <div className={classes.titleCadastro}>
+          <h1 >Lista de Cliente</h1>
         </div>
 
-        <div className={classes.formGroup}>
+        <div className={classes.inputGroup}>
           <label>Nome:</label>
-          <input type="text" className={classes.formGroupName} name="nome" value={cliente.nome} />
+          <input type="text" name="nome" value={cliente.nome} />
           <div className={classes.formGroupTelefone}>
             <label>Telefone:</label>
             <input type="tel" maxLength={14} className={classes.formControl} name="telefone" value={cliente.telefone} placeholder="(__) _____-____" />
           </div>
         </div>
-
-        <div className={classes.formGroup}>
+        <div className={classes.inputGroup}>
           <label>Endereço:</label>
           <input type="text" className={classes.formControl} name="endereco" value={cliente.endereco} />
           <div className={classes.formGroupNumero}>
@@ -60,7 +60,7 @@ const RespostaConsultaCl = () => {
             <input type="text" className={classes.formControl} name="numero" value={cliente.numero} />
           </div>
         </div>
-        <div className={classes.formGroup}>
+        <div className={classes.inputGroup}>
           <label>Complemento:</label>
           <input type="text" className={classes.formControl} name="complemento" value={cliente.complemento} />
           <div className={classes.formGroupCep}>
@@ -68,17 +68,17 @@ const RespostaConsultaCl = () => {
             <input type="text" className={classes.formControl} name="cep" value={cliente.cep} />
           </div>
         </div>
-
-        <div className={classes.formGroup}>
+        <div className={classes.inputGroup}>
           <label>Estado</label>
-          <input type="text" className={classes.formControlEstado} name="estado" value={cliente.estado} />
+          <input type="text" name="estado" value={cliente.estado} />
         </div>
-        <div className={classes.formGroup}>
+        <div className={classes.inputGroup}>
           <label>Bairro:</label>
-          <input type="text" className={classes.formControlBairro} name="bairro" value={cliente.bairro} />
+          <input type="text" name="bairro" value={cliente.bairro} />
         </div>
+        
+          <button type="submit" className={classes.registerButton}>Confirma</button>
 
-        <button type="submit" className={classes.btn_cadastra}>Confirma</button>
       </form>
 
 

@@ -12,10 +12,15 @@ body {
 :root {
   --color_azul_bg: #09c;
   --color_border: #007399;
+  --colorBtnCadastra: #007bff;
+  --colorHoverBtnCadastra: #0056b3;
   --color-icon: #0000b3;
   --color_branca: #fff;
   --color-bg_menu: #F4F4F4;
   --color-hover-clicado: #f2f2f2;
+  --color-texto: rgb(64, 64, 64);
+  --color-sub-titulo: rgb(64, 64, 64);
+
   --color-font: #000000;
   --color-line: rgb(35, 27, 27, 6%);
   --color-error: red;

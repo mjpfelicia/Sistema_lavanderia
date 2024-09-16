@@ -54,5 +54,10 @@
 
 .btn_cadastra {
     margin-top: 2rem;
+    background-color: var( --colorBtnCadastra);
+}
+
+.btn_cadastra:hover{
+    background-color: var(--colorHoverBtnCadastra);
 }
 

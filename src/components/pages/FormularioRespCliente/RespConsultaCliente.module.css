@@ -1,51 +1,74 @@
-
-.content {
+/* Register.css */
+.registerContainer {
     display: flex;
-    flex-direction: column;
-    align-content: center;
     justify-content: center;
-    align-items: flex-start;
-    gap: .6rem;
-
-}
-
-.formGroup {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-top: 1rem;
-
+    margin-top: 3rem;
+    /* height: 100vh;
+    background-color: #f0f0f0; */
+    gap: .6rem;
 }
 
 
-.titleCadastro {
-    color: var( --color-titleCadastro);
-    font-size: calc(1rem + 0.4vw);
+.registerForm {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+}
+
+.registerForm h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
     text-align: center;
+}
+
+.inputGroup {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.inputGroup label {
+    display: block;
+    text-align: justify;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    line-height: 1.25;
+    font-weight: 500;
+    color: var(--color-texto);
 
 }
 
-.formGroup input {
-    width: 37.5rem;
-    margin-left: 1rem;
+.inputGroup input {
+    padding: 8px;
+    margin-right: 1rem;
     border: none;
-}
+    color: var(--color-texto);
+    line-height: 1.25;
+    font-weight: 400;
 
-.formGroup label {
-    color: var(--color-font);
-    float: left;
-    padding-top: 5px;
-    text-align: right;
+
 }
 
 .formGroupCep,
-.formGroupTelefone input {
+.formGroupTelefone {
     width: 18rem !important;
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
+   
 }
+
 
 .formGroupNumero {
     width: 12rem;
     display: flex;
+   
 }
 
 .formControlEstado,
@@ -55,8 +78,17 @@
 }
 
 
-.btn_cadastra {
-    margin-top: 2rem;
-    
+.registerButton {
+    width: 15%;
+    padding: 10px;
+    background-color: var(--colorBtnCadastra);
+    color: var(--color_branca);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
+.registerButton:hover {
+    background-color: var(--colorHoverBtnCadastra);
+}
