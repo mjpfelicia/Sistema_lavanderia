@@ -1,11 +1,12 @@
 import Header from '../Header/Header';
-import FormularioRespCliente from '../pages/FormularioRespCliente/RespConsultaCliente'
+import RespostaConsultaCl from '../pages/FormularioRespCliente/RespConsultaCliente';
+import DetalhesUsuario from '../pages/DetalhesUsuario/DetalhesUsuario';
 
 const Home = () => {
   return (
     <div>
       <Header nomePagina=''/>
-      <FormularioRespCliente/>
+      <DetalhesUsuario/>
     </div>
   )
 }

@@ -1,0 +1,18 @@
+{
+    "Usuario": [
+        {
+            "id": 1,
+            "nome": "João Silva",
+            "email": "joao.silva@example.com",
+            "telefone": "(11) 1234-5678",
+            "endereco": "Rua das Flores, 123, São Paulo, SP"
+        },
+        {
+            "id": 2,
+            "nome": "Maria Oliveira",
+            "email": "maria.oliveira@example.com",
+            "telefone": "(21) 8765-4321",
+            "endereco": "Avenida Brasil, 456, Rio de Janeiro, RJ"
+        }
+    ]
+}

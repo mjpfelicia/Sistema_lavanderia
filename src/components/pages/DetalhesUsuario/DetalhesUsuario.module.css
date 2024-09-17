@@ -1,0 +1,60 @@
+.content{
+margin-top: 2rem;
+padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+
+h1 {
+    color: var(--color-texto);
+}
+
+.container {
+    width: 70%;
+    padding: 2rem;
+    background:var(--color_branca);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    opacity: 0.9;
+}
+
+.cliente, .btnCliente {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+
+}
+
+
+.cliente h2 {
+    margin: 0;
+    color: var(--color-texto);
+    line-height: 1.25;
+    font-size: calc(0.9rem + 0.6vw);
+}
+
+.cliente p {
+    margin: 5px 0 0;
+    color: var(--color-texto);
+    font-size: calc(0.6rem + 0.6vw);
+
+}
+.registerButton {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--colorBtnCadastra);
+    color: var(--color_branca);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.registerButton:hover {
+    background-color: var(--colorHoverBtnCadastra);
+}

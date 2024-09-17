@@ -7,8 +7,6 @@ body {
   font-style: normal;
 }
 
-
-
 :root {
   --color_azul_bg: #09c;
   --color_border: #007399;
@@ -20,14 +18,11 @@ body {
   --color-hover-clicado: #f2f2f2;
   --color-texto: rgb(64, 64, 64);
   --color-sub-titulo: rgb(64, 64, 64);
-
   --color-font: #000000;
   --color-line: rgb(35, 27, 27, 6%);
   --color-error: red;
   --color-titleCadastro: #1E1E1E;
-
 }
-
 
 .App {
   text-align: center;

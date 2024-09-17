@@ -1,4 +1,4 @@
-/* Register.css */
+/* css */
 .registerContainer {
     display: flex;
     justify-content: center;
@@ -9,30 +9,24 @@
     background-color: #f0f0f0; */
     gap: .6rem;
 }
-
-
 .registerForm {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 70%;
 }
-
 .registerForm h1 {
     margin-bottom: 20px;
     font-size: 24px;
     text-align: center;
 }
-
 .inputGroup {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
 }
-
-
 .inputGroup label {
     display: block;
     text-align: justify;
@@ -41,9 +35,7 @@
     line-height: 1.25;
     font-weight: 500;
     color: var(--color-texto);
-
 }
-
 .inputGroup input {
     padding: 8px;
     margin-right: 1rem;
@@ -51,32 +43,24 @@
     color: var(--color-texto);
     line-height: 1.25;
     font-weight: 400;
-
-
 }
-
 .formGroupCep,
 .formGroupTelefone {
     width: 18rem !important;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-   
 }
-
-
 .formGroupNumero {
     width: 12rem;
     display: flex;
-   
+    align-items: center;
 }
-
 .formControlEstado,
 .formControlBairro {
     width: 21rem !important;
     display: flex;
 }
-
 
 .registerButton {
     width: 15%;
