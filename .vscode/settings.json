@@ -4,7 +4,8 @@
         "fontawesome",
         "formulario",
         "fortawesome",
-        "Truckcontainer"
+        "Truckcontainer",
+        "Unico"
     ],
     "prisma-smart-formatter.typescriptreact.defaultFormatter": "rvest.vs-code-prettier-eslint"
 }

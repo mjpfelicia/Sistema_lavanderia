@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 export type Cliente = {
+  email: string;
   nome: string;
   telefone: string;
   endereco: string;

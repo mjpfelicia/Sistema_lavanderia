@@ -12,29 +12,23 @@ POST http://localhost:3008/clientes
 content-type: application/json
 
 {
-    "nome": "NOvo CLiente",
-    "telefone": "1199999999",
-    "endereco": "Rua Qualquer",
-    "numero": "470",
-    "complemento": "blc 1 ap 0",
-    "estado": "Centro",
-    "cep": "10000-000",
-    "bairro": "Qualquer"
+    "id": "",
+      "nome": "Silva teste",
+      "email": "silva@example.com",
+      "telefone": "(11) 0000-0000",
+      "endereco": "Rua das teste, 123, São Paulo, SP"
 }
 ###
 # alterar dados do cliente
-PUT http://localhost:3008/clientes/1
+PUT http://localhost:3008/clientes/c63f
 content-type: application/json
 
 {
-    "nome": "Sandra teste",
-    "telefone": "1199999999",
-    "endereco": "Rua Qualquer",
-    "numero": "470",
-    "complemento": "blc 1 ap 0",
-    "estado": "Centro",
-    "cep": "10000-000",
-    "bairro": "Qualquer"
+      "id": "1",
+      "nome": "João Silva",
+      "email": "silva@example.com",
+      "telefone": "(11) 1234-0000",
+      "endereco": "Rua das Flores, 123, São Paulo, SP"
 }
 
 ###

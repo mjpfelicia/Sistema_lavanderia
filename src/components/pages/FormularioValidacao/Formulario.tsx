@@ -5,7 +5,7 @@ interface FormData {
     nome: string;
     telefone: string;
     senha: string;
-    
+
 }
 
 const FormularioValidacao = () => {
@@ -21,14 +21,16 @@ const FormularioValidacao = () => {
         }
 
         // Validação do telefone
-        const telefoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/;
+        const telefoneRegex = /^\(?\d{2}\)?[\s-]?\d{4,5}[\s-]?\d{4}$/;
+
         if (!telefoneRegex.test(formData.telefone)) {
-            novosErros.telefone = "O telefone deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.";
+            novosErros.telefone = "O telefone deve estar no formato (XX)XXXX-XXXX";
         }
 
+
         // Validação da senha
-        if (formData.senha.length < 8) {
-            novosErros.senha = "A senha deve ter pelo menos 8 caracteres.";
+        if (formData.senha.length < 4) {
+            novosErros.senha = "A senha deve ter pelo menos 4 caracteres.";
         }
 
         setErros(novosErros);
@@ -55,7 +57,7 @@ const FormularioValidacao = () => {
             </div>
             <div className={classes.controle_de_campo}>
                 <label htmlFor="telefone">Telefone:</label>
-                <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(XX) XXXX-XXXX" required />
+                <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(XX)XXXX-XXXX" required />
                 {erros.telefone && <p>{erros.telefone}</p>}
             </div>
             <div className={classes.passwordInput}>
@@ -64,7 +66,7 @@ const FormularioValidacao = () => {
                 {erros.senha && <p className={classes.error}>{erros.senha}</p>}
             </div>
             <div className={classes.inputGroupButton}>
-            <button type="submit" className={classes.btn_enter}>Enviar</button>
+                <button type="submit" className={classes.btn_enter}>Enviar</button>
             </div>
         </form>
     );

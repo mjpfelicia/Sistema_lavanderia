@@ -1,19 +1,21 @@
 // src/components/Cliente.tsx
 import React from 'react';
-import classes from '../DetalhesUsuario/DetalhesUsuario.module.css'
+import classes from '../DetalhesCliente/DetalhesCliente.module.css'
 
 interface ClienteProps {
     nome: string;
     endereco: string;
     telefone: string;
+    email: string;
 }
 
-const DetalhesUsuario: React.FC<ClienteProps> = ({ nome, endereco,telefone }) => {
+const DetalhesUsuario = ({ nome, endereco,telefone,email }:ClienteProps) => {
     return (
         <div className={classes.cliente}>
             <h2>{nome}:</h2>
             <p>{endereco}</p>
-            <p>{telefone}:</p>
+            <p>{telefone}</p>
+            <p>{email}</p>
         </div>
     );
 };

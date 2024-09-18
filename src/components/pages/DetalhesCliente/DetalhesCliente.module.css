@@ -44,6 +44,12 @@ h1 {
     font-size: calc(0.6rem + 0.6vw);
 
 }
+.cliente input {
+    margin: 5px 0 0;
+    color: var(--color-texto);
+    font-size: calc(0.6rem + 0.6vw);
+
+}
 .registerButton {
     width: 100%;
     padding: 10px;

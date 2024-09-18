@@ -1,6 +1,6 @@
 import Header from '../Header/Header';
 import RespostaConsultaCl from '../pages/FormularioRespCliente/RespConsultaCliente';
-import DetalhesUsuario from '../pages/DetalhesUsuario/DetalhesUsuario';
+import DetalhesUsuario from '../pages/DetalhesCliente/DetalhesCliente';
 
 const Home = () => {
   return (

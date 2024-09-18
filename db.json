@@ -1,16 +1,44 @@
 {
   "clientes": [
     {
+      "id": "1",
+      "nome": "João Silva",
+      "email": "testesilva@example.com",
+      "telefone": "(11) 1234-5678",
+      "endereco": "Rua das Flores, 123, São Paulo, SP"
+    },
+    {
+      "id": "2",
+      "nome": "Maria Oliveira",
+      "email": "testeoliveira@example.com",
+      "telefone": "(21) 8765-4321",
+      "endereco": "Avenida Brasil, 456, Rio de Janeiro, RJ"
+    },
+    {
       "nome": "Sandra teste",
-      "telefone": "1199999999",
+      "telefone": "(11) 9999-9999",
       "endereco": "Rua Qualquer",
+      "email": "sandra@example.com",
       "numero": "470",
       "complemento": "blc 1 ap 0",
       "estado": "Centro",
       "cep": "10000-000",
       "bairro": "Qualquer",
-      "id": "1"
+      "id": "3"
+    },
+    {
+      "id": "c63f",
+      "nome": "João Silva",
+      "email": "silva@example.com",
+      "telefone": "(11) 1234-0000",
+      "endereco": "Rua das Flores, 123, São Paulo, SP"
+    },
+    {
+      "id": "",
+      "nome": "Silva teste",
+      "email": "silva@example.com",
+      "telefone": "(11) 0000-0000",
+      "endereco": "Rua das teste, 123, São Paulo, SP"
     }
-  
   ]
 }

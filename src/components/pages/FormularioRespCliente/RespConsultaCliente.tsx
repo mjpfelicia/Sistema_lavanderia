@@ -7,14 +7,15 @@ import { listarClientes, getCliente, Cliente } from "../service/apiCliente"
 const RespostaConsultaCl = () => {
 
   const clienteVazio: Cliente = {
-    nome: 'Sandra teste',
-    telefone: '000000',
-    endereco: 'Rua: teste',
-    numero: '000',
-    complemento: 'blc 00 ap 00',
-    estado: 'Estado teste',
-    cep: '0000-000',
-    bairro: 'Bairro teste'
+    nome: '',
+    telefone: '',
+    endereco: '',
+    numero: '',
+    complemento: '',
+    estado: '',
+    cep: '',
+    bairro: '',
+    email: ''
   }
 
   const [cliente, setCliente] = useState<Cliente>(clienteVazio);
@@ -52,6 +53,15 @@ const RespostaConsultaCl = () => {
             <input type="tel" maxLength={14} className={classes.formControl} name="telefone" value={cliente.telefone} placeholder="(__) _____-____" />
           </div>
         </div>
+        <div className={classes.inputGroup}>
+          <label>Email:</label>
+          <input type="text" name="email" value={cliente.email} />
+          <div className={classes.formGroupEmail}>
+            <label>Email:</label>
+            <input type="text"className={classes.formControl} name="email" value={cliente.email} placeholder="email" />
+          </div>
+        </div>
+        
         <div className={classes.inputGroup}>
           <label>Endereço:</label>
           <input type="text" className={classes.formControl} name="endereco" value={cliente.endereco} />
