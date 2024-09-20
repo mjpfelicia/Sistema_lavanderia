@@ -1,35 +1,40 @@
 .containerForm {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    margin: 0 auto;
-  }
-  
-  .containerForm div {
-    margin-bottom: 15px;
-  }
-  
-  .containerForm label {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .containerForm input {
-    padding: 8px;
-    font-size: 16px;
-    width: 30rem;
-  }
-  
-  .containerForm button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: var(--colorBtnCadastra);
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .containerForm button:hover {
-    background-color:  var( --colorHoverBtnCadastra);
-  }
-  
+  display: flex;
+  flex-direction: column;
+  /* width: 300px; */
+  /* margin: 0 auto; */
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+
+}
+
+.containerForm div {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.containerForm label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.containerForm input {
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.containerForm button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: var(--colorBtnCadastra);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.containerForm button:hover {
+  background-color: var(--colorHoverBtnCadastra);
+}

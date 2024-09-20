@@ -1,5 +1,5 @@
 .btnAtualiza{
-    width: 10%;
+    /* width: 10%; */
     padding: 10px;
     background-color:transparent;
     color: var(--color-texto);
@@ -7,7 +7,6 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 12px;
-    margin-left: 2rem;
 }
 
 .btnAtualiza:hover {

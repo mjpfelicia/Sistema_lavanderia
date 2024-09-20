@@ -13,10 +13,10 @@ content-type: application/json
 
 {
     "id": "",
-      "nome": "Silva teste",
-      "email": "silva@example.com",
-      "telefone": "(11) 0000-0000",
-      "endereco": "Rua das teste, 123, São Paulo, SP"
+      "nome": "Joana Teste",
+      "email": "Joana@example.com",
+      "telefone": "(00) 0000-0000",
+      "endereco": "Rua da joana, 000, São Paulo, SP"
 }
 ###
 # alterar dados do cliente
