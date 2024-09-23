@@ -7,34 +7,13 @@ interface FormData {
     nome: string;
     telefone: string;
     senha: string;
-
 }
 
 const FormularioValidacao = () => {
-
-    // const [clientes, setCliente] = useState<Cliente[]>([]);
-
-    // useEffect(() => {
-    //     const fetchClientes = async (nomeCliente: string, celularCliente: string) => {
-    //         await buscarCliente(nomeCliente, celularCliente)
-    //             .then((cliente) => setCliente(cliente))
-    //             .catch(error => {
-    //                 console.error("buscaCliente: ", { error });
-
-    //                 setCliente([])
-    //             })
-
-    //     };
-
-    //     fetchClientes(nomeCliente, celularCliente);
-    // }, [nome, phone]);
-
-
-    //console.info("clientes1: ", { clientes })
-
     const [formData, setFormData] = useState<FormData>({ nome: '', telefone: '', senha: '' });
     const [erros, setErros] = useState<Partial<FormData>>({});
-    const [clientes, setClientes] = useState<Cliente[]>([])
+    const [clientes, setClientes] = useState<Cliente[]>([]);
+    const [showDetails, setShowDetails] = useState<boolean>(false);
 
     const validarFormulario = (): boolean => {
         const novosErros: Partial<FormData> = {};
@@ -51,7 +30,6 @@ const FormularioValidacao = () => {
             novosErros.telefone = "O telefone deve estar no formato (XX)XXXX-XXXX";
         }
 
-
         // Validação da senha
         if (formData.senha.length < 4) {
             novosErros.senha = "A senha deve ter pelo menos 4 caracteres.";
@@ -62,23 +40,18 @@ const FormularioValidacao = () => {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("setFormData: ", { ...formData, [e.target.name]: e.target.value })
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (validarFormulario()) {
-
-            console.log("formData:", { formData });
-
             const result = await buscarCliente(formData.nome, formData.telefone);
-
-            console.log("formData: ", { result });
-
             setClientes(result);
-
+            setShowDetails(true);
             alert("Formulário enviado com sucesso!");
+        } else {
+            setShowDetails(false);
         }
     };
 
@@ -101,24 +74,25 @@ const FormularioValidacao = () => {
                     {erros.senha && <p className={classes.error}>{erros.senha}</p>}
                 </div>
                 <div className={classes.inputGroupButton}>
-                    <button type="submit" className={classes.btn_enter}>Enviar</button>
+                    <button type="submit" className={classes.btn_enter}>Pesquisa</button>
                 </div>
             </form>
 
-            <div className={ClienteStyle.default.box}>
-                {clientes.map((cliente, index) => (
-                    <ClienteComponent.default
-                        key={index}
-                        nome={cliente.nome}
-                        endereco={cliente.endereco}
-                        telefone={cliente.telefone}
-                        email={cliente.email}
-                        BtnAtualizar onClick={() => { }}
-                        BtnDeletar
-                    />
-                ))}
-
-            </div>
+            {showDetails && (
+                <div className={ClienteStyle.default.box}>
+                    {clientes.map((cliente, index) => (
+                        <ClienteComponent.default
+                            key={index}
+                            nome={cliente.nome}
+                            endereco={cliente.endereco}
+                            telefone={cliente.telefone}
+                            email={cliente.email}
+                            BtnAtualizar onClick={() => { }}
+                            BtnDeletar
+                        />
+                    ))}
+                </div>
+            )}
         </>
     );
 };

@@ -1,10 +1,10 @@
+
 .content {
-   
-    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 20px;
 }
 
 .whapper {
@@ -17,12 +17,12 @@
 }
 
 .box {
-    /* width: 80%; */
-    padding: 2rem; 
+    padding: 2rem;
     background: var(--color_branca);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     opacity: 0.9;
+    margin-top: 1rem;
 }
 
 .title {
@@ -31,6 +31,7 @@
     line-height: 1.25;
     font-weight: 400;
 }
+
 .cliente {
     display: flex;
     align-items: center;
@@ -39,12 +40,12 @@
     padding: 0.2rem 0;
     flex-wrap: wrap;
     width: 90%;
-
 }
 
 .btnAtualiza {
     width: 20%;
-padding-left: 2rem;}
+    padding-left: 2rem;
+}
 
 .cliente h2 {
     margin: 0;
@@ -56,7 +57,7 @@ padding-left: 2rem;}
 }
 
 .cliente p {
-    margin: 5px 0 0;
+    margin: 5px 0.1rem 0;
     color: var(--color-texto);
     font-size: calc(0.5rem + 0.4vw);
     /* font-size: 80%; */
@@ -84,5 +85,3 @@ padding-left: 2rem;}
 .registerButton:hover {
     background-color: var(--colorHoverBtnCadastra);
 }
-
-  

@@ -3,7 +3,7 @@ import React from 'react';
 import classes from '../DetalhesCliente/DetalhesCliente.module.css';
 import btnStyle from '../../buttons/BtnAtualiza.module.css';
 import pencil from '../../../img/iconspencil.png';
-import  Bin from '../../../img/iconsbin-.png'
+import Bin from '../../../img/iconsbin-.png'
 
 
 interface ClienteProps {
@@ -18,7 +18,7 @@ interface ClienteProps {
 }
 
 
-const Cliente: React.FC<ClienteProps> = ({ key, nome, endereco, telefone, email, BtnAtualizar, BtnDeletar,onClick }) => {
+const Cliente: React.FC<ClienteProps> = ({ key, nome, endereco, telefone, email, BtnAtualizar, BtnDeletar, onClick }) => {
   return (
     <div className={classes.whapper}>
       <div className={classes.cliente}>
@@ -33,7 +33,7 @@ const Cliente: React.FC<ClienteProps> = ({ key, nome, endereco, telefone, email,
           <img src={pencil} alt="pincel" style={{ width: '1rem', height: '1rem' }} />
         </button>}
 
-        {BtnDeletar && <button  className={btnStyle.btnAtualiza}>
+        {BtnDeletar && <button className={btnStyle.btnAtualiza}>
           <img src={Bin} alt="pincel" style={{ width: '1rem', height: '1rem', color: 'blue' }} />
         </button>}
       </div>

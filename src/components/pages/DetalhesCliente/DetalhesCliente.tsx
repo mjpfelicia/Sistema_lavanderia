@@ -1,19 +1,15 @@
-// src/App.tsx
 import React, { useEffect, useState } from 'react';
 import * as ClienteUnico from './Cliente';
-import classes from '../DetalhesCliente/DetalhesCliente.module.css'
+import classes from '../DetalhesCliente/DetalhesCliente.module.css';
 import { listarClientes, Cliente } from '../service/apiCliente';
-import { ResponsiveAlignProp } from 'react-bootstrap/esm/types';
-
 
 const DetalhesUsuario: React.FC = () => {
     const [clientes, setClientes] = useState<Cliente[]>([]);
 
-
-    //   BtnAtualizar
     const handleRefresh = () => {
         window.location.reload();
-    }
+    };
+
 
     useEffect(() => {
         const fetchClientes = async () => {
@@ -30,29 +26,29 @@ const DetalhesUsuario: React.FC = () => {
 
     return (
         <div className={classes.content}>
-            <h1 className={classes.title} >Lista de Clientes</h1>
+            <h1 className={classes.title}>Lista de Clientes</h1>
+
             <div className='col-xs-12'>
                 <div className={classes.box}>
                     {clientes.map((cliente, index) => (
-                        <><ClienteUnico.default
-                            key={index} nome={cliente.nome}
+                        <ClienteUnico.default
+                            key={index}
+                            nome={cliente.nome}
                             endereco={cliente.endereco}
                             telefone={cliente.telefone}
                             email={cliente.email}
                             BtnAtualizar onClick={handleRefresh}
-                            BtnDeletar />
-                        </>
+                            BtnDeletar
+                        />
                     ))}
-
                 </div>
             </div>
+
             <div className={classes.btnCliente}>
                 <button type="submit" className={classes.registerButton}>Confirma</button>
             </div>
         </div>
-
     );
 };
 
 export default DetalhesUsuario;
-
