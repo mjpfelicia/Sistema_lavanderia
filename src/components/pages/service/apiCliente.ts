@@ -40,9 +40,33 @@ export const getCliente = async (idCliente: number): Promise<Cliente> => {
     });
 };
 
+export const buscarCliente = async (nomeCliente: string, celularCliente: string): Promise<Cliente[]> => {
+  console.info("API CLiente - getCliente ", { nomeCliente, celularCliente });
+
+  if (!nomeCliente && !celularCliente) {
+    throw "[buscaCliente]Precisa do nome ou celular do cliente";
+  }
+
+  const sort = '&_sort=nome&_order=asc';
+  const params = `nome=${nomeCliente}&telefone_like=${celularCliente}`;
+
+  return api
+    .get<Cliente[]>(`/clientes?${params}` + sort)
+    .then(({ data }) => {
+
+      console.info("response: ", { data });
+      return data
+
+    })
+    .catch((error: AxiosError) => {
+      console.error("[ERROR][buscarCliente]", error.message);
+      throw error;
+    });
+};
+
 export const atualizaCliente = async (idCliente: number, cliente: Cliente): Promise<Cliente | void> => {
   console.info("API CLiente - atualizaCliente ");
-  
+
   return api
     .put<Cliente>(`/clientes/${idCliente}`, cliente)
     .then(response => response.data)

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from "./Formulario.module.css";
+import { Cliente, buscarCliente } from '../service/apiCliente';
+import { ClienteComponent, ClienteStyle } from '../DetalhesCliente';
 
 interface FormData {
     nome: string;
@@ -9,8 +11,30 @@ interface FormData {
 }
 
 const FormularioValidacao = () => {
+
+    // const [clientes, setCliente] = useState<Cliente[]>([]);
+
+    // useEffect(() => {
+    //     const fetchClientes = async (nomeCliente: string, celularCliente: string) => {
+    //         await buscarCliente(nomeCliente, celularCliente)
+    //             .then((cliente) => setCliente(cliente))
+    //             .catch(error => {
+    //                 console.error("buscaCliente: ", { error });
+
+    //                 setCliente([])
+    //             })
+
+    //     };
+
+    //     fetchClientes(nomeCliente, celularCliente);
+    // }, [nome, phone]);
+
+
+    //console.info("clientes1: ", { clientes })
+
     const [formData, setFormData] = useState<FormData>({ nome: '', telefone: '', senha: '' });
     const [erros, setErros] = useState<Partial<FormData>>({});
+    const [clientes, setClientes] = useState<Cliente[]>([])
 
     const validarFormulario = (): boolean => {
         const novosErros: Partial<FormData> = {};
@@ -38,37 +62,64 @@ const FormularioValidacao = () => {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("setFormData: ", { ...formData, [e.target.name]: e.target.value })
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (validarFormulario()) {
+
+            console.log("formData:", { formData });
+
+            const result = await buscarCliente(formData.nome, formData.telefone);
+
+            console.log("formData: ", { result });
+
+            setClientes(result);
+
             alert("Formulário enviado com sucesso!");
         }
     };
 
     return (
-        <form className={classes.formulario} onSubmit={handleSubmit}>
-            <div className={classes.controle_de_campo}>
-                <label htmlFor="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
-                {erros.nome && <p>{erros.nome}</p>}
+        <>
+            <form className={classes.formulario} onSubmit={handleSubmit}>
+                <div className={classes.controle_de_campo}>
+                    <label htmlFor="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
+                    {erros.nome && <p>{erros.nome}</p>}
+                </div>
+                <div className={classes.controle_de_campo}>
+                    <label htmlFor="telefone">Telefone:</label>
+                    <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(XX)XXXX-XXXX" required />
+                    {erros.telefone && <p>{erros.telefone}</p>}
+                </div>
+                <div className={classes.passwordInput}>
+                    <label htmlFor="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" value={formData.senha} onChange={handleChange} required />
+                    {erros.senha && <p className={classes.error}>{erros.senha}</p>}
+                </div>
+                <div className={classes.inputGroupButton}>
+                    <button type="submit" className={classes.btn_enter}>Enviar</button>
+                </div>
+            </form>
+
+            <div className={ClienteStyle.default.box}>
+                {clientes.map((cliente, index) => (
+                    <ClienteComponent.default
+                        key={index}
+                        nome={cliente.nome}
+                        endereco={cliente.endereco}
+                        telefone={cliente.telefone}
+                        email={cliente.email}
+                        BtnAtualizar onClick={() => { }}
+                        BtnDeletar
+                    />
+                ))}
+
             </div>
-            <div className={classes.controle_de_campo}>
-                <label htmlFor="telefone">Telefone:</label>
-                <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(XX)XXXX-XXXX" required />
-                {erros.telefone && <p>{erros.telefone}</p>}
-            </div>
-            <div className={classes.passwordInput}>
-                <label htmlFor="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" value={formData.senha} onChange={handleChange} required />
-                {erros.senha && <p className={classes.error}>{erros.senha}</p>}
-            </div>
-            <div className={classes.inputGroupButton}>
-                <button type="submit" className={classes.btn_enter}>Enviar</button>
-            </div>
-        </form>
+        </>
     );
 };
 

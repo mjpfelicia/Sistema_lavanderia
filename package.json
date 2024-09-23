@@ -24,8 +24,8 @@
     "yup": "^1.4.0"
   },
   "scripts": {
+    "api": "npx json-server --watch -p 3008 db.json",
     "start": "react-scripts --openssl-legacy-provider start",
-    "start1": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
