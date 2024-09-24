@@ -1,13 +1,21 @@
 import React from 'react';
-
+import pencil from '../../img/iconspencil.png';
+import btnStyle from './BtnAtualiza.module.css';
+import { Cliente } from '../pages/service/apiCliente';
 
 type BtnAtualizaProps = {
-  onClick: () => void;
+  cliente?: Cliente;
 };
 
-const BtnAtualiza: React.FC<BtnAtualizaProps> = ({ onClick }) => {
+function atualizaCliente(cliente?: Cliente):any {
+  console.log("Atualizar Cliente", { cliente });
+}
+
+const BtnAtualiza = ({ cliente }: BtnAtualizaProps) => {
+
   return (
-    <button onClick={onClick}>    
+    <button accessKey='BtnAtualiza' onClick={atualizaCliente(cliente)} className={btnStyle.btnAtualiza} >
+      <img src={pencil} alt="pincel" onClick={atualizaCliente(cliente)} style={{ width: '1rem', height: '1rem' }} />
     </button>
   );
 };

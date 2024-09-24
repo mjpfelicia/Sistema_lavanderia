@@ -17,13 +17,13 @@
 }
 
 .box {
+    max-width: 80%;
     padding: 2rem;
     background: var(--color_branca);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     opacity: 0.9;
-    margin-top: 1rem;
-}
+margin:  0 auto;}
 
 .title {
     color: var(--color-texto);

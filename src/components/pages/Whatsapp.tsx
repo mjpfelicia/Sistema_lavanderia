@@ -4,7 +4,7 @@ import Header from "../Header/Header"
 const Whatsapp = () => {
   return (
     <div>
-      <Header ativaBotao={"Whatsapp"} />
+      <Header nomePagina="Whatsapp"/>
       Whatsapp
     </div>
   )

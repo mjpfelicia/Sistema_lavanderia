@@ -34,7 +34,7 @@ content-type: application/json
 ###
 # busca cliente
 
-GET http://localhost:3008/clientes?nome=Joana Teste&telefone_like=12340000
+GET http://localhost:3008/clientes?nome=João&telefone_like=12340000
 #GET http://localhost:3008/clientes?nome_like=Maria&telefone_like=99999999_sort=nome&_order=asc
 
 

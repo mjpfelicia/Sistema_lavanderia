@@ -37,8 +37,6 @@ const DetalhesUsuario: React.FC = () => {
                             endereco={cliente.endereco}
                             telefone={cliente.telefone}
                             email={cliente.email}
-                            BtnAtualizar onClick={handleRefresh}
-                            BtnDeletar
                         />
                     ))}
                 </div>

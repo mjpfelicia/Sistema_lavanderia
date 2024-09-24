@@ -2,8 +2,10 @@
 import React from 'react';
 import classes from '../DetalhesCliente/DetalhesCliente.module.css';
 import btnStyle from '../../buttons/BtnAtualiza.module.css';
-import pencil from '../../../img/iconspencil.png';
+
 import Bin from '../../../img/iconsbin-.png'
+import BtnAtualiza from '../../buttons/BtnAtualizar';
+import { Cliente as ClienteInterface } from '../service/apiCliente';
 
 
 interface ClienteProps {
@@ -12,13 +14,22 @@ interface ClienteProps {
   endereco: string;
   telefone: string;
   email: string;
-  BtnAtualizar: boolean;
-  BtnDeletar: boolean;
-  onClick: () => void;
 }
 
 
-const Cliente: React.FC<ClienteProps> = ({ key, nome, endereco, telefone, email, BtnAtualizar, BtnDeletar, onClick }) => {
+const Cliente: React.FC<ClienteProps> = ({ nome, endereco, telefone, email }) => {
+
+  const cliente: Partial<ClienteInterface> = {
+    nome,
+    endereco,
+    telefone,
+    email,
+    numero: '',
+    complemento: '',
+    estado: '',
+    cep: '',
+    bairro: ''
+  }
   return (
     <div className={classes.whapper}>
       <div className={classes.cliente}>
@@ -28,14 +39,16 @@ const Cliente: React.FC<ClienteProps> = ({ key, nome, endereco, telefone, email,
         <p>{email}</p>
       </div>
       <div className={classes.btnAtualiza}>
-        {BtnAtualizar && <button className={btnStyle.btnAtualiza}
+        <BtnAtualiza cliente={undefined}></BtnAtualiza>
+
+        {/* {BtnAtualizar && <button className={btnStyle.btnAtualiza}
           onClick={onClick}>
           <img src={pencil} alt="pincel" style={{ width: '1rem', height: '1rem' }} />
-        </button>}
+        </button>} */}
 
-        {BtnDeletar && <button className={btnStyle.btnAtualiza}>
+        <button className={btnStyle.btnAtualiza}>
           <img src={Bin} alt="pincel" style={{ width: '1rem', height: '1rem', color: 'blue' }} />
-        </button>}
+        </button>
       </div>
 
     </div>

@@ -1,48 +1,31 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CadastroCliente/CadastroCliente.css"
 import CloseButton from '../../buttons/CloseButton';
+import { Cliente } from '../service/apiCliente';
 
-export type FormularioDados ={
-    nome: string;
-    telefone: string;
-    endereco: string;
-    numero: string;
-    complemento: string;
-    estado: string;
-    cep: string;
-    bairro: string;
+interface CadastroFormParam {
+    cliente?: Cliente
 }
+const CadastroForm = ({ cliente }: CadastroFormParam) => {
 
-const CadastroForm = () => {
-    const [formData, setFormData] = useState({
-        nome: '',
-        telefone: '',
-        endereco: '',
-        numero: '',
-        complemento: '',
-        estado: '',
-        cep: '',
-        bairro: '',
-    });
+    const clienteCopia = {...cliente}
+    const [formData, setFormData] = useState(clienteCopia)
 
-    const [lista, setLista] = useState(Array<FormularioDados>);
+    const [lista, setLista] = useState(Array<Cliente>);
 
-    const handleChange = (e:any) => {
+    const handleChange = (e: any) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e:any) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
         setLista([...lista])
-        setFormData({ nome: '', telefone: '', endereco: '', numero: '', complemento: '', estado: '', bairro: '', cep: '' });
-    
+       
+        setFormData(clienteCopia);
     };
-    
+
 
     return (
         <div style={{
@@ -93,15 +76,15 @@ const CadastroForm = () => {
                 <button type="submit" className="btn btn-primary btn_cadastra">Cadastrar</button>
             </form>
             <ul className="list-group">
-            
+
                 {lista.map((item, index) => (
                     <li key={index} className="list-group-item">
                         {item.nome}- {item.telefone} - {item.endereco}, {item.bairro}, {item.cep}
                     </li>
-                    
+
                 ))}
             </ul>
-            
+
         </div>
     );
 };

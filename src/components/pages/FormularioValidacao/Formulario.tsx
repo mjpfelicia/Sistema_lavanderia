@@ -87,8 +87,6 @@ const FormularioValidacao = () => {
                             endereco={cliente.endereco}
                             telefone={cliente.telefone}
                             email={cliente.email}
-                            BtnAtualizar onClick={() => { }}
-                            BtnDeletar
                         />
                     ))}
                 </div>
