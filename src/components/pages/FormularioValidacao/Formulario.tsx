@@ -87,6 +87,7 @@ const FormularioValidacao = () => {
                             endereco={cliente.endereco}
                             telefone={cliente.telefone}
                             email={cliente.email}
+                            numero={cliente.numero}
                         />
                     ))}
                 </div>

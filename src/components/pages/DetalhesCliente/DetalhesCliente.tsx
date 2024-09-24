@@ -35,6 +35,7 @@ const DetalhesUsuario: React.FC = () => {
                             key={index}
                             nome={cliente.nome}
                             endereco={cliente.endereco}
+                            numero ={cliente.numero}
                             telefone={cliente.telefone}
                             email={cliente.email}
                         />
