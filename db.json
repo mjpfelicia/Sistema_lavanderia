@@ -88,6 +88,61 @@
       "estado": "São Paulo",
       "complemento": "kkkkk",
       "bairro": "Chácara Nossa Senhora do Bom Conselho"
+    },
+    {
+      "id": "4443",
+      "nome": "kkkkkk",
+      "telefone": "2625251",
+      "email": "mjpfelicia@gmail.com",
+      "endereco": "Rua Francisco da Cruz Mellão",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo",
+      "bairro": "Chácara Nossa Senhora do Bom Conselho"
+    },
+    {
+      "id": "cc0b",
+      "nome": "cadastro teste",
+      "telefone": "111000000",
+      "email": "teste@gmail.com",
+      "endereco": "Rua teste",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo",
+      "bairro": "Chácara teste"
+    },
+    {
+      "id": "0ca9",
+      "nome": " teste ",
+      "email": "teste2222@gmail.com",
+      "endereco": "Rua teste 2",
+      "numero": "00",
+      "cep": "05782351",
+      "estado": "São Paulo",
+      "telefone": "12121315",
+      "complemento": "ap teste",
+      "bairro": "Chácara Nossa teste"
+    },
+    {
+      "id": "a565",
+      "nome": "SANDRA  JESUS",
+      "email": "atualiza@gmail.com",
+      "endereco": "Rua teste atualizando",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo",
+      "bairro": "atualizar cliente",
+      "telefone": "112222-2222",
+      "complemento": "ap atualiza"
+    },
+    {
+      "id": "0a01",
+      "nome": "SANDRA FELICIO DE JESUS",
+      "email": "mjpfelicia@gmail.com",
+      "endereco": "Rua Francisco da Cruz Mellão",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo"
     }
   ]
 }

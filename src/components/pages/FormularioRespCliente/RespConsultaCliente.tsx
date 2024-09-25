@@ -15,7 +15,10 @@ const RespostaConsultaCl = () => {
     estado: '',
     cep: '',
     bairro: '',
-    email: ''
+    email: '',
+    id: function (id: any, formData: Cliente): unknown {
+      throw new Error('Function not implemented.');
+    }
   }
 
   const [cliente, setCliente] = useState<Cliente>(clienteVazio);

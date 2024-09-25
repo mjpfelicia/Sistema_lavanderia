@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import * as ClienteUnico from './Cliente';
+import ClienteUnico from './Cliente';
 import classes from '../DetalhesCliente/DetalhesCliente.module.css';
 import { listarClientes, Cliente } from '../service/apiCliente';
+import AtualizaCliente from '../../AtualizaCliente';
 
 const DetalhesUsuario: React.FC = () => {
     const [clientes, setClientes] = useState<Cliente[]>([]);
 
-    const handleRefresh = () => {
-        window.location.reload();
-    };
 
 
     useEffect(() => {
@@ -30,22 +28,24 @@ const DetalhesUsuario: React.FC = () => {
 
             <div className='col-xs-12'>
                 <div className={classes.box}>
+
                     {clientes.map((cliente, index) => (
-                        <ClienteUnico.default
+                        <ClienteUnico
                             key={index}
                             nome={cliente.nome}
                             endereco={cliente.endereco}
-                            numero ={cliente.numero}
+                            numero={cliente.numero}
                             telefone={cliente.telefone}
                             email={cliente.email}
+                            onEdit={function (cliente: Cliente): void {
+                                throw new Error('Function not implemented.');
+                            }}
+
                         />
                     ))}
                 </div>
             </div>
 
-            <div className={classes.btnCliente}>
-                <button type="submit" className={classes.registerButton}>Confirma</button>
-            </div>
         </div>
     );
 };

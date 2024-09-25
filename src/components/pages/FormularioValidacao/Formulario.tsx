@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classes from "./Formulario.module.css";
 import { Cliente, buscarCliente } from '../service/apiCliente';
-import { ClienteComponent, ClienteStyle } from '../DetalhesCliente';
+import ClienteComponent from '../DetalhesCliente/Cliente';
+
 
 interface FormData {
     nome: string;
@@ -79,16 +80,17 @@ const FormularioValidacao = () => {
             </form>
 
             {showDetails && (
-                <div className={ClienteStyle.default.box}>
+                <div className={classes.box}>
                     {clientes.map((cliente, index) => (
-                        <ClienteComponent.default
+                        <ClienteComponent
                             key={index}
                             nome={cliente.nome}
                             endereco={cliente.endereco}
                             telefone={cliente.telefone}
                             email={cliente.email}
-                            numero={cliente.numero}
-                        />
+                            numero={cliente.numero} onEdit={function (cliente: Cliente): void {
+                                throw new Error('Function not implemented.');
+                            } }                        />
                     ))}
                 </div>
             )}

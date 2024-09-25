@@ -5,21 +5,15 @@ import { Cliente } from '../pages/service/apiCliente';
 
 type BtnAtualizaProps = {
   cliente?: Cliente;
+  onClick: () => void;
 };
 
-function atualizaCliente(cliente?: Cliente):any {
-  console.log("Atualizar Cliente", { cliente });
-}
-
-const BtnAtualiza = ({ cliente }: BtnAtualizaProps) => {
-
+const BtnAtualiza: React.FC<BtnAtualizaProps> = ({ cliente, onClick }) => {
   return (
-    <button accessKey='BtnAtualiza' onClick={atualizaCliente(cliente)} className={btnStyle.btnAtualiza} >
-      <img src={pencil} alt="pincel" onClick={atualizaCliente(cliente)} style={{ width: '1rem', height: '1rem' }} />
+    <button accessKey='BtnAtualiza' onClick={onClick} className={btnStyle.btnAtualiza}>
+      <img src={pencil} alt="pincel" style={{ width: '1rem', height: '1rem' }} />
     </button>
   );
 };
 
 export default BtnAtualiza;
-
-
