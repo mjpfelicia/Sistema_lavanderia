@@ -6,6 +6,7 @@ import CloseButton from '../../buttons/CloseButton';
 import { Cliente } from '../service/apiCliente';
 import AtualizaCliente from '../../AtualizaCliente';
 import ClienteComponent from '../../pages/DetalhesCliente/Cliente';
+import Modal from '../../modal/modal';
 
 interface CadastroClienteProps {
     cliente?: Cliente;
@@ -15,7 +16,7 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente }) => {
     const clienteCopia = { ...cliente };
     const [formData, setFormData] = useState(clienteCopia);
     const [lista, setLista] = useState<Cliente[]>([]);
-    const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
+    const [clienteSelecionado, setClienteSelecionado] = useState<Cliente>({} as Cliente);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -46,9 +47,9 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente }) => {
 
     const handleUpdate = (clienteAtualizado: Cliente) => {
         setLista(lista.map(cliente => cliente.id === clienteAtualizado.id ? clienteAtualizado : cliente));
-        setClienteSelecionado(null);
     };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <div className="container-fluid vh-100 d-flex flex-column justify-content-center align-items-center bg-white">
             {clienteSelecionado ? (
@@ -168,10 +169,15 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente }) => {
                 {lista.map((item, index) => (
                     <li key={index} className="list-group-item">
                         {item.nome} - {item.telefone} - {item.email} - {item.endereco}, {item.bairro}, {item.cep}
-                        <button onClick={() => setClienteSelecionado(item)} className="btn btn-link">Editar</button>
+                        <button onClick={() => {setClienteSelecionado(item); setIsModalOpen(true)}} className="btn btn-link">Editar</button>
                     </li>
                 ))}
             </ul>
+
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <h2>Atualizar cliente</h2>
+                <AtualizaCliente cliente={clienteSelecionado} onUpdate={handleUpdate} />
+            </Modal>
         </div>
     );
 };

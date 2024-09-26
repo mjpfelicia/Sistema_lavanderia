@@ -50,7 +50,6 @@ const FormularioValidacao = () => {
             const result = await buscarCliente(formData.nome, formData.telefone);
             setClientes(result);
             setShowDetails(true);
-            alert("Formulário enviado com sucesso!");
         } else {
             setShowDetails(false);
         }
@@ -84,13 +83,11 @@ const FormularioValidacao = () => {
                     {clientes.map((cliente, index) => (
                         <ClienteComponent
                             key={index}
-                            nome={cliente.nome}
-                            endereco={cliente.endereco}
-                            telefone={cliente.telefone}
-                            email={cliente.email}
-                            numero={cliente.numero} onEdit={function (cliente: Cliente): void {
-                                throw new Error('Function not implemented.');
-                            } }                        />
+                            cliente={cliente}
+                            onEdit={function (cliente: Cliente): void {
+                               console.info("onEdit Fomulário")
+                            } }
+                            />
                     ))}
                 </div>
             )}

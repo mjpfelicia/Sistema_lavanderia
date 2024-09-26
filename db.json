@@ -1,19 +1,6 @@
 {
   "clientes": [
-    {
-      "id": "1",
-      "nome": "João Silva",
-      "email": "testesilva@example.com",
-      "telefone": "(11) 1234-5678",
-      "endereco": "Rua das Flores, 123, São Paulo, SP"
-    },
-    {
-      "id": "2",
-      "nome": "Maria Oliveira",
-      "email": "testeoliveira@example.com",
-      "telefone": "(21) 8765-4321",
-      "endereco": "Avenida Brasil, 456, Rio de Janeiro, RJ"
-    },
+    
     {
       "nome": "Sandra teste",
       "telefone": "(11) 9999-9999",
@@ -28,10 +15,11 @@
     },
     {
       "id": "c63f",
-      "nome": "João Silva",
+      "nome": "João Silva 1",
       "email": "silva@example.com",
       "telefone": "(11) 1234-0000",
-      "endereco": "Rua das Flores, 123, São Paulo, SP"
+      "endereco": "Rua das Flores, 123, São Paulo, SP",
+      "cep": "0"
     },
     {
       "id": "",
@@ -134,15 +122,7 @@
       "bairro": "atualizar cliente",
       "telefone": "112222-2222",
       "complemento": "ap atualiza"
-    },
-    {
-      "id": "0a01",
-      "nome": "SANDRA FELICIO DE JESUS",
-      "email": "mjpfelicia@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo"
     }
+   
   ]
 }
