@@ -1,0 +1,24 @@
+.content-form {
+    background: white;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.form-group {
+    text-align: left;
+
+}
+
+.content-form label {
+    text-align: left;
+    padding-bottom: 0.3rem;
+}
+
+.btn-atualize {
+    background-color: var(--colorBtnCadastra);
+    color: var(--color_branca);
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}

@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import classes from '../DetalhesCliente/DetalhesCliente.module.css';
-import btnStyle from '../../buttons/BtnAtualiza.module.css';
 import { Cliente as ClienteInterface } from '../service/apiCliente';
 import AtualizaCliente from '../../AtualizaCliente';
 import Modal from '../../modal/modal';
@@ -30,20 +29,22 @@ const Cliente: React.FC<ClienteProps> = ({ cliente }) => {
 
   return (
     <>
-      <div>
-        <div className={classes.cliente}>
-          <h2>{cliente?.nome}</h2>
-          <p>{cliente?.endereco}</p>
-          <p>{cliente?.numero}</p>
-          <p>{cliente?.telefone}</p>
-          <p>{cliente?.email}</p>
+      <div className={classes.wrapper}>
+      
+          <div className={classes.cliente}>
+            <h2>{cliente?.nome}</h2>
+            <p>{cliente?.endereco}</p>
+            <p>{cliente?.numero}</p>
+            <p>{cliente?.telefone}</p>
+            <p>{cliente?.email}</p>
+          </div>
+          <div className={classes.btnAtualiza}>
+            <button onClick={() => onEdit()} className="btn btn-link">
+              Editar
+            </button>
+          </div>
         </div>
-        <div className={classes.btnAtualiza}>
-          <button onClick={() => onEdit()} className="btn btn-link">
-            Editar
-          </button>
-        </div>
-      </div>
+  
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <h2>Atualizar cliente</h2>

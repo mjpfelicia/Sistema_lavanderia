@@ -3,7 +3,6 @@ import classes from "./Formulario.module.css";
 import { Cliente, buscarCliente } from '../service/apiCliente';
 import ClienteComponent from '../DetalhesCliente/Cliente';
 
-
 interface FormData {
     nome: string;
     telefone: string;
@@ -19,19 +18,15 @@ const FormularioValidacao = () => {
     const validarFormulario = (): boolean => {
         const novosErros: Partial<FormData> = {};
 
-        // Validação do nome
         if (formData.nome.length < 3) {
             novosErros.nome = "O nome deve ter pelo menos 3 caracteres.";
         }
 
-        // Validação do telefone
         const telefoneRegex = /^\(?\d{2}\)?[\s-]?\d{4,5}[\s-]?\d{4}$/;
-
         if (!telefoneRegex.test(formData.telefone)) {
             novosErros.telefone = "O telefone deve estar no formato (XX)XXXX-XXXX";
         }
 
-        // Validação da senha
         if (formData.senha.length < 4) {
             novosErros.senha = "A senha deve ter pelo menos 4 caracteres.";
         }
@@ -84,10 +79,8 @@ const FormularioValidacao = () => {
                         <ClienteComponent
                             key={index}
                             cliente={cliente}
-                            onEdit={function (cliente: Cliente): void {
-                               console.info("onEdit Fomulário")
-                            } }
-                            />
+                            onEdit={() => console.info("onEdit Formulário")}
+                        />
                     ))}
                 </div>
             )}

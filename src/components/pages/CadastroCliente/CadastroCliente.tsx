@@ -1,11 +1,10 @@
 // src/components/CadastroCliente.tsx
 import { useState } from 'react';
+import { Cliente } from '../service/apiCliente';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CadastroCliente/CadastroCliente.css";
 import CloseButton from '../../buttons/CloseButton';
-import { Cliente } from '../service/apiCliente';
 import AtualizaCliente from '../../AtualizaCliente';
-import ClienteComponent from '../../pages/DetalhesCliente/Cliente';
 import Modal from '../../modal/modal';
 
 interface CadastroClienteProps {
@@ -17,6 +16,9 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente }) => {
     const [formData, setFormData] = useState(clienteCopia);
     const [lista, setLista] = useState<Cliente[]>([]);
     const [clienteSelecionado, setClienteSelecionado] = useState<Cliente>({} as Cliente);
+
+
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -52,10 +54,7 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <div className="container-fluid vh-100 d-flex flex-column justify-content-center align-items-center bg-white">
-            {clienteSelecionado ? (
-                <AtualizaCliente cliente={clienteSelecionado} onUpdate={handleUpdate} />
-            ) : (
-                <form onSubmit={handleSubmit} className="p-4">
+       <form onSubmit={handleSubmit} className="p-4">
                     <div className="menuCadastro">
                         <CloseButton />
                         <h1 className="titleCadastro">Cadastro de Cliente</h1>
@@ -163,13 +162,19 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente }) => {
                     </div>
                     <button type="submit" className="btn btn-primary w-100">Cadastrar</button>
                 </form>
-            )}
 
             <ul className="list-group w-100 mt-4">
                 {lista.map((item, index) => (
                     <li key={index} className="list-group-item">
-                        {item.nome} - {item.telefone} - {item.email} - {item.endereco}, {item.bairro}, {item.cep}
-                        <button onClick={() => {setClienteSelecionado(item); setIsModalOpen(true)}} className="btn btn-link">Editar</button>
+                        {item.nome} - 
+                        {item.telefone} - 
+                        {item.email} - 
+                        {item.endereco}, 
+                        {item.bairro}, 
+                        {item.cep}
+                        <button onClick={() => {setClienteSelecionado(item); setIsModalOpen(true)}} className="btn btn-link">
+                            Editar
+                        </button>
                     </li>
                 ))}
             </ul>

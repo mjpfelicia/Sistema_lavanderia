@@ -22,7 +22,6 @@ const DetalhesUsuario: React.FC = () => {
     return (
         <div className={classes.content}>
             <h1 className={classes.title}>Lista de Clientes</h1>
-
             <div className='col-xs-12'>
                 <div className={classes.box}>
                     {clientes.map((cliente, index) => (

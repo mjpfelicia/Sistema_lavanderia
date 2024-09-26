@@ -16,9 +16,10 @@
     padding: 20px;
     border-radius: 8px;
     position: relative;
+    box-sizing: content-box;
     width: 80%;
     max-height: 80vh; /* Limita a altura máxima do modal */
-    overflow-y: auto; /* Adiciona scroll vertical se o conteúdo exceder a altura */
+    /* overflow-y: auto; Adiciona scroll vertical se o conteúdo exceder a altura */
   }
   
   .close-button {

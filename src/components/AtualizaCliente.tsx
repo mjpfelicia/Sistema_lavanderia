@@ -1,7 +1,7 @@
-// src/components/AtualizaCliente.tsx
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Cliente } from './pages/service/apiCliente';
+import "../components/Atualiza.css";
 
 interface AtualizaClienteProps {
     cliente: Cliente;
@@ -38,13 +38,14 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
     };
 
     return (
-        <form onSubmit={handleSubmit} className="p-4">
+        <form onSubmit={handleSubmit} className="p-4 content-form">
             <div className="form-group mb-3">
                 <label>Nome completo</label>
                 <input type="text" className="form-control"
                     name="nome"
                     value={formData.nome}
                     onChange={handleChange}
+                    style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
             </div>
             <div className="form-group mb-3">
@@ -54,6 +55,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                     value={formData.telefone}
                     onChange={handleChange}
                     placeholder="(__) _____-____"
+                    style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
             </div>
             <div className="form-group mb-3">
@@ -63,6 +65,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="email@exemplo.com"
+                    style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
             </div>
             <div className="form-group mb-3">
@@ -71,6 +74,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                     name="endereco"
                     value={formData.endereco}
                     onChange={handleChange}
+                    style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
             </div>
             <div className="form-group mb-3">
@@ -79,6 +83,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                     name="numero"
                     value={formData.numero}
                     onChange={handleChange}
+                    style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
             </div>
             <div className="form-group mb-3">
@@ -87,6 +92,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                     name="complemento"
                     value={formData.complemento}
                     onChange={handleChange}
+                    style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
             </div>
             <div className="form-group mb-3">
@@ -95,6 +101,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                     name="cep"
                     value={formData.cep}
                     onChange={handleChange}
+                    style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
             </div>
             <div className="form-group mb-3">
@@ -103,18 +110,10 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                     name="estado"
                     value={formData.estado}
                     onChange={handleChange}
+                    style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
             </div>
-            <div className="form-group mb-3">
-                <label>Bairro</label>
-                <input type="text"
-                    className="form-control"
-                    name="bairro"
-                    value={formData.bairro}
-                    onChange={handleChange}
-                />
-            </div>
-            <button type="submit" className="btn btn-primary w-100">Atualizar</button>
+            <button type="submit" className="btn btn-primary">Atualizar</button>
         </form>
     );
 };

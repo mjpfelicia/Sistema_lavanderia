@@ -1,13 +1,30 @@
-.containerForm {
+/* AgendaDelivery.css */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  margin-top: 5rem;
+  gap: 3rem;
+  flex-wrap: wrap
+}
+
+.submittedData {
   display: flex;
   flex-direction: column;
-  /* width: 300px; */
-  /* margin: 0 auto; */
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  background: var(--color_branca);
+  padding: 5rem;
+}
 
+.containerForm {
+  background: var(--color_branca);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
 }
 
 .containerForm div {
@@ -16,25 +33,74 @@
 }
 
 .containerForm label {
+  display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.containerForm input {
-  padding: 8px;
-  font-size: 16px;
+.containerForm input,
+.containerForm button {
   width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
 }
 
 .containerForm button {
-  padding: 10px;
-  font-size: 16px;
   background-color: var(--colorBtnCadastra);
-  color: white;
+  color: var(--color_branca);
   border: none;
   cursor: pointer;
 }
 
+.BtnImprimir,
+.BtnCancelarA {
+  background-color: var(--colorBtnCadastra);
+  color: var(--color_branca);
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.BtnImprimir {
+  margin-bottom: 1rem;
+}
+
 .containerForm button:hover {
   background-color: var(--colorHoverBtnCadastra);
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #printableArea,
+  #printableArea * {
+    visibility: visible;
+  }
+
+  #printableArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .containerForm {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .containerForm {
+    padding: 10px;
+  }
 }
