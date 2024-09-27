@@ -12,6 +12,7 @@ import mapa from "../../img/mapa.png";
 import relatorio from "../../img/relatorio2.png";
 import WhatsApp from "../../img/whapp.png";
 
+
 export type BotaoPaginaAtiva ={
   nomePagina: string
 }
@@ -42,12 +43,11 @@ const Header = (botaoPaginaAtiva :BotaoPaginaAtiva) => {
         <div className='headerTitle'>
           <h1 className='title-header'>Sistema de lavanderia</h1>
         </div>
+
         <div className='linkCadastro'>
           <a href="/CadastroCliente">Cadastrar Cliente</a>
         </div>
-
         <CloseButton />
-
       </div>
 
       <Nav className='responsive-menu'>

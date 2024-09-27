@@ -25,7 +25,7 @@ const Rotas = () => {
                 <Route path="/Relatorio" element={<Relatorio />} />
                 <Route path="/Whatsapp" element={<Whatsapp />} />
                 <Route path="/Validacao" element={<Validacao />} />
-                <Route path="/CadastroCliente" element={<CadastroCliente cliente={undefined} />} />
+                <Route path="/CadastroCliente" element={<CadastroCliente />} />
                 <Route path="/" element={<CloseButton />} />
 
             </Routes>

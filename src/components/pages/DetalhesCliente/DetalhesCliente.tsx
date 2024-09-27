@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ClienteUnico from './Cliente';
-import classes from '../DetalhesCliente/DetalhesCliente.module.css';
+import classes from './DetalhesCliente.module.css';
 import { listarClientes, Cliente } from '../service/apiCliente';
 
 const DetalhesUsuario: React.FC = () => {
@@ -27,11 +27,10 @@ const DetalhesUsuario: React.FC = () => {
                     {clientes.map((cliente, index) => (
                         <ClienteUnico
                             key={index}
-                           cliente={cliente}
+                            cliente={cliente}
                             onEdit={function (cliente: Cliente): void {
                                 console.log("Editar cliente 1", { cliente });
                             }}
-
                         />
                     ))}
                 </div>

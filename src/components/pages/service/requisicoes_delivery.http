@@ -1,0 +1,41 @@
+###
+# listar clientes 
+GET http://localhost:3008/deliverys
+
+### 
+# Pegar cliente 1
+GET http://localhost:3008/deliverys/c03c
+
+###
+
+# Pegar cliente 1
+GET http://localhost:3008/deliverys/c03c?_embed=clientes
+
+###
+# Criar cliente
+POST http://localhost:3008/deliverys
+content-type: application/json
+
+{
+  "clientesId": 3,
+  "deliveryTipo": "Retirada",
+  "deliveryData": "2024/09/27"
+}
+###
+# alterar dados do cliente
+PUT http://localhost:3008/deliverys/c03c
+content-type: application/json
+
+{
+  "deliveryTipo": "Retirada",
+  "deliveryData": "2024/09/28"
+}
+
+###
+# busca cliente
+
+GET http://localhost:3008/deliverys?nome=João&telefone_like=12340000
+#GET http://localhost:3008/deliverys?nome_like=Maria&telefone_like=99999999_sort=nome&_order=asc
+
+
+###

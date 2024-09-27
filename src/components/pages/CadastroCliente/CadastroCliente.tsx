@@ -11,7 +11,7 @@ interface CadastroClienteProps {
     cliente?: Cliente;
 }
 
-const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente }) => {
+const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente={} }) => {
     const clienteCopia = { ...cliente };
     const [formData, setFormData] = useState(clienteCopia);
     const [lista, setLista] = useState<Cliente[]>([]);

@@ -1,12 +1,16 @@
 import Header from '../Header/Header';
-import RespostaConsultaCl from '../pages/FormularioRespCliente/RespConsultaCliente';
-import DetalhesUsuario from '../pages/DetalhesCliente/DetalhesCliente';
+import ServicoLavagem from '../ServicoLavagem/ServicoLavagem';
+
+
+
+
+
 
 const Home = () => {
   return (
     <div>
-      <Header nomePagina=''/>
-      <DetalhesUsuario/>
+      <Header nomePagina='' />
+      < ServicoLavagem />
     </div>
   )
 }

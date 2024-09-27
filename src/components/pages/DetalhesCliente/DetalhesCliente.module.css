@@ -12,9 +12,12 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
     border-bottom: 1px solid #ccc;
     background: var(--color_branca);
+    width: 80vw;
+    margin: 0 auto;
+    padding: 0 1rem;
+
 }
 
 /* Caixa de conteúdo */
@@ -30,7 +33,7 @@
 /* Título */
 .title {
     color: var(--color-texto);
-    font-size: 1.5rem;
+    font-size: 0.9rem;
     line-height: 1.25;
     font-weight: 400;
 }
@@ -58,13 +61,17 @@
     line-height: 1.25;
     font-size: calc(0.6rem + 0.6vw);
     margin-right: 1rem;
+    /* font-family: Montserrat; */
 }
 
 /* Estilo para parágrafos do cliente */
-.cliente p {
+.cliente span {
     margin: 5px 0.1rem 0;
+    padding-right: 0.5rem;
     color: var(--color-texto);
     font-size: calc(0.5rem + 0.4vw);
+    font-family: Montserrat;
+    line-height: 35px;
 }
 
 /* Estilo para inputs do cliente */
@@ -90,4 +97,3 @@
 .registerButton:hover {
     background-color: var(--colorHoverBtnCadastra);
 }
-

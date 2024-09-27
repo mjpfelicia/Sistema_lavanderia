@@ -92,63 +92,19 @@
       "cep": "05782351",
       "estado": "São Paulo",
       "bairro": "Chácara Nossa Senhora do Bom Conselho"
+    }
+  ],
+  "deliverys": [
+    {
+      "id": "889f",
+      "clienteId": 3,
+      "deliveryTipo": "Retirada",
+      "deliveryData": "2024/09/27"
     },
     {
-      "id": "cc0b",
-      "nome": "cadastro teste",
-      "telefone": "111000000",
-      "email": "teste@gmail.com",
-      "endereco": "Rua teste",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo",
-      "bairro": "Chácara teste"
-    },
-    {
-      "id": "0ca9",
-      "nome": " teste ",
-      "email": "teste2222@gmail.com",
-      "endereco": "Rua teste 2",
-      "numero": "00",
-      "cep": "05782351",
-      "estado": "São Paulo",
-      "telefone": "12121315",
-      "complemento": "ap teste",
-      "bairro": "Chácara Nossa teste"
-    },
-    {
-      "id": "f6ac",
-      "nome": "Jefferson S Coelho",
-      "email": "coelho@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05843001",
-      "estado": "SP",
-      "telefone": "11973241419",
-      "complemento": "ap teste",
-      "bairro": "Chácara teste"
-    },
-    {
-      "nome": "SANDRA FELICIO DE JESUS",
-      "email": "mjpfelicia@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo",
-      "telefone": "11973241419",
-      "complemento": "ap teste",
-      "id": "1bfd"
-    },
-    {
-      "id": "1246",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "telefone": "(11)96415-1516",
-      "nome": "SANDRA FELICIO DE JESUS",
-      "email": "mjpfelicia@gmail.com",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo",
-      "complemento": "ap atualiza"
+      "deliveryTipo": "Retirada",
+      "deliveryData": "2024/09/28",
+      "id": "c03c"
     }
   ]
 }
