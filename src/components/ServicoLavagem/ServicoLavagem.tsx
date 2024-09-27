@@ -8,60 +8,53 @@ type Peca = {
 
 const pecas: Peca[] = [
   { tipo: 'Camiseta', preco: 10 },
+  { tipo: 'camisa', preco: 30 },
   { tipo: 'Calça', preco: 20 },
   { tipo: 'Vestido', preco: 30 },
   { tipo: 'Jaqueta', preco: 40 },
-  { tipo: 'Calça', preco: 20 },
-  { tipo: 'Vestido', preco: 30 },
-  { tipo: 'Jaqueta', preco: 40 },
+  { tipo: 'Jaleco', preco: 40 },
 ];
 
 const ServicoLavagem: React.FC = () => {
-  const [quantidade, setQuantidade] = useState<number>(0);
-  const [tipoPeca, setTipoPeca] = useState<string>(pecas[0].tipo);
+  const [quantidades, setQuantidades] = useState<{ [key: string]: number }>({});
   const [total, setTotal] = useState<number>(0);
 
-  const calcularTotal = () => {
-    const pecaSelecionada = pecas.find((peca) => peca.tipo === tipoPeca);
-    if (pecaSelecionada) {
-      setTotal(quantidade * pecaSelecionada.preco);
-    }
+  const selecionarPeca = (tipo: string, preco: number) => {
+    const novaQuantidade = (quantidades[tipo] || 0) + 1;
+    const novoTotal = total + preco;
+
+    setQuantidades({ ...quantidades, [tipo]: novaQuantidade });
+    setTotal(novoTotal);
   };
 
   return (
-    <div>
-      <h2>Serviço de Lavagem de Roupas</h2>
-      <div className="cards-container">
-        {pecas.map((peca) => (
-          <div key={peca.tipo} className="card">
-            <h3>{peca.tipo}</h3>
-            <p>Preço: R${peca.preco.toFixed(2)}</p>
-          </div>
-        ))}
-      </div>
-
-      <div>
-
-        <label>
-          Tipo de peça:
-          <select value={tipoPeca} onChange={(e) => setTipoPeca(e.target.value)}>
-            {pecas.map((peca) => (
-              <option key={peca.tipo} value={peca.tipo}>
-                {peca.tipo}
-              </option>
+    <div className='Servicodelavagem'>
+        <h2>Serviço de Lavagem de Roupas</h2>
+      <div className='content'> 
+        <div className="cards-container">
+          {pecas.map((peca) => (
+            <div
+              key={peca.tipo}
+              className="card"
+              onClick={() => selecionarPeca(peca.tipo, peca.preco)}
+            >
+              <h3>{peca.tipo}</h3>
+              <p>Preço: R${peca.preco.toFixed(2)}</p>
+              <p>Quantidade: {quantidades[peca.tipo] || 0}</p>
+            </div>
+          ))}
+        </div>
+        <div className="resumo">
+          <h3>Resumo</h3>
+          <ul>
+            {Object.entries(quantidades).map(([tipo, quantidade]) => (
+              <li key={tipo}>
+                {tipo}: {quantidade} peça(s) - R${(quantidade * pecas.find((peca) => peca.tipo === tipo)!.preco).toFixed(2)}
+              </li>
             ))}
-          </select>
-        </label>
-        <label>
-          Quantidade de peças:
-          <input
-            type="number"
-            value={quantidade}
-            onChange={(e) => setQuantidade(Number(e.target.value))}
-          />
-        </label>
-        <button onClick={calcularTotal}>Calcular Total</button>
-        <p>Total: R${total.toFixed(2)}</p>
+          </ul>
+          <p>Total a pagar: R${total.toFixed(2)}</p>
+        </div>
       </div>
     </div>
   );

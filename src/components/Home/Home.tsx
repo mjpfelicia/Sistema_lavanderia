@@ -3,9 +3,6 @@ import ServicoLavagem from '../ServicoLavagem/ServicoLavagem';
 
 
 
-
-
-
 const Home = () => {
   return (
     <div>
