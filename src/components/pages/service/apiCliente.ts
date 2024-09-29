@@ -33,7 +33,7 @@ export const getCliente = async (idCliente: number): Promise<Cliente> => {
   console.info("API CLiente - getCliente ");
 
   return api
-    .get<Cliente>(`/clientes/${idCliente}`)
+    .get<Cliente>(`/clientes/${idCliente}?_embed=deliverys`)
     .then(response => response.data)
     .catch((error: AxiosError) => {
       console.error("[ERROR][getCliente]", error.message);

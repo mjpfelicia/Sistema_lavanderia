@@ -1,29 +1,33 @@
 ###
-# listar clientes 
+# listar delivery
 GET http://localhost:3008/deliverys
 
 ### 
-# Pegar cliente 1
-GET http://localhost:3008/deliverys/c03c
+# listar delivery com clientes
+GET http://localhost:3008/deliverys?_embed=cliente
+
+### 
+# Pegar delivery 1
+GET http://localhost:3008/deliverys/5cc3
 
 ###
 
-# Pegar cliente 1
-GET http://localhost:3008/deliverys/c03c?_embed=clientes
+# Pegar delivery 1
+GET http://localhost:3008/deliverys/5cc3?_embed=cliente
 
 ###
-# Criar cliente
+# Criar delivery
 POST http://localhost:3008/deliverys
 content-type: application/json
 
 {
-  "clientesId": 3,
+  "clientesId": "c63f",
   "deliveryTipo": "Retirada",
   "deliveryData": "2024/09/27"
 }
 ###
-# alterar dados do cliente
-PUT http://localhost:3008/deliverys/c03c
+# alterar dados do delivery
+PUT http://localhost:3008/deliverys/5cc3
 content-type: application/json
 
 {
@@ -32,7 +36,7 @@ content-type: application/json
 }
 
 ###
-# busca cliente
+# busca delivery
 
 GET http://localhost:3008/deliverys?nome=João&telefone_like=12340000
 #GET http://localhost:3008/deliverys?nome_like=Maria&telefone_like=99999999_sort=nome&_order=asc

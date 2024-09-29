@@ -1,46 +1,51 @@
-.Servicodelavagem{
-    margin-top: 5rem;
+.Servicodelavagem {
+  margin-top: 1rem;
 }
-.content{
-    gap: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+
+.content {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 1rem;
+margin-top: 2rem;
+}
+
+.cards-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
 
 }
-.cards-container {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  
-  .card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-    width: 150px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  
-  .card:hover {
-    transform: scale(1.05);
-  }
-  
-  .card.selected {
-    border-color: #007bff;
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
-  }
-  
-  .card h3 {
-    margin: 0;
-    font-size: 1.2em;
-  }
-  
-  .card p {
-    margin: 8px 0 0;
-    font-size: 1em;
-  }
-  
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  width: 150px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card.selected {
+  border-color: #007bff;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.card p {
+  margin: 8px 0 0;
+  font-size: 1em;
+}

@@ -37,30 +37,25 @@ export const getDelivery = async (idDelivery: number): Promise<Delivery> => {
     });
 };
 
-export const buscarDelivery = async (celularCliente:string): Promise<Delivery[]> => {
-  console.info("API Delivery - buscarDelivery ", { celularCliente });
+export const buscarDelivery = async (clienteId:string): Promise<Delivery[]> => {
+  console.info("API Delivery - buscarDelivery ", { clienteId });
 
-  if (!celularCliente) {
+  if (!clienteId) {
     throw "[buscaDelivery]Precisa do celular para buscar Delivery";
   }
 
-  const sort = '&_sort=nome&_order=asc';
-  const params = `telefone_like=${celularCliente}`;
+  const params = `clienteId=${clienteId}`;
 
   return api
-    .get<Delivery[]>(`/delivery?${params}` + sort)
-    .then(({ data }) => {
-
-      console.info("response: ", { data });
-      return data
-    })
+    .get<Delivery[]>(`/delivery?${params}`)
+    .then(response => response.data)
     .catch((error: AxiosError) => {
       console.error("[ERROR][buscarDelivery]", error.message);
       throw error;
     });
 };
 
-export const atualizaDelivery = async (idDelivery: string, delivery: Delivery): Promise<Delivery | void> => {
+export const atualizaDelivery = async (idDelivery: string, delivery: Delivery): Promise<Delivery> => {
   console.info("API Delivery - atualizaDelivery ");
 
   return api

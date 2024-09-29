@@ -96,15 +96,25 @@
   ],
   "deliverys": [
     {
-      "id": "889f",
-      "clienteId": 3,
+      "id": "5cc3",
+      "clienteId": "c63f",
       "deliveryTipo": "Retirada",
       "deliveryData": "2024/09/27"
     },
     {
+      "id": "8e3c",
+      "clienteId": "3",
       "deliveryTipo": "Retirada",
-      "deliveryData": "2024/09/28",
-      "id": "c03c"
+      "deliveryData": "2024/09/27"
+    }
+  ],
+  "tipoPecas":[
+    {
+      "nome":"Calça",
+      "descricao":"calça social",
+      "cor":"branco",
+      "tamanho":42,
+      "marca":"Zara"
     }
   ]
 }
