@@ -1,54 +1,56 @@
+import React, { useState, useMemo } from 'react';
 import Modal from "../modal/modal";
+import { Peca, TipoPeca } from "../ServicoLavagem/ServicoLavagem";
 
-export type Peca = {
-    tipo: TipoPeca;
-    preco: number;
-};
+type NomeTipoPeca = {
+    nomeTipo: TipoPeca,
+    tipos: Peca[],
+    selecionadaPeca: (peca: Peca) => void
+}
 
-export type NomesTipoPeca =
-    | "CAMISA"
-    | "CALCA"
-    | "VESTIDO"
-    | "JAQUETA"
-    | "JALECO"
-    | "CAMA"
-    | "TAPETE";
+export const TipoPecaComp: React.FC<NomeTipoPeca> = ({ nomeTipo, tipos, selecionadaPeca }) => {
+    const [modalAberto, setModalAberto] = useState<boolean>(false);
+    const [pecaSelecionada, setPecaSelecionada] = useState<Peca[] | null>(null);
 
+    const abrirModal = (pecas: Peca[]) => {
+        setPecaSelecionada(pecas);
+        setModalAberto(true);
+    };
 
-
-
-type TipoPeca = {
-    nomeTipo: NomesTipoPeca,
-    tipos: [{
-        nome: string,
-        preco: number
-    }]
-};
-
-
-export const TipoPeca: React.FC<TipoPeca[]> = (tiposPecaList) => {
+    const fecharModal = () => {
+        setModalAberto(false);
+        setPecaSelecionada(null);
+    };
 
     return (
         <div>
             <div className='content'>
                 <div className="cards-container">
-                    {tiposPecaList.map(({ nomeTipo, tipos }) => (
-                        <div
-                            key={nomeTipo}
-                            className="card"
-                            onClick={() => { }} >
-                            nome
-                        </div>
-
-                        ))}
-                            
-                        <Modal isOpen={false} onClose={() => true}>
-                            <h3>Calça</h3>
-                            <p>Preço: 1</p>
-                            <p>Quantidade: 1</p>
-                        </Modal>
+                    <div
+                        className="card"
+                        onClick={() => abrirModal(tipos)} >
+                        {nomeTipo}
+                    </div>
                 </div>
             </div>
+
+            {pecaSelecionada && (
+                <Modal isOpen={modalAberto} onClose={() => fecharModal()}>
+                    <h3>{nomeTipo}</h3>
+                    {pecaSelecionada.map((peca, id) => (
+                        <div
+                            key={id}
+                            className="card"
+                            onClick={() => selecionadaPeca(peca)}>
+                            <h3>{peca.subTipo}</h3>
+                            <p>Preço: R${peca.preco.toFixed(2)}</p>
+                        </div>
+
+                    ))}
+
+                </Modal>
+            )}
+
         </div>
     )
 }
