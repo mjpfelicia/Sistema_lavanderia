@@ -42,7 +42,7 @@ export const TipoPecaComp: React.FC<NomeTipoPeca> = ({ nomeTipo, tipos, selecion
                             key={id}
                             className="card"
                             onClick={() => selecionadaPeca(peca)}>
-                            <h3>{peca.subTipo}</h3>
+                            <h3>{peca.tipo}</h3>
                             <p>Preço: R${peca.preco.toFixed(2)}</p>
                         </div>
 

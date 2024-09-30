@@ -1,5 +1,4 @@
 import './App.css';
-import * as React from "react";
 import Rotas from "./components/pages/Rotas";
 import background from '../src/img/bgcontainer.jpg';
 

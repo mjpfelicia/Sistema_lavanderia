@@ -1,5 +1,5 @@
 
-.modal-overlay {
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,9 +11,9 @@
     align-items: center;
   }
   
-  .modal-edit-client {
+  .modalContent {
     background: white;
-    padding: 20px;
+    padding: 3rem;
     border-radius: 8px;
     position: relative;
     box-sizing: content-box;
@@ -21,7 +21,15 @@
     max-height: 100vh; /* Limita a altura máxima do modal */
     overflow-y: auto; /* Adiciona scroll vertical se o conteúdo exceder a altura */
   }
+  .cards-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
   
+  }
   .close-button {
     position: absolute;
     top: 10px;

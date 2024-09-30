@@ -1,4 +1,5 @@
 import React from 'react';
+import classe from './ModalServico.module.css';
 
 interface ModalProps {
   onClose: () => void;
@@ -7,11 +8,11 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="close-button" onClick={onClose}>X</button>
+    <div className={classe.overlay}   onClick={onClose}>
+      <div className={classe.modalContent} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
+        <button className="close-button" onClick={onClose}>X</button>
     </div>
   );
 };

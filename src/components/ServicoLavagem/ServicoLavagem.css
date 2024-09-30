@@ -7,7 +7,7 @@
   justify-content: space-around;
   align-items: flex-start;
   gap: 1rem;
-margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .cards-container {
@@ -22,9 +22,9 @@ margin-top: 2rem;
 
 .card {
   border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px;
-  width: 150px;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 20rem;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -48,4 +48,16 @@ margin-top: 2rem;
 .card p {
   margin: 8px 0 0;
   font-size: 1em;
+}
+
+.resumo {
+  margin-right: 1rem;
+  width: 40%;
+  background: white;
+  border-radius: 5px;
+
+}
+
+li {
+  list-style: none
 }
