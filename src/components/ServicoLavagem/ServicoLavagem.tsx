@@ -20,52 +20,56 @@ export type Peca = {
 };
 export type SubTipos =
   | "CAMISA 1"
-  | "CAMISA 2"
+  | "CAMISA ESPECIAL"
+  | "CAMISA SOCIAL"
   | "CALCA 1"
-  | "CALCA 2"
+  | "CALCA ESPECIAL"
+  | "CALCA SOCIAL"
   | "VESTIDO 1"
-  | "VESTIDO 2"
+  | "VESTIDO ESPECIAL"
+  | "VESTIDO DE RENDA"
   | "JAQUETA 1"
-  | "JAQUETA 2"
+  | "JAQUETA ESPECIAL"
+  | "JAQUETA FORRADA"
   | "JALECO 1"
-  | "JALECO 2"
+  | "JALECO ESPECIAL"
+  | "JALECO AVENTAL"
   | "CAMA 1"
-  | "CAMA 2";
+  | "LENÇOL"
+  | "EDREDOM";
 
 const pecasSimilares: { [key in TipoPeca]: Peca[] } = {
   CAMISA: [
     { id: 7, tipo: "CAMISA", subTipo: 'CAMISA 1', preco: 25.0 },
-    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA 2', preco: 28.0 },
-    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA 2', preco: 28.0 },
+    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA ESPECIAL', preco: 29.0 },
+    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA SOCIAL', preco: 29.0 },
   ],
   CALCA: [
     { id: 9, tipo: "CALCA", subTipo: 'CALCA 1', preco: 15.0 },
-    { id: 10, tipo: "CALCA", subTipo: 'CALCA 1', preco: 18.0 },
-    { id: 10, tipo: "CALCA", subTipo: 'CALCA 2', preco: 18.0 },
+    { id: 10, tipo: "CALCA", subTipo: 'CALCA ESPECIAL', preco: 18.0 },
+    { id: 10, tipo: "CALCA", subTipo: 'CALCA SOCIAL', preco: 19.0 },
   ],
   VESTIDO: [
     { id: 11, tipo: "VESTIDO", subTipo: 'VESTIDO 1', preco: 35.0 },
-    { id: 12, tipo: "VESTIDO", subTipo: 'VESTIDO 2', preco: 32.0 },
-    { id: 12, tipo: "VESTIDO", subTipo: 'VESTIDO 2', preco: 32.0 },
+    { id: 12, tipo: "VESTIDO", subTipo: 'VESTIDO ESPECIAL', preco: 32.0 },
+    { id: 12, tipo: "VESTIDO", subTipo: 'VESTIDO DE RENDA', preco: 32.0 },
   ],
   JAQUETA: [
-    { id: 13, tipo: "JAQUETA", subTipo: 'JAQUETA 2', preco: 45.0 },
-    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA 1', preco: 50.0 },
-    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA 2', preco: 50.0 },
+    { id: 13, tipo: "JAQUETA", subTipo: 'JAQUETA ESPECIAL', preco: 45.0 },
+    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA 1', preco: 55.0 },
+    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA FORRADA', preco: 50.0 },
   ],
   CAMA: [
     { id: 17, tipo: "CAMA", subTipo: 'CAMA 1', preco: 42.0 },
-    { id: 18, tipo: "CAMA", subTipo: 'CAMA 2', preco: 42.0 },
-    { id: 18, tipo: "CAMA", subTipo: 'CAMA 2', preco: 42.0 },
-    { id: 18, tipo: "CAMA", subTipo: 'CAMA 2', preco: 42.0 },
-    { id: 18, tipo: "CAMA", subTipo: 'CAMA 1', preco: 42.0 },
+    { id: 18, tipo: "CAMA", subTipo: 'LENÇOL', preco: 42.0 },
+    { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0 },
+
   ],
   JALECO: [
     { id: 15, tipo: "JALECO", subTipo: 'JALECO 1', preco: 42.0 },
-    { id: 16, tipo: "JALECO", subTipo: 'JALECO 1', preco: 44.0 },
-    { id: 16, tipo: "JALECO", subTipo: 'JALECO 1', preco: 44.0 },
-    { id: 16, tipo: "JALECO", subTipo: 'JALECO 2', preco: 44.0 },
-    { id: 16, tipo: "JALECO", subTipo: 'JALECO 2', preco: 44.0 },
+    { id: 16, tipo: "JALECO", subTipo: 'JALECO ESPECIAL', preco: 48.0 },
+    { id: 16, tipo: "JALECO", subTipo: 'JALECO AVENTAL', preco: 44.0 },
+
   ]
 };
 

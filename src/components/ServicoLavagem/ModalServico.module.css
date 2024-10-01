@@ -1,42 +1,53 @@
-
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modalContent {
-    background: white;
-    padding: 3rem;
-    border-radius: 8px;
-    position: relative;
-    box-sizing: content-box;
-    width: 80%;
-    max-height: 100vh; /* Limita a altura máxima do modal */
-    overflow-y: auto; /* Adiciona scroll vertical se o conteúdo exceder a altura */
-  }
-  .cards-container {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-  
-  }
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background: rgba(0, 0, 0, 0.5); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+  z-index: 1000; 
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem;
+    margin-left: 5rem;
+    margin-bottom: 20rem;
+  border-radius: 8px;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+   overflow-y: auto; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.cards-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333; 
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: #007bff; 
+}
