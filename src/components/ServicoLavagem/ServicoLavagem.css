@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* Estilos Gerais */
 .Servicodelavagem {
   margin-top: 1rem;
+  font-family: Montserrat;
+  font-weight: 400;
 }
 
 .content {
@@ -17,10 +22,11 @@
   align-items: center;
   justify-content: center;
   align-content: center;
-
 }
 
 .card {
+  justify-content: center;
+  align-items: center;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 2rem;
@@ -31,10 +37,19 @@
   transition: transform 0.2s;
 }
 
+.card img {
+  width: 5rem;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
 .card:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+
 .card.selected {
   border-color: #007bff;
   box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
@@ -43,6 +58,9 @@
 .card h3 {
   margin: 0;
   font-size: 1.2em;
+  font-family: Montserrat;
+  font-weight: 400;
+  
 }
 
 .card p {
@@ -55,13 +73,11 @@
   width: 40%;
   background: white;
   border-radius: 5px;
-
 }
 
 li {
-  list-style: none
+  list-style: none;
 }
-
 
 /* Responsividade */
 @media (max-width: 768px) {
