@@ -56,7 +56,7 @@ export type SubTipos =
 const pecasSimilares: { [key in TipoPeca]: Peca[] } = {
   CAMISA: [
     { id: 7, tipo: "CAMISA", subTipo: 'CAMISA 1', preco: 25.0, imagem: camisa },
-    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA ESPECIAL', preco: 29.0, imagem: camisaE},
+    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA ESPECIAL', preco: 29.0, imagem: camisaE },
     { id: 8, tipo: "CAMISA", subTipo: 'CAMISA SOCIAL', preco: 29.0, imagem: peca },
   ],
   CALCA: [
@@ -126,6 +126,7 @@ const ServicoLavagem: React.FC = () => {
 
   const resumo = useMemo(() => {
     const resumoMap: { [key: string]: { quantidade: number; precoTotal: number } } = {};
+
     carrinho.forEach((peca) => {
       if (resumoMap[peca.subTipo]) {
         resumoMap[peca.subTipo].quantidade += 1;
@@ -151,23 +152,15 @@ const ServicoLavagem: React.FC = () => {
   const confirmarPagamento = useCallback(() => {
     setEtapa('impressao');
   }, []);
+  
+  const handlePrint = () => {
+    window.print();
+  };
 
-  const imprimirTicket = useCallback(() => {
-    const idResumo = contadorResumo;
-    setContadorResumo(prev => prev + 1);
-    const ticket = `
-      Resumo ID: ${idResumo}
-      Cliente ID: ${gerarIdCliente()}
-      Total a pagar: R$${total.toFixed(2)}
-      Forma de Pagamento: ${pagamento}
-      Data de Entrega: ${dataEntrega}
-    `;
-    console.log(ticket);
 
-  }, [gerarIdCliente, total, pagamento, dataEntrega, contadorResumo]);
 
   return (
-    <div className='Servicodelavagem'>
+    <div className='ServicoLavagem'>
       <h2>Serviço de Lavagem de Roupas</h2>
       <div className='content'>
         {etapa === 'resumo' && (
@@ -191,13 +184,13 @@ const ServicoLavagem: React.FC = () => {
                 ))}
               </ul>
               <p>Total a pagar: R${total.toFixed(2)}</p>
-              <button onClick={finalizarResumo}>Finalizar</button>
+              <button onClick={finalizarResumo}>Finalizar Resumo</button>
             </div>
           </>
         )}
 
         {etapa === 'pagamento' && (
-          <div>
+          <div className="pagamento">
             <h3>Forma de Pagamento e Data de Entrega</h3>
             <label>
               Forma de Pagamento:
@@ -222,16 +215,24 @@ const ServicoLavagem: React.FC = () => {
         )}
 
         {etapa === 'impressao' && (
-          <div className="impressao">
-            <h3>Impressão do Ticket</h3>
-            <div>
-              <p>Resumo ID: {contadorResumo}</p>
-              <p>Cliente ID: {contadorCliente}</p>
-              <p>Total a pagar: R${total.toFixed(2)}</p>
-              <p>Forma de Pagamento: {pagamento}</p>
-              <p>Data de Entrega: {dataEntrega}</p>
+          <div id="printableArea" >
+            <div className="impressao">
+              <h3>Impressão do Ticket</h3>
+              <div className="ticket">
+                <p>Resumo ID: {contadorResumo}</p>
+                <p>Cliente ID: {contadorCliente}</p>
+                <p>Serviços:</p>
+                <ul>
+                  {carrinho.map((peca, index) => (
+                    <li key={index}>{peca.subTipo} - R${peca.preco.toFixed(2)}</li>
+                  ))}
+                </ul>
+                <p>Total a pagar: R${total.toFixed(2)}</p>
+                <p>Forma de Pagamento: {pagamento || 'Não pago'}</p>
+                <p>Data de Entrega: {dataEntrega || 'Não definida'}</p>
+              </div>
+              <button onClick={handlePrint}>Imprimir Ticket</button>
             </div>
-            <button onClick={imprimirTicket}>Imprimir Ticket</button>
           </div>
         )}
       </div>
@@ -254,5 +255,5 @@ const ServicoLavagem: React.FC = () => {
   );
 };
 
-
 export default ServicoLavagem;
+

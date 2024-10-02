@@ -92,6 +92,9 @@
       "cep": "05782351",
       "estado": "São Paulo",
       "bairro": "Chácara Nossa Senhora do Bom Conselho"
+    },
+    {
+      "id": "398e"
     }
   ],
   "deliverys": [
@@ -108,13 +111,14 @@
       "deliveryData": "2024/09/27"
     }
   ],
-  "tipoPecas":[
+  "tipoPecas": [
     {
-      "nome":"Calça",
-      "descricao":"calça social",
-      "cor":"branco",
-      "tamanho":42,
-      "marca":"Zara"
+      "nome": "Calça",
+      "descricao": "calça social",
+      "cor": "branco",
+      "tamanho": 42,
+      "marca": "Zara",
+      "id": "b1e4"
     }
   ]
 }
