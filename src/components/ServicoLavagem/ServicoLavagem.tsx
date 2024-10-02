@@ -2,14 +2,18 @@ import React, { useState, useMemo, useCallback } from 'react';
 import './ServicoLavagem.css';
 import ModalS from '../ServicoLavagem/modalServico';
 import '../ServicoLavagem/ServicoLavagem.css'
-import Cliente from '../pages/DetalhesCliente/Cliente';
 import peca from '../../img/peca.png';
-import vestidoSimples from '../../img/vestidoSimple.jpg';
-import vestidoEspecial from '../../img/vestidoEspecial,.jpg';
-import vestidoRenda from '../../img/vestidoRenda.jpg';
+import camisa from '../../img/camisa.jpg';
+import camisaE from '../../img/camisaEspecial.png';
 import calcaEspecial from '../../img/calcaEspecial.jpg';
 import calcaSimples from '../../img/calcaSimples.png';
-import { Modal } from 'react-bootstrap';
+import vestidoSimples from '../../img/vestidoSimple.jpg';
+import vestidoEspecial from '../../img/vestidoEspecial.jpg';
+import vestidoRenda from '../../img/vestidoRenda.jpg';
+import jaqueta from '../../img/jaquetaS.png';
+import jaquetaE from '../../img/jaquetaE.jpg';
+import jaquetaS from '../../img/jaqueta.jpg';
+
 
 
 
@@ -51,8 +55,8 @@ export type SubTipos =
 // Dados das peças similares
 const pecasSimilares: { [key in TipoPeca]: Peca[] } = {
   CAMISA: [
-    { id: 7, tipo: "CAMISA", subTipo: 'CAMISA 1', preco: 25.0, imagem: peca },
-    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA ESPECIAL', preco: 29.0, imagem: peca },
+    { id: 7, tipo: "CAMISA", subTipo: 'CAMISA 1', preco: 25.0, imagem: camisa },
+    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA ESPECIAL', preco: 29.0, imagem: camisaE},
     { id: 8, tipo: "CAMISA", subTipo: 'CAMISA SOCIAL', preco: 29.0, imagem: peca },
   ],
   CALCA: [
@@ -66,9 +70,9 @@ const pecasSimilares: { [key in TipoPeca]: Peca[] } = {
     { id: 12, tipo: "VESTIDO", subTipo: 'VESTIDO DE RENDA', preco: 32.0, imagem: vestidoRenda },
   ],
   JAQUETA: [
-    { id: 13, tipo: "JAQUETA", subTipo: 'JAQUETA ESPECIAL', preco: 45.0, imagem: peca },
-    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA 1', preco: 55.0, imagem: peca },
-    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA FORRADA', preco: 50.0, imagem: peca },
+    { id: 13, tipo: "JAQUETA", subTipo: 'JAQUETA ESPECIAL', preco: 45.0, imagem: jaqueta },
+    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA 1', preco: 55.0, imagem: jaquetaE },
+    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA FORRADA', preco: 50.0, imagem: jaqueta },
   ],
   CAMA: [
     { id: 17, tipo: "CAMA", subTipo: 'CAMA 1', preco: 42.0, imagem: peca },
@@ -122,7 +126,6 @@ const ServicoLavagem: React.FC = () => {
 
   const resumo = useMemo(() => {
     const resumoMap: { [key: string]: { quantidade: number; precoTotal: number } } = {};
-
     carrinho.forEach((peca) => {
       if (resumoMap[peca.subTipo]) {
         resumoMap[peca.subTipo].quantidade += 1;
@@ -160,7 +163,7 @@ const ServicoLavagem: React.FC = () => {
       Data de Entrega: ${dataEntrega}
     `;
     console.log(ticket);
-    
+
   }, [gerarIdCliente, total, pagamento, dataEntrega, contadorResumo]);
 
   return (
@@ -219,7 +222,7 @@ const ServicoLavagem: React.FC = () => {
         )}
 
         {etapa === 'impressao' && (
-          <div>
+          <div className="impressao">
             <h3>Impressão do Ticket</h3>
             <div>
               <p>Resumo ID: {contadorResumo}</p>

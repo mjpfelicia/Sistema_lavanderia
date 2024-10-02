@@ -67,9 +67,10 @@
 }
 
 .resumo {
-  margin-right: 1rem;
   width: 40%;
-  background: white;
+  margin-right: 1rem;
+  padding: 2rem 0;
+  background: var(--color_branca);
   border-radius: 5px;
 }
 
@@ -89,3 +90,45 @@ li {
     margin: 1rem 0;
   }
 }
+
+
+
+/* teste  */
+
+
+
+
+.card-image {
+  max-width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.resumo, .pagamento, .impressao {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.resumo h3, .pagamento h3, .impressao h3 {
+  margin-bottom: 20px;
+}
+
+.resumo ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.resumo li {
+  margin-bottom: 10px;
+}
+
+.pagamento label, .impressao .ticket p {
+  display: block;
+  margin-bottom: 10px;
+}
+
