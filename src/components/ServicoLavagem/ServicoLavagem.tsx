@@ -152,11 +152,10 @@ const ServicoLavagem: React.FC = () => {
   const confirmarPagamento = useCallback(() => {
     setEtapa('impressao');
   }, []);
-  
+
   const handlePrint = () => {
     window.print();
   };
-
 
 
   return (
@@ -214,27 +213,29 @@ const ServicoLavagem: React.FC = () => {
           </div>
         )}
 
-        {etapa === 'impressao' && (
-          <div id="printableArea" >
-            <div className="impressao">
-              <h3>Impressão do Ticket</h3>
-              <div className="ticket">
-                <p>Resumo ID: {contadorResumo}</p>
-                <p>Cliente ID: {contadorCliente}</p>
-                <p>Serviços:</p>
-                <ul>
-                  {carrinho.map((peca, index) => (
-                    <li key={index}>{peca.subTipo} - R${peca.preco.toFixed(2)}</li>
-                  ))}
-                </ul>
-                <p>Total a pagar: R${total.toFixed(2)}</p>
-                <p>Forma de Pagamento: {pagamento || 'Não pago'}</p>
-                <p>Data de Entrega: {dataEntrega || 'Não definida'}</p>
-              </div>
-              <button onClick={handlePrint}>Imprimir Ticket</button>
-            </div>
-          </div>
-        )}
+{etapa === 'impressao' && (
+  <div id="printableArea">
+    <div className="impressao">
+      <h3>Impressão do Ticket</h3>
+      <div className="ticket">
+        <p>Resumo ID: {contadorResumo}</p>
+        <p>Cliente ID: {contadorCliente}</p>
+        <p>Serviços:</p>
+        <ul>
+          {carrinho.map((peca, index) => (
+            <li key={index}>{peca.subTipo} - R${peca.preco.toFixed(2)}</li>
+          ))}
+        </ul>
+        <p>Total: R${total.toFixed(2)} {pagamento ? '(Pago)' : '(Não pago)'}</p>
+        <p>Forma de Pagamento: {pagamento || 'Não pago'}</p>
+        <p>Data de Entrega: {dataEntrega || 'Não definida'}</p>
+      </div>
+      <button onClick={handlePrint}>Imprimir Ticket</button>
+    </div>
+  </div>
+)}
+
+
       </div>
 
       {pecaSelecionada && (
@@ -256,4 +257,3 @@ const ServicoLavagem: React.FC = () => {
 };
 
 export default ServicoLavagem;
-
