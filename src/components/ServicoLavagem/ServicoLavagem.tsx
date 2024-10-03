@@ -1,8 +1,9 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, ReactNode } from 'react';
 import './ServicoLavagem.css';
 import ModalS from '../ServicoLavagem/modalServico';
 import '../ServicoLavagem/ServicoLavagem.css'
 import peca from '../../img/peca.png';
+import BLAZER from '../../img/blazer.png';
 import camisa from '../../img/camisa.jpg';
 import camisaE from '../../img/camisaEspecial.png';
 import calcaEspecial from '../../img/calcaEspecial.jpg';
@@ -12,20 +13,26 @@ import vestidoEspecial from '../../img/vestidoEspecial.jpg';
 import vestidoRenda from '../../img/vestidoRenda.jpg';
 import jaqueta from '../../img/jaquetaS.png';
 import jaquetaE from '../../img/jaquetaE.jpg';
-import jaquetaS from '../../img/jaqueta.jpg';
-
+import jogol from '../../img/jogolencol.png';
+import edredom from '../../img/edredom.png';
+import lencol from '../../img/lencol.jpg';
+import jaleco from '../../img/jaleco.png';
+import toalham from '../../img/toa.png';
 
 
 
 export type TipoPeca =
+  | "BLAZER"
   | "CAMISA"
   | "CALCA"
   | "VESTIDO"
   | "JAQUETA"
   | "JALECO"
-  | "CAMA";
+  | "CAMA"
+  | "MESA";
 
 export type Peca = {
+  [x: string]: ReactNode;
   id: number;
   tipo: TipoPeca;
   subTipo: SubTipos;
@@ -33,6 +40,8 @@ export type Peca = {
   imagem: string;
 };
 export type SubTipos =
+  | "BLAZER"
+  | "BLAZER ESPECIAL"
   | "CAMISA 1"
   | "CAMISA ESPECIAL"
   | "CAMISA SOCIAL"
@@ -50,10 +59,18 @@ export type SubTipos =
   | "JALECO AVENTAL"
   | "CAMA 1"
   | "LENÇOL"
-  | "EDREDOM";
+  | "EDREDOM"
+  | "TOALHAS"
+  | "TOALHAS DE RENDA"
+  | "MESA";
 
 // Dados das peças similares
 const pecasSimilares: { [key in TipoPeca]: Peca[] } = {
+  BLAZER: [
+    { id: 15, tipo: "BLAZER", subTipo: 'BLAZER ESPECIAL', preco: 42.0, imagem: BLAZER },
+    { id: 16, tipo: "BLAZER", subTipo: 'BLAZER ESPECIAL', preco: 48.0, imagem: BLAZER },
+    { id: 16, tipo: "BLAZER", subTipo: 'BLAZER ESPECIAL', preco: 44.0, imagem: BLAZER },
+  ],
   CAMISA: [
     { id: 7, tipo: "CAMISA", subTipo: 'CAMISA 1', preco: 25.0, imagem: camisa },
     { id: 8, tipo: "CAMISA", subTipo: 'CAMISA ESPECIAL', preco: 29.0, imagem: camisaE },
@@ -74,15 +91,21 @@ const pecasSimilares: { [key in TipoPeca]: Peca[] } = {
     { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA 1', preco: 55.0, imagem: jaquetaE },
     { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA FORRADA', preco: 50.0, imagem: jaqueta },
   ],
-  CAMA: [
-    { id: 17, tipo: "CAMA", subTipo: 'CAMA 1', preco: 42.0, imagem: peca },
-    { id: 18, tipo: "CAMA", subTipo: 'LENÇOL', preco: 42.0, imagem: peca },
-    { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: peca },
-  ],
   JALECO: [
-    { id: 15, tipo: "JALECO", subTipo: 'JALECO 1', preco: 42.0, imagem: peca },
-    { id: 16, tipo: "JALECO", subTipo: 'JALECO ESPECIAL', preco: 48.0, imagem: peca },
-    { id: 16, tipo: "JALECO", subTipo: 'JALECO AVENTAL', preco: 44.0, imagem: peca },
+    { id: 15, tipo: "JALECO", subTipo: 'JALECO 1', preco: 42.0, imagem: jaleco },
+    { id: 16, tipo: "JALECO", subTipo: 'JALECO ESPECIAL', preco: 48.0, imagem: jaleco },
+    { id: 16, tipo: "JALECO", subTipo: 'JALECO AVENTAL', preco: 44.0, imagem: jaleco },
+  ],
+  CAMA: [
+    { id: 17, tipo: "CAMA", subTipo: 'CAMA 1', preco: 42.0, imagem: jogol },
+    { id: 18, tipo: "CAMA", subTipo: 'LENÇOL', preco: 42.0, imagem: lencol },
+    { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: edredom },
+  ],
+
+  MESA: [
+    { id: 17, tipo: "CAMA", subTipo: 'CAMA 1', preco: 42.0, imagem: toalham },
+    { id: 18, tipo: "CAMA", subTipo: 'LENÇOL', preco: 42.0, imagem: toalham },
+    { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: toalham },
   ]
 };
 
@@ -169,10 +192,10 @@ const ServicoLavagem: React.FC = () => {
                 <div key={idx} className="card" onClick={() => abrirModal(pecas[0])}>
                   <img src={pecas[0].imagem} alt={pecas[0].subTipo} className="card-image" />
                   <h3>{nome}</h3>
+                  <p>{pecas[0].descricao}</p> {/* Adicionei um parágrafo para conteúdo adicional */}
                 </div>
               ))}
             </div>
-
             <div className="resumo">
               <h3>Resumo</h3>
               <ul>
@@ -213,31 +236,28 @@ const ServicoLavagem: React.FC = () => {
           </div>
         )}
 
-{etapa === 'impressao' && (
-  <div id="printableArea">
-    <div className="impressao">
-      <h3>Impressão do Ticket</h3>
-      <div className="ticket">
-        <p>Resumo ID: {contadorResumo}</p>
-        <p>Cliente ID: {contadorCliente}</p>
-        <p>Serviços:</p>
-        <ul>
-          {carrinho.map((peca, index) => (
-            <li key={index}>{peca.subTipo} - R${peca.preco.toFixed(2)}</li>
-          ))}
-        </ul>
-        <p>Total: R${total.toFixed(2)} {pagamento ? '(Pago)' : '(Não pago)'}</p>
-        <p>Forma de Pagamento: {pagamento || 'Não pago'}</p>
-        <p>Data de Entrega: {dataEntrega || 'Não definida'}</p>
+        {etapa === 'impressao' && (
+          <div id="printableArea">
+            <div className="impressao">
+              <h3>Impressão do Ticket</h3>
+              <div className="ticket">
+                <p>Resumo ID: {contadorResumo}</p>
+                <p>Cliente ID: {contadorCliente}</p>
+                <p>Serviços:</p>
+                <ul>
+                  {carrinho.map((peca, index) => (
+                    <li key={index}>{peca.subTipo} - R${peca.preco.toFixed(2)}</li>
+                  ))}
+                </ul>
+                <p>Total: R${total.toFixed(2)} {pagamento ? '(Pago)' : '(Não pago)'}</p>
+                <p>Forma de Pagamento: {pagamento || 'Não pago'}</p>
+                <p>Data de Entrega: {dataEntrega || 'Não definida'}</p>
+              </div>
+              <button onClick={handlePrint}>Imprimir Ticket</button>
+            </div>
+          </div>
+        )}
       </div>
-      <button onClick={handlePrint}>Imprimir Ticket</button>
-    </div>
-  </div>
-)}
-
-
-      </div>
-
       {pecaSelecionada && (
         <ModalS onClose={fecharModal}>
           <h3>Peças Similares</h3>
