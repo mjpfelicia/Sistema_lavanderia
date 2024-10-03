@@ -126,27 +126,22 @@ const ServicoLavagem: React.FC = () => {
     setQuantidades(prev => ({ ...prev, [peca.subTipo]: novaQuantidade }));
     adicionarItem(peca);
   }, [quantidades]);
-
   const adicionarItem = useCallback((peca: Peca) => {
     const pecaComId = { ...peca, id: contadorPeca };
     setCarrinho(prevItems => [...prevItems, pecaComId]);
     setContadorPeca(prev => prev + 1);
   }, [contadorPeca]);
-
   const abrirModal = useCallback((peca: Peca) => {
     setPecaSelecionada(peca);
     setModalAberto(true);
   }, []);
-
   const fecharModal = useCallback(() => {
     setModalAberto(false);
     setPecaSelecionada(null);
   }, []);
-
   const total = useMemo(() => {
     return carrinho.reduce((acc, peca) => acc + peca.preco, 0);
   }, [carrinho]);
-
   const resumo = useMemo(() => {
     const resumoMap: { [key: string]: { quantidade: number; precoTotal: number } } = {};
 
@@ -161,28 +156,22 @@ const ServicoLavagem: React.FC = () => {
 
     return resumoMap;
   }, [carrinho]);
-
   const gerarIdCliente = useCallback(() => {
     const idCliente = contadorCliente;
     setContadorCliente(prev => prev + 1);
     return idCliente;
   }, [contadorCliente]);
-
   const finalizarResumo = useCallback(() => {
     setEtapa('pagamento');
   }, []);
-
   const confirmarPagamento = useCallback(() => {
     setEtapa('impressao');
   }, []);
-
   const handlePrint = () => {
     window.print();
   };
-
-
   return (
-    <div className='ServicoLavagem'>
+    <div className='Servicodelavagem'>
       <h2>Serviço de Lavagem de Roupas</h2>
       <div className='content'>
         {etapa === 'resumo' && (
@@ -192,7 +181,7 @@ const ServicoLavagem: React.FC = () => {
                 <div key={idx} className="card" onClick={() => abrirModal(pecas[0])}>
                   <img src={pecas[0].imagem} alt={pecas[0].subTipo} className="card-image" />
                   <h3>{nome}</h3>
-                  <p>{pecas[0].descricao}</p> {/* Adicionei um parágrafo para conteúdo adicional */}
+                  <p>{pecas[0].descricao}</p>
                 </div>
               ))}
             </div>
@@ -226,11 +215,7 @@ const ServicoLavagem: React.FC = () => {
             </label>
             <label>
               Data de Entrega:
-              <input
-                type="date"
-                value={dataEntrega}
-                onChange={(e) => setDataEntrega(e.target.value)}
-              />
+              <input type="date" value={dataEntrega} onChange={(e) => setDataEntrega(e.target.value)} />
             </label>
             <button onClick={confirmarPagamento}>Confirmar Pagamento</button>
           </div>
