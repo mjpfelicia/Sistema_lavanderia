@@ -2,6 +2,7 @@ import React, { useState, useMemo, useCallback, ReactNode } from 'react';
 import './ServicoLavagem.css';
 import ModalS from '../ServicoLavagem/modalServico';
 import '../ServicoLavagem/ServicoLavagem.css'
+// imagens
 import peca from '../../img/peca.png';
 import BLAZER from '../../img/blazer.png';
 import camisa from '../../img/camisa.jpg';
@@ -126,22 +127,27 @@ const ServicoLavagem: React.FC = () => {
     setQuantidades(prev => ({ ...prev, [peca.subTipo]: novaQuantidade }));
     adicionarItem(peca);
   }, [quantidades]);
+
   const adicionarItem = useCallback((peca: Peca) => {
     const pecaComId = { ...peca, id: contadorPeca };
     setCarrinho(prevItems => [...prevItems, pecaComId]);
     setContadorPeca(prev => prev + 1);
   }, [contadorPeca]);
+
   const abrirModal = useCallback((peca: Peca) => {
     setPecaSelecionada(peca);
     setModalAberto(true);
   }, []);
+
   const fecharModal = useCallback(() => {
     setModalAberto(false);
     setPecaSelecionada(null);
   }, []);
+
   const total = useMemo(() => {
     return carrinho.reduce((acc, peca) => acc + peca.preco, 0);
   }, [carrinho]);
+
   const resumo = useMemo(() => {
     const resumoMap: { [key: string]: { quantidade: number; precoTotal: number } } = {};
 
@@ -156,20 +162,26 @@ const ServicoLavagem: React.FC = () => {
 
     return resumoMap;
   }, [carrinho]);
+
   const gerarIdCliente = useCallback(() => {
     const idCliente = contadorCliente;
     setContadorCliente(prev => prev + 1);
     return idCliente;
   }, [contadorCliente]);
+
   const finalizarResumo = useCallback(() => {
     setEtapa('pagamento');
   }, []);
+
   const confirmarPagamento = useCallback(() => {
     setEtapa('impressao');
   }, []);
+
   const handlePrint = () => {
     window.print();
   };
+
+
   return (
     <div className='Servicodelavagem'>
       <h2>Serviço de Lavagem de Roupas</h2>
@@ -185,6 +197,8 @@ const ServicoLavagem: React.FC = () => {
                 </div>
               ))}
             </div>
+
+
             <div className="resumo">
               <h3>Resumo</h3>
               <ul>
@@ -199,6 +213,7 @@ const ServicoLavagem: React.FC = () => {
             </div>
           </>
         )}
+
 
         {etapa === 'pagamento' && (
           <div className="pagamento">
@@ -255,6 +270,7 @@ const ServicoLavagem: React.FC = () => {
               </div>
             ))}
           </div>
+
         </ModalS>
       )}
     </div>

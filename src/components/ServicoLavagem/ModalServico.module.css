@@ -17,7 +17,7 @@
   background: white;
   padding: 2rem;
   margin-left: 2rem;
-  margin-bottom: 20rem;
+  margin-bottom: 5rem;
   border-radius: 8px;
   position: relative;
   box-sizing: border-box;
@@ -54,4 +54,7 @@
 
 .closeButton:hover {
   color: #007bff;
+}
+.whapper{
+background:red;
 }

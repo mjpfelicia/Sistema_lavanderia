@@ -12,7 +12,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
       <div className={classe.modalContent} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
-        <button className={classe.closeButton} onClick={onClose}>X</button>
+        <button className={classe.closeButton} onClick={onClose}>Fechar</button>
     </div>
   );
 };
