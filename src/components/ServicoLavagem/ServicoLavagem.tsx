@@ -71,41 +71,70 @@ const pecasSimilares: { [key in TipoPeca]: Peca[] } = {
     { id: 15, tipo: "BLAZER", subTipo: 'BLAZER ESPECIAL', preco: 42.0, imagem: BLAZER },
     { id: 16, tipo: "BLAZER", subTipo: 'BLAZER ESPECIAL', preco: 48.0, imagem: BLAZER },
     { id: 16, tipo: "BLAZER", subTipo: 'BLAZER ESPECIAL', preco: 44.0, imagem: BLAZER },
+    { id: 15, tipo: "BLAZER", subTipo: 'BLAZER ESPECIAL', preco: 42.0, imagem: BLAZER },
+    { id: 16, tipo: "BLAZER", subTipo: 'BLAZER ESPECIAL', preco: 48.0, imagem: BLAZER },
+    { id: 16, tipo: "BLAZER", subTipo: 'BLAZER ESPECIAL', preco: 44.0, imagem: BLAZER },
   ],
   CAMISA: [
     { id: 7, tipo: "CAMISA", subTipo: 'CAMISA 1', preco: 25.0, imagem: camisa },
     { id: 8, tipo: "CAMISA", subTipo: 'CAMISA ESPECIAL', preco: 29.0, imagem: camisaE },
     { id: 8, tipo: "CAMISA", subTipo: 'CAMISA SOCIAL', preco: 29.0, imagem: peca },
+    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA ESPECIAL', preco: 29.0, imagem: camisaE },
+    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA SOCIAL', preco: 29.0, imagem: peca },
+    { id: 8, tipo: "CAMISA", subTipo: 'CAMISA SOCIAL', preco: 29.0, imagem: peca },
+
   ],
   CALCA: [
     { id: 9, tipo: "CALCA", subTipo: 'CALCA 1', preco: 15.0, imagem: calcaSimples },
     { id: 10, tipo: "CALCA", subTipo: 'CALCA ESPECIAL', preco: 18.0, imagem: calcaEspecial },
     { id: 10, tipo: "CALCA", subTipo: 'CALCA SOCIAL', preco: 19.0, imagem: calcaEspecial },
+    { id: 10, tipo: "CALCA", subTipo: 'CALCA ESPECIAL', preco: 18.0, imagem: calcaEspecial },
+    { id: 10, tipo: "CALCA", subTipo: 'CALCA SOCIAL', preco: 19.0, imagem: calcaEspecial },
+    { id: 10, tipo: "CALCA", subTipo: 'CALCA SOCIAL', preco: 19.0, imagem: calcaEspecial },
+
   ],
   VESTIDO: [
     { id: 11, tipo: "VESTIDO", subTipo: 'VESTIDO 1', preco: 35.0, imagem: vestidoSimples },
     { id: 12, tipo: "VESTIDO", subTipo: 'VESTIDO ESPECIAL', preco: 32.0, imagem: vestidoEspecial },
     { id: 12, tipo: "VESTIDO", subTipo: 'VESTIDO DE RENDA', preco: 32.0, imagem: vestidoRenda },
+    { id: 12, tipo: "VESTIDO", subTipo: 'VESTIDO DE RENDA', preco: 32.0, imagem: vestidoRenda },
+    { id: 12, tipo: "VESTIDO", subTipo: 'VESTIDO DE RENDA', preco: 32.0, imagem: vestidoRenda },
+    { id: 12, tipo: "VESTIDO", subTipo: 'VESTIDO DE RENDA', preco: 32.0, imagem: vestidoRenda },
+
   ],
   JAQUETA: [
     { id: 13, tipo: "JAQUETA", subTipo: 'JAQUETA ESPECIAL', preco: 45.0, imagem: jaqueta },
     { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA 1', preco: 55.0, imagem: jaquetaE },
     { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA FORRADA', preco: 50.0, imagem: jaqueta },
+    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA FORRADA', preco: 50.0, imagem: jaqueta },
+    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA FORRADA', preco: 50.0, imagem: jaqueta },
+    { id: 14, tipo: "JAQUETA", subTipo: 'JAQUETA FORRADA', preco: 50.0, imagem: jaqueta },
+
   ],
   JALECO: [
     { id: 15, tipo: "JALECO", subTipo: 'JALECO 1', preco: 42.0, imagem: jaleco },
     { id: 16, tipo: "JALECO", subTipo: 'JALECO ESPECIAL', preco: 48.0, imagem: jaleco },
     { id: 16, tipo: "JALECO", subTipo: 'JALECO AVENTAL', preco: 44.0, imagem: jaleco },
+    { id: 16, tipo: "JALECO", subTipo: 'JALECO AVENTAL', preco: 44.0, imagem: jaleco },
+    { id: 16, tipo: "JALECO", subTipo: 'JALECO AVENTAL', preco: 44.0, imagem: jaleco },
+    { id: 16, tipo: "JALECO", subTipo: 'JALECO AVENTAL', preco: 44.0, imagem: jaleco },
+
   ],
   CAMA: [
     { id: 17, tipo: "CAMA", subTipo: 'CAMA 1', preco: 42.0, imagem: jogol },
     { id: 18, tipo: "CAMA", subTipo: 'LENÇOL', preco: 42.0, imagem: lencol },
+    { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: edredom },
+    { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: edredom },
+    { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: edredom },
     { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: edredom },
   ],
 
   MESA: [
     { id: 17, tipo: "CAMA", subTipo: 'CAMA 1', preco: 42.0, imagem: toalham },
     { id: 18, tipo: "CAMA", subTipo: 'LENÇOL', preco: 42.0, imagem: toalham },
+    { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: toalham },
+    { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: toalham },
+    { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: toalham },
     { id: 18, tipo: "CAMA", subTipo: 'EDREDOM', preco: 40.0, imagem: toalham },
   ]
 };
@@ -197,23 +226,22 @@ const ServicoLavagem: React.FC = () => {
                 </div>
               ))}
             </div>
-
-
-            <div className="resumo">
-              <h3>Resumo</h3>
-              <ul>
-                {Object.entries(resumo).map(([subTipo, { quantidade, precoTotal }]) => (
-                  <li key={subTipo}>
-                    {subTipo}: {quantidade} peça(s) - R${precoTotal.toFixed(2)}
-                  </li>
-                ))}
-              </ul>
-              <p>Total a pagar: R${total.toFixed(2)}</p>
-              <button onClick={finalizarResumo}>Finalizar Resumo</button>
-            </div>
+            {carrinho.length > 0 && (
+              <div className="resumo">
+                <h3>Resumo</h3>
+                <ul>
+                  {Object.entries(resumo).map(([subTipo, { quantidade, precoTotal }]) => (
+                    <li key={subTipo}>
+                      {subTipo}: {quantidade} peça(s) - R${precoTotal.toFixed(2)}
+                    </li>
+                  ))}
+                </ul>
+                <p>Total a pagar: R${total.toFixed(2)}</p>
+                <button onClick={finalizarResumo}>Finalizar Resumo</button>
+              </div>
+            )}
           </>
         )}
-
 
         {etapa === 'pagamento' && (
           <div className="pagamento">
