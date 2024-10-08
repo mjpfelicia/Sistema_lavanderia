@@ -109,16 +109,181 @@
       "clienteId": "3",
       "deliveryTipo": "Retirada",
       "deliveryData": "2024/09/27"
+    },
+    {
+      "id": "a173",
+      "deliveryTipo": "Retirada",
+      "deliveryData": "2024/09/27"
     }
   ],
-  "tipoPecas": [
+  "pecas": [
     {
-      "nome": "Calça",
-      "descricao": "calça social",
-      "cor": "branco",
-      "tamanho": 42,
-      "marca": "Zara",
-      "id": "b1e4"
+      "id": "1",
+      "tipo": "CALÇA",
+      "subTipo": "CALÇA ESPECIAL",
+      "preco": 35,
+      "imagemUrl": "/assets/img/calcaESPECIAL.JPG"
+    },
+    {
+      "id": "1C1",
+      "tipo": "CALÇA",
+      "subTipo": "CALÇA JEANS",
+      "preco": 25.9,
+      "imagemUrl": "/assets/img/calcaEspecial.JPG"
+    },
+    {
+      "id": "1C2",
+      "tipo": "CALÇA",
+      "subTipo": "CALÇA SOCIAL",
+      "preco": 29.9,
+      "imagemUrl": "/assets/img/calcaSimples.png"
+    },
+    {
+      "id": "cm1",
+      "tipo": "CAMISA",
+      "subTipo": "CAMISA ESPECIAL",
+      "preco": 39.9,
+      "imagemUrl": "/assets/img/camisaEspecial.png"
+    },
+    {
+      "id": "cm2",
+      "tipo": "CAMISA",
+      "subTipo": "CAMISA SOCIAL",
+      "preco": 19.9,
+      "imagemUrl": "/assets/img/camisa1.jpg"
+    },
+    {
+      "id": "cm3",
+      "tipo": "CAMISA",
+      "subTipo": "CAMISA RENDA",
+      "preco": 49.9,
+      "imagemUrl": "/assets/img/camisaEspecial.png"
+    },
+    {
+      "id": "bl1",
+      "tipo": "BLAZER",
+      "subTipo": "BLAZER ESPECIAL",
+      "preco": 89.9,
+      "imagemUrl": "/assets/img/blazer.png"
+    },
+    {
+      "id": "bl2",
+      "tipo": "BLAZER",
+      "subTipo": "BLAZER RENDA",
+      "preco": 89.9,
+      "imagemUrl": "/assets/img/blazer.png"
+    },
+    {
+      "id": "bl3",
+      "tipo": "BLAZER",
+      "subTipo": "BLAZER",
+      "preco": 89.9,
+      "imagemUrl": "/assets/img/blazer.png"
+    },
+    {
+      "id": "v1",
+      "tipo": "VESTIDO",
+      "subTipo": "VESTIDO ESPECIAL",
+      "preco": 200.9,
+      "imagemUrl": "/assets/img/vestidoEspecial.jpg"
+    },
+    {
+      "id": "v2",
+      "tipo": "VESTIDO",
+      "subTipo": "VESTIDO RENDA",
+      "preco": 200.9,
+      "imagemUrl": "/assets/img/vestidoRenda.jpg"
+    },
+    {
+      "id": "v3",
+      "tipo": "VESTIDO",
+      "subTipo": "VESTIDO SIMPLES",
+      "preco": 200.9,
+      "imagemUrl": "/assets/img/vestidoSimples.jpg"
+    },
+    {
+      "id": "j1",
+      "tipo": "JAQUETA",
+      "subTipo": "JAQUETA SIMPLES",
+      "preco": 20.9,
+      "imagemUrl": "/assets/img/jaqueta.png"
+    },
+    {
+      "id": "J2",
+      "tipo": "JAQUETA",
+      "subTipo": "JAQUETA ESPECIAL",
+      "preco": 20.9,
+      "imagemUrl": "/assets/img/jaquetaE.jpg"
+    },
+    {
+      "id": "J3",
+      "tipo": "JAQUETA",
+      "subTipo": "JAQUETA RENDA",
+      "preco": 30.0,
+      "imagemUrl": "/assets/img/jaquetaS.png"
+    },
+    {
+      "id": "JA1",
+      "tipo": "JALECO",
+      "subTipo": "JALECO AVENTAL",
+      "preco": 10.0,
+      "imagemUrl": "/assets/img/jaleco.png"
+    },
+    {
+      "id": "JA2",
+      "tipo": "JALECO",
+      "subTipo": "JALECO DE RENDA",
+      "preco": 30.0,
+      "imagemUrl": "/assets/img/jaleco.png"
+    },
+    {
+      "id": "JA3",
+      "tipo": "JALECO",
+      "subTipo": "JALECO DE COZINHA",
+      "preco": 30.0,
+      "imagemUrl": "/assets/img/jaleco.png"
+    },
+    {
+      "id": "c1",
+      "tipo": "CAMA",
+      "subTipo": "EDREDOM",
+      "preco": 50.0,
+      "imagemUrl": "/assets/img/edredom.png"
+    },
+    {
+      "id": "c2",
+      "tipo": "CAMA",
+      "subTipo": "EDREDOM KING",
+      "preco": 60.0,
+      "imagemUrl": "/assets/img/edredom.png"
+    },
+    {
+      "id": "c3",
+      "tipo": "CAMA",
+      "subTipo": "EDREDOM QUEEN",
+      "preco": 30.0,
+      "imagemUrl": "/assets/img/edredom.png"
+    },
+    {
+      "id": "M1",
+      "tipo": "MESA",
+      "subTipo": "TOALHA BORDADA",
+      "preco": 30.0,
+      "imagemUrl": "/assets/img/toa.png"
+    },
+    {
+      "id": "M2",
+      "tipo": "MESA",
+      "subTipo": "TOALHA RENDA",
+      "preco": 30.0,
+      "imagemUrl": "/assets/img/toa.png"
+    },
+    {
+      "id": "M3",
+      "tipo": "MESA",
+      "subTipo": "TOALHA GRANDE",
+      "preco": 30.0,
+      "imagemUrl": "/assets/img/toa.png"
     }
   ]
 }

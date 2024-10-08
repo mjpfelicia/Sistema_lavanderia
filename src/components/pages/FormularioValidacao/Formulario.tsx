@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import classes from "./Formulario.module.css";
-import { Cliente, buscarCliente } from '../service/apiCliente';
+import { Cliente, buscarCliente } from '../../service/apiCliente';
 import ClienteComponent from '../DetalhesCliente/Cliente';
 
 interface FormData {

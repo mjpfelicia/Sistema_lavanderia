@@ -1,0 +1,47 @@
+###
+# listar peca
+GET http://localhost:3008/pecas
+
+### 
+# listar peca com clientes
+GET http://localhost:3008/pecas?_embed=cliente
+
+### 
+# Pegar peca por tipo
+GET http://localhost:3008/pecas?tipo=CALÇA
+
+###
+
+# Pegar peca 1
+GET http://localhost:3008/pecas/5cc3?_embed=cliente
+
+###
+# Criar peca
+POST http://localhost:3008/pecas
+content-type: application/json
+
+{
+  "tipo": "VESTIDO",
+  "subTipo": "VESTIDO ESPECIAL",
+  "preco": 200.9,
+  "imagemUrl": "/assets/img/vestido.jpg"
+}
+
+###
+# alterar dados do peca
+PUT http://localhost:3008/pecas/5cc3
+content-type: application/json
+
+{
+  "pecaTipo": "Retirada",
+  "pecaData": "2024/09/28"
+}
+
+###
+# busca peca
+
+GET http://localhost:3008/pecas?nome=João&telefone_like=12340000
+#GET http://localhost:3008/pecas?nome_like=Maria&telefone_like=99999999_sort=nome&_order=asc
+
+
+###

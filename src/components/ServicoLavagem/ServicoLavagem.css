@@ -28,11 +28,11 @@
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Distribui o espaço uniformemente */
+  justify-content: center;
   align-items: center;
   padding: 1rem;
-  width: 15rem;
-  height: 12rem!important; /* Altura fixa */
+  width: 14rem;
+  height: 12rem !important;
   border-radius: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -40,7 +40,7 @@
 }
 
 .card img {
-  width: 5rem;
+  width: 6rem;
   max-width: 100%;
   height: auto;
   border-radius: 8px;
@@ -69,111 +69,47 @@
   margin: 8px 0 0;
   font-size: 1em;
   text-align: center;
- }
+}
 
 li {
   list-style: none;
 }
 
-.resumo,
-.pagamento,
-.impressao {
+.totalizador {
   width: 100%;
   max-width: 400px;
   text-align: left;
-  padding: 1.2rem;
+  padding: 1.5rem;
   border: 1px solid var(--color-borde);
   border-radius: 8px;
   background-color: var(--color-bg-r-i);
-
 }
 
-.resumo h3,
-.pagamento h3,
-.impressao h3 {
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.resumo ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.resumo li {
-  margin-bottom: 0.6rem;
-}
-
-.pagamento label,
-.impressao .ticket p {
-  display: block;
-  margin-bottom: 0.8rem;
-}
-
-.pagamento select,
-.pagamento input[type="date"] {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.resumo button,
-.pagamento button,
-.impressao button {
+.pecas-selecionadas button {
   width: 100%;
   padding: 1rem;
   margin: 1rem 0;
-  background-color: var(--colorBtnCadastra);
-  color: var(--color_branca);
+  background-color: transparent;
+  color: var( --color-texto);
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+
 }
 
-.resumo button {
-  background: transparent;
-  color: var(--color-font);
+.total-container,
+.pecas-lista {
+  margin-top: 32px;
 }
 
-.pagamento button:hover,
-.impressao button:hover {
-  background-color: var(--colorBtnCadastra);
+.total-container p,
+.pecas-lista p {
+  margin: 6px 0;
 }
 
-.ticket {
-  background-color: var(--color_branca);
-  border: 1px solid var(--color-borde);
-  padding: 1.1rem;
-  border-radius: 8px;
-  margin-top: 1.5rem;
-  text-align: left;
-}
 
-.ticket p {
-  margin: 5px 0;
-}
 
-@media print {
-  body * {
-    visibility: hidden;
-  }
-
-  #printableArea,
-  #printableArea * {
-    visibility: visible;
-  }
-
-  #printableArea {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-}
 
 @media only screen and (max-width: 768px) {
   .content {
@@ -186,5 +122,5 @@ li {
     align-content: center;
     padding-bottom: 2rem;
   }
- 
+
 }

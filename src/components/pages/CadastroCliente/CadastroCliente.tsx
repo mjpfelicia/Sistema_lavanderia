@@ -1,6 +1,6 @@
 // src/components/CadastroCliente.tsx
 import { useState } from 'react';
-import { Cliente } from '../service/apiCliente';
+import { Cliente } from '../../service/apiCliente';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CadastroCliente/CadastroCliente.css";
 import CloseButton from '../../buttons/CloseButton';

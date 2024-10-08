@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import classes from '../DetalhesCliente/DetalhesCliente.module.css';
-import { Cliente as ClienteInterface } from '../service/apiCliente';
+import { Cliente as ClienteInterface } from '../../service/apiCliente';
 import AtualizaCliente from '../../AtualizaCliente';
 import Modal from '../../modal/modal';
 import BtnAtualiza from '../../buttons/BtnAtualizar';

@@ -21,9 +21,11 @@ POST http://localhost:3008/deliverys
 content-type: application/json
 
 {
-  "clientesId": "c63f",
-  "deliveryTipo": "Retirada",
-  "deliveryData": "2024/09/27"
+  "id": "",
+      "tipo": "BLAZER",
+      "subTipo": "BLAZER COM DETALHE",
+      "preco": 45.00,
+      "imagemUrl": "/assets/img/blazer.png"
 }
 ###
 # alterar dados do delivery

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from '../FormularioRespCliente/RespConsultaCliente.module.css'
 
-import { listarClientes, getCliente, Cliente } from "../service/apiCliente"
+import { listarClientes, getCliente, Cliente } from "../../service/apiCliente"
 
 const RespostaConsultaCl = () => {
 
