@@ -75,6 +75,7 @@ li {
   list-style: none;
 }
 
+/* css do totalizador */
 .totalizador {
   width: 100%;
   max-width: 400px;
@@ -84,13 +85,17 @@ li {
   border-radius: 8px;
   background-color: var(--color-bg-r-i);
 }
+.totalizador h3{
+  text-align: center;
+}
 
-.pecas-selecionadas button {
+.pecas-selecionadas button,
+.btnFinalizar {
   width: 100%;
   padding: 1rem;
   margin: 1rem 0;
   background-color: transparent;
-  color: var( --color-texto);
+  color: var(--color-texto);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -106,6 +111,64 @@ li {
 .total-container p,
 .pecas-lista p {
   margin: 6px 0;
+}
+
+/* css do pagamento */
+
+.pagamento {
+  width: 100%;
+  /* max-width: 400px; */
+  text-align: left;
+  padding: 1.5rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  background-color: var(--color-bg-r-i);
+}
+
+.btnpagamento {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  width: 100%;
+  background-color: var(--colorBtnCadastra);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btnpagamento:hover {
+  background-color: var(--colorHoverBtnCadastra);
+}
+
+.pagamento label {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.pagamento select,
+.pagamento input[type="date"]
+ {
+  margin-top: 5px;
+  display: block;
+  width: 100%;
+}
+.pagamento input[type="checkbox"]{
+  margin-top: 5px;
+  margin-left: 0.5rem;
+ }
+
+.pagamento p {
+  margin-top: 10px;
+}
+
+.pagamento p[style="color: red;"] {
+  color: red;
+  font-weight: bold;
+}
+
+.pagamento h3 {
+  margin-bottom: 20px;
 }
 
 

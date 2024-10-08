@@ -2,6 +2,7 @@ import React from 'react';
 import { TipoPeca } from './ServicoLavagem';
 import './ServicoLavagem.css'; 
 
+
 interface Peca {
   id: number;
   tipo: TipoPeca;
@@ -12,9 +13,10 @@ interface Peca {
 
 interface TotalizadorProps {
   pecas: Peca[];
+  finalizarSelecao: () => void;
 }
 
-const Totalizador: React.FC<TotalizadorProps> = ({ pecas }) => {
+const Totalizador: React.FC<TotalizadorProps> = ({ pecas, finalizarSelecao }) => {
   const pecasAgrupadas = pecas.reduce((acc, peca) => {
     if (acc[peca.subTipo]) {
       acc[peca.subTipo].quantidade += 1;
@@ -33,7 +35,7 @@ const Totalizador: React.FC<TotalizadorProps> = ({ pecas }) => {
 
   return (
     <div className='totalizador'>
-      <h3>Ticket </h3>
+      <h3>Ticket</h3>
       <div className="pecas-lista">
         {Object.entries(pecasAgrupadas).map(([subTipo, { quantidade, total }]) => (
           <p key={subTipo}>{subTipo} ({quantidade}) - valor R${total.toFixed(2)}</p>
@@ -43,6 +45,7 @@ const Totalizador: React.FC<TotalizadorProps> = ({ pecas }) => {
         <p>Total de Peças: {totalPecas}</p>
         <p>Total a Pagar: R${totalPreco.toFixed(2)}</p>
       </div>
+      <button onClick={finalizarSelecao} className='btnFinalizar'>Finalizar</button>
     </div>
   );
 };

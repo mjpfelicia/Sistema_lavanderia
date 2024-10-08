@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import ModalS from '../ServicoLavagem/modalServico';
+import ModalS from '../modal/modalServico';
 import { getPecaPorTipo } from '../service/apiPeca';
 import PecasSelecionadas from './PecasSelecionadas';
 import Totalizador from './Totalizador';
@@ -14,6 +14,7 @@ import jaqueta from '../../img/jaquetaS.png';
 import edredom from '../../img/edredom.png';
 import jaleco from '../../img/jaleco.png';
 import toalham from '../../img/toa.png';
+import ModalPagamento from '../modal/ModalPagamento';
 
 
 
@@ -59,12 +60,11 @@ export type Peca = {
   imagemUrl: string;
 };
 
-
-
 const ServicoLavagem: React.FC = () => {
   const [modalAberto, setModalAberto] = useState<boolean>(false);
   const [pecasSelecionadas, setPecasSelecionada] = useState<Peca[]>([]);
   const [pecasAdicionadas, setPecasAdicionadas] = useState<Peca[]>([]);
+  const [mostrarPagamento, setMostrarPagamento] = useState<boolean>(false);
 
   const abrirModal = useCallback(async (peca: TipoPeca) => {
     const pecaResponse = await getPecaPorTipo(peca);
@@ -80,6 +80,17 @@ const ServicoLavagem: React.FC = () => {
   const adicionarPeca = (peca: Peca) => {
     setPecasAdicionadas(prevPecas => [...prevPecas, peca]);
   };
+
+  const finalizarSelecao = () => {
+    setMostrarPagamento(true);
+  };
+
+  const fecharModalPagamento = () => {
+    setMostrarPagamento(false);
+  };
+
+  const totalPecas = pecasAdicionadas.length;
+  const totalPreco = pecasAdicionadas.reduce((acc, peca) => acc + peca.preco, 0);
 
   return (
     <div className='Servicodelavagem'>
@@ -98,11 +109,14 @@ const ServicoLavagem: React.FC = () => {
             <PecasSelecionadas pecas={pecasSelecionadas} adicionarPeca={adicionarPeca} />
           </ModalS>
         )}
-        <Totalizador pecas={pecasAdicionadas} />
+        {!mostrarPagamento ? (
+          <Totalizador pecas={pecasAdicionadas} finalizarSelecao={finalizarSelecao} />
+        ) : (
+          <ModalPagamento total={totalPreco} quantidade={totalPecas} fecharModal={fecharModalPagamento} />
+        )}
       </div>
     </div>
   );
 };
 
-export default ServicoLavagem;
-
+export default ServicoLavagem

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Cliente } from './service/apiCliente';
-import "../components/Atualiza.css";
+import { Cliente } from '../service/apiCliente';
+import "../AtualizaCliente/Atualiza.css";
 
 interface AtualizaClienteProps {
     cliente: Cliente;

@@ -4,7 +4,7 @@ import { Cliente } from '../../service/apiCliente';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CadastroCliente/CadastroCliente.css";
 import CloseButton from '../../buttons/CloseButton';
-import AtualizaCliente from '../../AtualizaCliente';
+import AtualizaCliente from '../../AtualizaCliente/AtualizaCliente';
 import Modal from '../../modal/modal';
 
 interface CadastroClienteProps {
