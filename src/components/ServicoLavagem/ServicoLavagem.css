@@ -30,9 +30,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 2rem;
   width: 14rem;
-  height: 12rem !important;
+  height: 14rem !important;
   border-radius: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -40,7 +40,7 @@
 }
 
 .card img {
-  width: 6rem;
+  width: 5rem;
   max-width: 100%;
   height: auto;
   border-radius: 8px;
@@ -58,11 +58,13 @@
 }
 
 .card h3 {
+  width: 100%;
   margin: 0;
   font-size: 1rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   text-align: center;
+  white-space: nowrap;
 }
 
 .card p {
@@ -85,7 +87,8 @@ li {
   border-radius: 8px;
   background-color: var(--color-bg-r-i);
 }
-.totalizador h3{
+
+.totalizador h3 {
   text-align: center;
 }
 
@@ -93,7 +96,7 @@ li {
 .btnFinalizar {
   width: 100%;
   padding: 1rem;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
   background-color: transparent;
   color: var(--color-texto);
   border: none;
@@ -147,16 +150,16 @@ li {
 }
 
 .pagamento select,
-.pagamento input[type="date"]
- {
+.pagamento input[type="date"] {
   margin-top: 5px;
   display: block;
   width: 100%;
 }
-.pagamento input[type="checkbox"]{
+
+.pagamento input[type="checkbox"] {
   margin-top: 5px;
   margin-left: 0.5rem;
- }
+}
 
 .pagamento p {
   margin-top: 10px;

@@ -2,6 +2,29 @@ import React from 'react';
 import { TipoPeca } from './ServicoLavagem';
 import './ServicoLavagem.css'; 
 
+// imagens
+import BLAZER from '../../img/blazer.png';
+import camisa from '../../img/camisa.jpg';
+import calcaSimples from '../../img/calcaSimples.png';
+import vestidoSimples from '../../img/vestidoSimple.jpg';
+import jaqueta from '../../img/jaquetaS.png';
+import edredom from '../../img/edredom.png';
+import jaleco from '../../img/jaleco.png';
+import toalham from '../../img/toa.png';
+
+
+
+const imagemUrl = {
+  "BLAZER": BLAZER,
+  "CAMISA": camisa,
+  "CALÇA": calcaSimples,
+  "VESTIDO": vestidoSimples,
+  "JAQUETA": jaqueta,
+  "JALECO": jaleco,
+  "CAMA": edredom,
+  "MESA": toalham,
+}
+
 interface Peca {
   id: number;
   tipo: TipoPeca;
