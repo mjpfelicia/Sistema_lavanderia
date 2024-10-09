@@ -5,10 +5,10 @@ header{
 
 .responsive-menu {
   display: flex;
-  justify-content: space-evenly;
+  justify-content:center;
   align-items: center;
   flex-direction: row;
-  gap: 1rem;
+  gap: 2rem;
   padding: 1rem;
   background-color: var(--color_branca);
   border-top: 2px solid var(--color-line);

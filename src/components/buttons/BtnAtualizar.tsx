@@ -10,9 +10,9 @@ type BtnAtualizaProps = {
 
 const BtnAtualiza: React.FC<BtnAtualizaProps> = ({ cliente, onClick }) => {
   return (
-    <button accessKey="BtnAtualiza" onClick={onClick} className={btnStyle.btnAtualiza}>
+    <div accessKey="BtnAtualiza" onClick={onClick} className={btnStyle.btnAtualiza}>
       <img src={pencil} alt="pincel" style={{ width: '1rem', height: '1rem' }} />
-    </button>
+    </div>
   );
 };
 
