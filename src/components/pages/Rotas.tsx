@@ -7,7 +7,7 @@ import Delivery from "./Delivery/Delivery";
 import DevolucaoDoDelivery from "./DevolucaoDoDelivery/DevolucaoDoDelivery";
 import Mapa from "./Mapa/Mapa"
 import Relatorio from "./Relatorio/Relatorio"
-import Whatsapp from "./Whatsapp"
+import Whatsapp from "./Whatsapp/Whatsapp"
 import Validacao from "./FormularioValidacao/Formulario"
 import CadastroCliente from "./CadastroCliente/CadastroCliente"
 import CloseButton from "../buttons/CloseButton"

@@ -95,6 +95,90 @@
     },
     {
       "id": "398e"
+    },
+    {
+      "nome": "SANDRA FELICIO",
+      "email": "mjpfelicia@gmail.com",
+      "endereco": "Rua Francisco da Cruz Mellão",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo",
+      "id": "2f15"
+    },
+    {
+      "id": "ab41",
+      "nome": "SANDRA FELICIO DE JESUS",
+      "email": "mjpfelicia@gmail.com",
+      "endereco": "Rua Francisco da Cruz Mellão",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo"
+    },
+    {
+      "id": "0d4e",
+      "nome": "SANDRA FELICIO DE JESUS",
+      "email": "mjpfelicia@gmail.com",
+      "endereco": "Rua Francisco da Cruz Mellão",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo"
+    },
+    {
+      "id": "d8b1",
+      "nome": "SANDRA FELICIO DE JESUS",
+      "email": "mjpfelicia@gmail.com",
+      "endereco": "Rua Francisco da Cruz Mellão",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo"
+    },
+    {
+      "id": "8108",
+      "nome": "SANDRA FELICIO DE JESUS",
+      "email": "mjpfelicia@gmail.com",
+      "endereco": "Rua Francisco da Cruz Mellão",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo"
+    },
+    {
+      "id": "d389"
+    },
+    {
+      "id": "698f"
+    },
+    {
+      "id": "2d51",
+      "nome": "SANDRA FELICIO DE JESUS",
+      "email": "mjpfelicia@gmail.com",
+      "endereco": "Rua Francisco da Cruz Mellão",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo"
+    },
+    {
+      "id": "265e",
+      "nome": "SANDRA FELICIO DE JESUS",
+      "email": "mjpfelicia@gmail.com",
+      "endereco": "Rua Francisco da Cruz Mellão",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo"
+    },
+    {
+      "id": "6904",
+      "nome": "SANDRA FELICIO DE JESUS",
+      "email": "mjpfelicia@gmail.com",
+      "endereco": "Rua Francisco da Cruz Mellão",
+      "numero": "82",
+      "cep": "05782351",
+      "estado": "São Paulo"
+    },
+    {
+      "id": "dd17"
+    },
+    {
+      "id": "7f4b"
     }
   ],
   "deliverys": [
@@ -257,7 +341,6 @@
       "preco": 200.9,
       "imagemUrl": "/assets/img/vestidoRenda.jpg"
     },
-    
     {
       "id": "v3",
       "tipo": "VESTIDO",
@@ -304,131 +387,133 @@
       "id": "J3",
       "tipo": "JAQUETA",
       "subTipo": "JAQUETA RENDA",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/jaquetaS.png"
     },
     {
       "id": "JA1",
       "tipo": "JALECO",
       "subTipo": "JALECO AVENTAL",
-      "preco": 10.0,
+      "preco": 10,
       "imagemUrl": "/assets/img/jaleco.png"
     },
     {
       "id": "JA2",
       "tipo": "JALECO",
       "subTipo": "JALECO DE RENDA",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/jaleco.png"
     },
     {
       "id": "JA3",
       "tipo": "JALECO",
       "subTipo": "JALECO DE COZINHA",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/jaleco.png"
     },
     {
       "id": "JA4",
       "tipo": "JALECO",
       "subTipo": "JALECO SARJA",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/jaleco.png"
-    }, {
+    },
+    {
       "id": "JA5",
       "tipo": "JALECO",
       "subTipo": "JALECO OXFORD",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/jaleco.png"
-    }, {
+    },
+    {
       "id": "JA6",
       "tipo": "JALECO",
       "subTipo": "JALECO BRIM",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/jaleco.png"
     },
     {
       "id": "c1",
       "tipo": "CAMA",
       "subTipo": "EDREDOM",
-      "preco": 50.0,
+      "preco": 50,
       "imagemUrl": "/assets/img/edredom.png"
     },
     {
       "id": "c2",
       "tipo": "CAMA",
       "subTipo": "EDREDOM KING",
-      "preco": 60.0,
+      "preco": 60,
       "imagemUrl": "/assets/img/edredom.png"
     },
     {
       "id": "c3",
       "tipo": "CAMA",
       "subTipo": "EDREDOM QUEEN",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/edredom.png"
     },
     {
       "id": "c4",
       "tipo": "CAMA",
       "subTipo": "EDREDOM MALHA",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/edredom.png"
     },
     {
       "id": "c5",
       "tipo": "CAMA",
       "subTipo": "EDREDOM PLUMA",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/edredom.png"
     },
     {
       "id": "c6",
       "tipo": "CAMA",
       "subTipo": "EDREDOM BABADO",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/edredom.png"
     },
     {
       "id": "M1",
       "tipo": "MESA",
       "subTipo": "TOALHA LINHO",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/toa.png"
     },
     {
       "id": "M2",
       "tipo": "MESA",
       "subTipo": "TOALHA RENDA",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/toa.png"
     },
     {
       "id": "M3",
       "tipo": "MESA",
       "subTipo": "TOALHA GRANDE",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/toa.png"
     },
     {
       "id": "M4",
       "tipo": "MESA",
       "subTipo": "TOALHA REDONDA",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/toa.png"
     },
     {
       "id": "M5",
       "tipo": "MESA",
       "subTipo": "TOALHA MALHA",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/toa.png"
     },
     {
       "id": "M6",
       "tipo": "MESA",
       "subTipo": "TOALHA PEQUENA",
-      "preco": 30.0,
+      "preco": 30,
       "imagemUrl": "/assets/img/toa.png"
     }
   ]

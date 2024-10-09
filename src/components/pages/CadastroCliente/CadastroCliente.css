@@ -6,6 +6,15 @@
     padding: 0.5rem;
 }
 
+.formCadastro {
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-top: 2px solid var(--colorBtnCadastra);
+    box-shadow: 0 25px 100px -5px rgba(0, 0, 0, .15);
+    background: var(--color_branca);
+    width: 60%;
+}
+
+
 .formGroup {
     display: flex;
     flex-wrap: wrap;

@@ -36,10 +36,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" role="dialog" aria-modal="true">
-      <div className="modal-edit-client modal-content">
-        <button className="close-button" onClick={onClose} aria-label="Close modal">X</button>
+    <div className="modalClienteAtualizar" role="dialog" aria-modal="true">
+      <div className="modal-edit-client">
         {content}
+        <button className="close-button" onClick={onClose} aria-label="Close modal">X</button>
       </div>
     </div>
   );

@@ -12,42 +12,36 @@ interface ClienteProps {
   onEdit: (cliente: ClienteInterface) => void;
 }
 
-const Cliente: React.FC<ClienteProps> = ({ cliente }) => {
-  const [clienteSelecionado, setClienteSelecionado] = useState<ClienteInterface | null>(null);
-  const handleUpdate = (clienteAtualizado: ClienteInterface) => {
-    setClienteSelecionado(null);
-  };
-
+const Cliente: React.FC<ClienteProps> = ({ cliente, onEdit }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const onEdit = () => {
+  const handleEditClick = () => {
     setIsModalOpen(true);
-    setClienteSelecionado(cliente);
+    onEdit(cliente);
     console.log("onEdit", { isModalOpen });
     console.log("setClienteSelecionado", { cliente });
-  }
+  };
 
   return (
     <>
       <div className={classes.wrapper}>
         <div className={classes.cliente}>
           <h2>{cliente?.nome} </h2>
-          <span>{cliente?.endereco},{cliente?.numero},</span>
+          <span>{cliente?.endereco}, {cliente?.numero},</span>
           <span>{cliente?.telefone},</span>
           <span>{cliente?.email}</span>
         </div>
         <div className={classes.btnAtualiza}>
-          <BtnAtualiza onClick={() => onEdit()}  >
-          </BtnAtualiza>
+          <BtnAtualiza onClick={handleEditClick} />
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <h2>Atualizar cliente</h2>
-        <AtualizaCliente cliente={cliente} onUpdate={handleUpdate} />
+        <AtualizaCliente cliente={cliente} onUpdate={() => setIsModalOpen(false)} />
       </Modal>
     </>
-
   );
 };
 
 export default Cliente;
+
