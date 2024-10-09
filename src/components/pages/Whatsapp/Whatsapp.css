@@ -1,9 +1,8 @@
 .WhatsappContent {
-  position: fixed;
-  top: 10rem;
-   cursor: pointer;
-  margin: 0 auto;
   width: 100%;
+  margin-top: 8rem;
+  cursor: pointer;
+  
 }
 
 .WhatsappContent svg {

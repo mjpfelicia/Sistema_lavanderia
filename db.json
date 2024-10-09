@@ -94,91 +94,15 @@
       "bairro": "Chácara Nossa Senhora do Bom Conselho"
     },
     {
-      "id": "398e"
-    },
-    {
-      "nome": "SANDRA FELICIO",
-      "email": "mjpfelicia@gmail.com",
+      "nome": "Jefferson S Coelho",
+      "cep": "05843001",
+      "estado": "SP",
       "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo",
-      "id": "2f15"
-    },
-    {
-      "id": "ab41",
-      "nome": "SANDRA FELICIO DE JESUS",
       "email": "mjpfelicia@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
       "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo"
-    },
-    {
-      "id": "0d4e",
-      "nome": "SANDRA FELICIO DE JESUS",
-      "email": "mjpfelicia@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo"
-    },
-    {
-      "id": "d8b1",
-      "nome": "SANDRA FELICIO DE JESUS",
-      "email": "mjpfelicia@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo"
-    },
-    {
-      "id": "8108",
-      "nome": "SANDRA FELICIO DE JESUS",
-      "email": "mjpfelicia@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo"
-    },
-    {
-      "id": "d389"
-    },
-    {
-      "id": "698f"
-    },
-    {
-      "id": "2d51",
-      "nome": "SANDRA FELICIO DE JESUS",
-      "email": "mjpfelicia@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo"
-    },
-    {
-      "id": "265e",
-      "nome": "SANDRA FELICIO DE JESUS",
-      "email": "mjpfelicia@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo"
-    },
-    {
-      "id": "6904",
-      "nome": "SANDRA FELICIO DE JESUS",
-      "email": "mjpfelicia@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo"
-    },
-    {
-      "id": "dd17"
-    },
-    {
-      "id": "7f4b"
+      "telefone": "(11)96415-1516",
+      "complemento": "ap teste",
+      "id": "655e"
     }
   ],
   "deliverys": [

@@ -1,10 +1,11 @@
 import Header from "../../Header/Header"
+import Formulario from "../DetalhesCliente/DetalhesCliente"
 
 const Relatorio = () => {
   return (
     <div>
       <Header nomePagina={"Relatorio"} />
-      Relatorio
+      <Formulario/>
     </div>
   )
 }
