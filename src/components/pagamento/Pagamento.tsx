@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
 import './Pagamento.css';
 
+// Interface que define as propriedades do componente Pagamento
 interface PagamentoProps {
     total: number;
     quantidade: number;
+    ticketNumber: string;
 }
 
 
-interface PagamentoProps {
-    total: number;
-    quantidade: number;
-}
-
-const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade }) => {
+const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber }) => {
+    // Estados para armazenar informações do pagamento
     const [formaPagamento, setFormaPagamento] = useState<string>('Cartão de Crédito');
     const [pagamentoNaRetirada, setPagamentoNaRetirada] = useState<boolean>(false);
     const [dataRetirada, setDataRetirada] = useState<string>('');
     const [statusPagamento, setStatusPagamento] = useState<string>('A Pagar');
     const [erro, setErro] = useState<string>('');
 
+    // Função chamada e confirmar o pagamento, Validação da data de retirada ,Atualiza o status do pagamento
     const handlePagamento = () => {
         if (!dataRetirada) {
             setErro('Data de retirada não agendada');
@@ -35,6 +34,7 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade }) => {
     return (
         <div className='pagamento'>
             <h3>Pagamento</h3>
+            <p>Número do Ticket: {ticketNumber}</p>
             <p>Total de Peças: {quantidade}</p>
             <p>Total a Pagar: R${total.toFixed(2)}</p>
             <label>
@@ -49,16 +49,14 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade }) => {
             <label>
                 Pagamento na Retirada:
                 <input type="checkbox" checked={pagamentoNaRetirada}
-                    onChange={(e) => setPagamentoNaRetirada(e.target.checked)}
-                />
+                    onChange={(e) => setPagamentoNaRetirada(e.target.checked)} />
             </label>
             <label>
                 Data de Retirada:
                 <input type="date" value={dataRetirada}
-                    onChange={(e) => setDataRetirada(e.target.value)}
-                />
+                    onChange={(e) => setDataRetirada(e.target.value)} />
             </label>
-            <button onClick={handlePagamento} className='btnpagamento '>Confirmar Pagamento</button>
+            <button onClick={handlePagamento} className='btnpagamento'>Confirmar Pagamento</button>
             {erro && <p style={{ color: 'red' }}>{erro}</p>}
             <p>Status do Pagamento: {statusPagamento}</p>
             <p>Retirada em: {dataRetirada || 'Data não agendada'}</p>

@@ -112,8 +112,12 @@ li {
 }
 
 .total-container p,
-.pecas-lista p {
+.pecas-lista p, .ticket-number {
   margin: 6px 0;
+  white-space: nowrap;
+    
+
+
 }
 
 

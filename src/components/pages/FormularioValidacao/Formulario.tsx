@@ -22,10 +22,6 @@ const FormularioValidacao = () => {
             novosErros.nome = "O nome deve ter pelo menos 3 caracteres.";
         }
 
-        const telefoneRegex = /^\(?\d{2}\)?[\s-]?\d{4,5}[\s-]?\d{4}$/;
-        if (!telefoneRegex.test(formData.telefone)) {
-            novosErros.telefone = "O telefone deve estar no formato (XX)XXXX-XXXX";
-        }
 
         if (formData.senha.length < 4) {
             novosErros.senha = "A senha deve ter pelo menos 4 caracteres.";

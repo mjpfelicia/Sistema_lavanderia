@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import './modal.css'
 import Pagamento from '../pagamento/Pagamento';
 
@@ -15,7 +14,7 @@ const ModalPagamento: React.FC<ModalPagamentoProps> = ({ total, quantidade, fech
     <div className='modalPagamento'>
       <div className='modalContentPagamento'>
         <span className='close' onClick={fecharModal}>&times;</span>
-        <Pagamento total={total} quantidade={quantidade} />
+        <Pagamento total={total} quantidade={quantidade} ticketNumber={''} />
       </div>
     </div>
   );
