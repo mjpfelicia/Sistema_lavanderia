@@ -57,7 +57,7 @@ const Totalizador: React.FC<TotalizadorProps> = ({ pecas, finalizarSelecao }) =>
 
   return (
     <div>
-      {!showPagamento ? (
+      {!showPagamento && (
         <div className='totalizador'>
           <h3>Ticket</h3>
           {ticketNumber && (
@@ -76,8 +76,7 @@ const Totalizador: React.FC<TotalizadorProps> = ({ pecas, finalizarSelecao }) =>
           </div>
           <button onClick={handleFinalizar} className='btnFinalizar'>Finalizar</button>  
         </div>
-      ) : (
-        <Pagamento total={totalPreco} quantidade={totalPecas} ticketNumber={ticketNumber} /> )}
+      )}
     </div>
   );
 };

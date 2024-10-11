@@ -43,8 +43,8 @@ const PecasSelecionadas: React.FC<PecasSelecionadasProps> = ({ pecas, adicionarP
     <div className='pecas-selecionadas'>
       <h3>Peças Similares</h3>
       <div className="cards-container">
-        {pecas.map((peca) => (
-          <div key={peca.id} className="card">
+        {pecas.map((peca, idx) => (
+          <div key={idx} className="card">
             <img src={peca.imagemUrl} alt={peca.subTipo} className="card-image" />
             <h3>{peca.subTipo}</h3>
             <p>Preço: R${peca.preco.toFixed(2)}</p>

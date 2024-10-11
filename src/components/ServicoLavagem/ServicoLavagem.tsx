@@ -16,10 +16,6 @@ import jaleco from '../../img/jaleco.png';
 import toalham from '../../img/toa.png';
 import ModalPagamento from '../modal/ModalPagamento';
 
-
-
-
-
 const tipoPecaImage = {
   "BLAZER": BLAZER,
   "CAMISA": camisa,
@@ -65,6 +61,7 @@ const ServicoLavagem: React.FC = () => {
   const [pecasSelecionadas, setPecasSelecionada] = useState<Peca[]>([]);
   const [pecasAdicionadas, setPecasAdicionadas] = useState<Peca[]>([]);
   const [mostrarPagamento, setMostrarPagamento] = useState<boolean>(false);
+  const [ticketNumber, setTicketNumber] = useState<string>('');
 
   const abrirModal = useCallback(async (peca: TipoPeca) => {
     const pecaResponse = await getPecaPorTipo(peca);
@@ -81,7 +78,10 @@ const ServicoLavagem: React.FC = () => {
     setPecasAdicionadas(prevPecas => [...prevPecas, peca]);
   };
 
-  const finalizarSelecao = () => {
+  const finalizarSelecao = (ticketNumber: string) => {
+    console.log("ticketNumber: ", { ticketNumber });
+
+    setTicketNumber(ticketNumber);
     setMostrarPagamento(true);
   };
 
@@ -112,7 +112,7 @@ const ServicoLavagem: React.FC = () => {
         {!mostrarPagamento ? (
           <Totalizador pecas={pecasAdicionadas} finalizarSelecao={finalizarSelecao} />
         ) : (
-          <ModalPagamento total={totalPreco} quantidade={totalPecas} fecharModal={fecharModalPagamento} />
+          <ModalPagamento total={totalPreco} quantidade={totalPecas} fecharModal={fecharModalPagamento} ticketNumber={ticketNumber} />
         )}
       </div>
     </div>

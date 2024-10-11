@@ -33,7 +33,7 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber }
 
     return (
         <div className='pagamento'>
-            <h3>Pagamento</h3>
+            <h3>Pagamento 111</h3>
             <p>Número do Ticket: {ticketNumber}</p>
             <p>Total de Peças: {quantidade}</p>
             <p>Total a Pagar: R${total.toFixed(2)}</p>
