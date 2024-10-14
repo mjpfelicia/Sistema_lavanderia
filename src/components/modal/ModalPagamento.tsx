@@ -13,7 +13,7 @@ const ModalPagamento: React.FC<ModalPagamentoProps> = ({ total, quantidade, fech
   return (
     <div className='modalPagamento'>
       <div className='modalContentPagamento'>
-        <h1> pagamento teste</h1>
+        <h3>Pagamento</h3>
         <span className='close' onClick={fecharModal}>&times;</span>
         <Pagamento total={total} quantidade={quantidade} ticketNumber={ticketNumber} />
       </div>

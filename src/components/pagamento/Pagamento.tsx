@@ -33,11 +33,15 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber }
 
     return (
         <div className='pagamento'>
-            <h3>Pagamento</h3>
             <p>Número do Ticket: {ticketNumber}</p>
             <p>Total de Peças: {quantidade}</p>
             <p>Total a Pagar: R${total.toFixed(2)}</p>
-            <label>
+            <div>
+                <label>
+                    Pagamento na Retirada:
+                    <input type="checkbox" checked={pagamentoNaRetirada}
+                        onChange={(e) => setPagamentoNaRetirada(e.target.checked)} />
+                </label>
                 Forma de Pagamento:
                 <select value={formaPagamento} onChange={(e) => setFormaPagamento(e.target.value)}>
                     <option value="Cartão de Crédito">Cartão de Crédito</option>
@@ -45,17 +49,15 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber }
                     <option value="Dinheiro">Dinheiro</option>
                     <option value="Pix">Pix</option>
                 </select>
-            </label>
-            <label>
-                Pagamento na Retirada:
-                <input type="checkbox" checked={pagamentoNaRetirada}
-                    onChange={(e) => setPagamentoNaRetirada(e.target.checked)} />
-            </label>
-            <label>
-                Data de Retirada:
-                <input type="date" value={dataRetirada}
-                    onChange={(e) => setDataRetirada(e.target.value)} />
-            </label>
+            </div>
+            <div>
+                <label>
+                    Data de Retirada:
+                    <input type="date" value={dataRetirada}
+                        onChange={(e) => setDataRetirada(e.target.value)} />
+                </label>
+            </div>
+
             <button onClick={handlePagamento} className='btnpagamento'>Confirmar Pagamento</button>
             {erro && <p style={{ color: 'red' }}>{erro}</p>}
             <p>Status do Pagamento: {statusPagamento}</p>
