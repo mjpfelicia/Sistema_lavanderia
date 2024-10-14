@@ -1,6 +1,6 @@
-# Introdução ao Create React App
+# Sistema lavanderia 
 
-<img src="/assets/img/telaApp.png" alt="Site em Telas" />
+<img src="/public/assets/img/telaApp.png" alt="Site em Telas" />
 
 
 Este projeto foi inicializado com [Create React App](https://github.com/mjpfelicia/Sistema_lavanderia).
