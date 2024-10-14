@@ -14,7 +14,6 @@
     width: 60%;
 }
 
-
 .formGroup {
     display: flex;
     flex-wrap: wrap;
@@ -46,8 +45,7 @@
     text-align: right;
 }
 
-.formGroupCep,
-.formGroupTelefone input {
+.formGroupCep, .formGroupTelefone input {
     width: 18rem !important;
 }
 
@@ -55,8 +53,7 @@
     width: 12rem;
 }
 
-.formControlEstado,
-.formControlBairro {
+.formControlEstado, .formControlBairro {
     width: 21rem !important;
 }
 
@@ -67,4 +64,53 @@
 
 .btn_cadastra:hover {
     background-color: var(--colorHoverBtnCadastra);
+}
+
+/* Media queries para responsividade */
+@media (max-width: 1024px) {
+    .formCadastro {
+        width: 80%;
+    }
+
+    .formGroup2 {
+        margin-left: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .formCadastro {
+        width: 90%;
+    }
+
+    .formGroup input {
+        margin-left: 1rem;
+    }
+
+    .formGroup2 {
+        margin-left: 1rem;
+    }
+
+    .menuCadastro {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .formCadastro {
+        width: 100%;
+    }
+
+    .formGroup label {
+        width: 100%;
+        text-align: left;
+    }
+
+    .formGroup input {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .formGroup2 {
+        margin-left: 0;
+    }
 }

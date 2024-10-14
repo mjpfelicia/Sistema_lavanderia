@@ -6,7 +6,6 @@
 
 .form-group {
     text-align: left;
-
 }
 
 .content-form label {
@@ -21,4 +20,33 @@
     margin-top: 5px;
     border: 1px solid #ced4da;
     border-radius: 5px;
+}
+
+/* Media queries para responsividade */
+@media (max-width: 1024px) {
+    .content-form {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-form {
+        width: 95%;
+    }
+
+    .btn-atualize {
+        padding: 8px;
+        margin-top: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-form {
+        width: 100%;
+    }
+
+    .btn-atualize {
+        padding: 6px;
+        margin-top: 3px;
+    }
 }

@@ -1,11 +1,14 @@
-header{
+header {
   position: fixed;
-  font-family: Poppins!important;
+  font-family: 'Poppins', sans-serif !important;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 
 .responsive-menu {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
   gap: 2rem;
@@ -13,7 +16,6 @@ header{
   background-color: var(--color_branca);
   border-top: 2px solid var(--color-line);
   border-bottom: 2px solid var(--color-line);
-
 }
 
 .HeaderContent {
@@ -23,7 +25,6 @@ header{
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-
 }
 
 .title-header {
@@ -39,13 +40,31 @@ header{
   align-content: center;
   padding: 0.5rem;
 }
-.linkCadastro{
+
+.linkCadastro {
   display: flex;
 }
+
 .linkCadastro a {
   text-decoration: none;
   padding: 0.5rem 1rem 0 2rem;
   font-size: calc(0.5rem + 0.4vw);
   color: var(--color-font);
+}
 
+/* Media queries para responsividade */
+@media (max-width: 768px) {
+
+  .title-header,
+  .linkCadastro a {
+    font-size: calc(0.8rem + 0.4vw);
+  }
+}
+
+@media (max-width: 480px) {
+
+  .title-header,
+  .linkCadastro a {
+    font-size: calc(1rem + 0.4vw);
+  }
 }

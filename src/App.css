@@ -49,7 +49,8 @@ header {
 /* Estilos gerais */
 .App {
   background-image: url('../src/img/bgcontainer.jpg');
-  height: 100vh;
+  height: 100vh; /* Ajuste a altura desejada */
+  width: 100%; 
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -58,13 +59,14 @@ header {
 /* Media queries para responsividade */
 @media (max-width: 768px) {
   .App {
-    height: 100vh;
+    height: 100%;
+   
   }
 }
 
 @media (max-width: 480px) {
   .App {
-    height: 100vh; 
+    height: 100%; 
   }
 }
 
