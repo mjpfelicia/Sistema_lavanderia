@@ -1,0 +1,61 @@
+###
+# listar tickets
+GET http://localhost:3008/tickets
+
+### 
+# listar ticket com tickets
+GET http://localhost:3008/tickets?_embed=cliente
+
+### 
+# Pegar ticket por tipo
+GET http://localhost:3008/tickets?tipo=CALÇA
+
+###
+
+# Pegar ticket 1
+GET http://localhost:3008/tickets/5cc3?_embed=cliente
+
+###
+# Criar ticket
+POST http://localhost:3008/tickets
+content-type: application/json
+
+{
+    "ticketNumber": "597611",
+    "clienteId": 1,
+    "estaPago": "não",
+    "items": [
+      {
+        "pecaId": "3",
+        "subTipo": "CALÇA JEANS",
+        "quantidade": 1,
+        "total": 29.9
+      },
+      {
+        "pecaId": "JA5",
+        "subTipo": "JALECO",
+        "quantidade": 1,
+        "total": 30
+      }
+    ],
+    "total": 59.9
+  }
+
+###
+# alterar dados do ticket
+PUT http://localhost:3008/tickets/5cc3
+content-type: application/json
+
+{
+  "ticketTipo": "Retirada",
+  "ticketData": "2024/09/28"
+}
+
+###
+# busca ticket
+
+GET http://localhost:3008/tickets?nome=João&telefone_like=12340000
+#GET http://localhost:3008/tickets?nome_like=Maria&telefone_like=99999999_sort=nome&_order=asc
+
+
+###

@@ -1,5 +1,4 @@
 import React from 'react';
-import { TipoPeca } from './ServicoLavagem';
 import './ServicoLavagem.css'; 
 
 // imagens
@@ -11,8 +10,7 @@ import jaqueta from '../../img/jaquetaS.png';
 import edredom from '../../img/edredom.png';
 import jaleco from '../../img/jaleco.png';
 import toalham from '../../img/toa.png';
-
-
+import { Peca } from '../service/apiPeca';
 
 const imagemUrl = {
   "BLAZER": BLAZER,
@@ -23,14 +21,6 @@ const imagemUrl = {
   "JALECO": jaleco,
   "CAMA": edredom,
   "MESA": toalham,
-}
-
-interface Peca {
-  id: number;
-  tipo: TipoPeca;
-  subTipo: string;
-  preco: number;
-  imagemUrl: string;
 }
 
 interface PecasSelecionadasProps {

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import ModalS from '../modal/modalServico';
-import { getPecaPorTipo } from '../service/apiPeca';
+import { getPecaPorTipo, Peca, TipoPeca } from '../service/apiPeca';
 import PecasSelecionadas from './PecasSelecionadas';
 import Totalizador from './Totalizador';
 import '../ServicoLavagem/ServicoLavagem.css';
@@ -27,16 +27,6 @@ const tipoPecaImage = {
   "MESA": toalham,
 }
 
-export type TipoPeca =
-  | "BLAZER"
-  | "CAMISA"
-  | "CALÇA"
-  | "VESTIDO"
-  | "JAQUETA"
-  | "JALECO"
-  | "CAMA"
-  | "MESA";
-
 const tipoPecaLista: TipoPeca[] = [
   "BLAZER",
   "CAMISA",
@@ -47,14 +37,6 @@ const tipoPecaLista: TipoPeca[] = [
   "CAMA",
   "MESA",
 ]
-
-export type Peca = {
-  id: number;
-  tipo: TipoPeca;
-  subTipo: string;
-  preco: number;
-  imagemUrl: string;
-};
 
 const ServicoLavagem: React.FC = () => {
   const [modalAberto, setModalAberto] = useState<boolean>(false);

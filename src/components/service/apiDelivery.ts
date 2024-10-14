@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios';
 export type DeliveryTipo = "Entrega" | "Retirada";
 export type Delivery = {
   id?:string;
+  ticketNumber: string,
   código: string;
   clienteId: string;
   deliveryTipo: DeliveryTipo

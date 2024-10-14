@@ -1,5 +1,23 @@
 import axios, { AxiosError } from 'axios';
-import { Peca, TipoPeca } from '../ServicoLavagem/ServicoLavagem';
+
+export type TipoPeca =
+  | "BLAZER"
+  | "CAMISA"
+  | "CALÇA"
+  | "VESTIDO"
+  | "JAQUETA"
+  | "JALECO"
+  | "CAMA"
+  | "MESA";
+
+// Interface que define a estrutura das peças
+export interface Peca {
+  id: string;
+  tipo: TipoPeca;
+  subTipo: string;
+  preco: number;
+  imagemUrl: string;
+}
 
 export type PecaTipo = "Entrega" | "Retirada";
 

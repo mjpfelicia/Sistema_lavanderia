@@ -440,5 +440,121 @@
       "preco": 30,
       "imagemUrl": "/assets/img/toa.png"
     }
+  ],
+  "tickets": [
+    {
+      "clienteId": 3,
+      "ticketNumber": "00001",
+      "estaPago": "não",
+      "totalPago": 189.73,
+      "pecas": [
+        {
+          "quantidade": 1,
+          "pecaId": "1"
+        },
+        {
+          "quantidade": 1,
+          "pecaId": "2"
+        },
+        {
+          "quantidade": 3,
+          "pecaId": "3"
+        }
+      ],
+      "total": 123,
+      "id": "08b2"
+    },
+    {
+      "id": "6d66",
+      "ticketNumber": "163367",
+      "clienteId": 1,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": 0,
+          "quantidade": 1
+        },
+        {
+          "pecaId": 1,
+          "quantidade": 1
+        }
+      ],
+      "total": 79.8,
+      "totalPago": 79.8
+    },
+    {
+      "id": "ef96",
+      "ticketNumber": "290503",
+      "clienteId": 1,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "c6",
+          "quantidade": 1
+        },
+        {
+          "pecaId": "3",
+          "quantidade": 1
+        },
+        {
+          "pecaId": "j1",
+          "quantidade": 1
+        }
+      ],
+      "total": 80.8,
+      "totalPago": 80.8
+    },
+    {
+      "id": "32f7",
+      "ticketNumber": "875371",
+      "clienteId": 1,
+      "estaPago": "não",
+      "items": [],
+      "total": 0,
+      "totalPago": 0
+    },
+    {
+      "id": "7af7",
+      "ticketNumber": "597675",
+      "clienteId": 1,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "3",
+          "subTipo": "CALÇA SOCIAL",
+          "quantidade": 1,
+          "total": 29.9
+        },
+        {
+          "pecaId": "JA5",
+          "subTipo": "JALECO OXFORD",
+          "quantidade": 1,
+          "total": 30
+        }
+      ],
+      "total": 59.9,
+      "totalPago": 59.9
+    },
+    {
+      "id": "f4a0",
+      "ticketNumber": "597611",
+      "clienteId": 1,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "3",
+          "subTipo": "CALÇA JEANS",
+          "quantidade": 1,
+          "total": 29.9
+        },
+        {
+          "pecaId": "JA5",
+          "subTipo": "JALECO",
+          "quantidade": 1,
+          "total": 30
+        }
+      ],
+      "total": 59.9
+    }
   ]
 }
