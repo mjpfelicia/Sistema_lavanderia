@@ -74,3 +74,35 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+
+
+/* css modal impressao */
+
+
+
+.modalImpressao {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modalContentImpressao {
+  position: relative;
+  padding: 20px;
+}
+
+.modalContentImpressao .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}

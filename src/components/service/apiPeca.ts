@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { ReactNode } from 'react';
 
 export type TipoPeca =
   | "BLAZER"
@@ -12,6 +13,7 @@ export type TipoPeca =
 
 // Interface que define a estrutura das peças
 export interface Peca {
+  quantidade: ReactNode;
   id: string;
   tipo: TipoPeca;
   subTipo: string;

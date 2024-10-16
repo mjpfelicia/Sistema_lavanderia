@@ -18,6 +18,7 @@ export type Ticket = {
   totalPago: number,
   items: Item[],
   total: number,
+  dataCriacao:string
   //deliveryId: string criar um delivery com o ticketNumber
   //pagamentoId: string criar um pagamento como ticketNumber
 };

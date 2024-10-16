@@ -1,4 +1,5 @@
-.pagamento {
+.pagamento,
+.impressao-ticket {
   width: 100%;
   text-align: left;
   padding: 1.5rem;
@@ -36,8 +37,8 @@
   margin-top: 5px;
   display: block;
   width: 100%;
-  padding: 0.5rem;  
-  border: 1px solid var(--color-borde); 
+  padding: 0.5rem;
+  border: 1px solid var(--color-borde);
   border-radius: 5px;
 }
 
@@ -57,4 +58,23 @@
 
 .pagamento h3 {
   margin-bottom: 2rem;
+}
+
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #printableArea,
+  #printableArea * {
+    visibility: visible;
+  }
+
+  #printableArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
 }

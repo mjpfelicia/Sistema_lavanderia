@@ -24,7 +24,7 @@ content-type: application/json
     "ticketNumber": "597611",
     "clienteId": 1,
     "estaPago": "não",
-    "items": [
+        "items": [
       {
         "pecaId": "3",
         "subTipo": "CALÇA JEANS",

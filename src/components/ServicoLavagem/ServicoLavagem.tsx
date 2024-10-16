@@ -4,6 +4,8 @@ import { getPecaPorTipo, Peca, TipoPeca } from '../service/apiPeca';
 import PecasSelecionadas from './PecasSelecionadas';
 import Totalizador from './Totalizador';
 import '../ServicoLavagem/ServicoLavagem.css';
+import ModalPagamento from '../modal/ModalPagamento';
+import ModalImpressao from '../modal/ModalImpressao';
 
 // imagens
 import BLAZER from '../../img/blazer.png';
@@ -14,7 +16,6 @@ import jaqueta from '../../img/jaquetaS.png';
 import edredom from '../../img/edredom.png';
 import jaleco from '../../img/jaleco.png';
 import toalham from '../../img/toa.png';
-import ModalPagamento from '../modal/ModalPagamento';
 
 const tipoPecaImage = {
   "BLAZER": BLAZER,
@@ -43,7 +44,12 @@ const ServicoLavagem: React.FC = () => {
   const [pecasSelecionadas, setPecasSelecionada] = useState<Peca[]>([]);
   const [pecasAdicionadas, setPecasAdicionadas] = useState<Peca[]>([]);
   const [mostrarPagamento, setMostrarPagamento] = useState<boolean>(false);
+  const [mostrarImpressao, setMostrarImpressao] = useState<boolean>(false);
   const [ticketNumber, setTicketNumber] = useState<string>('');
+  const [dataCriacao, setDataCriacao] = useState<string>('');
+  const [formaPagamento, setFormaPagamento] = useState<string>('');
+  const [dataRetirada, setDataRetirada] = useState<string>('');
+  const [statusPagamento, setStatusPagamento] = useState<string>('');
 
   const abrirModal = useCallback(async (peca: TipoPeca) => {
     const pecaResponse = await getPecaPorTipo(peca);
@@ -61,14 +67,26 @@ const ServicoLavagem: React.FC = () => {
   };
 
   const finalizarSelecao = (ticketNumber: string) => {
-    console.log("ticketNumber: ", { ticketNumber });
-
     setTicketNumber(ticketNumber);
+    const currentDate = new Date().toLocaleString();
+    setDataCriacao(currentDate);
     setMostrarPagamento(true);
   };
 
   const fecharModalPagamento = () => {
     setMostrarPagamento(false);
+  };
+
+  const confirmarPagamento = (forma: string, data: string, status: string) => {
+    setFormaPagamento(forma);
+    setDataRetirada(data);
+    setStatusPagamento(status);
+    setMostrarPagamento(false);
+    setMostrarImpressao(true);
+  };
+
+  const fecharModalImpressao = () => {
+    setMostrarImpressao(false);
   };
 
   const totalPecas = pecasAdicionadas.length;
@@ -91,14 +109,32 @@ const ServicoLavagem: React.FC = () => {
             <PecasSelecionadas pecas={pecasSelecionadas} adicionarPeca={adicionarPeca} />
           </ModalS>
         )}
-        {!mostrarPagamento ? (
+        {!mostrarPagamento && !mostrarImpressao ? (
           <Totalizador pecas={pecasAdicionadas} finalizarSelecao={finalizarSelecao} />
-        ) : (
-          <ModalPagamento total={totalPreco} quantidade={totalPecas} fecharModal={fecharModalPagamento} ticketNumber={ticketNumber} />
-        )}
+        ) : mostrarPagamento ? (
+          <ModalPagamento
+            total={totalPreco}
+            quantidade={totalPecas}
+            fecharModal={fecharModalPagamento}
+            ticketNumber={ticketNumber}
+            confirmarPagamento={confirmarPagamento}
+          />
+        ) : mostrarImpressao ? (
+          <ModalImpressao
+            ticketNumber={ticketNumber}
+            total={totalPreco}
+            quantidade={totalPecas}
+            formaPagamento={formaPagamento}
+            dataRetirada={dataRetirada}
+            statusPagamento={statusPagamento}
+            pecas={pecasAdicionadas}
+            dataCriacao={dataCriacao}
+            fecharModal={fecharModalImpressao}
+          />
+        ) : null}
       </div>
     </div>
   );
 };
 
-export default ServicoLavagem
+export default ServicoLavagem;
