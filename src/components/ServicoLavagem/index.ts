@@ -1,3 +1,5 @@
+
+
 interface Sale {
     id: number;
     product: string;
@@ -5,3 +7,4 @@ interface Sale {
     date: string;
   }
   
+

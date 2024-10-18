@@ -6,9 +6,10 @@ import { Peca } from '../service/apiPeca';
 interface TotalizadorProps {
   pecas: Peca[];
   finalizarSelecao: (ticketNumber: string) => void;
+  setTicket: (ticket: Ticket) => void;
 }
 
-const Totalizador: React.FC<TotalizadorProps> = ({ pecas, finalizarSelecao }) => {
+const Totalizador: React.FC<TotalizadorProps> = ({ pecas, finalizarSelecao, setTicket }) => {
   const [ticketNumber, setTicketNumber] = useState<string>('');
 
   const totalPecas = pecas.length;
@@ -47,11 +48,14 @@ const Totalizador: React.FC<TotalizadorProps> = ({ pecas, finalizarSelecao }) =>
         total
       })),
       total: totalPreco,
-      totalPago: totalPreco,
+      totalPago: totalPreco, //TODO: valor com desconto tratar forma de desconto
       dataCriacao: new Date().toISOString() // adicionando data de criação
     };
     await criarTicket(ticketToCreate)
-      .then((ticketResponse) => console.log(ticketResponse))
+      .then((ticketResponse) => {
+        console.log("criarTicket: ", { ticketResponse });
+        setTicket(ticketResponse);
+      })
       .catch(error => {
         console.log("[ERROR] criar ticket:", error.message);
       });

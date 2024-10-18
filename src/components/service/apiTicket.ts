@@ -9,6 +9,8 @@ type Item = {
 {
   quantidade: number,
   servicoId: number
+  subTipo: string,
+  total:number
 }
 
 export type Ticket = {
@@ -22,6 +24,8 @@ export type Ticket = {
   //deliveryId: string criar um delivery com o ticketNumber
   //pagamentoId: string criar um pagamento como ticketNumber
 };
+
+
 
 
 const api = axios.create({

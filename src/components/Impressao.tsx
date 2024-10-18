@@ -1,19 +1,33 @@
 import React from 'react';
-import "./pagamento/Pagamento.css"
+import "./pagamento/Pagamento.css";
 import { Peca } from './service/apiPeca';
+import { Item } from './pagamento/Pagamento';
+import { Ticket } from './service/apiTicket';
 
 interface ImpressaoTicketProps {
+  ticket: Ticket, 
   ticketNumber: string;
-  pecas: Peca[];
   total: number;
   quantidade: number;
+
   formaPagamento: string;
   dataRetirada: string;
   statusPagamento: string;
   dataCriacao: string;
 }
 
-const ImpressaoTicket: React.FC<ImpressaoTicketProps> = ({ ticketNumber, pecas, total, quantidade, formaPagamento, dataRetirada, statusPagamento, dataCriacao }) => {
+const ImpressaoTicket: React.FC<ImpressaoTicketProps> = ({ 
+  ticket,
+  ticketNumber, 
+  total, 
+  quantidade, 
+  formaPagamento, 
+  dataRetirada, 
+  statusPagamento, 
+  dataCriacao 
+}) => {
+  console.log("ImpressaoTicket:", ticket); 
+
   return (
     <div className="impressao-ticket">
       <h3>Impressão do Ticket</h3>
@@ -26,15 +40,15 @@ const ImpressaoTicket: React.FC<ImpressaoTicketProps> = ({ ticketNumber, pecas, 
       <p><strong>Data de Retirada:</strong> {dataRetirada}</p>
       <h4>Itens:</h4>
       <ul>
-        {pecas.map((peca, idx) => (
+        {ticket.items.length > 0 ? ticket.items.map((peca, idx) => (
           <li key={idx}>
-            {peca.subTipo} ({peca.quantidade}) - valor R${peca.preco.toFixed(2)}
+            {peca.subTipo} ({peca.quantidade}) - valor R${peca.total.toFixed(2)}
           </li>
-        ))}
+        )) : <li>Nenhum item selecionado</li>}
       </ul>
       <button onClick={() => window.print()}>Imprimir Ticket</button>
     </div>
   );
 };
 
-export default ImpressaoTicket
+export default ImpressaoTicket;

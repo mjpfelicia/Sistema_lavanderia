@@ -1,21 +1,37 @@
 import React from 'react';
 import './modal.css';
 import ImpressaoTicket from '../Impressao';
-import { Peca } from '../service/apiPeca';
+import { Ticket } from '../service/apiTicket';
+
+interface Peca {
+  nome: string;
+  subTipo: string;
+  quantidade: number;
+  preco: number;
+}
 
 interface ModalImpressaoProps {
+  ticket: Ticket,
   ticketNumber: string;
-  pecas: Peca[];
   total: number;
   quantidade: number;
   formaPagamento: string;
   dataRetirada: string;
   statusPagamento: string;
-  dataCriacao: string;
+  pecas: Peca[];
   fecharModal: () => void;
 }
 
-const ModalImpressao: React.FC<ModalImpressaoProps> = ({ ticketNumber, pecas, total, quantidade, formaPagamento, dataRetirada, statusPagamento, dataCriacao, fecharModal }) => {
+const ModalImpressao: React.FC<ModalImpressaoProps> = ({
+  ticket,
+  ticketNumber,
+  total,
+  quantidade,
+  formaPagamento,
+  dataRetirada,
+  statusPagamento,
+  fecharModal
+}) => {
   return (
     <div className='modalImpressao'>
       <div className='modalContentImpressao'>
@@ -23,13 +39,13 @@ const ModalImpressao: React.FC<ModalImpressaoProps> = ({ ticketNumber, pecas, to
         <span className='close' onClick={fecharModal}>&times;</span>
         <ImpressaoTicket
           ticketNumber={ticketNumber}
-          pecas={pecas}
-          total={total}
-          quantidade={quantidade}
           formaPagamento={formaPagamento}
           dataRetirada={dataRetirada}
           statusPagamento={statusPagamento}
-          dataCriacao={dataCriacao}
+          total={total}
+          quantidade={quantidade}
+          dataCriacao={new Date().toLocaleDateString()} 
+          ticket={ticket}        
         />
       </div>
     </div>

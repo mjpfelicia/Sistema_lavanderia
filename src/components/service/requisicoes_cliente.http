@@ -8,7 +8,7 @@ GET http://localhost:3008/clientes/c63f
 
 ### 
 # Pegar cliente 1
-GET http://localhost:3008/clientes/c63f?_embed=deliverys
+GET http://localhost:3008/clientes?nome=Sandra
 
 ###
 # Criar cliente
