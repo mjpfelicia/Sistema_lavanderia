@@ -39,10 +39,10 @@
 }
 
 .formGroup label {
-    width: 3.5rem;
+    width: 5rem;
     color: var(--color-font);
     padding-top: 5px;
-    text-align: right;
+    text-align: left;
 }
 
 .formGroupCep, .formGroupTelefone input {

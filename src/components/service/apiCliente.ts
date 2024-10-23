@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 export type Cliente = {
-  id(id: any, formData: Cliente): unknown;
+  id: 0
   nome: string;
   email: string;
   telefone: string;

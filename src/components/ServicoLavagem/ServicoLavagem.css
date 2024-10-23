@@ -115,11 +115,11 @@ li {
 .pecas-lista p, .ticket-number {
   margin: 6px 0;
   white-space: nowrap;
-    
-
-
+ 
 }
-
+ .totalizador p{
+  margin-bottom: 0.5rem;
+ }
 
 
 

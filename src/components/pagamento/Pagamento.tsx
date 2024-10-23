@@ -15,13 +15,11 @@ interface PagamentoProps {
   quantidade: number;
   ticketNumber: string;
   itens: Item[];
-  ticket: Ticket
+  ticket: Ticket;
 }
 
 const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, itens, ticket }) => {
-
   console.log("[Pagamento]: ", { ticket });
-
 
   const [formaPagamento, setFormaPagamento] = useState<string>('Cartão de Crédito');
   const [pagamentoNaRetirada, setPagamentoNaRetirada] = useState<boolean>(false);
@@ -31,22 +29,28 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
   const [mostrarImpressao, setMostrarImpressao] = useState<boolean>(false);
 
   const handlePagamento = () => {
-    
     if (!dataRetirada) {
       setErro('Data de retirada não agendada');
       return;
     }
 
+    const hoje = new Date();
+    const dataSelecionada = new Date(dataRetirada);
+
+    if (dataSelecionada < hoje) {
+      setErro('Data de retirada não pode ser anterior ao dia atual');
+      return;
+    }
+
     setErro('');
+    
     if (pagamentoNaRetirada) {
       setStatusPagamento('A Pagar na Retirada');
     } else {
       setStatusPagamento(`Pago com ${formaPagamento}`);
     }
 
-
     console.log("Dados antes de setMostrarImpressao:", { ticketNumber, formaPagamento, dataRetirada, statusPagamento, itens });
-    
     setMostrarImpressao(true);
   };
 
@@ -104,15 +108,16 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
           <p>Retirada em: {dataRetirada || 'Data não agendada'}</p>
         </div>
       ) : (
-        <ImpressaoTicket
-            ticketNumber={ticketNumber}
-            formaPagamento={formaPagamento || 'Pagamento na Retirada'}
-            dataRetirada={dataRetirada}
-            statusPagamento={statusPagamento}
-            total={total}
-            quantidade={quantidade}
-            dataCriacao={new Date().toLocaleDateString()} 
-            ticket={ticket}  />
+        <ImpressaoTicket 
+          ticketNumber={ticketNumber}
+          formaPagamento={formaPagamento || 'Pagamento na Retirada'}
+          dataRetirada={dataRetirada}
+          statusPagamento={statusPagamento}
+          total={total}
+          quantidade={quantidade}
+          dataCriacao={new Date().toLocaleDateString()}
+          ticket={ticket}
+        />
       )}
     </>
   );

@@ -14,7 +14,7 @@
     },
     {
       "id": "c63f",
-      "nome": "João Silva 1 anualizado",
+      "nome": "João Silva",
       "email": "silva@gmail.com",
       "telefone": "(11) 1234-0000",
       "endereco": "Rua Francisco da Cruz Mellão",
@@ -60,7 +60,7 @@
     },
     {
       "id": "1be5",
-      "nome": "SANDRA ",
+      "nome": "SANDRA  perfeito",
       "email": "mjpfelicia@gmail.com",
       "endereco": "Rua Francisco da Cruz Mellão",
       "numero": "82",
@@ -80,17 +80,6 @@
       "cep": "05782351",
       "estado": "São Paulo",
       "complemento": "kkkkk",
-      "bairro": "Chácara Nossa Senhora do Bom Conselho"
-    },
-    {
-      "id": "4443",
-      "nome": "kkkkkk",
-      "telefone": "2625251",
-      "email": "mjpfelicia@gmail.com",
-      "endereco": "Rua Francisco da Cruz Mellão",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo",
       "bairro": "Chácara Nossa Senhora do Bom Conselho"
     },
     {
@@ -115,6 +104,17 @@
       "telefone": "11973241419",
       "complemento": "ap teste",
       "bairro": "Teste"
+    },
+    {
+      "nome": "SANDRA FELICIO DE JESUS",
+      "email": "mjpfelicia@gmail.com",
+      "cep": "05782351",
+      "estado": "São Paulo",
+      "telefone": "(11)96415-8920",
+      "endereco": "Rua teste 2",
+      "numero": "00",
+      "complemento": "ap atualiza",
+      "id": "68c4"
     }
   ],
   "deliverys": [
@@ -477,27 +477,55 @@
       "id": "08b2"
     },
     {
-      "id": "6d66",
-      "ticketNumber": "163367",
+      "id": "bed2",
+      "ticketNumber": "137777",
       "clienteId": 1,
       "estaPago": "não",
       "items": [
         {
-          "pecaId": 0,
-          "quantidade": 1
+          "pecaId": "c4",
+          "subTipo": "EDREDOM MALHA",
+          "quantidade": 1,
+          "total": 30
         },
         {
-          "pecaId": 1,
-          "quantidade": 1
+          "pecaId": "c5",
+          "subTipo": "EDREDOM PLUMA",
+          "quantidade": 1,
+          "total": 30
+        },
+        {
+          "pecaId": "c3",
+          "subTipo": "EDREDOM QUEEN",
+          "quantidade": 1,
+          "total": 30
         }
       ],
-      "total": 79.8,
-      "totalPago": 79.8
+      "total": 90,
+      "totalPago": 90,
+      "dataCriacao": "2024-10-22T18:52:59.315Z"
     },
     {
-      "id": "dc04",
-      "ticketNumber": "122179",
-      "clienteId": 1,
+      "id": "4a97",
+      "ticketNumber": "213868",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v2",
+          "subTipo": "VESTIDO RENDA",
+          "quantidade": 3,
+          "total": 602.7
+        }
+      ],
+      "total": 602.7,
+      "totalPago": 602.7,
+      "dataCriacao": "2024-10-23T18:09:36.223Z"
+    },
+    {
+      "id": "c884",
+      "ticketNumber": "157476",
+      "clienteId": "68c4",
       "estaPago": "não",
       "items": [
         {
@@ -509,18 +537,24 @@
         {
           "pecaId": "v2",
           "subTipo": "VESTIDO RENDA",
-          "quantidade": 1,
-          "total": 200.9
+          "quantidade": 2,
+          "total": 401.8
+        },
+        {
+          "pecaId": "v1",
+          "subTipo": "VESTIDO ESPECIAL",
+          "quantidade": 2,
+          "total": 401.8
         }
       ],
-      "total": 401.8,
-      "totalPago": 401.8,
-      "dataCriacao": "2024-10-17T19:51:12.671Z"
+      "total": 1004.5,
+      "totalPago": 1004.5,
+      "dataCriacao": "2024-10-23T18:30:43.483Z"
     },
     {
-      "id": "43e1",
-      "ticketNumber": "391104",
-      "clienteId": 1,
+      "id": "d48c",
+      "ticketNumber": "362616",
+      "clienteId": "68c4",
       "estaPago": "não",
       "items": [
         {
@@ -532,218 +566,72 @@
         {
           "pecaId": "v2",
           "subTipo": "VESTIDO RENDA",
-          "quantidade": 1,
-          "total": 200.9
-        }
-      ],
-      "total": 401.8,
-      "totalPago": 401.8,
-      "dataCriacao": "2024-10-17T19:53:59.592Z"
-    },
-    {
-      "id": "7bce",
-      "ticketNumber": "425528",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "bl1",
-          "subTipo": "BLAZER ESPECIAL",
-          "quantidade": 1,
-          "total": 89.9
-        }
-      ],
-      "total": 89.9,
-      "totalPago": 89.9,
-      "dataCriacao": "2024-10-18T11:10:07.164Z"
-    },
-    {
-      "id": "04c5",
-      "ticketNumber": "318061",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "cm3",
-          "subTipo": "CAMISA RENDA",
-          "quantidade": 1,
-          "total": 49.9
-        }
-      ],
-      "total": 49.9,
-      "totalPago": 49.9,
-      "dataCriacao": "2024-10-18T11:13:15.091Z"
-    },
-    {
-      "id": "8426",
-      "ticketNumber": "935892",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "cm3",
-          "subTipo": "CAMISA RENDA",
-          "quantidade": 1,
-          "total": 49.9
-        }
-      ],
-      "total": 49.9,
-      "totalPago": 49.9,
-      "dataCriacao": "2024-10-18T11:16:34.285Z"
-    },
-    {
-      "id": "197b",
-      "ticketNumber": "909921",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "cm3",
-          "subTipo": "CAMISA RENDA",
-          "quantidade": 1,
-          "total": 49.9
-        }
-      ],
-      "total": 49.9,
-      "totalPago": 49.9,
-      "dataCriacao": "2024-10-18T11:21:03.508Z"
-    },
-    {
-      "id": "5a10",
-      "ticketNumber": "785556",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
+          "quantidade": 2,
+          "total": 401.8
+        },
         {
           "pecaId": "v5",
           "subTipo": "VESTIDO LONGO",
           "quantidade": 1,
           "total": 200.9
-        }
-      ],
-      "total": 200.9,
-      "totalPago": 200.9,
-      "dataCriacao": "2024-10-18T11:23:33.033Z"
-    },
-    {
-      "id": "b025",
-      "ticketNumber": "779063",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "bl6",
-          "subTipo": "BLAZER  BOYFRIEND",
-          "quantidade": 1,
-          "total": 89.9
-        }
-      ],
-      "total": 89.9,
-      "totalPago": 89.9,
-      "dataCriacao": "2024-10-18T11:26:20.452Z"
-    },
-    {
-      "id": "b9e5",
-      "ticketNumber": "433597",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "cm4",
-          "subTipo": "CAMISA POLO",
-          "quantidade": 1,
-          "total": 49.9
-        }
-      ],
-      "total": 49.9,
-      "totalPago": 49.9,
-      "dataCriacao": "2024-10-18T11:29:00.303Z"
-    },
-    {
-      "id": "9245",
-      "ticketNumber": "600897",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "cm2",
-          "subTipo": "CAMISA SOCIAL",
-          "quantidade": 1,
-          "total": 19.9
-        }
-      ],
-      "total": 19.9,
-      "totalPago": 19.9,
-      "dataCriacao": "2024-10-18T11:45:11.214Z"
-    },
-    {
-      "id": "4b95",
-      "ticketNumber": "859518",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "cm4",
-          "subTipo": "CAMISA POLO",
-          "quantidade": 1,
-          "total": 49.9
-        }
-      ],
-      "total": 49.9,
-      "totalPago": 49.9,
-      "dataCriacao": "2024-10-18T11:53:17.456Z"
-    },
-    {
-      "id": "ff9e",
-      "ticketNumber": "350780",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "cm2",
-          "subTipo": "CAMISA SOCIAL",
-          "quantidade": 1,
-          "total": 19.9
-        }
-      ],
-      "total": 19.9,
-      "totalPago": 19.9,
-      "dataCriacao": "2024-10-18T11:54:45.551Z"
-    },
-    {
-      "id": "de5e",
-      "ticketNumber": "689119",
-      "clienteId": 1,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "cm2",
-          "subTipo": "CAMISA SOCIAL",
-          "quantidade": 1,
-          "total": 19.9
         },
         {
-          "pecaId": "4",
-          "subTipo": "CALÇA MOLETOM",
+          "pecaId": "v5",
+          "subTipo": "VESTIDO DETALHE",
           "quantidade": 1,
-          "total": 29.9
+          "total": 200.9
+        }
+      ],
+      "total": 1004.5,
+      "totalPago": 1004.5,
+      "dataCriacao": "2024-10-23T18:39:56.800Z"
+    },
+    {
+      "id": "e526",
+      "ticketNumber": "929314",
+      "clienteId": "",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 1,
+          "total": 200.9
         },
         {
-          "pecaId": "1",
-          "subTipo": "CALÇA ESPECIAL",
+          "pecaId": "v2",
+          "subTipo": "VESTIDO RENDA",
           "quantidade": 1,
-          "total": 35
+          "total": 200.9
+        },
+        {
+          "pecaId": "v5",
+          "subTipo": "VESTIDO LONGO",
+          "quantidade": 1,
+          "total": 200.9
+        },
+        {
+          "pecaId": "v4",
+          "subTipo": "VESTIDO COURO",
+          "quantidade": 1,
+          "total": 200.9
         },
         {
           "pecaId": "v1",
           "subTipo": "VESTIDO ESPECIAL",
           "quantidade": 1,
           "total": 200.9
+        },
+        {
+          "pecaId": "M3",
+          "subTipo": "TOALHA GRANDE",
+          "quantidade": 3,
+          "total": 90
         }
       ],
-      "total": 285.7,
-      "totalPago": 285.7,
-      "dataCriacao": "2024-10-18T12:02:34.505Z"
+      "total": 1094.5,
+      "totalPago": 1094.5,
+      "dataCriacao": "2024-10-23T18:54:20.368Z"
     }
   ]
 }

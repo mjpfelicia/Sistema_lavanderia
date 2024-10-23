@@ -65,12 +65,9 @@
   body * {
     visibility: hidden;
   }
-
-  #printableArea,
-  #printableArea * {
+  #printableArea, #printableArea * {
     visibility: visible;
   }
-
   #printableArea {
     position: absolute;
     left: 0;

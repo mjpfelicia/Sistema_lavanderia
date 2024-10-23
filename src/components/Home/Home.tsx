@@ -7,7 +7,18 @@ const Home = () => {
   return (
     <div>
       <Header nomePagina='' />
-      < ServicoLavagem />
+      < ServicoLavagem cliente={{
+        id: 0,
+        nome: '',
+        email: '',
+        telefone: '',
+        endereco: '',
+        numero: '',
+        complemento: '',
+        estado: '',
+        cep: '',
+        bairro: ''
+      }} />
     </div>
   )
 }

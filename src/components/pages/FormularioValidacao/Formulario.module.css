@@ -74,6 +74,10 @@
     color: var(--color-error);
 }
 
-/*    teste */
+.msgError{
+    color: var(--color-error);
+    font-size: 2rem;
+}
+
 
 

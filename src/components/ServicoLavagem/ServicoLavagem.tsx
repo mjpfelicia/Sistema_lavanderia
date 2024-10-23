@@ -4,8 +4,11 @@ import { getPecaPorTipo, Peca, TipoPeca } from '../service/apiPeca';
 import PecasSelecionadas from './PecasSelecionadas';
 import Totalizador from './Totalizador';
 import '../ServicoLavagem/ServicoLavagem.css';
+import { Ticket } from '../service/apiTicket';
+import ModalPagamento from '../modal/ModalPagamento';
+import { Cliente } from '../service/apiCliente';
 
-// imagens
+// Imagens
 import BLAZER from '../../img/blazer.png';
 import camisa from '../../img/camisa.jpg';
 import calcaSimples from '../../img/calcaSimples.png';
@@ -14,8 +17,6 @@ import jaqueta from '../../img/jaquetaS.png';
 import edredom from '../../img/edredom.png';
 import jaleco from '../../img/jaleco.png';
 import toalham from '../../img/toa.png';
-import ModalPagamento from '../modal/ModalPagamento';
-import { Ticket } from '../service/apiTicket';
 
 const tipoPecaImage = {
   "BLAZER": BLAZER,
@@ -26,7 +27,7 @@ const tipoPecaImage = {
   "JALECO": jaleco,
   "CAMA": edredom,
   "MESA": toalham,
-}
+};
 
 const tipoPecaLista: TipoPeca[] = [
   "BLAZER",
@@ -37,9 +38,13 @@ const tipoPecaLista: TipoPeca[] = [
   "JALECO",
   "CAMA",
   "MESA",
-]
+];
 
-const ServicoLavagem: React.FC = () => {
+interface ServicoLavagemProps {
+  cliente: Cliente;
+}
+
+const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
   const [modalAberto, setModalAberto] = useState<boolean>(false);
   const [pecasSelecionadas, setPecasSelecionada] = useState<Peca[]>([]);
   const [pecasAdicionadas, setPecasAdicionadas] = useState<Peca[]>([]);
@@ -64,7 +69,6 @@ const ServicoLavagem: React.FC = () => {
 
   const finalizarSelecao = (ticketNumber: string) => {
     console.log("ticketNumber: ", { ticketNumber });
-
     setTicketNumber(ticketNumber);
     setMostrarPagamento(true);
   };
@@ -77,7 +81,7 @@ const ServicoLavagem: React.FC = () => {
   const totalPreco = pecasAdicionadas.reduce((acc, peca) => acc + peca.preco, 0);
 
   return (
-    <div className='Servicodelavagem'>
+    <div className='ServicoLavagem'>
       <h2>Serviço de Lavagem de Roupas</h2>
       <div className='content'>
         <div className="cards-container">
@@ -94,13 +98,26 @@ const ServicoLavagem: React.FC = () => {
           </ModalS>
         )}
         {!mostrarPagamento ? (
-          <Totalizador pecas={pecasAdicionadas} finalizarSelecao={finalizarSelecao} setTicket={setTicket} />
+          cliente && (
+            <Totalizador
+              pecas={pecasAdicionadas}
+              finalizarSelecao={finalizarSelecao}
+              setTicket={setTicket}
+              cliente={cliente}
+            />
+          )
         ) : (
-          <ModalPagamento ticket={ticket} total={totalPreco} quantidade={totalPecas} fecharModal={fecharModalPagamento} ticketNumber={ticketNumber} />
+          <ModalPagamento
+            ticket={ticket}
+            total={totalPreco}
+            quantidade={totalPecas}
+            fecharModal={fecharModalPagamento}
+            ticketNumber={ticketNumber}
+          />
         )}
       </div>
     </div>
   );
 };
 
-export default ServicoLavagem
+export default ServicoLavagem;

@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 import './ServicoLavagem.css';
 import { Ticket, criarTicket } from "../service/apiTicket";
 import { Peca } from '../service/apiPeca';
+import { Cliente } from '../service/apiCliente';
 
 interface TotalizadorProps {
+  cliente: Cliente;
   pecas: Peca[];
   finalizarSelecao: (ticketNumber: string) => void;
   setTicket: (ticket: Ticket) => void;
 }
 
-const Totalizador: React.FC<TotalizadorProps> = ({ pecas, finalizarSelecao, setTicket }) => {
+const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSelecao, setTicket }) => {
   const [ticketNumber, setTicketNumber] = useState<string>('');
-
   const totalPecas = pecas.length;
   const totalPreco = pecas.reduce((acc, peca) => acc + peca.preco, 0);
-
   const pecasAgrupadas = pecas.reduce((acc, peca) => {
     if (acc[peca.subTipo]) {
       acc[peca.subTipo].quantidade += 1;
@@ -39,7 +39,7 @@ const Totalizador: React.FC<TotalizadorProps> = ({ pecas, finalizarSelecao, setT
     finalizarSelecao(ticketNumber);
     const ticketToCreate: Ticket = {
       ticketNumber,
-      clienteId: 1,
+      clienteId: cliente.id,
       estaPago: "não",
       items: Object.entries(pecasAgrupadas).map(([subTipo, { quantidade, total, pecaId }]) => ({
         pecaId,
@@ -48,8 +48,8 @@ const Totalizador: React.FC<TotalizadorProps> = ({ pecas, finalizarSelecao, setT
         total
       })),
       total: totalPreco,
-      totalPago: totalPreco, //TODO: valor com desconto tratar forma de desconto
-      dataCriacao: new Date().toISOString() // adicionando data de criação
+      totalPago: totalPreco, 
+      dataCriacao: new Date().toISOString()
     };
     await criarTicket(ticketToCreate)
       .then((ticketResponse) => {
@@ -63,12 +63,12 @@ const Totalizador: React.FC<TotalizadorProps> = ({ pecas, finalizarSelecao, setT
 
   return (
     <div className='totalizador'>
-      <h3>Ticket</h3>
-      {ticketNumber && (
-        <div className="ticket-number">
-          <p>Número do Ticket: {ticketNumber}</p>
-        </div>
-      )}
+      <h3>Resumo do Pedido</h3>
+      <div>
+        <p>Cliente: {cliente.nome}</p>
+        <p>Telefone: {cliente.telefone}</p>
+        <p>Número do Ticket: {ticketNumber}</p>
+      </div>
       <div className="pecas-lista">
         {Object.entries(pecasAgrupadas).map(([subTipo, { quantidade, total }], idx) => (
           <p key={idx}>{subTipo} ({quantidade}) - valor R${total.toFixed(2)}</p>
