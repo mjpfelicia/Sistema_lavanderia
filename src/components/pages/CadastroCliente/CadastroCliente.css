@@ -4,6 +4,9 @@
     flex-direction: row-reverse;
     align-items: center;
     padding: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    white-space: nowrap;
 }
 
 .formCadastro {
@@ -45,7 +48,8 @@
     text-align: left;
 }
 
-.formGroupCep, .formGroupTelefone input {
+.formGroupCep,
+.formGroupTelefone input {
     width: 18rem !important;
 }
 
@@ -53,7 +57,8 @@
     width: 12rem;
 }
 
-.formControlEstado, .formControlBairro {
+.formControlEstado,
+.formControlBairro {
     width: 21rem !important;
 }
 
@@ -71,7 +76,6 @@
     .formCadastro {
         width: 80%;
     }
-
     .formGroup2 {
         margin-left: 2rem;
     }
@@ -81,15 +85,12 @@
     .formCadastro {
         width: 90%;
     }
-
     .formGroup input {
         margin-left: 1rem;
     }
-
     .formGroup2 {
         margin-left: 1rem;
     }
-
     .menuCadastro {
         flex-direction: column;
     }
@@ -99,17 +100,14 @@
     .formCadastro {
         width: 100%;
     }
-
     .formGroup label {
         width: 100%;
         text-align: left;
     }
-
     .formGroup input {
         width: 100%;
         margin-left: 0;
     }
-
     .formGroup2 {
         margin-left: 0;
     }

@@ -1,20 +1,27 @@
+
 import React from 'react';
 import classe from './ModalServico.module.css';
 
-interface ModalProps {
-  onClose: () => void;
+// Definindo as propriedades aceitas pelo componente Modal
+interface ModalProps { 
+  onClose: () => void; 
   children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
-  return (
-    <div className={classe.overlay} onClick={onClose}>
-      <div className={classe.modalContent} onClick={(e) => e.stopPropagation()}>
-        <button className={classe.closeButton} onClick={onClose}>x</button>
+// Função principal do componente Modal
+const Modal: React.FC<ModalProps> = ({ onClose, children }) => { 
+  return ( 
+    // O overlay do modal, que fecha o modal ao ser clicado
+    <div className={classe.overlay} onClick={onClose}> 
+      {/* Conteúdo do modal, impede propagação do clique para o overlay */}
+      <div className={classe.modalContent} onClick={(e) => e.stopPropagation()}> 
+        {/* Botão para fechar o modal */}
+        <button className={classe.closeButton} onClick={onClose}>x</button> 
         {children}
       </div>
     </div>
   );
 };
+
 
 export default Modal;

@@ -1,7 +1,11 @@
+// Importando React e o arquivo de estilo CSS para o serviço de lavagem
 import React from 'react';
-import './ServicoLavagem.css'; 
+import './ServicoLavagem.css';
 
-// imagens
+// Importando a interface Peca do serviço de API
+import { Peca } from '../service/apiPeca';
+
+// Importando imagens
 import BLAZER from '../../img/blazer.png';
 import camisa from '../../img/camisa.jpg';
 import calcaSimples from '../../img/calcaSimples.png';
@@ -10,8 +14,10 @@ import jaqueta from '../../img/jaquetaS.png';
 import edredom from '../../img/edredom.png';
 import jaleco from '../../img/jaleco.png';
 import toalham from '../../img/toa.png';
-import { Peca } from '../service/apiPeca';
 
+
+
+// Mapeamento de URLs das imagens com base no nome das peças
 const imagemUrl = {
   "BLAZER": BLAZER,
   "CAMISA": camisa,
@@ -23,11 +29,13 @@ const imagemUrl = {
   "MESA": toalham,
 }
 
+// Definindo as propriedades aceitas pelo componente PecasSelecionadas
 interface PecasSelecionadasProps {
   pecas: Peca[];
   adicionarPeca: (peca: Peca) => void;
 }
 
+// Função principal do componente PecasSelecionadas
 const PecasSelecionadas: React.FC<PecasSelecionadasProps> = ({ pecas, adicionarPeca }) => {
   return (
     <div className='pecas-selecionadas'>
@@ -45,5 +53,6 @@ const PecasSelecionadas: React.FC<PecasSelecionadasProps> = ({ pecas, adicionarP
     </div>
   );
 };
+
 
 export default PecasSelecionadas;

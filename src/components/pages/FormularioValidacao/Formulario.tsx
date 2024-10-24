@@ -3,12 +3,14 @@ import classes from "./Formulario.module.css";
 import { Cliente, buscarCliente } from '../../service/apiCliente';
 import ServicoLavagem from '../../ServicoLavagem/ServicoLavagem';
 
+
+// Interface para os dados do formulário
 interface FormData {
   nome: string;
   telefone: string;
   senha: string;
 }
-
+// Estados para os dados do formulário, erros, clientes encontrados, cliente selecionado, estado de carregamento e estado de nenhum cliente encontrado
 const FormularioValidacao = () => {
   const [formData, setFormData] = useState<FormData>({ nome: '', telefone: '', senha: '' });
   const [erros, setErros] = useState<Partial<FormData>>({});
@@ -17,6 +19,7 @@ const FormularioValidacao = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [nenhumClienteEncontrado, setNenhumClienteEncontrado] = useState<boolean>(false);
 
+  // Função para validar o formulário
   const validarFormulario = (): boolean => {
     const novosErros: Partial<FormData> = {};
     if (formData.nome.length < 3) {
@@ -32,15 +35,17 @@ const FormularioValidacao = () => {
     return Object.keys(novosErros).length === 0;
   };
 
+  // Função para lidar com mudanças nos inputs do formulário
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Função para lidar com a submissão do formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validarFormulario()) {
       setLoading(true);
-      setNenhumClienteEncontrado(false); // Reset the no client found state
+      setNenhumClienteEncontrado(false); // Reseta o estado de nenhum cliente encontrado
       try {
         const result = await buscarCliente(formData.nome, formData.telefone);
         console.log('Resultado da API:', result);
@@ -48,7 +53,7 @@ const FormularioValidacao = () => {
         if (result.length === 1) {
           setClienteSelecionado(result[0]);
         } else if (result.length === 0) {
-          setNenhumClienteEncontrado(true); // Set no client found state
+          setNenhumClienteEncontrado(true); // Define o estado de nenhum cliente encontrado
         }
       } catch (error) {
         console.error("Erro ao buscar cliente", error);
@@ -58,10 +63,14 @@ const FormularioValidacao = () => {
     }
   };
 
+
+  // Função para lidar com a seleção de um cliente da lista
   const handleClienteSelecionado = (cliente: Cliente) => {
     setClienteSelecionado(cliente);
   };
 
+
+  // Hook de efeito para logar os clientes atualizados
   useEffect(() => {
     console.log('Clientes atualizados:', clientes);
   }, [clientes]);
@@ -98,7 +107,7 @@ const FormularioValidacao = () => {
           {clientes.length > 0 ? (
             <ul>
               {clientes.map((cliente, index) => (
-                <li key={index} onClick={() => handleClienteSelecionado(cliente)}>
+                <li className={classes.li} key={index} onClick={() => handleClienteSelecionado(cliente)}>
                   {cliente.nome} - {cliente.telefone}
                 </li>
               ))}

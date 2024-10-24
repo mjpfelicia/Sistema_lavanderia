@@ -1,12 +1,16 @@
-header {
+.header {
   position: fixed;
-  font-family: 'Poppins', sans-serif !important;
   width: 100%;
   top: 0;
   z-index: 1000;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
 }
 
-.responsive-menu {
+.responsive-menu,
+.navbar-collapse {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,6 +20,8 @@ header {
   background-color: var(--color_branca);
   border-top: 2px solid var(--color-line);
   border-bottom: 2px solid var(--color-line);
+  flex-wrap: wrap;
+  /* Permitir que os itens quebrem para a próxima linha */
 }
 
 .HeaderContent {
@@ -25,6 +31,9 @@ header {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 .title-header {
@@ -59,6 +68,37 @@ header {
   .linkCadastro a {
     font-size: calc(0.8rem + 0.4vw);
   }
+
+  .navbar {
+    justify-content: end !important;
+    margin-top: 2rem;
+  }
+
+  .navbar-toggler {
+    margin-right: 1rem;
+  }
+
+  .navbar-nav {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .navbar-collapse {
+    background: transparent;
+  }
+
+  .HeaderContent {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .responsive-menu,
+  .navbar-nav {
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background-color: transparent;
+  }
 }
 
 @media (max-width: 480px) {
@@ -67,4 +107,5 @@ header {
   .linkCadastro a {
     font-size: calc(1rem + 0.4vw);
   }
+
 }

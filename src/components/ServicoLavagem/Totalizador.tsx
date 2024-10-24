@@ -13,8 +13,12 @@ interface TotalizadorProps {
 
 const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSelecao, setTicket }) => {
   const [ticketNumber, setTicketNumber] = useState<string>('');
+  
+  // Calcula o total de peças e o preço total das peças
   const totalPecas = pecas.length;
   const totalPreco = pecas.reduce((acc, peca) => acc + peca.preco, 0);
+  
+  // Agrupa as peças pelo subTipo
   const pecasAgrupadas = pecas.reduce((acc, peca) => {
     if (acc[peca.subTipo]) {
       acc[peca.subTipo].quantidade += 1;
@@ -29,14 +33,17 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
     }
     return acc;
   }, {} as { [key: string]: { quantidade: number; total: number, pecaId: string } });
-
+  
   useEffect(() => {
+    // Gera um novo número de ticket aleatório
     const newTicketNumber = `${Math.floor(Math.random() * 1000000) + 1}`;
     setTicketNumber(newTicketNumber);
   }, []);
-
+  
   const handleFinalizar = async () => {
     finalizarSelecao(ticketNumber);
+    
+    // Cria um novo ticket com as peças agrupadas e outras informações do cliente
     const ticketToCreate: Ticket = {
       ticketNumber,
       clienteId: cliente.id,
@@ -48,9 +55,11 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
         total
       })),
       total: totalPreco,
-      totalPago: totalPreco, 
+      totalPago: totalPreco,
       dataCriacao: new Date().toISOString()
     };
+    
+    // Envia a requisição para criar o ticket
     await criarTicket(ticketToCreate)
       .then((ticketResponse) => {
         console.log("criarTicket: ", { ticketResponse });
@@ -63,7 +72,7 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
 
   return (
     <div className='totalizador'>
-      <h3>Resumo do Pedido</h3>
+      <h3>Pedido</h3>
       <div>
         <p>Cliente: {cliente.nome}</p>
         <p>Telefone: {cliente.telefone}</p>

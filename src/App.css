@@ -1,5 +1,7 @@
+/* Importando fontes do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+/* Estilos gerais do corpo */
 body {
   margin: 0;
   padding: 0;
@@ -9,6 +11,7 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+/* Variáveis de cor */
 :root {
   --color_azul_bg: #09c;
   --color_border: #007399;
@@ -29,14 +32,17 @@ body {
   --color-titleCadastro: #1E1E1E;
 }
 
-.App {
-  text-align: center;
-}
-
+/* Estilos para links */
 a {
   text-decoration: none;
 }
 
+/* Remover o estilo de lista */
+li {
+  list-style: none;
+}
+
+/* Estilos para o cabeçalho */
 header {
   position: fixed;
   width: 100%;
@@ -46,29 +52,34 @@ header {
 }
 
 
-/* Estilos gerais */
+/* Estilos gerais do aplicativo com imagem de fundo */
 .App {
   background-image: url('../src/img/bgcontainer.jpg');
-  height: 100vh; /* Ajuste a altura desejada */
-  width: 100%; 
+  min-height: 100vh;
+  width: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
+  text-align: center;
+  /* Isso mantém a imagem fixa enquanto você rola o conteúdo */
 }
 
 /* Media queries para responsividade */
 @media (max-width: 768px) {
   .App {
-    height: 100%;
-   
+    min-height: 100vh;
+    background-size: cover;
+    /* Mantém o tamanho da imagem proporcional */
+    background-attachment: scroll;
+    /* Permite que a imagem se mova com o conteúdo em telas menores */
   }
 }
 
 @media (max-width: 480px) {
   .App {
-    height: 100%; 
+    min-height: 100vh;
+    background-size: cover;
+    background-attachment: scroll;
   }
 }
-
-
-

@@ -2,139 +2,131 @@
 
 /* Estilos Gerais */
 .Servicodelavagem {
-  margin-top: 1rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
+    margin-top: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 .content {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-top: 2rem;
-  padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem;
 }
 
 .cards-container {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  width: 14rem;
-  height: 14rem !important;
-  border-radius: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    width: 14rem;
+    height: 14rem !important;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
 }
 
 .card img {
-  width: 5rem;
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+    width: 5rem;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
 }
 
 .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card.selected {
-  border-color: #007bff;
-  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
 }
 
 .card h3 {
-  width: 100%;
-  margin: 0;
-  font-size: 1rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
+    width: 100%;
+    margin: 0;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .card p {
-  margin: 8px 0 0;
-  font-size: 1em;
-  text-align: center;
+    margin: 8px 0 0;
+    font-size: 1em;
+    text-align: center;
 }
 
-li {
-  list-style: none;
-}
 
-/* css do totalizador */
+/* CSS do totalizador */
 .totalizador {
-  width: 100%;
-  max-width: 400px;
-  text-align: left;
-  padding: 1.5rem;
-  border: 1px solid var(--color-borde);
-  border-radius: 8px;
-  background-color: var(--color-bg-cinza-claro);
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+    padding: 1.5rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    background-color: var(--color-bg-cinza-claro);
 }
 
 .totalizador h3 {
-  text-align: center;
+    text-align: center;
 }
 
 .pecas-selecionadas button,
 .btnFinalizar {
-  width: 100%;
-  padding: 1rem;
-  /* margin: 1rem 0; */
-  background-color: transparent;
-  color: var(--color-texto);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-
+    width: 100%;
+    padding: 1rem;
+    /* margin: 1rem 0; */
+    background-color: transparent;
+    color: var(--color-texto);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
 }
 
 .total-container,
 .pecas-lista {
-  margin-top: 32px;
+    margin-top: 32px;
 }
 
 .total-container p,
-.pecas-lista p, .ticket-number {
-  margin: 6px 0;
-  white-space: nowrap;
- 
+.pecas-lista p, 
+.ticket-number {
+    margin: 6px 0;
+    white-space: nowrap;
 }
- .totalizador p{
-  margin-bottom: 0.5rem;
- }
 
-
-
-
+.totalizador p {
+    margin-bottom: 0.5rem;
+}
 
 @media only screen and (max-width: 768px) {
-  .content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-    align-content: center;
-    padding-bottom: 2rem;
-  }
-
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+        align-content: center;
+        padding-bottom: 2rem;
+    }
 }

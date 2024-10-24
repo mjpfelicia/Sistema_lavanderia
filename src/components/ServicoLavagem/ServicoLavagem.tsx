@@ -40,10 +40,12 @@ const tipoPecaLista: TipoPeca[] = [
   "MESA",
 ];
 
+// Propriedades do componente `ServicoLavagem`
 interface ServicoLavagemProps {
   cliente: Cliente;
 }
 
+// Definição do componente funcional `ServicoLavagem`
 const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
   const [modalAberto, setModalAberto] = useState<boolean>(false);
   const [pecasSelecionadas, setPecasSelecionada] = useState<Peca[]>([]);
@@ -52,34 +54,39 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
   const [ticketNumber, setTicketNumber] = useState<string>('');
   const [ticket, setTicket] = useState<Ticket>({} as Ticket);
 
+ // Função para abrir o modal e buscar peças pelo tipo
   const abrirModal = useCallback(async (peca: TipoPeca) => {
     const pecaResponse = await getPecaPorTipo(peca);
     setPecasSelecionada(pecaResponse);
     setModalAberto(true);
   }, []);
-
+  
+ // Função para fechar o modal e Resetar as peças selecionadas
   const fecharModal = useCallback(() => {
     setModalAberto(false);
     setPecasSelecionada([]);
   }, []);
 
+  // Função para adicionar peça à lista de peças adicionadas
   const adicionarPeca = (peca: Peca) => {
     setPecasAdicionadas(prevPecas => [...prevPecas, peca]);
   };
 
+  // Função para finalizar a seleção de peças e gerar um número de ticket
   const finalizarSelecao = (ticketNumber: string) => {
     console.log("ticketNumber: ", { ticketNumber });
     setTicketNumber(ticketNumber);
     setMostrarPagamento(true);
   };
-
+  // Função para fechar o modal de pagamento
   const fecharModalPagamento = () => {
     setMostrarPagamento(false);
   };
-
+  // Calcula o total de peças e o preço total das peças adicionadas
   const totalPecas = pecasAdicionadas.length;
   const totalPreco = pecasAdicionadas.reduce((acc, peca) => acc + peca.preco, 0);
 
+  // Renderização do componente
   return (
     <div className='ServicoLavagem'>
       <h2>Serviço de Lavagem de Roupas</h2>

@@ -8,6 +8,19 @@
     height: 20vh;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    white-space: nowrap;
+
+}
+
+.box {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 3rem;
+    opacity: 0.9;
+    cursor: pointer;
 }
 
 
@@ -18,8 +31,6 @@
     padding: 0px 24px;
     font-size: 15px;
 }
-
-
 
 .controle_de_campo input {
     width: 348px;
@@ -47,7 +58,6 @@
     margin-bottom: 0.6rem;
 }
 
-
 .btn_enter {
     width: 103px;
     padding: 6px;
@@ -74,10 +84,17 @@
     color: var(--color-error);
 }
 
-.msgError{
+.msgError {
     color: var(--color-error);
     font-size: 2rem;
 }
 
+.li {
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 0;
+}
 
-
+ol,
+ul {
+    padding-left: 0 !important;
+}

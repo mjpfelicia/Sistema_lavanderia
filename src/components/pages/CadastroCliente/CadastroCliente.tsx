@@ -1,3 +1,4 @@
+// dependências necessárias
 import { useState } from 'react';
 import { Cliente } from '../../service/apiCliente';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,16 +7,20 @@ import CloseButton from '../../buttons/CloseButton';
 import AtualizaCliente from '../../AtualizaCliente/AtualizaCliente';
 import Modal from '../../modal/modal';
 
+// Definindo as propriedades aceitas pelo componente CadastroCliente
 interface CadastroClienteProps {
   cliente?: Cliente;
 }
 
+// Função principal do componente CadastroCliente
 const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Cliente }) => {
+  // Declarando estados para o formulário, lista de clientes, cliente selecionado e visibilidade do modal
   const [formData, setFormData] = useState<Cliente>({ ...cliente });
   const [lista, setLista] = useState<Cliente[]>([]);
   const [clienteSelecionado, setClienteSelecionado] = useState<Cliente>({} as Cliente);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Função para lidar com mudanças nos campos do formulário
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prevFormData => ({
@@ -24,6 +29,7 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Clien
     }));
   };
 
+  // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -47,6 +53,7 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Clien
     }
   };
 
+  // Função para lidar com a atualização do cliente na lista
   const handleUpdate = (clienteAtualizado: Cliente) => {
     setLista(lista.map(cliente => cliente.id === clienteAtualizado.id ? clienteAtualizado : cliente));
   };
@@ -79,6 +86,7 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Clien
   );
 };
 
+// Função para renderizar os campos do formulário dinamicamente
 const renderFormFields = (formData: Cliente, handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void) => (
   <>
     {(['nome', 'telefone', 'email', 'endereco', 'numero', 'complemento', 'cep', 'estado', 'bairro'] as (keyof Cliente)[]).map((field, idx) => (
@@ -95,5 +103,6 @@ const renderFormFields = (formData: Cliente, handleChange: (e: React.ChangeEvent
     ))}
   </>
 );
+
 
 export default CadastroCliente;

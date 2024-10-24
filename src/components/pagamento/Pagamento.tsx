@@ -1,8 +1,10 @@
+// dependências e arquivos de estilo
 import React, { useState } from 'react';
 import './Pagamento.css';
 import ImpressaoTicket from '../Impressao';
 import { Ticket } from '../service/apiTicket';
 
+// Interface para o tipo Item
 export interface Item {
   nome: string;
   subTipo: string;
@@ -10,6 +12,7 @@ export interface Item {
   preco: number;
 }
 
+// Interface para as propriedades do componente Pagamento
 interface PagamentoProps {
   total: number;
   quantidade: number;
@@ -18,9 +21,11 @@ interface PagamentoProps {
   ticket: Ticket;
 }
 
+// Função principal do componente Pagamento
 const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, itens, ticket }) => {
   console.log("[Pagamento]: ", { ticket });
 
+  // Definindo estados para gerenciar a forma de pagamento, data de retirada, status do pagamento, etc.
   const [formaPagamento, setFormaPagamento] = useState<string>('Cartão de Crédito');
   const [pagamentoNaRetirada, setPagamentoNaRetirada] = useState<boolean>(false);
   const [dataRetirada, setDataRetirada] = useState<string>('');
@@ -28,32 +33,30 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
   const [erro, setErro] = useState<string>('');
   const [mostrarImpressao, setMostrarImpressao] = useState<boolean>(false);
 
+  // Função para lidar com a confirmação do pagamento
   const handlePagamento = () => {
     if (!dataRetirada) {
       setErro('Data de retirada não agendada');
       return;
     }
-
     const hoje = new Date();
     const dataSelecionada = new Date(dataRetirada);
-
     if (dataSelecionada < hoje) {
       setErro('Data de retirada não pode ser anterior ao dia atual');
       return;
     }
-
     setErro('');
-    
+
     if (pagamentoNaRetirada) {
       setStatusPagamento('A Pagar na Retirada');
     } else {
       setStatusPagamento(`Pago com ${formaPagamento}`);
     }
-
     console.log("Dados antes de setMostrarImpressao:", { ticketNumber, formaPagamento, dataRetirada, statusPagamento, itens });
     setMostrarImpressao(true);
   };
 
+  // Função para lidar com a mudança na forma de pagamento
   const handleFormaPagamentoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFormaPagamento(e.target.value);
     if (!pagamentoNaRetirada) {
@@ -61,6 +64,7 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
     }
   };
 
+  // Função para lidar com a alteração na opção de pagamento na retirada
   const handlePagamentoNaRetiradaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPagamentoNaRetirada(e.target.checked);
     if (e.target.checked) {
@@ -108,7 +112,7 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
           <p>Retirada em: {dataRetirada || 'Data não agendada'}</p>
         </div>
       ) : (
-        <ImpressaoTicket 
+        <ImpressaoTicket
           ticketNumber={ticketNumber}
           formaPagamento={formaPagamento || 'Pagamento na Retirada'}
           dataRetirada={dataRetirada}
