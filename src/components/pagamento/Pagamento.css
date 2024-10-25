@@ -8,7 +8,7 @@
   background-color: var(--color-bg-cinza-claro);
 }
 
-.btnpagamento {
+.btnpagamento,.btnImpressao {
   margin-top: 2rem;
   padding: 10px 20px;
   width: 100%;

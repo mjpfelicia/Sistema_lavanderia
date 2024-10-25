@@ -18,8 +18,6 @@
   gap: 2rem;
   padding: 1rem;
   background-color: var(--color_branca);
-  border-top: 2px solid var(--color-line);
-  border-bottom: 2px solid var(--color-line);
   flex-wrap: wrap;
   /* Permitir que os itens quebrem para a próxima linha */
 }
@@ -85,6 +83,7 @@
 
   .navbar-collapse {
     background: transparent;
+    flex-wrap: wrap
   }
 
   .HeaderContent {
@@ -94,9 +93,9 @@
 
   .responsive-menu,
   .navbar-nav {
-    flex-direction: row;
-    gap: 1rem;
+    flex-direction: row!important;
     flex-wrap: wrap;
+    gap: 1rem;
     background-color: transparent;
   }
 }

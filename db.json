@@ -805,6 +805,220 @@
       "total": 60,
       "totalPago": 60,
       "dataCriacao": "2024-10-24T18:10:57.500Z"
+    },
+    {
+      "id": "4f86",
+      "ticketNumber": "830240",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [],
+      "total": 0,
+      "totalPago": 0,
+      "dataCriacao": "2024-10-24T18:29:57.503Z"
+    },
+    {
+      "id": "77a7",
+      "ticketNumber": "126923",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "M3",
+          "subTipo": "TOALHA GRANDE",
+          "quantidade": 1,
+          "total": 30
+        }
+      ],
+      "total": 30,
+      "totalPago": 30,
+      "dataCriacao": "2024-10-25T12:29:06.809Z"
+    },
+    {
+      "id": "b082",
+      "ticketNumber": "979183",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "M3",
+          "subTipo": "TOALHA GRANDE",
+          "quantidade": 1,
+          "total": 30
+        }
+      ],
+      "total": 30,
+      "totalPago": 30,
+      "dataCriacao": "2024-10-25T12:29:30.340Z"
+    },
+    {
+      "id": "1594",
+      "ticketNumber": "726131",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "M6",
+          "subTipo": "TOALHA PEQUENA",
+          "quantidade": 2,
+          "total": 60
+        }
+      ],
+      "total": 60,
+      "totalPago": 60,
+      "dataCriacao": "2024-10-25T12:30:58.197Z"
+    },
+    {
+      "id": "3e1e",
+      "ticketNumber": "283687",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 2,
+          "total": 401.8
+        }
+      ],
+      "total": 401.8,
+      "totalPago": 401.8,
+      "dataCriacao": "2024-10-25T12:32:38.882Z"
+    },
+    {
+      "id": "a3c6",
+      "ticketNumber": "724875",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 2,
+          "total": 401.8
+        }
+      ],
+      "total": 401.8,
+      "totalPago": 401.8,
+      "dataCriacao": "2024-10-25T12:33:32.369Z"
+    },
+    {
+      "id": "8859",
+      "ticketNumber": "464837",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 1,
+          "total": 200.9
+        }
+      ],
+      "total": 200.9,
+      "totalPago": 200.9,
+      "dataCriacao": "2024-10-25T12:34:57.472Z"
+    },
+    {
+      "id": "be66",
+      "ticketNumber": "955259",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 2,
+          "total": 401.8
+        }
+      ],
+      "total": 401.8,
+      "totalPago": 401.8,
+      "dataCriacao": "2024-10-25T12:38:33.039Z"
+    },
+    {
+      "id": "923e",
+      "ticketNumber": "726920",
+      "clienteId": "68c4",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 1,
+          "total": 200.9
+        },
+        {
+          "pecaId": "v2",
+          "subTipo": "VESTIDO RENDA",
+          "quantidade": 1,
+          "total": 200.9
+        }
+      ],
+      "total": 401.8,
+      "totalPago": 401.8,
+      "dataCriacao": "2024-10-25T12:48:32.858Z"
+    },
+    {
+      "id": "e758",
+      "ticketNumber": "941472",
+      "clienteId": "68c4",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 1,
+          "total": 200.9
+        },
+        {
+          "pecaId": "v2",
+          "subTipo": "VESTIDO RENDA",
+          "quantidade": 1,
+          "total": 200.9
+        }
+      ],
+      "total": 401.8,
+      "totalPago": 401.8,
+      "dataCriacao": "2024-10-25T12:49:10.788Z"
+    },
+    {
+      "id": "8af2",
+      "ticketNumber": "406915",
+      "clienteId": "68c4",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 1,
+          "total": 200.9
+        },
+        {
+          "pecaId": "v2",
+          "subTipo": "VESTIDO RENDA",
+          "quantidade": 1,
+          "total": 200.9
+        },
+        {
+          "pecaId": "bl5",
+          "subTipo": "BLAZER CROPPED",
+          "quantidade": 1,
+          "total": 89.9
+        }
+      ],
+      "total": 491.70000000000005,
+      "totalPago": 491.70000000000005,
+      "dataCriacao": "2024-10-25T12:50:08.288Z"
+    },
+    {
+      "id": "775c",
+      "ticketNumber": "911960",
+      "clienteId": "892b",
+      "estaPago": "não",
+      "items": [],
+      "total": 0,
+      "totalPago": 0,
+      "dataCriacao": "2024-10-25T12:54:51.363Z"
     }
   ]
 }
