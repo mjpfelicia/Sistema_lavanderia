@@ -7,13 +7,13 @@ GET http://localhost:3008/tickets
 GET http://localhost:3008/tickets?_embed=cliente
 
 ### 
-# Pegar ticket por tipo
-GET http://localhost:3008/tickets?tipo=CALÇA
+# Pegar ticket por ticketNumber
+GET http://localhost:3008/tickets?ticketNumber=157476
 
 ###
 
 # Pegar ticket 1
-GET http://localhost:3008/tickets/5cc3?_embed=cliente
+GET http://localhost:3008/tickets/d48c?_embed=cliente
 
 ###
 # Criar ticket

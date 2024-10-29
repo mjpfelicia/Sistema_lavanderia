@@ -467,7 +467,7 @@
   "tickets": [
     {
       "clienteId": 3,
-      "ticketNumber": "00001",
+      "ticketNumber": "1",
       "estaPago": "não",
       "totalPago": 189.73,
       "pecas": [
@@ -903,8 +903,8 @@
     },
     {
       "id": "8859",
-      "ticketNumber": "464837",
-      "clienteId": 0,
+      "ticketNumber": "1",
+      "clienteId": "Melissa",
       "estaPago": "não",
       "items": [
         {
@@ -917,108 +917,7 @@
       "total": 200.9,
       "totalPago": 200.9,
       "dataCriacao": "2024-10-25T12:34:57.472Z"
-    },
-    {
-      "id": "be66",
-      "ticketNumber": "955259",
-      "clienteId": 0,
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "v3",
-          "subTipo": "VESTIDO SIMPLES",
-          "quantidade": 2,
-          "total": 401.8
-        }
-      ],
-      "total": 401.8,
-      "totalPago": 401.8,
-      "dataCriacao": "2024-10-25T12:38:33.039Z"
-    },
-    {
-      "id": "923e",
-      "ticketNumber": "726920",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "v3",
-          "subTipo": "VESTIDO SIMPLES",
-          "quantidade": 1,
-          "total": 200.9
-        },
-        {
-          "pecaId": "v2",
-          "subTipo": "VESTIDO RENDA",
-          "quantidade": 1,
-          "total": 200.9
-        }
-      ],
-      "total": 401.8,
-      "totalPago": 401.8,
-      "dataCriacao": "2024-10-25T12:48:32.858Z"
-    },
-    {
-      "id": "e758",
-      "ticketNumber": "941472",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "v3",
-          "subTipo": "VESTIDO SIMPLES",
-          "quantidade": 1,
-          "total": 200.9
-        },
-        {
-          "pecaId": "v2",
-          "subTipo": "VESTIDO RENDA",
-          "quantidade": 1,
-          "total": 200.9
-        }
-      ],
-      "total": 401.8,
-      "totalPago": 401.8,
-      "dataCriacao": "2024-10-25T12:49:10.788Z"
-    },
-    {
-      "id": "8af2",
-      "ticketNumber": "406915",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "v3",
-          "subTipo": "VESTIDO SIMPLES",
-          "quantidade": 1,
-          "total": 200.9
-        },
-        {
-          "pecaId": "v2",
-          "subTipo": "VESTIDO RENDA",
-          "quantidade": 1,
-          "total": 200.9
-        },
-        {
-          "pecaId": "bl5",
-          "subTipo": "BLAZER CROPPED",
-          "quantidade": 1,
-          "total": 89.9
-        }
-      ],
-      "total": 491.70000000000005,
-      "totalPago": 491.70000000000005,
-      "dataCriacao": "2024-10-25T12:50:08.288Z"
-    },
-    {
-      "id": "775c",
-      "ticketNumber": "911960",
-      "clienteId": "892b",
-      "estaPago": "não",
-      "items": [],
-      "total": 0,
-      "totalPago": 0,
-      "dataCriacao": "2024-10-25T12:54:51.363Z"
     }
+      
   ]
 }

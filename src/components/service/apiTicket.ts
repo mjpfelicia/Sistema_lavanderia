@@ -1,81 +1,83 @@
 import axios, { AxiosError } from 'axios';
 
+// Define o tipo Item
 type Item = {
-  quantidade: number,
-  pecaId: string
-  subTipo: string,
-  total:number
-} |
-{
-  quantidade: number,
-  servicoId: number
-  subTipo: string,
-  total:number
-}
-
-export type Ticket = {
-  clienteId: number,
-  ticketNumber: string,
-  estaPago: "sim" | "não",
-  totalPago: number,
-  items: Item[],
-  total: number,
-  dataCriacao:string
-  //deliveryId: string criar um delivery com o ticketNumber
-  //pagamentoId: string criar um pagamento como ticketNumber
+  quantidade: number;
+  pecaId?: string;
+  servicoId?: number;
+  subTipo: string;
+  total: number;
 };
 
+// Define o tipo Ticket que inclui um array de Itens
+export type Ticket = {
+  clienteId: number;
+  ticketNumber: string;
+  estaPago: "sim" | "não";
+  totalPago: number;
+  items: Item[];
+  total: number;
+  dataCriacao?: string;
+};
 
-
-
+// Cria uma instância do axios com a baseURL configurada
 const api = axios.create({
   baseURL: 'http://localhost:3008/tickets',
 });
 
-export const criarTicket = async (ticket: Ticket): Promise<Ticket> => {
-  console.info("API Ticket - cria Ticket ");
-
-  return api
-    .post<Ticket>(`/`, ticket)
-    .then(response => response.data)
-    .catch((error: AxiosError) => {
-      console.error("[ERROR][criaTicket]", error.message);
-      throw error;
-    });
+// Função para lidar com erros da API
+const handleError = (error: AxiosError | any): never => {
+  const errorMessage = error.response?.data?.message || error.message || 'Erro na API';
+  console.error(`[ERROR][${error.config?.url}]`, errorMessage);
+  throw new Error(errorMessage);
 };
 
-export const listarTickets = async (): Promise<Ticket[]> => {
+// Função para buscar um ticket pelo número
+export const buscarTicket = async (ticketNumber: string): Promise<Ticket | undefined> => {
+  console.info(`API Ticket - buscarTicket ${ticketNumber}`);
+  try {
+    const response = await api.get<Ticket>(`/${ticketNumber}`);
+    console.log('Response Data:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar o ticket:', error);
+    handleError(error);
+    return undefined; // Garantir que sempre há um retorno
+  }
+};
 
-  console.info("API Ticket - listarTicket ");
+// Função para criar um novo ticket
+export const criarTicket = async (ticket: Ticket): Promise<Ticket> => {
+  console.info("API Ticket - criar Ticket ");
+  return api
+    .post<Ticket>('/', ticket)
+    .then(response => response.data)
+    .catch(handleError);
+};
+
+// Função para listar todos os tickets
+export const listarTickets = async (): Promise<Ticket[]> => {
+  console.info("API Ticket - listar Tickets ");
   return api
     .get<Ticket[]>('/')
     .then(response => response.data)
-    .catch((error: AxiosError) => {
-      console.error("[ERROR][listarTicket]", error.message);
-      throw error;
-    });
+    .catch(handleError);
 };
 
-export const getPeca = async (ticketNumber: number): Promise<Ticket> => {
+// Função para obter um ticket específico pelo número
+export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
   console.info("API Ticket - getTicket ");
-
   return api
     .get<Ticket>(`/${ticketNumber}`)
     .then(response => response.data)
-    .catch((error: AxiosError) => {
-      console.error("[ERROR][getTicket]", error.message);
-      throw error;
-    });
+    .catch(handleError);
 };
 
+// Função para atualizar um ticket pelo ID
 export const atualizaTicket = async (idTicket: string, ticket: Ticket): Promise<Ticket> => {
-  console.info("API Ticket - atualizaTicket ");
-
+  console.info("API Ticket - atualizar Ticket ");
   return api
     .put<Ticket>(`/${idTicket}`, ticket)
     .then(response => response.data)
-    .catch((error: AxiosError) => {
-      console.error("[ERROR][atualizaTicket]", error.message);
-      throw error;
-    });
+    .catch(handleError);
 };

@@ -12,7 +12,8 @@
         "servico",
         "Servicodelavagem",
         "Truckcontainer",
-        "Unico"
+        "Unico",
+        "Visualizartickt"
     ],
     "prisma-smart-formatter.typescriptreact.defaultFormatter": "rvest.vs-code-prettier-eslint"
 }
