@@ -34,16 +34,16 @@ const handleError = (error: AxiosError | any): never => {
 };
 
 // Função para buscar um ticket pelo número
-export const buscarTicket = async (ticketNumber: string): Promise<Ticket | undefined> => {
+export const buscarTicket = async (ticketNumber: string): Promise<Ticket[] | []> => {
   console.info(`API Ticket - buscarTicket ${ticketNumber}`);
   try {
-    const response = await api.get<Ticket>(`/${ticketNumber}`);
+    const response = await api.get<Ticket[]>(`/?ticketNumber=${ticketNumber}`);
     console.log('Response Data:', response.data);
     return response.data;
   } catch (error) {
     console.error('Erro ao buscar o ticket:', error);
     handleError(error);
-    return undefined; // Garantir que sempre há um retorno
+    return []; // Garantir que sempre há um retorno
   }
 };
 

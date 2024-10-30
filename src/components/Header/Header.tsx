@@ -30,7 +30,7 @@ const Header = (botaoPaginaAtiva: BotaoPaginaAtiva) => {
   // Definindo o menu
   const MyCarMenu = [ 
     { name: "Recepção", icon: recepcao, link: "/recepcao" },
-    { name: "Entrada de peças", icon: peca, link: "/EntregaPecas" },
+    { name: "Entrada de peças", icon: peca, link: "/EntradaDePeca" },
     { name: "Delivery", icon: delivery, link: "/delivery" },
     { name: "Retorno", icon: retornoD, link: "/DevolucaoDoDelivery" },
     { name: "visualizar ticket", icon: VisualizarTicket, link: "/BuscarTicket" },

@@ -965,6 +965,30 @@
       "totalPago": 49.9,
       "dataCriacao": "2024-10-30T12:19:44.642Z",
       "dataEntrega": ""
+    },
+    {
+      "id": "6eb4",
+      "ticketNumber": "91",
+      "clienteId": "Pedro",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "J3",
+          "subTipo": "JAQUETA RENDA",
+          "quantidade": 5,
+          "total": 150
+        },
+        {
+          "pecaId": "2",
+          "subTipo": "CALÇA SARJA",
+          "quantidade": 1,
+          "total": 25.9
+        }
+      ],
+      "total": 175.9,
+      "totalPago": 175.9,
+      "dataCriacao": "2024-10-30T14:32:03.625Z",
+      "dataEntrega": "2024-11-03T14:32:03.625Z"
     }
   ]
 }

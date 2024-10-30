@@ -1,7 +1,7 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from "../Home/Home";
 import Recepcao from "./Recepcao/Recepcao";
-import EntregaPecas from "./EntregaDePeca/EntregaPeca";
+import EntradaDePeca from "./EntradaDePeca/EntradaDePeca";
 import BuscarTicket from "./VisualizaDeTicket/BuscaTicket";
 import Delivery from "./Delivery/Delivery";
 import DevolucaoDoDelivery from "./DevolucaoDoDelivery/DevolucaoDoDelivery";
@@ -18,7 +18,7 @@ const Rotas = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Recepcao" element={<Recepcao />} />
-        <Route path="/EntregaPecas" element={<EntregaPecas/>} />
+        <Route path="/EntradaDePeca" element={<EntradaDePeca/>} />
         <Route path="/BuscarTicket" element={< BuscarTicket/>}/>
         <Route path="/Delivery" element={<Delivery />} />
         <Route path="/DevolucaoDoDelivery" element={<DevolucaoDoDelivery />} />

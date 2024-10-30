@@ -7,14 +7,6 @@ interface VisualizarTicketProps {
   ticketNumber: string;
 }
 
-// Função personalizada para formatar datas
-const formatDate = (date: string | number | Date) => {
-  const d = new Date(date);
-  const day = (`0${d.getDate()}`).slice(-2);
-  const month = (`0${d.getMonth() + 1}`).slice(-2);
-  const year = d.getFullYear();
-  return `${day}/${month}/${year}`;
-};
 
 const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => {
   // Estados para armazenar o ticket, erros e status de carregamento
@@ -28,8 +20,8 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
       try {
         console.log(`Fetching ticket: ${ticketNumber}`);
         const ticketData = await buscarTicket(ticketNumber);
-        if (ticketData) {
-          setTicket(ticketData); // Atualiza o estado do ticket com os dados recebidos
+        if (ticketData.length > 0) {
+          setTicket(ticketData[0]); // Atualiza o estado do ticket com os dados recebidos
           console.log('Ticket Data:', ticketData);
         } else {
           throw new Error('Ticket não encontrado'); // Lança um erro se o ticket não for encontrado
@@ -61,7 +53,6 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
       <h3>Detalhes do Ticket</h3>
       <p>Número do Ticket: {ticket?.ticketNumber}</p>
       <p>Cliente: {ticket?.clienteId}</p>
-      <p>Data de Criação: {ticket?.dataCriacao ? formatDate(ticket.dataCriacao) : 'Data não disponível'}</p>
       <h4>Itens</h4>
       <ul>
         {ticket?.items.map((item, index) => (

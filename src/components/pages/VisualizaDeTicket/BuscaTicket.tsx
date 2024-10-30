@@ -3,9 +3,7 @@ import Header from "../../Header/Header";
 import ListarTicket from "./ListaTicket";
 
 const VisualizarTicketPage = () => {
-  // Estado para armazenar o número do ticket digitado pelo usuário
   const [ticketNumber, setTicketNumber] = useState("");
-  // Estado para armazenar o número do ticket que será pesquisado
   const [searchTicketNumber, setSearchTicketNumber] = useState("");
 
   // Função para definir o número do ticket a ser pesquisado
