@@ -9,7 +9,7 @@ import recepcao from "../../img/recepcao.png";
 import peca from "../../img/peca.png";
 import delivery from "../../img/delivery.png";
 import retornoD from "../../img/retornoD.png";
-import entregaDePecas from "../../img/entrega.png";
+import VisualizarTicket from "../../img/entrega.png";
 import mapa from "../../img/mapa.png";
 import relatorio from "../../img/relatorio2.png";
 import WhatsApp from "../../img/whapp.png";
@@ -33,7 +33,7 @@ const Header = (botaoPaginaAtiva: BotaoPaginaAtiva) => {
     { name: "Entrada de peças", icon: peca, link: "/EntregaPecas" },
     { name: "Delivery", icon: delivery, link: "/delivery" },
     { name: "Retorno", icon: retornoD, link: "/DevolucaoDoDelivery" },
-    { name: "Entrega de Peças", icon: entregaDePecas, link: "/EntregaPecas" },
+    { name: "visualizar ticket", icon: VisualizarTicket, link: "/BuscarTicket" },
     { name: "Mapa", icon: mapa, link: "/mapa" },
     { name: "Relatório", icon: relatorio, link: "/relatorio" },
     { name: "WhatsApp", icon: WhatsApp, link: "/Whatsapp" },

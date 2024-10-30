@@ -16,32 +16,23 @@ interface ImpressaoTicketProps {
 }
 
 // Função principal do componente ImpressaoTicket
-const ImpressaoTicket: React.FC<ImpressaoTicketProps> = ({
-    ticket,
-    ticketNumber,
-    total,
-    quantidade,
-    formaPagamento,
-    dataRetirada,
-    statusPagamento,
-    dataCriacao
-}) => {
-    console.log("ImpressaoTicket:", ticket);
+const ImpressaoTicket: React.FC<ImpressaoTicketProps> = (impressaoTicketProps) => {
+    console.log("ImpressaoTicket:", impressaoTicketProps);
 
     return (
         <div className="impressao-ticket" >
             <h3>Impressão do Ticket</h3>
             <div id="printableArea" className='printableArea'>
-                <p><strong>Número do Ticket:</strong> {ticketNumber}</p>
-                <p><strong>Total de Peças:</strong> {quantidade}</p>
-                <p><strong>Total a Pagar:</strong> R${total.toFixed(2)}</p>
-                <p><strong>Forma de Pagamento:</strong> {formaPagamento}</p>
-                <p><strong>Status do Pagamento:</strong> {statusPagamento}</p>
-                <p><strong>Data de Criação:</strong> {dataCriacao}</p>
-                <p><strong>Data de Retirada:</strong> {dataRetirada}</p>
+                <p><strong>Número do Ticket:</strong> {impressaoTicketProps.ticketNumber}</p>
+                <p><strong>Total de Peças:</strong> {impressaoTicketProps.quantidade}</p>
+                <p><strong>Total a Pagar:</strong> R${impressaoTicketProps.total.toFixed(2)}</p>
+                <p><strong>Forma de Pagamento:</strong> {impressaoTicketProps.formaPagamento}</p>
+                <p><strong>Status do Pagamento:</strong> {impressaoTicketProps.statusPagamento}</p>
+                <p><strong>Data de Criação:</strong> {impressaoTicketProps.dataCriacao}</p>
+                <p><strong>Data de Retirada:</strong> {impressaoTicketProps.dataRetirada}</p>
                 <h4>Itens:</h4>
                 <ul>
-                    {ticket.items.length > 0 ? ticket.items.map((peca, idx) => (
+                    {impressaoTicketProps.ticket.items.length > 0 ? impressaoTicketProps.ticket.items.map((peca, idx) => (
                         <li key={idx}>
                             {peca.subTipo} ({peca.quantidade}) - valor R${peca.total.toFixed(2)}
                         </li>

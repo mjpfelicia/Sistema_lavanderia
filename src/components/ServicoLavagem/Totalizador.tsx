@@ -56,7 +56,8 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
       })),
       total: totalPreco,
       totalPago: totalPreco,
-      dataCriacao: new Date().toISOString()
+      dataCriacao: new Date().toISOString(),
+      dataEntrega:  ""
     };
     
     // Envia a requisição para criar o ticket

@@ -18,6 +18,7 @@ export type Ticket = {
   items: Item[];
   total: number;
   dataCriacao?: string;
+  dataEntrega: string;
 };
 
 // Cria uma instância do axios com a baseURL configurada

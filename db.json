@@ -917,7 +917,54 @@
       "total": 200.9,
       "totalPago": 200.9,
       "dataCriacao": "2024-10-25T12:34:57.472Z"
+    },
+    {
+      "id": "166a",
+      "ticketNumber": "87788",
+      "clienteId": "68c4",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 1,
+          "total": 200.9
+        },
+        {
+          "pecaId": "v1",
+          "subTipo": "VESTIDO ESPECIAL",
+          "quantidade": 1,
+          "total": 200.9
+        },
+        {
+          "pecaId": "v5",
+          "subTipo": "VESTIDO DETALHE",
+          "quantidade": 1,
+          "total": 200.9
+        }
+      ],
+      "total": 602.7,
+      "totalPago": 602.7,
+      "dataCriacao": "2024-10-30T12:15:15.562Z",
+      "dataEntrega": ""
+    },
+    {
+      "id": "ce80",
+      "ticketNumber": "425326",
+      "clienteId": "68c4",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "cm3",
+          "subTipo": "CAMISA RENDA",
+          "quantidade": 1,
+          "total": 49.9
+        }
+      ],
+      "total": 49.9,
+      "totalPago": 49.9,
+      "dataCriacao": "2024-10-30T12:19:44.642Z",
+      "dataEntrega": ""
     }
-      
   ]
 }

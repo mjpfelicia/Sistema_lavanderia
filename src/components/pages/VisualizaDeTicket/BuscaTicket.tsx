@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from "../../Header/Header";
-import VisualizarTicket from "../VisualizaDeTicket/ListaTicket";
+import ListarTicket from "./ListaTicket";
 
 const VisualizarTicketPage = () => {
   // Estado para armazenar o número do ticket digitado pelo usuário
@@ -23,7 +23,7 @@ const VisualizarTicketPage = () => {
         />
         <button onClick={handleSearch}>Buscar Ticket</button>
       </div>
-      <VisualizarTicket ticketNumber={searchTicketNumber} />
+      <ListarTicket ticketNumber={searchTicketNumber} />
     </div>
   );
 };

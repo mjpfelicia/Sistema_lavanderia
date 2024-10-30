@@ -8,7 +8,7 @@ GET http://localhost:3008/tickets?_embed=cliente
 
 ### 
 # Pegar ticket por ticketNumber
-GET http://localhost:3008/tickets?ticketNumber=157476
+GET http://localhost:3008/tickets?ticketNumber=1
 
 ###
 
