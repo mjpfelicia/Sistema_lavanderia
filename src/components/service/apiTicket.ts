@@ -11,6 +11,7 @@ type Item = {
 
 // Define o tipo Ticket que inclui um array de Itens
 export type Ticket = {
+  id?: string; // Adicionei id aqui
   clienteId: number;
   ticketNumber: string;
   estaPago: "sim" | "não";
@@ -19,6 +20,7 @@ export type Ticket = {
   total: number;
   dataCriacao?: string;
   dataEntrega: string;
+  clienteNome?: string; // Adicionei clienteNome aqui
 };
 
 // Cria uma instância do axios com a baseURL configurada
@@ -74,11 +76,3 @@ export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
     .catch(handleError);
 };
 
-// Função para atualizar um ticket pelo ID
-export const atualizaTicket = async (idTicket: string, ticket: Ticket): Promise<Ticket> => {
-  console.info("API Ticket - atualizar Ticket ");
-  return api
-    .put<Ticket>(`/${idTicket}`, ticket)
-    .then(response => response.data)
-    .catch(handleError);
-};

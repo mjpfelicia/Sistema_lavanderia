@@ -1,7 +1,7 @@
 // dependências e arquivos de estilo
 import React, { useState } from 'react';
 import './Pagamento.css';
-import ImpressaoTicket from '../Impressao';
+import ImpressaoTicket from '../ImpressaoTicket';
 import { Ticket } from '../service/apiTicket';
 
 // Interface para o tipo Item
