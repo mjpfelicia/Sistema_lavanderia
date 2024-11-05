@@ -1,4 +1,3 @@
-// dependências necessárias
 import { useState } from 'react';
 import { Cliente } from '../../service/apiCliente';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -69,8 +68,8 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Clien
         <button type="submit" className="btn btn-primary">Cadastrar</button>
       </form>
       <ul className="list-group w-100 mt-4">
-        {lista.map((item, index) => (
-          <li key={index} className="list-group-item">
+        {lista.map((item) => (
+          <li key={item.id} className="list-group-item">
             {item.nome} - {item.telefone} - {item.email} - {item.endereco}, {item.bairro}, {item.cep}
             <button onClick={() => { setClienteSelecionado(item); setIsModalOpen(true) }} className="btn btn-link">
               Editar
@@ -90,7 +89,7 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Clien
 const renderFormFields = (formData: Cliente, handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void) => (
   <>
     {(['nome', 'telefone', 'email', 'endereco', 'numero', 'complemento', 'cep', 'estado', 'bairro'] as (keyof Cliente)[]).map((field, idx) => (
-      <div key={idx} className="form-group formGroup mb-3">
+      <div key={field} className="form-group formGroup mb-3">
         <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
         <input
           type={field === 'email' ? 'email' : 'text'}
@@ -103,6 +102,5 @@ const renderFormFields = (formData: Cliente, handleChange: (e: React.ChangeEvent
     ))}
   </>
 );
-
 
 export default CadastroCliente;

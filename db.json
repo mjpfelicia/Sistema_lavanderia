@@ -24,20 +24,6 @@
       "complemento": "ap teste"
     },
     {
-      "id": "",
-      "nome": "Silva teste",
-      "email": "silva@example.com",
-      "telefone": "(11) 0000-0000",
-      "endereco": "Rua das teste, 123, São Paulo, SP"
-    },
-    {
-      "id": "",
-      "nome": "Joana Teste",
-      "email": "Joana@example.com",
-      "telefone": "(00) 0000-0000",
-      "endereco": "Rua da joana, 000, São Paulo, SP"
-    },
-    {
       "id": "772a",
       "nome": "SANDRA  atualizado",
       "endereco": "Rua Francisco da Cruz Mellão",
@@ -126,6 +112,18 @@
       "numero": "55555",
       "complemento": "ap teste",
       "id": "892b"
+    },
+    {
+      "id": "f1bc",
+      "nome": "marta teste ",
+      "telefone": "11973241419",
+      "email": "marta@gmarta.com",
+      "cep": "05763-470",
+      "estado": "SP",
+      "bairro": "Chacara Nossa Senhora do Bom Conselho",
+      "endereco": "Rua teste",
+      "numero": "55555",
+      "complemento": "ap teste"
     }
   ],
   "deliverys": [
@@ -488,128 +486,111 @@
       "id": "08b2"
     },
     {
-      "id": "eb16",
-      "ticketNumber": "638154",
+      "id": "6f14",
+      "ticketNumber": "950938",
       "clienteId": "68c4",
-      "clienteNome": "SANDRA FELICIO DE JESUS",
       "estaPago": "sim",
       "items": [
+        {
+          "pecaId": "4",
+          "subTipo": "CALÇA MOLETOM",
+          "quantidade": 1,
+          "total": 29.9
+        },
+        {
+          "pecaId": "3",
+          "subTipo": "CALÇA SOCIAL",
+          "quantidade": 1,
+          "total": 29.9
+        },
         {
           "pecaId": "2",
           "subTipo": "CALÇA SARJA",
           "quantidade": 1,
           "total": 25.9
-        },
-        {
-          "pecaId": "1",
-          "subTipo": "CALÇA ESPECIAL",
-          "quantidade": 1,
-          "total": 35
-        },
-        {
-          "pecaId": "J2",
-          "subTipo": "JAQUETA ESPECIAL",
-          "quantidade": 1,
-          "total": 20.9
         }
       ],
-      "total": 81.8,
-      "totalPago": 0,
-      "dataCriacao": "2024-11-01T18:38:10.222Z",
-      "dataEntrega": "2024-11-13"
+      "total": 85.69999999999999,
+      "totalPago": 85.69999999999999,
+      "dataCriacao": "2024-11-04T17:34:48.151Z",
+      "dataEntrega": "2024-11-14T00:00:00.000Z"
     },
     {
-      "id": "8694",
-      "ticketNumber": "999140",
+      "id": "19dc",
+      "ticketNumber": "702328",
       "clienteId": "68c4",
-      "clienteNome": "SANDRA FELICIO DE JESUS",
       "estaPago": "não",
       "items": [
         {
-          "pecaId": "cm2",
-          "subTipo": "CAMISA SOCIAL",
+          "pecaId": "JA3",
+          "subTipo": "JALECO DE COZINHA",
           "quantidade": 1,
-          "total": 19.9
+          "total": 30
         },
         {
-          "pecaId": "cm3",
-          "subTipo": "CAMISA RENDA",
+          "pecaId": "JA4",
+          "subTipo": "JALECO SARJA",
           "quantidade": 1,
-          "total": 49.9
+          "total": 30
+        },
+        {
+          "pecaId": "JA2",
+          "subTipo": "JALECO DE RENDA",
+          "quantidade": 1,
+          "total": 30
+        },
+        {
+          "pecaId": "JA6",
+          "subTipo": "JALECO BRIM",
+          "quantidade": 1,
+          "total": 30
         }
       ],
-      "total": 69.8,
-      "totalPago": 0,
-      "dataCriacao": "2024-11-01T18:42:14.518Z",
-      "dataEntrega": "2024-11-14"
+      "total": 120,
+      "totalPago": 120,
+      "dataCriacao": "2024-11-05T19:28:32.331Z",
+      "dataEntrega": "2024-11-14T00:00:00.000Z"
     },
     {
-      "id": "13dd",
-      "ticketNumber": "534579",
-      "clienteId": "892b",
-      "clienteNome": "SANDRA FELICIO DE JESUS",
+      "id": "7fe7",
+      "ticketNumber": "995409",
+      "clienteId": 0,
       "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "J2",
-          "subTipo": "JAQUETA ESPECIAL",
-          "quantidade": 1,
-          "total": 20.9
-        },
-        {
-          "pecaId": "j1",
-          "subTipo": "JAQUETA SIMPLES",
-          "quantidade": 1,
-          "total": 20.9
-        }
-      ],
-      "total": 41.8,
+      "items": [],
+      "total": 0,
       "totalPago": 0,
-      "dataCriacao": "2024-11-01T18:43:07.417Z",
-      "dataEntrega": "2024-11-08"
+      "dataCriacao": "2024-11-05T19:31:29.770Z",
+      "dataEntrega": "2024-11-08T00:00:00.000Z"
     },
     {
-      "id": "5c71",
-      "ticketNumber": "781513",
-      "clienteId": "892b",
-      "clienteNome": "SANDRA FELICIO DE JESUS",
+      "id": "72b8",
+      "ticketNumber": "943141",
+      "clienteId": 0,
       "estaPago": "sim",
       "items": [
         {
-          "pecaId": "bl1",
-          "subTipo": "BLAZER ESPECIAL",
+          "pecaId": "JA5",
+          "subTipo": "JALECO OXFORD",
           "quantidade": 1,
-          "total": 89.9
+          "total": 30
         },
         {
-          "pecaId": "bl2",
-          "subTipo": "BLAZER",
+          "pecaId": "JA4",
+          "subTipo": "JALECO SARJA",
           "quantidade": 1,
-          "total": 89.9
-        }
-      ],
-      "total": 179.8,
-      "totalPago": 0,
-      "dataCriacao": "2024-11-01T18:45:25.734Z",
-      "dataEntrega": "2024-11-15"
-    },
-    {
-      "id": "6185",
-      "ticketNumber": "966522",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
+          "total": 30
+        },
         {
-          "pecaId": "v4",
-          "subTipo": "VESTIDO COURO",
-          "quantidade": 2,
-          "total": 401.8
+          "pecaId": "JA3",
+          "subTipo": "JALECO DE COZINHA",
+          "quantidade": 1,
+          "total": 30
         }
       ],
-      "total": 401.8,
-      "totalPago": 401.8,
-      "dataCriacao": "2024-11-01T19:25:18.604Z",
-      "dataEntrega": ""
+      "total": 90,
+      "totalPago": 90,
+      "dataCriacao": "2024-11-05T19:32:39.989Z",
+      "dataEntrega": "2024-11-16T00:00:00.000Z"
     }
   ]
 }

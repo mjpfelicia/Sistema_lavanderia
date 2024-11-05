@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { Cliente } from './apiCliente';
 
 // Define o tipo Item
 type Item = {
@@ -20,7 +21,7 @@ export type Ticket = {
   total: number;
   dataCriacao?: string;
   dataEntrega: string;
-  clienteNome?: string; // Adicionei clienteNome aqui
+  cliente?: Cliente; // Adicionei clienteNome aqui
 };
 
 // Cria uma instância do axios com a baseURL configurada
@@ -39,8 +40,8 @@ const handleError = (error: AxiosError | any): never => {
 export const buscarTicket = async (ticketNumber: string): Promise<Ticket[] | []> => {
   console.info(`API Ticket - buscarTicket ${ticketNumber}`);
   try {
-    const response = await api.get<Ticket[]>(`/?ticketNumber=${ticketNumber}`);
-    console.log('Response Data:', response.data);
+    const response = await api.get<Ticket[]>(`/?ticketNumber=${ticketNumber}&_embed=cliente`);
+    console.log('buscarTicket Response Data:', response.data);
     return response.data;
   } catch (error) {
     console.error('Erro ao buscar o ticket:', error);
@@ -75,4 +76,12 @@ export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
     .then(response => response.data)
     .catch(handleError);
 };
+
+export const  atualizaTicket = async (ticket : Ticket): Promise<Ticket> =>{
+  console.info("API Ticket - atualiza Ticket ", { ticket });
+  return api
+    .put<Ticket>(`/${ticket.id}`, ticket)
+    .then(response => response.data)
+    .catch(handleError);
+}
 

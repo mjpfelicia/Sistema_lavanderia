@@ -18,8 +18,8 @@ const Rotas = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Recepcao" element={<Recepcao />} />
-        <Route path="/EntradaDePeca" element={<EntradaDePeca/>} />
-        <Route path="/BuscarTicket" element={< BuscarTicket/>}/>
+        <Route path="/EntradaDePeca" element={<EntradaDePeca />} />
+        <Route path="/BuscarTicket" element={<BuscarTicket />} />
         <Route path="/Delivery" element={<Delivery />} />
         <Route path="/DevolucaoDoDelivery" element={<DevolucaoDoDelivery />} />
         <Route path="/Mapa" element={<Mapa />} />
@@ -30,7 +30,7 @@ const Rotas = () => {
         <Route path="/close" element={<CloseButton />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 };
 
 export default Rotas;

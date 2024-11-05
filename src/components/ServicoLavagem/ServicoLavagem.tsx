@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import ModalS from '../modal/modalServico';
 import { getPecaPorTipo, Peca, TipoPeca } from '../service/apiPeca';
 import PecasSelecionadas from './PecasSelecionadas';
-import Totalizador from './Totalizador';
+import Totalizador from './CriarTicket';
 import '../ServicoLavagem/ServicoLavagem.css';
 import { Ticket } from '../service/apiTicket';
 import ModalPagamento from '../modal/ModalPagamento';

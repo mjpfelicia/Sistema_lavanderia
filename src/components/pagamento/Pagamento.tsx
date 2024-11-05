@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './Pagamento.css';
 import ImpressaoTicket from '../ImpressaoTicket';
-import { Ticket } from '../service/apiTicket';
+import { Ticket, atualizaTicket } from '../service/apiTicket';
 
 // Interface para o tipo Item
 export interface Item {
@@ -34,25 +34,40 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
   const [mostrarImpressao, setMostrarImpressao] = useState<boolean>(false);
 
   // Função para lidar com a confirmação do pagamento
-  const handlePagamento = () => {
+  const handlePagamento = async () => {
     if (!dataRetirada) {
       setErro('Data de retirada não agendada');
       return;
     }
     const hoje = new Date();
     const dataSelecionada = new Date(dataRetirada);
+
     if (dataSelecionada < hoje) {
       setErro('Data de retirada não pode ser anterior ao dia atual');
       return;
     }
     setErro('');
 
+    ticket.dataEntrega = dataSelecionada.toISOString();
+
     if (pagamentoNaRetirada) {
       setStatusPagamento('A Pagar na Retirada');
+      ticket.estaPago = "não";
     } else {
       setStatusPagamento(`Pago com ${formaPagamento}`);
+      ticket.estaPago = "sim";
     }
-    console.log("Dados antes de setMostrarImpressao:", { ticketNumber, formaPagamento, dataRetirada, statusPagamento, itens });
+
+    const ticketAtualizo = await atualizaTicket(ticket);
+
+    console.log("Dados antes de setMostrarImpressao:", {
+      ticketNumber: ticketAtualizo.ticketNumber,
+      formaPagamento,
+      dataRetirada: ticketAtualizo.dataEntrega,
+      statusPagamento: ticketAtualizo.estaPago,
+      itens: ticketAtualizo.items
+    });
+
     setMostrarImpressao(true);
   };
 

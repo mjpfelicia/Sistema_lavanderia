@@ -11,18 +11,16 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     white-space: nowrap;
-
 }
 
 .box {
-    background-color: white;
+
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 0 3rem;
     opacity: 0.9;
     cursor: pointer;
+    padding: 1rem;
 }
-
 
 .controle_de_campo,
 .passwordInput,
@@ -32,22 +30,25 @@
     font-size: 15px;
 }
 
-.controle_de_campo input {
+.controle_de_campo input,
+.passwordInput input {
     width: 348px;
     display: block;
     height: 40px;
     border-radius: 4px;
-    border: none;
+    border: 1px solid var(--color-border-secondary);
+    padding: 0 10px;
     outline: none;
+    transition: border-color 0.3s;
+}
+
+.controle_de_campo input:focus,
+.passwordInput input:focus {
+    border-color: var(--color_border);
 }
 
 .passwordInput input {
     width: 200px;
-    display: block;
-    height: 40px;
-    border-radius: 4px;
-    border: none;
-    outline: none;
 }
 
 .controle_de_campo label,
@@ -56,18 +57,20 @@
     align-items: flex-start;
     gap: 1rem;
     margin-bottom: 0.6rem;
+    color: var(--color-text-primary);
 }
 
 .btn_enter {
     width: 103px;
-    padding: 6px;
+    padding: 10px;
     background-color: var(--colorBtnCadastra);
-    color: var(--color_branca);
+    color: var( --color_branca);
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
     margin-top: 2rem;
+    transition: background-color 0.3s;
 }
 
 .btn_enter:hover {
@@ -76,7 +79,6 @@
 
 .passwordInput p,
 .controle_de_campo p {
-    /* display: none; */
     width: 100%;
     font-size: 12px;
     padding: 3px;
@@ -86,15 +88,72 @@
 
 .msgError {
     color: var(--color-error);
-    font-size: 2rem;
+    font-size: 1.2rem;
 }
 
 .li {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--color-borde);
     padding: 0.5rem 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.li:hover {
+    background-color: var(--color-hover-clicado);
 }
 
 ol,
 ul {
     padding-left: 0 !important;
+}
+
+.confirmacao {
+    background-color: var(--color-bg-warning);
+    border-radius: 8px;
+    border: 1px solid var(--color-border-warning);
+    padding: 1rem;
+    margin: 1rem auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.confirmacao p {
+    margin-bottom: 1rem;
+    color: var(--color-text-warning);
+}
+
+.confirmacao .btn-group {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.confirmacao .btn_confirm,
+.confirmacao .btn_cancel {
+    width: 45%;
+    /* Ajusta largura dos botões */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.confirmacao .btn_confirm {
+    background-color: var(--color-hover-success);
+    color: var(--color-branca);
+}
+
+.confirmacao .btn_confirm:hover {
+    background-color: var(--color-text-success);
+}
+
+.confirmacao .btn_cancel {
+    background-color: var(--color-hover-danger);
+    color: var(--color-branca);
+}
+
+.confirmacao .btn_cancel:hover {
+    background-color: var(--color-text-danger);
 }

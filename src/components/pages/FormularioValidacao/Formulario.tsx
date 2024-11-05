@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classes from "./Formulario.module.css";
 import { Cliente, buscarCliente } from '../../service/apiCliente';
 import ServicoLavagem from '../../ServicoLavagem/ServicoLavagem';
-
 
 // Interface para os dados do formulário
 interface FormData {
@@ -10,7 +10,8 @@ interface FormData {
   telefone: string;
   senha: string;
 }
-// Estados para os dados do formulário, erros, clientes encontrados, cliente selecionado, estado de carregamento e estado de nenhum cliente encontrado
+
+// Componente de validação do formulário
 const FormularioValidacao = () => {
   const [formData, setFormData] = useState<FormData>({ nome: '', telefone: '', senha: '' });
   const [erros, setErros] = useState<Partial<FormData>>({});
@@ -18,15 +19,14 @@ const FormularioValidacao = () => {
   const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [nenhumClienteEncontrado, setNenhumClienteEncontrado] = useState<boolean>(false);
+  const [confirmarCadastro, setConfirmarCadastro] = useState<boolean>(false);
+  const navigate = useNavigate(); // Hook para navegação
 
   // Função para validar o formulário
   const validarFormulario = (): boolean => {
     const novosErros: Partial<FormData> = {};
     if (formData.nome.length < 3) {
       novosErros.nome = "O nome deve ter pelo menos 3 caracteres.";
-    }
-    if (!/^\(\d{2}\)\d{4,5}-\d{4}$/.test(formData.telefone)) {
-      novosErros.telefone = "O telefone deve estar no formato (XX)XXXX-XXXX.";
     }
     if (formData.senha.length < 4) {
       novosErros.senha = "A senha deve ter pelo menos 4 caracteres.";
@@ -45,7 +45,7 @@ const FormularioValidacao = () => {
     e.preventDefault();
     if (validarFormulario()) {
       setLoading(true);
-      setNenhumClienteEncontrado(false); // Reseta o estado de nenhum cliente encontrado
+      setNenhumClienteEncontrado(false);
       try {
         const result = await buscarCliente(formData.nome, formData.telefone);
         console.log('Resultado da API:', result);
@@ -53,7 +53,8 @@ const FormularioValidacao = () => {
         if (result.length === 1) {
           setClienteSelecionado(result[0]);
         } else if (result.length === 0) {
-          setNenhumClienteEncontrado(true); // Define o estado de nenhum cliente encontrado
+          setNenhumClienteEncontrado(true);
+          setConfirmarCadastro(true); // Exibir mensagem de confirmação
         }
       } catch (error) {
         console.error("Erro ao buscar cliente", error);
@@ -63,12 +64,15 @@ const FormularioValidacao = () => {
     }
   };
 
-
   // Função para lidar com a seleção de um cliente da lista
   const handleClienteSelecionado = (cliente: Cliente) => {
     setClienteSelecionado(cliente);
   };
 
+  // Função para redirecionar para a página de cadastro
+  const handleCadastrarCliente = () => {
+    navigate('/CadastroCliente');
+  };
 
   // Hook de efeito para logar os clientes atualizados
   useEffect(() => {
@@ -84,18 +88,20 @@ const FormularioValidacao = () => {
             <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
             {erros.nome && <p className={classes.error}>{erros.nome}</p>}
           </div>
+
           <div className={classes.controle_de_campo}>
             <label htmlFor="telefone">Telefone:</label>
-            <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(XX)XXXX-XXXX" required />
+            <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(XX) XXXXX-XXXX" required autoComplete="tel" />
             {erros.telefone && <p className={classes.error}>{erros.telefone}</p>}
           </div>
+
           <div className={classes.passwordInput}>
             <label htmlFor="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" value={formData.senha} onChange={handleChange} required />
+            <input type="password" autoComplete="current-password" id="senha" name="senha" value={formData.senha} onChange={handleChange} required />
             {erros.senha && <p className={classes.error}>{erros.senha}</p>}
           </div>
           <div className={classes.inputGroupButton}>
-            <button type="submit" className={classes.btn_enter}>Pesquisa</button>
+            <button type="submit" className={classes.btn_enter}>Pesquisar</button>
           </div>
         </form>
       ) : (
@@ -112,9 +118,16 @@ const FormularioValidacao = () => {
                 </li>
               ))}
             </ul>
-          ) : (
-            nenhumClienteEncontrado && <p className={classes.msgError}>Nenhum cliente encontrado.</p>
-          )}
+          ) : null}
+        </div>
+      )}
+      {confirmarCadastro && (
+        <div className={classes.confirmacao}>
+          <p>Cliente não encontrado. Deseja cadastrar um novo cliente?</p>
+          <div className={classes.btn_group}>
+            <button onClick={handleCadastrarCliente} className={classes.btn_confirm}>Sim</button>
+            <button onClick={() => setConfirmarCadastro(false)} className={classes.btn_cancel}>Não</button>
+          </div>
         </div>
       )}
     </>

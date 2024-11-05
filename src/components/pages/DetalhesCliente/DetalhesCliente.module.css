@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 /* Container principal */
 .content {
     display: flex;
@@ -12,12 +14,11 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--color-borde);
     background: var(--color_branca);
     width: 80vw;
     margin: 0 auto;
     padding: 0 1rem;
-
 }
 
 /* Caixa de conteúdo */
@@ -61,7 +62,6 @@
     line-height: 1.25;
     font-size: calc(0.6rem + 0.6vw);
     margin-right: 1rem;
-    /* font-family: Montserrat; */
 }
 
 /* Estilo para parágrafos do cliente */
@@ -70,7 +70,7 @@
     padding-right: 0.5rem;
     color: var(--color-texto);
     font-size: calc(0.5rem + 0.4vw);
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     line-height: 35px;
 }
 
@@ -79,6 +79,14 @@
     margin: 5px 0 0;
     color: var(--color-texto);
     font-size: calc(0.6rem + 0.6vw);
+    border: 1px solid var(--color-border-primary);
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+.cliente input:focus {
+    border-color: var(--color-hover-primary);
+    outline: none;
 }
 
 /* Botão de registro */

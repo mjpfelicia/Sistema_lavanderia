@@ -1,5 +1,5 @@
 /* Importando fontes do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 /* Estilos gerais do corpo */
 body {
@@ -30,6 +30,38 @@ body {
   --color-line: rgba(35, 27, 27, 0.06);
   --color-error: red;
   --color-titleCadastro: #1E1E1E;
+
+  /* Novas Cores */
+  --color-bg-primary: #e9ecef;  /* Fundo primário */
+  --color-bg-secondary: #dee2e6;  /* Fundo secundário */
+  --color-bg-success: #d4edda;  /* Fundo de sucesso */
+  --color-bg-danger: #f8d7da;  /* Fundo de erro */
+  --color-bg-warning: #fff3cd;  /* Fundo de aviso */
+  --color-bg-info: #d1ecf1;  /* Fundo de informação */
+  --color-bg-light: #f8f9fa;  /* Fundo claro */
+  --color-bg-dark: #343a40;  /* Fundo escuro */
+  --color-text-primary: #212529;  /* Texto primário */
+  --color-text-secondary: #6c757d;  /* Texto secundário */
+  --color-text-success: #155724;  /* Texto de sucesso */
+  --color-text-danger: #721c24;  /* Texto de erro */
+  --color-text-warning: #856404;  /* Texto de aviso */
+  --color-text-info: #0c5460;  /* Texto de informação */
+  --color-text-light: #f8f9fa;  /* Texto claro */
+  --color-text-dark: #343a40;  /* Texto escuro */
+  --color-border-primary: #dae0e5;  /* Borda primária */
+  --color-border-secondary: #ced4da;  /* Borda secundária */
+  --color-border-success: #c3e6cb;  /* Borda de sucesso */
+  --color-border-danger: #f5c6cb;  /* Borda de erro */
+  --color-border-warning: #ffeeba;  /* Borda de aviso */
+  --color-border-info: #bee5eb;  /* Borda de informação */
+  --color-hover-primary: #007bff;  /* Hover primário */
+  --color-hover-secondary: #6c757d;  /* Hover secundário */
+  --color-hover-success: #28a745;  /* Hover de sucesso */
+  --color-hover-danger: #dc3545;  /* Hover de erro */
+  --color-hover-warning: #ffc107;  /* Hover de aviso */
+  --color-hover-info: #17a2b8;  /* Hover de informação */
+  --color-hover-light: #f8f9fa;  /* Hover claro */
+  --color-hover-dark: #343a40;  /* Hover escuro */
 }
 
 /* Estilos para links */
@@ -50,7 +82,6 @@ header {
   padding: 10px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 
 /* Estilos gerais do aplicativo com imagem de fundo */
 .App {
