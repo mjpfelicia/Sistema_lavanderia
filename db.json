@@ -120,13 +120,10 @@
       "email": "marta@gmarta.com",
       "cep": "05763-470",
       "estado": "SP",
-      "bairro": "Chacara Nossa Senhora do Bom Conselho",
+      "bairro": "Chácara Nossa Senhora do Bom Conselho",
       "endereco": "Rua teste",
       "numero": "55555",
       "complemento": "ap teste"
-    },
-    {
-      "id": "a37b"
     }
   ],
   "deliverys": [
@@ -605,6 +602,85 @@
       "totalPago": 0,
       "dataCriacao": "2024-11-05T19:47:40.700Z",
       "dataEntrega": "2024-11-15T00:00:00.000Z"
+    },
+    {
+      "id": "f030",
+      "ticketNumber": "234146",
+      "clienteId": "a37b",
+      "estaPago": "não",
+      "items": [],
+      "total": 0,
+      "totalPago": 0,
+      "dataCriacao": "2024-11-06T11:42:48.382Z",
+      "dataEntrega": ""
+    },
+    {
+      "id": "dee5",
+      "ticketNumber": "424991",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [],
+      "total": 0,
+      "totalPago": 0,
+      "dataCriacao": "2024-11-06T19:28:37.791Z",
+      "dataEntrega": ""
+    },
+    {
+      "id": "8e46",
+      "ticketNumber": "521064",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [],
+      "total": 0,
+      "totalPago": 0,
+      "dataCriacao": "2024-11-06T19:29:54.166Z",
+      "dataEntrega": ""
+    },
+    {
+      "id": "7f8f",
+      "ticketNumber": "104330",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [],
+      "total": 0,
+      "totalPago": 0,
+      "dataCriacao": "2024-11-06T19:33:51.818Z",
+      "dataEntrega": ""
+    },
+    {
+      "id": "f4e0",
+      "ticketNumber": "123645",
+      "clienteId": 0,
+      "estaPago": "não",
+      "items": [],
+      "total": 0,
+      "totalPago": 0,
+      "dataCriacao": "2024-11-06T19:34:25.952Z",
+      "dataEntrega": ""
+    },
+    {
+      "id": "b1a0",
+      "ticketNumber": "68009",
+      "clienteId": "892b",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "M3",
+          "subTipo": "TOALHA GRANDE",
+          "quantidade": 1,
+          "total": 30
+        },
+        {
+          "pecaId": "M4",
+          "subTipo": "TOALHA REDONDA",
+          "quantidade": 1,
+          "total": 30
+        }
+      ],
+      "total": 60,
+      "totalPago": 60,
+      "dataCriacao": "2024-11-06T19:41:34.822Z",
+      "dataEntrega": ""
     }
   ]
 }

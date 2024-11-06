@@ -96,6 +96,7 @@
     padding: 0.5rem 0;
     cursor: pointer;
     transition: background-color 0.3s;
+    background: var(--color-bg-light);
 }
 
 .li:hover {
