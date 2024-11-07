@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './ServicoLavagem.css';
 import { Ticket, criarTicket } from "../service/apiTicket";
 import { Peca } from '../service/apiPeca';
@@ -13,34 +13,40 @@ interface TotalizadorProps {
 
 const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSelecao, setTicket }) => {
   const [ticketNumber, setTicketNumber] = useState<string>('');
-  
-  // Calcula o total de peças e o preço total das peças
-  const totalPecas = pecas.length;
-  const totalPreco = pecas.reduce((acc, peca) => acc + peca.preco, 0);
-  
-  // Agrupa as peças pelo subTipo
-  const pecasAgrupadas = pecas.reduce((acc, peca) => {
-    if (acc[peca.subTipo]) {
-      acc[peca.subTipo].quantidade += 1;
-      acc[peca.subTipo].total += peca.preco;
-      acc[peca.subTipo].pecaId = peca.id;
-    } else {
-      acc[peca.subTipo] = {
-        quantidade: 1,
-        total: peca.preco,
-        pecaId: peca.id
-      };
-    }
-    return acc;
-  }, {} as { [key: string]: { quantidade: number; total: number, pecaId: string } });
-  
+
+  const totalPecas = useMemo(() => pecas.length, [pecas]);
+  const totalPreco = useMemo(() => pecas.reduce((acc, peca) => acc + peca.preco, 0), [pecas]);
+
+  const pecasAgrupadas = useMemo(() => {
+    return pecas.reduce((acc, peca) => {
+      if (acc[peca.subTipo]) {
+        acc[peca.subTipo].quantidade += 1;
+        acc[peca.subTipo].total += peca.preco;
+        acc[peca.subTipo].pecaId = peca.id;
+      } else {
+        acc[peca.subTipo] = {
+          quantidade: 1,
+          total: peca.preco,
+          pecaId: peca.id
+        };
+      }
+      return acc;
+    }, {} as { [key: string]: { quantidade: number; total: number, pecaId: string } });
+  }, [pecas]);
+
   useEffect(() => {
     // Gera um novo número de ticket aleatório
     const newTicketNumber = `${Math.floor(Math.random() * 1000000) + 1}`;
     setTicketNumber(newTicketNumber);
   }, []);
-  
+
   const handleFinalizar = async () => {
+    // Verifica se um cliente está selecionado
+    if (!cliente.id) {
+      alert("Por favor, selecione um cliente antes de finalizar o pedido.");
+      return;
+    }
+    
     finalizarSelecao(ticketNumber);
     
     // Cria um novo ticket com as peças agrupadas e outras informações do cliente
@@ -59,7 +65,7 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
       dataCriacao: new Date().toISOString(),
       dataEntrega:  ""
     };
-    
+
     // Envia a requisição para criar o ticket
     await criarTicket(ticketToCreate)
       .then((ticketResponse) => {

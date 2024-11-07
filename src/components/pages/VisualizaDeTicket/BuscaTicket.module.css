@@ -1,19 +1,35 @@
-.contentInpult{
+.contentInpult {
     display: inline-block;
-        width: 100%;
-        text-align: center;
-        max-width: 80%;
-        padding: 1.5rem;
+    width: 100%;
+    text-align: center;
+    max-width: 80%;
+    padding: 1.5rem;
 }
 
-
-input{
+input {
     width: 348px;
     padding: 10px 20px;
     border-radius: 4px;
-    border: none;
+    border: 1px solid #ccc; /* Adicionei borda */
     outline: none;
+    margin: 0.5rem 0; /* Adicionei margem para separar elementos */
 }
+
+.dateInput, .timeInput {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-top: 0.5rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
 .btn_buscar {
     margin-top: 2rem;
     padding: 10px 20px;
@@ -24,12 +40,13 @@ input{
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .btnpagamento:hover {
+}
+
+.btn_buscar:hover {
     background-color: var(--colorHoverBtnCadastra);
-  }
-   .totalizador{
+}
+
+.totalizador {
     display: inline-block;
     width: 70%;
     text-align: left;
@@ -37,4 +54,4 @@ input{
     border: 1px solid var(--color-borde);
     border-radius: 8px;
     background-color: var(--color_branca);
-   }
+}

@@ -18,6 +18,14 @@ interface ImpressaoTicketProps {
 const ImpressaoTicket: React.FC<ImpressaoTicketProps> = (props) => {
   console.log("ImpressaoTicket:", props);
 
+  // Formatar data e hora de retirada
+  const formatDataRetirada = (dataRetirada: string) => {
+    const date = new Date(dataRetirada);
+    const data = date.toLocaleDateString('pt-BR');
+    const hora = date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    return `${data} às ${hora}`;
+  };
+
   return (
     <div className="impressao-ticket">
       <h3>Impressão do Ticket</h3>
@@ -28,7 +36,7 @@ const ImpressaoTicket: React.FC<ImpressaoTicketProps> = (props) => {
         <p><strong>Forma de Pagamento:</strong> {props.formaPagamento}</p>
         <p><strong>Status do Pagamento:</strong> {props.statusPagamento}</p>
         <p><strong>Data de Criação:</strong> {props.dataCriacao}</p>
-        <p><strong>Data de Retirada:</strong> {props.dataRetirada}</p>
+        <p><strong>Data de Retirada:</strong> {formatDataRetirada(props.dataRetirada)}</p>
         <h4>Itens:</h4>
         <ul>
           {props.ticket.items.length > 0 ? props.ticket.items.map((item, idx) => (

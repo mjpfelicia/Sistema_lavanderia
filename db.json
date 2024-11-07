@@ -464,28 +464,6 @@
   ],
   "tickets": [
     {
-      "clienteId": 3,
-      "ticketNumber": "1",
-      "estaPago": "não",
-      "totalPago": 189.73,
-      "pecas": [
-        {
-          "quantidade": 1,
-          "pecaId": "1"
-        },
-        {
-          "quantidade": 1,
-          "pecaId": "2"
-        },
-        {
-          "quantidade": 3,
-          "pecaId": "3"
-        }
-      ],
-      "total": 123,
-      "id": "08b2"
-    },
-    {
       "id": "6f14",
       "ticketNumber": "950938",
       "clienteId": "68c4",
@@ -516,152 +494,9 @@
       "dataEntrega": "2024-11-14T00:00:00.000Z"
     },
     {
-      "id": "19dc",
-      "ticketNumber": "702328",
+      "id": "0dbc",
+      "ticketNumber": "258455",
       "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "JA3",
-          "subTipo": "JALECO DE COZINHA",
-          "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA4",
-          "subTipo": "JALECO SARJA",
-          "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA2",
-          "subTipo": "JALECO DE RENDA",
-          "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA6",
-          "subTipo": "JALECO BRIM",
-          "quantidade": 1,
-          "total": 30
-        }
-      ],
-      "total": 120,
-      "totalPago": 120,
-      "dataCriacao": "2024-11-05T19:28:32.331Z",
-      "dataEntrega": "2024-11-14T00:00:00.000Z"
-    },
-    {
-      "id": "7fe7",
-      "ticketNumber": "995409",
-      "clienteId": 0,
-      "estaPago": "não",
-      "items": [],
-      "total": 0,
-      "totalPago": 0,
-      "dataCriacao": "2024-11-05T19:31:29.770Z",
-      "dataEntrega": "2024-11-08T00:00:00.000Z"
-    },
-    {
-      "id": "72b8",
-      "ticketNumber": "943141",
-      "clienteId": 0,
-      "estaPago": "sim",
-      "items": [
-        {
-          "pecaId": "JA5",
-          "subTipo": "JALECO OXFORD",
-          "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA4",
-          "subTipo": "JALECO SARJA",
-          "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA3",
-          "subTipo": "JALECO DE COZINHA",
-          "quantidade": 1,
-          "total": 30
-        }
-      ],
-      "total": 90,
-      "totalPago": 90,
-      "dataCriacao": "2024-11-05T19:32:39.989Z",
-      "dataEntrega": "2024-11-16T00:00:00.000Z"
-    },
-    {
-      "id": "5c40",
-      "ticketNumber": "981680",
-      "clienteId": 0,
-      "estaPago": "não",
-      "items": [],
-      "total": 0,
-      "totalPago": 0,
-      "dataCriacao": "2024-11-05T19:47:40.700Z",
-      "dataEntrega": "2024-11-15T00:00:00.000Z"
-    },
-    {
-      "id": "f030",
-      "ticketNumber": "234146",
-      "clienteId": "a37b",
-      "estaPago": "não",
-      "items": [],
-      "total": 0,
-      "totalPago": 0,
-      "dataCriacao": "2024-11-06T11:42:48.382Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "dee5",
-      "ticketNumber": "424991",
-      "clienteId": 0,
-      "estaPago": "não",
-      "items": [],
-      "total": 0,
-      "totalPago": 0,
-      "dataCriacao": "2024-11-06T19:28:37.791Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "8e46",
-      "ticketNumber": "521064",
-      "clienteId": 0,
-      "estaPago": "não",
-      "items": [],
-      "total": 0,
-      "totalPago": 0,
-      "dataCriacao": "2024-11-06T19:29:54.166Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "7f8f",
-      "ticketNumber": "104330",
-      "clienteId": 0,
-      "estaPago": "não",
-      "items": [],
-      "total": 0,
-      "totalPago": 0,
-      "dataCriacao": "2024-11-06T19:33:51.818Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "f4e0",
-      "ticketNumber": "123645",
-      "clienteId": 0,
-      "estaPago": "não",
-      "items": [],
-      "total": 0,
-      "totalPago": 0,
-      "dataCriacao": "2024-11-06T19:34:25.952Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "b1a0",
-      "ticketNumber": "68009",
-      "clienteId": "892b",
       "estaPago": "não",
       "items": [
         {
@@ -675,12 +510,35 @@
           "subTipo": "TOALHA REDONDA",
           "quantidade": 1,
           "total": 30
+        },
+        {
+          "pecaId": "M1",
+          "subTipo": "TOALHA LINHO",
+          "quantidade": 1,
+          "total": 30
+        },
+        {
+          "pecaId": "M2",
+          "subTipo": "TOALHA RENDA",
+          "quantidade": 1,
+          "total": 30
         }
       ],
-      "total": 60,
-      "totalPago": 60,
-      "dataCriacao": "2024-11-06T19:41:34.822Z",
-      "dataEntrega": ""
+      "total": 120,
+      "totalPago": 120,
+      "dataCriacao": "2024-11-07T19:10:45.993Z",
+      "dataEntrega": "2024-12-04T21:15:00.000Z",
+      "cliente": {
+        "nome": "SANDRA FELICIO DE JESUS",
+        "email": "mjpfelicia@gmail.com",
+        "cep": "05782351",
+        "estado": "São Paulo",
+        "telefone": "(11)96415-8920",
+        "endereco": "Rua teste 2",
+        "numero": "00",
+        "complemento": "ap atualiza",
+        "id": "68c4"
+      }
     }
   ]
 }
