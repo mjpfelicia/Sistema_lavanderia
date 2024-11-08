@@ -1,7 +1,6 @@
-# Sistema lavanderia 
+# Sistema lavanderia
 
-<img src="/public/assets/img/telaApp.png" alt="Site em Telas" />
-
+![Descrição da Imagem](/public/assets/img/telaApp.png)
 
 Este projeto foi inicializado com [Create React App](https://github.com/mjpfelicia/Sistema_lavanderia).
 
@@ -24,13 +23,13 @@ Abra [http://localhost:3000](http://localhost:3000) para visualizá-lo no seu na
 - Desafio
 - layout ideal para a seção, dependendo do tamanho da tela
 
+## Links usados
 
-## Links usados:
+<https://create-react-app.dev/docs/getting-started/>
+<https://react.dev/learn/typescript>
 
-https://create-react-app.dev/docs/getting-started/
-https://react.dev/learn/typescript
+## Tecnologias usadas
 
-## Tecnologias usadas:
 -- Create React
 -- typescript
 
@@ -41,4 +40,5 @@ https://react.dev/learn/typescript
 - Node.js
 
 ## Autor
+
 - @mjpfelicia

@@ -1,6 +1,6 @@
 import React from 'react';
 import './modal.css';
-import ImpressaoTicket from '../ImpressaoTicket';
+import ImpressaoTicket from '../ImpressaoTicket/ImpressaoTicket';
 import { Ticket } from '../service/apiTicket';
 
 interface Peca {
