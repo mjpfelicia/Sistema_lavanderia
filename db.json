@@ -58,14 +58,14 @@
     },
     {
       "id": "f98f",
-      "nome": "Mara teste",
-      "telefone": "111000000",
-      "endereco": "Rua Francisco teste",
-      "email": "mara@gmail.com",
-      "numero": "82",
-      "cep": "05782351",
-      "estado": "São Paulo",
-      "complemento": "kkkkk",
+      "nome": "Mara Silvia",
+      "telefone": "11973241419",
+      "endereco": "Rua Nossa Senhora do Bom Conselho",
+      "email": "mjpfelicia@gmail.com",
+      "numero": "451",
+      "cep": "05763-470",
+      "estado": "SP",
+      "complemento": "alteração teste",
       "bairro": "Chácara Nossa Senhora do Bom Conselho"
     },
     {
@@ -115,15 +115,15 @@
     },
     {
       "id": "f1bc",
-      "nome": "marta teste ",
+      "nome": "Mara Atualizada",
       "telefone": "11973241419",
       "email": "marta@gmarta.com",
       "cep": "05763-470",
       "estado": "SP",
       "bairro": "Chácara Nossa Senhora do Bom Conselho",
-      "endereco": "Rua teste",
+      "endereco": "Rua Atualizada",
       "numero": "55555",
-      "complemento": "ap teste"
+      "complemento": "ap atualizado"
     }
   ],
   "deliverys": [
@@ -527,7 +527,7 @@
       "total": 120,
       "totalPago": 120,
       "dataCriacao": "2024-11-07T19:10:45.993Z",
-      "dataEntrega": "2024-12-20T02:15:00.000Z",
+      "dataEntrega": "T02:15:00.000Z",
       "cliente": {
         "nome": "SANDRA FELICIO DE JESUS",
         "email": "mjpfelicia@gmail.com",

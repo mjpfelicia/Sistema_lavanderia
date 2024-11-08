@@ -1,5 +1,5 @@
 import React from 'react';
-import './pagamento/Pagamento.css';
+import '../pagamento/Pagamento.css';
 import { Ticket } from '../service/apiTicket';
 
 // Definindo as propriedades aceitas pelo componente ImpressaoTicket

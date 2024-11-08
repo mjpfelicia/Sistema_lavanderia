@@ -1,3 +1,4 @@
+// VisualizarTicket.tsx
 import React, { useState, useEffect } from 'react';
 import { buscarTicket, atualizaTicket, Ticket } from '../../service/apiTicket';
 import styles from './BuscaTicket.module.css';

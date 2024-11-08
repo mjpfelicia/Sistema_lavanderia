@@ -1,6 +1,7 @@
+// VisualizarTicketPage.tsx
 import React, { useState } from 'react';
 import Header from "../../Header/Header";
-import ListarTicket from "./ListaTicket";
+import VisualizarTicket from "./ListaTicket";  // Importa o componente VisualizarTicket
 import styles from './BuscaTicket.module.css';
 
 const VisualizarTicketPage = () => {
@@ -16,15 +17,19 @@ const VisualizarTicketPage = () => {
     <div>
       <Header nomePagina="Delivery" />
       <div className={styles.contentInpult}>
-        <input
-          type="text"
-          value={ticketNumber}
-          onChange={(e) => setTicketNumber(e.target.value)}
-          placeholder="Digite o número do ticket"
-        />
-        <button className={styles.btn_buscar} onClick={handleSearch}>Buscar Ticket</button>
+        {searchTicketNumber ? null : (
+          <>
+            <input
+              type="text"
+              value={ticketNumber}
+              onChange={(e) => setTicketNumber(e.target.value)}
+              placeholder="Digite o número do ticket"
+            />
+            <button className={styles.btn_buscar} onClick={handleSearch}>Buscar Ticket</button>
+          </>
+        )}
       </div>
-      <ListarTicket ticketNumber={searchTicketNumber} />
+      <VisualizarTicket ticketNumber={searchTicketNumber} /> {/* Usa o componente VisualizarTicket */}
     </div>
   );
 };
