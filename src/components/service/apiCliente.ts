@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 export type Cliente = {
-  id: 0
+  id: number;
   nome: string;
   email: string;
   telefone: string;
@@ -11,15 +11,14 @@ export type Cliente = {
   estado: string;
   cep: string;
   bairro: string;
-}
+};
 
 const api = axios.create({
   baseURL: 'http://localhost:3008',
 });
 
 export const listarClientes = async (): Promise<Cliente[]> => {
-
-  console.info("API CLiente - listarClientes ");
+  console.info("API Cliente - listarClientes ");
   return api
     .get<Cliente[]>('/clientes')
     .then(response => response.data)
@@ -30,10 +29,10 @@ export const listarClientes = async (): Promise<Cliente[]> => {
 };
 
 export const getCliente = async (idCliente: number): Promise<Cliente> => {
-  console.info("API CLiente - getCliente ");
+  console.info("API Cliente - getCliente ");
 
   return api
-    .get<Cliente>(`/clientes/${idCliente}?_embed=deliverys`)
+    .get<Cliente>(`/clientes/${idCliente}?_embed=deliveries`)
     .then(response => response.data)
     .catch((error: AxiosError) => {
       console.error("[ERROR][getCliente]", error.message);
@@ -42,10 +41,10 @@ export const getCliente = async (idCliente: number): Promise<Cliente> => {
 };
 
 export const buscarCliente = async (nomeCliente: string, celularCliente: string): Promise<Cliente[]> => {
-  console.info("API CLiente - getCliente ", { nomeCliente, celularCliente });
+  console.info("API Cliente - buscarCliente ", { nomeCliente, celularCliente });
 
   if (!nomeCliente && !celularCliente) {
-    throw "[buscaCliente]Precisa do nome ou celular do cliente";
+    throw "[buscarCliente] Precisa do nome ou celular do cliente";
   }
 
   const sort = '&_sort=nome&_order=asc';
@@ -54,10 +53,8 @@ export const buscarCliente = async (nomeCliente: string, celularCliente: string)
   return api
     .get<Cliente[]>(`/clientes?${params}` + sort)
     .then(({ data }) => {
-
       console.info("response: ", { data });
-      return data
-
+      return data;
     })
     .catch((error: AxiosError) => {
       console.error("[ERROR][buscarCliente]", error.message);
@@ -66,7 +63,7 @@ export const buscarCliente = async (nomeCliente: string, celularCliente: string)
 };
 
 export const atualizaCliente = async (idCliente: number, cliente: Cliente): Promise<Cliente | void> => {
-  console.info("API CLiente - atualizaCliente ");
+  console.info("API Cliente - atualizaCliente ");
 
   return api
     .put<Cliente>(`/clientes/${idCliente}`, cliente)

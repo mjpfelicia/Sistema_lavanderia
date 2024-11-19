@@ -1,109 +1,133 @@
 import React, { useState } from 'react';
-import '../AgendaDelivery/AgendaDelivery.css';
-import Dropdown from 'react-bootstrap/Dropdown';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { Modal, Button } from 'react-bootstrap';
+import { criarDelivery, Delivery, DeliveryTipo } from '../../service/apiDelivery';
+import { Cliente } from '../../service/apiCliente';
+import classes from "../AgendaDelivery/AgendaDelivery.module.css";
 
-interface FormData {
-  servico: string;
-  name: string;
-  endereco: string;
-  data: string;
-  time: string;
+interface AgendaDeliveryProps {
+  cliente: Cliente;
 }
 
-const AgendaDelivery: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    servico: '',
-    name: '',
-    endereco: '',
-    data: '',
-    time: ''
-  });
-  const [submittedData, setSubmittedData] = useState<FormData | null>(null);
+const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
+  const [deliveryTipo, setDeliveryTipo] = useState<DeliveryTipo>('Entrega');
+  const [deliveryData, setDeliveryData] = useState<string>('');
+  const [deliveryHora, setDeliveryHora] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [cupom, setCupom] = useState<Delivery | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { id, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [id]: value
-    }));
+  const handleTipoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDeliveryTipo(e.target.value as DeliveryTipo);
   };
 
-  const handleDropdownChange = (value: string) => {
-    setFormData(prevState => ({
-      ...prevState,
-      servico: value
-    }));
+  const handleDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDeliveryData(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleHoraChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDeliveryHora(e.target.value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmittedData(formData);
+    setLoading(true);
+    setError(null);
+
+    if (!deliveryData || deliveryHora === '') {
+      setError('Por favor, selecione uma data e horário para a entrega.');
+      setLoading(false);
+      return;
+    }
+
+    const delivery: Delivery = {
+      clienteId: cliente.id,
+      deliveryTipo,
+      deliveryData: new Date(`${deliveryData}T${deliveryHora}`)
+    };
+
+    try {
+      await criarDelivery(delivery);
+      setCupom(delivery); // Armazena os detalhes do delivery no estado do cupom
+      setShowModal(true); // Mostra o modal
+      alert("Delivery agendado com sucesso!");
+    } catch (error) {
+      setError('Erro ao agendar a entrega. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handlePrint = () => {
-    window.print();
+    if (cupom) {
+      const printContent = `
+        <div id="printableArea">
+          <h2>Cupom de Agendamento</h2>
+          <p><strong>Cliente:</strong> ${cliente.nome}</p>
+          <p><strong>Endereço:</strong> ${cliente.endereco}, ${cliente.numero}, ${cliente.complemento}, ${cliente.bairro}, ${cliente.estado}, ${cliente.cep}</p>
+          <p><strong>Tipo de Entrega:</strong> ${cupom.deliveryTipo}</p>
+          <p><strong>Data e Hora:</strong> ${cupom.deliveryData.toLocaleString()}</p>
+        </div>
+      `;
+      const printWindow = window.open('', '', 'height=600,width=800');
+      if (printWindow) {
+        printWindow.document.write(printContent);
+        printWindow.document.close();
+        printWindow.print();
+      }
+    }
   };
 
-  const handleCancel = () => {
-    setSubmittedData(null);
-  };
+  const handleClose = () => setShowModal(false);
 
   return (
-    <div className='container'>
-      <form className="containerForm" onSubmit={handleSubmit}>
-        <div>
-          <Dropdown as={ButtonGroup} id="dropdown-menu-align-responsive-1">
-            <Dropdown.Toggle id="servico">
-              Selecionar Serviço
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => handleDropdownChange('Retirada')}>Retirada</Dropdown.Item>
-              <Dropdown.Item onClick={() => handleDropdownChange('Entrega')}>Entrega</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-
-        <div>
-          <label htmlFor="name">Nome do Cliente:</label>
-          <input type="text" id="name" value={formData.name} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="endereco">Endereço:</label>
-          <input type="text" id="endereco" value={formData.endereco} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="data">Dia:</label>
-          <input type="date" id="data" value={formData.data} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="time">Hora:</label>
-          <input type="time" id="time" value={formData.time} onChange={handleChange} required />
-        </div>
-
-        <div>
-          <button type="submit">Marcar</button>
-          <button type="button" onClick={() => setFormData({ servico: '', name: '', endereco: '', data: '', time: '' })}>Cancelar</button>
-        </div>
-      </form>
-
-      {submittedData && (
-        <>
-          <div className="submittedData">
-            <div id="printableArea" >
-              <h3>Dados Marcados:</h3>
-              <p><strong>Serviço:</strong> {submittedData.servico}</p>
-              <p><strong>Nome do Cliente:</strong> {submittedData.name}</p>
-              <p><strong>Endereço:</strong> {submittedData.endereco}</p>
-              <p><strong>Dia:</strong> {submittedData.data}</p>
-              <p><strong>Hora:</strong> {submittedData.time}</p>
-            </div>
-            <button type="button" className='BtnImprimir' onClick={handlePrint}>Imprimir</button>
-            <button type="button" className='BtnCancelarA' onClick={handleCancel}>Cancelar Agendamento</button>
-
+    <div className={classes.container}>
+      <div className={classes.containerForm}>
+        <h2>{cliente.nome}</h2>
+        <p><strong>Endereço:</strong> {cliente.endereco}, {cliente.numero}, {cliente.complemento}, {cliente.bairro}, {cliente.estado}, {cliente.cep}</p>
+        <form className={classes.formulario} onSubmit={handleSubmit}>
+          <div className={classes.controle_de_campo}>
+            <label htmlFor="deliveryTipo">Tipo de Entrega:</label>
+            <select id="deliveryTipo" value={deliveryTipo} onChange={handleTipoChange}>
+              <option value="Entrega">Entrega</option>
+              <option value="Retirada">Retirada</option>
+            </select>
           </div>
-        </>
-      )}
+          <div className={classes.controle_de_campo}>
+            <label htmlFor="deliveryData">Data:</label>
+            <input type="date" id="deliveryData" value={deliveryData} onChange={handleDataChange} required />
+          </div>
+          <div className={classes.controle_de_campo}>
+            <label htmlFor="deliveryHora">Hora:</label>
+            <input type="time" id="deliveryHora" value={deliveryHora} onChange={handleHoraChange} required />
+          </div>
+          {error && <p className={classes.error}>{error}</p>}
+          {loading ? <p>Carregando...</p> : <button type="submit" className={classes.btn_enter}>Agendar</button>}
+        </form>
+      </div>
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Cupom de Agendamento</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {cupom && (
+            <div>
+              <p><strong>Cliente:</strong> {cliente.nome}</p>
+              <p><strong>Endereço:</strong> {cliente.endereco}, {cliente.numero}, {cliente.complemento}, {cliente.bairro}, {cliente.estado}, {cliente.cep}</p>
+              <p><strong>Tipo de Entrega:</strong> {cupom.deliveryTipo}</p>
+              <p><strong>Data e Hora:</strong> {cupom.deliveryData.toLocaleString()}</p>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Fechar
+          </Button>
+          <Button variant="primary" onClick={handlePrint}>
+            Imprimir Cupom
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

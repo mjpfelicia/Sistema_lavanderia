@@ -12,7 +12,7 @@ const DetalhesUsuario: React.FC = () => {
         const fetchClientes = async () => {
             try {
                 const clientes = await listarClientes();
-                console.log('Clientes recebidos:', clientes); // Adicionando log para verificar os clientes recebidos
+                console.log('Clientes recebidos:', clientes);
                 setClientes(clientes);
                 setLoading(false);
             } catch (error: unknown) {

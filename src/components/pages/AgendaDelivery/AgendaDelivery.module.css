@@ -1,0 +1,107 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.agendamento, .containerForm, .cupom, .submittedData {
+  background-color: var(--color-text-light);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.agendamento, .containerForm {
+  width: 80%;
+  max-width: 500px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+}
+
+.controle_de_campo {
+  margin-bottom: 15px;
+}
+
+.controle_de_campo label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.controle_de_campo input,
+.controle_de_campo select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 4px;
+}
+
+.error {
+  color: var(--color-text-danger); 
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.btn, .BtnImprimir, .BtnCancelarA, .btn_enter, .btn_print {
+  background-color: var(--colorBtnCadastra);
+  color: var(--color-text-light); 
+  padding: 10px 15px;
+  border: 1px solid var(--colorBtnCadastra); 
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.btn:hover, .BtnImprimir:hover, .BtnCancelarA:hover, .btn_enter:hover, .btn_print:hover {
+  color: var(--color-text-dark); 
+}
+
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100% - 1rem);
+}
+
+#printableArea {
+  font-size: 16px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #printableArea,
+  #printableArea * {
+    visibility: visible;
+  }
+
+  #printableArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .containerForm,
+  .submittedData {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .containerForm,
+  .submittedData {
+    padding: 10px;
+  }
+}

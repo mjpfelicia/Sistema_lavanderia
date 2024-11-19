@@ -4,14 +4,12 @@ import classes from "./Formulario.module.css";
 import { Cliente, buscarCliente } from '../../service/apiCliente';
 import ServicoLavagem from '../../ServicoLavagem/ServicoLavagem';
 
-// Interface para os dados do formulário
 interface FormData {
   nome: string;
   telefone: string;
   senha: string;
 }
 
-// Componente de validação do formulário
 const FormularioValidacao = () => {
   const [formData, setFormData] = useState<FormData>({ nome: '', telefone: '', senha: '' });
   const [erros, setErros] = useState<Partial<FormData>>({});
@@ -20,9 +18,10 @@ const FormularioValidacao = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [nenhumClienteEncontrado, setNenhumClienteEncontrado] = useState<boolean>(false);
   const [confirmarCadastro, setConfirmarCadastro] = useState<boolean>(false);
-  const navigate = useNavigate(); // Hook para navegação
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  // Função para validar o formulário
+  // Função para validar os dados do formulário
   const validarFormulario = (): boolean => {
     const novosErros: Partial<FormData> = {};
     if (formData.nome.length < 3) {
@@ -46,6 +45,7 @@ const FormularioValidacao = () => {
     if (validarFormulario()) {
       setLoading(true);
       setNenhumClienteEncontrado(false);
+      setError(null);
       try {
         const result = await buscarCliente(formData.nome, formData.telefone);
         console.log('Resultado da API:', result);
@@ -54,27 +54,27 @@ const FormularioValidacao = () => {
           setClienteSelecionado(result[0]);
         } else if (result.length === 0) {
           setNenhumClienteEncontrado(true);
-          setConfirmarCadastro(true); // Exibir mensagem de confirmação
+          setConfirmarCadastro(true);
         }
       } catch (error) {
         console.error("Erro ao buscar cliente", error);
+        setError("Erro ao buscar cliente. Tente novamente.");
       } finally {
         setLoading(false);
       }
     }
   };
 
-  // Função para lidar com a seleção de um cliente da lista
+  // Função para lidar com a seleção de cliente
   const handleClienteSelecionado = (cliente: Cliente) => {
     setClienteSelecionado(cliente);
   };
 
-  // Função para redirecionar para a página de cadastro
+  // Função para navegar para o cadastro de cliente
   const handleCadastrarCliente = () => {
     navigate('/CadastroCliente');
   };
 
-  // Hook de efeito para logar os clientes atualizados
   useEffect(() => {
     console.log('Clientes atualizados:', clientes);
   }, [clientes]);
@@ -108,6 +108,7 @@ const FormularioValidacao = () => {
         <ServicoLavagem cliente={clienteSelecionado} />
       )}
       {loading && <p>Carregando...</p>}
+      {error && <p className={classes.error}>{error}</p>}
       {!clienteSelecionado && !loading && (
         <div className={classes.box}>
           {clientes.length > 0 ? (

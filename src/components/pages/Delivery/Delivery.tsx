@@ -1,14 +1,22 @@
-import Header from "../../Header/Header"
-import AgendaDelivery from "../AgendaDelivery/AgendaDelivery"
+import React, { useState } from 'react';
+import Header from "../../Header/Header";
+import BuscaCliente from "../AgendaDelivery/BuscaCliente";
+import AgendaDelivery from "../AgendaDelivery/AgendaDelivery";
+import { Cliente } from '../../service/apiCliente';
 
+const Delivery: React.FC = () => {
+  const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
 
-const Delivery = () => {
   return (
     <div>
       <Header nomePagina="Delivery" />
-      <AgendaDelivery />
+      {!clienteSelecionado ? (
+        <BuscaCliente onClienteSelecionado={setClienteSelecionado} />
+      ) : (
+        <AgendaDelivery cliente={clienteSelecionado} />
+      )}
     </div>
-  )
+  );
 }
 
-export default Delivery
+export default Delivery;

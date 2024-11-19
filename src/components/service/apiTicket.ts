@@ -13,7 +13,7 @@ type Item = {
 // Define o tipo Ticket que inclui um array de Itens
 export type Ticket = {
   id?: string; // Adicionei id aqui
-  clienteId: number;
+  clienteId: string; // Alterado para string
   ticketNumber: string;
   estaPago: "sim" | "não";
   totalPago: number;
@@ -77,11 +77,10 @@ export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
     .catch(handleError);
 };
 
-export const  atualizaTicket = async (ticket : Ticket): Promise<Ticket> =>{
+export const atualizaTicket = async (ticket: Ticket): Promise<Ticket> => {
   console.info("API Ticket - atualiza Ticket ", { ticket });
   return api
     .put<Ticket>(`/${ticket.id}`, ticket)
     .then(response => response.data)
     .catch(handleError);
-}
-
+};

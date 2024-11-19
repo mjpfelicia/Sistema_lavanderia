@@ -52,7 +52,7 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
     // Cria um novo ticket com as peças agrupadas e outras informações do cliente
     const ticketToCreate: Ticket = {
       ticketNumber,
-      clienteId: cliente.id,
+      clienteId: cliente.id.toString(),  // Convertendo 'cliente.id' para string
       estaPago: "não",
       items: Object.entries(pecasAgrupadas).map(([subTipo, { quantidade, total, pecaId }]) => ({
         pecaId,
@@ -63,8 +63,9 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
       total: totalPreco,
       totalPago: totalPreco,
       dataCriacao: new Date().toISOString(),
-      dataEntrega:  ""
+      dataEntrega: ""
     };
+    
 
     // Envia a requisição para criar o ticket
     await criarTicket(ticketToCreate)

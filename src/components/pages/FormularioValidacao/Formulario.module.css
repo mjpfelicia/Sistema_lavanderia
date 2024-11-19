@@ -14,7 +14,6 @@
 }
 
 .box {
-
     border-radius: 8px;
     margin: 0 3rem;
     opacity: 0.9;
@@ -64,7 +63,7 @@
     width: 103px;
     padding: 8px;
     background-color: var(--colorBtnCadastra);
-    color: var( --color_branca);
+    color: var(--color-text-light);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -86,10 +85,12 @@
     color: var(--color-error);
 }
 
-.msgError {
-    color: var(--color-error);
+.msgError,
+.noResults p{
+    color: var(--color-text-danger);
     font-size: 1.2rem;
 }
+
 
 .li {
     border-bottom: 1px solid var(--color-borde);
@@ -143,7 +144,7 @@ ul {
 
 .confirmacao .btn_confirm {
     background-color: var(--color-hover-success);
-    color: var(--color-branca);
+    color: var(--color-text-light);
 }
 
 .confirmacao .btn_confirm:hover {
@@ -152,7 +153,7 @@ ul {
 
 .confirmacao .btn_cancel {
     background-color: var(--color-hover-danger);
-    color: var(--color-branca);
+    color: var(--color-text-light);
 }
 
 .confirmacao .btn_cancel:hover {

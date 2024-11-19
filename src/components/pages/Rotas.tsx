@@ -11,7 +11,7 @@ import Whatsapp from "./Whatsapp/Whatsapp";
 import Validacao from "./FormularioValidacao/Formulario";
 import CadastroCliente from "./CadastroCliente/CadastroCliente";
 import CloseButton from "../buttons/CloseButton";
-
+import AgendamentoEntrega from "./AgendaDelivery/AgendaDelivery";
 const Rotas = () => {
   return (
     <BrowserRouter>
@@ -28,6 +28,18 @@ const Rotas = () => {
         <Route path="/Validacao" element={<Validacao />} />
         <Route path="/CadastroCliente" element={<CadastroCliente />} />
         <Route path="/close" element={<CloseButton />} />
+        <Route path="/agendamento/:id" element={<AgendamentoEntrega cliente={{
+          id: 0,
+          nome: "",
+          email: "",
+          telefone: "",
+          endereco: "",
+          numero: "",
+          complemento: "",
+          estado: "",
+          cep: "",
+          bairro: ""
+        }}/>} />
       </Routes>
     </BrowserRouter>
   );
