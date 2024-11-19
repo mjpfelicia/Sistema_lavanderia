@@ -12,6 +12,7 @@ import Validacao from "./FormularioValidacao/Formulario";
 import CadastroCliente from "./CadastroCliente/CadastroCliente";
 import CloseButton from "../buttons/CloseButton";
 import AgendamentoEntrega from "./AgendaDelivery/AgendaDelivery";
+
 const Rotas = () => {
   return (
     <BrowserRouter>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { buscarCliente, Cliente } from '../../service/apiCliente';
 import classes from "../FormularioValidacao/Formulario.module.css";
 import Spinner from 'react-bootstrap/Spinner';
@@ -13,6 +14,8 @@ const BuscaCliente: React.FC<BuscaClienteProps> = ({ onClienteSelecionado }) => 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [noResults, setNoResults] = useState<boolean>(false);
+  const [confirmarCadastro, setConfirmarCadastro] = useState<boolean>(false); // Novo estado para confirmação
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,10 +26,12 @@ const BuscaCliente: React.FC<BuscaClienteProps> = ({ onClienteSelecionado }) => 
     setLoading(true);
     setError(null);
     setNoResults(false);
+    setConfirmarCadastro(false);
     try {
       const result: Cliente[] = await buscarCliente(formData.nome, formData.telefone);
       if (result.length === 0) {
         setNoResults(true);
+        setConfirmarCadastro(true); // Mostrar a confirmação de cadastro
       }
       setClientes(result);
     } catch (error) {
@@ -34,6 +39,12 @@ const BuscaCliente: React.FC<BuscaClienteProps> = ({ onClienteSelecionado }) => 
     } finally {
       setLoading(false);
     }
+  };
+
+  // Função para redirecionar para a página de cadastro
+  const handleCadastrarCliente = () => {
+    setConfirmarCadastro(false); // Ocultar a confirmação de cadastro
+    navigate('/CadastroCliente'); // Redirecionando para a rota de cadastro
   };
 
   return (
@@ -50,8 +61,16 @@ const BuscaCliente: React.FC<BuscaClienteProps> = ({ onClienteSelecionado }) => 
         <button type="submit" className={classes.btn_enter}>Pesquisar</button>
       </form>
       {loading && <Spinner animation="border" role="status"><span className="visually-hidden">Carregando...</span></Spinner>}
-      {error && <p className={classes.msgError}>{error}</p>}
-      {!loading && !error && noResults && <p className={classes.noResults}>Nenhum cliente encontrado.</p>}
+      {error && <p className={classes.error}>{error}</p>}
+      {!loading && !error && confirmarCadastro && (
+        <div className={classes.confirmacao}>
+          <p>Cliente não encontrado. Deseja cadastrar um novo cliente?</p>
+          <div className={classes.btn_group}>
+            <button onClick={handleCadastrarCliente} className={classes.btn_confirm}>Sim</button>
+            <button onClick={() => setConfirmarCadastro(false)} className={classes.btn_cancel}>Não</button>
+          </div>
+        </div>
+      )}
       <div className={classes.box}>
         {clientes.length > 0 && (
           <ul>

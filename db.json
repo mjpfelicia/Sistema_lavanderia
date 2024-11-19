@@ -124,160 +124,27 @@
       "endereco": "Rua Atualizada",
       "numero": "55555",
       "complemento": "ap atualizado"
+    },
+    {
+      "id": "b1aa",
+      "nome": "Busca de cliente no delivery ",
+      "telefone": "11973241419",
+      "email": "mjpfelicia@gmail.com",
+      "cep": "05763-470",
+      "estado": "SP",
+      "bairro": "Chácara Nossa Senhora do Bom Conselho",
+      "endereco": "Rua teste delivery",
+      "numero": "82",
+      "complemento": "direcionando"
     }
   ],
   "deliverys": [
-    {
-      "id": "9e51",
-      "ticketNumber": "12345",
-      "código": "ABC123",
-      "clienteId": "0",
-      "deliveryTipo": "Retirada",
-      "deliveryData": null
-    },
-    {
-      "id": "4b14",
-      "ticketNumber": "12345",
-      "código": "ABC123",
-      "clienteId": "0",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-21T15:00:00.000Z"
-    },
-    {
-      "id": "3a09",
-      "ticketNumber": "12345",
-      "código": "ABC123",
-      "clienteId": "0",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-20T22:20:00.000Z"
-    },
-    {
-      "id": "0b8d",
-      "ticketNumber": "12345",
-      "código": "ABC123",
-      "clienteId": "0",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-15T22:26:00.000Z"
-    },
-    {
-      "id": "eab9",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-20T19:55:00.000Z"
-    },
-    {
-      "id": "3eb8",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-20T21:10:00.000Z"
-    },
-    {
-      "id": "1c45",
-      "clienteId": "68c4",
-      "deliveryTipo": "Entrega",
-      "deliveryData": "2000-01-01T02:00:00.000Z"
-    },
-    {
-      "id": "4df3",
-      "clienteId": "68c4",
-      "deliveryTipo": "Entrega",
-      "deliveryData": "2000-01-01T02:00:00.000Z"
-    },
-    {
-      "id": "7ba7",
-      "clienteId": 68,
-      "deliveryTipo": "Entrega",
-      "deliveryData": "2024-11-23T00:30:00.000Z"
-    },
-    {
-      "id": "a340",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-20T23:46:00.000Z"
-    },
-    {
-      "id": "455d",
-      "clienteId": "892b",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-21T23:57:00.000Z"
-    },
-    {
-      "id": "640d",
-      "clienteId": "68c4",
-      "deliveryTipo": "Entrega",
-      "deliveryData": "2024-11-27T18:50:00.000Z"
-    },
-    {
-      "id": "c876",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-21T17:00:00.000Z"
-    },
-    {
-      "id": "ac07",
-      "clienteId": "68c4",
-      "deliveryTipo": "Entrega",
-      "deliveryData": "2024-11-21T17:02:00.000Z"
-    },
-    {
-      "id": "ea62",
-      "clienteId": "68c4",
-      "deliveryTipo": "Entrega",
-      "deliveryData": "2024-11-21T21:05:00.000Z"
-    },
+ 
     {
       "id": "de8e",
       "clienteId": "68c4",
       "deliveryTipo": "Retirada",
       "deliveryData": "2025-01-20T18:00:00.000Z"
-    },
-    {
-      "id": "32ff",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "0006-05-02T16:01:28.000Z"
-    },
-    {
-      "id": "9d78",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-27T16:00:00.000Z"
-    },
-    {
-      "id": "9edd",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-21T18:04:00.000Z"
-    },
-    {
-      "id": "8955",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-12-02T15:00:00.000Z"
-    },
-    {
-      "id": "6c21",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2025-02-20T15:00:00.000Z"
-    },
-    {
-      "id": "6a75",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2025-02-02T15:01:00.000Z"
-    },
-    {
-      "id": "a1e8",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2025-02-02T19:00:00.000Z"
-    },
-    {
-      "id": "70fc",
-      "clienteId": "68c4",
-      "deliveryTipo": "Retirada",
-      "deliveryData": "2024-11-21T19:14:00.000Z"
     }
   ],
   "pecas": [
