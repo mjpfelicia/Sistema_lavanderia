@@ -42,7 +42,6 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
     const hoje = new Date();
     const dataSelecionada = new Date(`${dataRetirada}T${horaRetirada}:00`);
 
-    // Ajuste do fuso horário local
     const offset = dataSelecionada.getTimezoneOffset();
     const adjustedDataSelecionada = new Date(dataSelecionada.getTime() - offset * 60 * 1000);
 
@@ -62,17 +61,24 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
       ticket.estaPago = "sim";
     }
 
-    const ticketAtualizo = await atualizaTicket(ticket);
+    try {
+      const ticketAtualizo = await atualizaTicket(ticket);
+      console.log("Dados antes de setMostrarImpressao:", {
+        ticketNumber: ticketAtualizo.ticketNumber,
+        formaPagamento,
+        dataRetirada: ticketAtualizo.dataEntrega,
+        statusPagamento: ticketAtualizo.estaPago,
+        itens: ticketAtualizo.items
+      });
 
-    console.log("Dados antes de setMostrarImpressao:", {
-      ticketNumber: ticketAtualizo.ticketNumber,
-      formaPagamento,
-      dataRetirada: ticketAtualizo.dataEntrega,
-      statusPagamento: ticketAtualizo.estaPago,
-      itens: ticketAtualizo.items
-    });
-
-    setMostrarImpressao(true);
+      setMostrarImpressao(true);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log("[ERROR] atualizaTicket:", error.message);
+      } else {
+        console.log("[ERROR] atualizaTicket:", String(error));
+      }
+    }
   };
 
   const handleFormaPagamentoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -100,23 +106,23 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
           <p>Número do Ticket: {ticketNumber}</p>
           <p>Total de Peças: {quantidade}</p>
           <p>Total a Pagar: R${total.toFixed(2)}</p>
-          <div>
+          <div className="checkbox-container">
             <label>
               Pagamento na Retirada:
               <input type="checkbox" checked={pagamentoNaRetirada} onChange={handlePagamentoNaRetiradaChange} />
             </label>
-            {!pagamentoNaRetirada && (
-              <label>
-                Forma de Pagamento:
-                <select value={formaPagamento} onChange={handleFormaPagamentoChange}>
-                  <option value="Cartão de Crédito">Cartão de Crédito</option>
-                  <option value="Cartão de Débito">Cartão de Débito</option>
-                  <option value="Dinheiro">Dinheiro</option>
-                  <option value="Pix">Pix</option>
-                </select>
-              </label>
-            )}
           </div>
+          {!pagamentoNaRetirada && (
+            <label>
+              Forma de Pagamento:
+              <select value={formaPagamento} onChange={handleFormaPagamentoChange}>
+                <option value="Cartão de Crédito">Cartão de Crédito</option>
+                <option value="Cartão de Débito">Cartão de Débito</option>
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="Pix">Pix</option>
+              </select>
+            </label>
+          )}
           <div>
             <label>
               Data de Retirada:
@@ -136,7 +142,7 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
         <ImpressaoTicket
           ticketNumber={ticketNumber}
           formaPagamento={formaPagamento || 'Pagamento na Retirada'}
-          dataRetirada={`${dataRetirada}T${horaRetirada}:00.000Z`} // Passando data e hora no formato ISO
+          dataRetirada={`${dataRetirada}T${horaRetirada}:00.000Z`}
           statusPagamento={statusPagamento}
           total={total}
           quantidade={quantidade}
@@ -148,4 +154,4 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
   );
 };
 
-export default Pagamento;
+export default Pagamento; 

@@ -1,9 +1,4 @@
-/* Importação das fontes */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
-/* Estilos do componente Pagamento */
-.pagamento,
-.impressao-ticket {
+.pagamento {
   width: 100%;
   text-align: left;
   padding: 1.5rem;
@@ -37,6 +32,19 @@
   padding-bottom: 1rem;
 }
 
+.pagamento .checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.pagamento .checkbox-container input[type="checkbox"] {
+  margin-left: 10px;
+}
+.checkbox-container input[type="checkbox"]{
+  width: 2rem;
+}
+
 .pagamento select,
 .pagamento input[type="date"],
 .pagamento input[type="time"],
@@ -47,11 +55,6 @@
   padding: 0.5rem;
   border: 1px solid var(--color-borde);
   border-radius: 5px;
-}
-
-.pagamento input[type="checkbox"] {
-  margin-top: 5px;
-  margin-left: 0.5rem;
 }
 
 .pagamento p {

@@ -21,7 +21,6 @@ const FormularioValidacao = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  // Função para validar os dados do formulário
   const validarFormulario = (): boolean => {
     const novosErros: Partial<FormData> = {};
     if (formData.nome.length < 3) {
@@ -34,12 +33,10 @@ const FormularioValidacao = () => {
     return Object.keys(novosErros).length === 0;
   };
 
-  // Função para lidar com mudanças nos inputs do formulário
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Função para lidar com a submissão do formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validarFormulario()) {
@@ -65,12 +62,10 @@ const FormularioValidacao = () => {
     }
   };
 
-  // Função para lidar com a seleção de cliente
   const handleClienteSelecionado = (cliente: Cliente) => {
     setClienteSelecionado(cliente);
   };
 
-  // Função para navegar para o cadastro de cliente
   const handleCadastrarCliente = () => {
     navigate('/CadastroCliente');
   };

@@ -35,24 +35,21 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
   }, [pecas]);
 
   useEffect(() => {
-    // Gera um novo número de ticket aleatório
     const newTicketNumber = `${Math.floor(Math.random() * 1000000) + 1}`;
     setTicketNumber(newTicketNumber);
   }, []);
 
   const handleFinalizar = async () => {
-    // Verifica se um cliente está selecionado
-    if (!cliente.id) {
-      alert("Por favor, selecione um cliente antes de finalizar o pedido.");
+    if (!cliente.id || !cliente.nome || !cliente.telefone) {
+      alert("Por favor, preencha todos os dados do cliente antes de finalizar o pedido.");
       return;
     }
-    
+
     finalizarSelecao(ticketNumber);
-    
-    // Cria um novo ticket com as peças agrupadas e outras informações do cliente
+
     const ticketToCreate: Ticket = {
       ticketNumber,
-      clienteId: cliente.id.toString(),  // Convertendo 'cliente.id' para string
+      clienteId: cliente.id.toString(),
       estaPago: "não",
       items: Object.entries(pecasAgrupadas).map(([subTipo, { quantidade, total, pecaId }]) => ({
         pecaId,
@@ -65,17 +62,18 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
       dataCriacao: new Date().toISOString(),
       dataEntrega: ""
     };
-    
 
-    // Envia a requisição para criar o ticket
-    await criarTicket(ticketToCreate)
-      .then((ticketResponse) => {
-        console.log("criarTicket: ", { ticketResponse });
-        setTicket(ticketResponse);
-      })
-      .catch(error => {
+    try {
+      const ticketResponse = await criarTicket(ticketToCreate);
+      console.log("criarTicket: ", { ticketResponse });
+      setTicket(ticketResponse);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
         console.log("[ERROR] criar ticket:", error.message);
-      });
+      } else {
+        console.log("[ERROR] criar ticket:", String(error));
+      }
+    }
   };
 
   return (

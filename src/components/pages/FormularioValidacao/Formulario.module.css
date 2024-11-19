@@ -25,8 +25,9 @@
 .passwordInput,
 .inputGroupButton {
     display: block;
-    padding: 0px 24px;
+    padding: 0px 18px;
     font-size: 15px;
+    height: 40px;
 }
 
 .controle_de_campo input,
@@ -110,21 +111,13 @@ ul {
 
 .confirmacao {
     background-color: var(--color-bg-leve);
-    /* Usando a nova variável de cor */
     border-radius: 8px;
-    /* Bordas arredondadas */
     border: 1px solid var(--color-border-primary);
-    /* Borda sutil */
     padding: 1rem;
-    /* Espaçamento interno */
     margin: 1rem auto;
-    /* Margem ao redor */
     text-align: center;
-    /* Alinhamento central do texto */
     width: 100%;
-    /* Largura total */
     max-width: 500px;
-    /* Largura máxima */
 }
 
 .confirmacao p {
