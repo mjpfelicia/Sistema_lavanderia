@@ -39,6 +39,7 @@ body {
   --color-bg-warning: #fff3cd;  /* Fundo de aviso */
   --color-bg-info: #d1ecf1;  /* Fundo de informação */
   --color-bg-light: #f8f9fa;  /* Fundo claro */
+  --color-bg-leve: #f8f9fad4; /* Fundo leve e sutil */
   --color-bg-dark: #343a40;  /* Fundo escuro */
   --color-text-primary: #212529;  /* Texto primário */
   --color-text-secondary: #6c757d;  /* Texto secundário */
@@ -47,7 +48,7 @@ body {
   --color-text-warning: #856404;  /* Texto de aviso */
   --color-text-info: #0c5460;  /* Texto de informação */
   --color-text-light: #f8f9fa;  /* Texto claro */
-  --color-text-dark: #343a40;  /* Texto escuro */
+    --color-text-dark: #343a40;  /* Texto escuro */
   --color-border-primary: #dae0e5;  /* Borda primária */
   --color-border-secondary: #ced4da;  /* Borda secundária */
   --color-border-success: #c3e6cb;  /* Borda de sucesso */

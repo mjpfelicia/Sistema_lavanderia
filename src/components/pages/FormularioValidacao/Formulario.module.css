@@ -86,11 +86,10 @@
 }
 
 .msgError,
-.noResults p{
+.noResults p {
     color: var(--color-text-danger);
     font-size: 1.2rem;
 }
-
 
 .li {
     border-bottom: 1px solid var(--color-borde);
@@ -110,14 +109,22 @@ ul {
 }
 
 .confirmacao {
-    background-color: var(--color-bg-warning);
+    background-color: var(--color-bg-leve);
+    /* Usando a nova variável de cor */
     border-radius: 8px;
-    border: 1px solid var(--color-border-warning);
+    /* Bordas arredondadas */
+    border: 1px solid var(--color-border-primary);
+    /* Borda sutil */
     padding: 1rem;
+    /* Espaçamento interno */
     margin: 1rem auto;
+    /* Margem ao redor */
     text-align: center;
+    /* Alinhamento central do texto */
     width: 100%;
+    /* Largura total */
     max-width: 500px;
+    /* Largura máxima */
 }
 
 .confirmacao p {
@@ -131,21 +138,42 @@ ul {
     width: 100%;
 }
 
-.confirmacao .btn_confirm,
-.confirmacao .btn_cancel {
-    width: 45%;
-    /* Ajusta largura dos botões */
-    padding: 10px 20px;
-    border: none;
+.btn_confirm,
+.btn_cancel {
+    background: var(--color_azul_bg);
+    /* Cor de fundo original */
+    color: var(--color_branca);
+    /* Cor do texto original */
     border-radius: 4px;
+    /* Bordas arredondadas */
+    height: 44px;
+    /* Altura do botão */
+    line-height: 46px;
+    /* Altura da linha para centralizar o texto verticalmente */
+    padding: 0 25px;
+    /* Preenchimento interno horizontal */
+    border: 0;
+    /* Sem borda */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra leve */
+    font-weight: 700;
+    /* Texto em negrito */
     cursor: pointer;
-    transition: background-color 0.3s;
+    /* Cursor de ponteiro para indicar que é clicável */
+    transition: background 0.3s, box-shadow 0.3s;
+    /* Transições suaves para mudanças de estado */
+    margin: 0 10px;
+    /* Espaçamento entre os botões */
 }
 
-.confirmacao .btn_confirm {
-    background-color: var(--color-hover-success);
-    color: var(--color-text-light);
+.btn_confirm:hover,
+.btn_cancel:hover {
+    background: var(--color-hover-info);
+    /* Cor de fundo ao passar o mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    /* Sombra mais intensa ao passar o mouse */
 }
+
 
 .confirmacao .btn_confirm:hover {
     background-color: var(--color-text-success);

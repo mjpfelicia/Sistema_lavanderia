@@ -17,10 +17,12 @@ const BuscaCliente: React.FC<BuscaClienteProps> = ({ onClienteSelecionado }) => 
   const [confirmarCadastro, setConfirmarCadastro] = useState<boolean>(false); // Novo estado para confirmação
   const navigate = useNavigate();
 
+  // Função para lidar com mudanças nos campos do formulário
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -28,10 +30,11 @@ const BuscaCliente: React.FC<BuscaClienteProps> = ({ onClienteSelecionado }) => 
     setNoResults(false);
     setConfirmarCadastro(false);
     try {
+      // Busca o cliente na API
       const result: Cliente[] = await buscarCliente(formData.nome, formData.telefone);
       if (result.length === 0) {
         setNoResults(true);
-        setConfirmarCadastro(true); // Mostrar a confirmação de cadastro
+        setConfirmarCadastro(true);
       }
       setClientes(result);
     } catch (error) {
@@ -66,10 +69,11 @@ const BuscaCliente: React.FC<BuscaClienteProps> = ({ onClienteSelecionado }) => 
         <div className={classes.confirmacao}>
           <p>Cliente não encontrado. Deseja cadastrar um novo cliente?</p>
           <div className={classes.btn_group}>
-            <button onClick={handleCadastrarCliente} className={classes.btn_confirm}>Sim</button>
-            <button onClick={() => setConfirmarCadastro(false)} className={classes.btn_cancel}>Não</button>
+            <button onClick={handleCadastrarCliente} className={`${classes.btn_confirm} ${classes.btn}`}>Sim</button>
+            <button onClick={() => setConfirmarCadastro(false)} className={`${classes.btn_cancel} ${classes.btn}`}>Não</button>
           </div>
         </div>
+
       )}
       <div className={classes.box}>
         {clientes.length > 0 && (
