@@ -1,17 +1,38 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './ServicoLavagem.css';
-import { Ticket, criarTicket } from "../service/apiTicket";
-import { Peca } from '../service/apiPeca';
-import { Cliente } from '../service/apiCliente';
+import { Ticket, criarTicket } from "../../service/apiTicket";
+import { Peca } from '../../service/apiPeca';
+import { Cliente } from '../../service/apiCliente';
 
-interface TotalizadorProps {
+interface CriarTickerProps {
   cliente: Cliente;
   pecas: Peca[];
   finalizarSelecao: (ticketNumber: string) => void;
   setTicket: (ticket: Ticket) => void;
 }
 
-const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSelecao, setTicket }) => {
+const colorNames = {
+  '#0000FF': 'Azul',
+  '#FFA500': 'Laranja',
+  '#000000': 'Preto',
+  '#FF0000': 'Vermelho',
+  '#008000': 'Verde',
+  '#FFFF00': 'Amarelo',
+  '#800080': 'Roxo',
+  '#FFC0CB': 'Rosa',
+  '#8B4513': 'Marrom',
+  '#808080': 'Cinza',
+  '#FFFFFF': 'Branco',
+  '#ADD8E6': 'Azul Claro',
+  '#90EE90': 'Verde Claro',
+  '#FFFFE0': 'Amarelo Claro',
+  '#FFB6C1': 'Rosa Claro',
+  '#D3D3D3': 'Cinza Claro'
+} as const;
+
+type ColorCode = keyof typeof colorNames;
+
+const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSelecao, setTicket }) => {
   const [ticketNumber, setTicketNumber] = useState<string>('');
 
   const totalPecas = useMemo(() => pecas.length, [pecas]);
@@ -19,19 +40,22 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
 
   const pecasAgrupadas = useMemo(() => {
     return pecas.reduce((acc, peca) => {
-      if (acc[peca.subTipo]) {
-        acc[peca.subTipo].quantidade += 1;
-        acc[peca.subTipo].total += peca.preco;
-        acc[peca.subTipo].pecaId = peca.id;
+      const key = `${peca.subTipo}-${peca.cor}-${peca.marca}-${peca.defeito}`;
+      if (acc[key]) {
+        acc[key].quantidade += 1;
+        acc[key].total += peca.preco * (peca.quantidade || 1);
       } else {
-        acc[peca.subTipo] = {
+        acc[key] = {
           quantidade: 1,
-          total: peca.preco,
-          pecaId: peca.id
+          total: peca.preco * (peca.quantidade || 1),
+          pecaId: peca.id,
+          cor: peca.cor,
+          marca: peca.marca,
+          defeito: peca.defeito
         };
       }
       return acc;
-    }, {} as { [key: string]: { quantidade: number; total: number, pecaId: string } });
+    }, {} as { [key: string]: { quantidade: number; total: number, pecaId: string, cor: string, marca: string, defeito: string } });
   }, [pecas]);
 
   useEffect(() => {
@@ -51,11 +75,14 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
       ticketNumber,
       clienteId: cliente.id.toString(),
       estaPago: "não",
-      items: Object.entries(pecasAgrupadas).map(([subTipo, { quantidade, total, pecaId }]) => ({
+      items: Object.entries(pecasAgrupadas).map(([key, { quantidade, total, pecaId, cor, marca, defeito }]) => ({
         pecaId,
-        subTipo,
+        subTipo: key.split('-')[0],
         quantidade,
-        total
+        total,
+        cor: colorNames[cor as ColorCode] || cor,
+        marca,
+        defeito
       })),
       total: totalPreco,
       totalPago: totalPreco,
@@ -78,24 +105,24 @@ const Totalizador: React.FC<TotalizadorProps> = ({ cliente, pecas, finalizarSele
 
   return (
     <div className='totalizador'>
-      <h3>Pedido</h3>
-      <div>
-        <p>Cliente: {cliente.nome}</p>
-        <p>Telefone: {cliente.telefone}</p>
-        <p>Número do Ticket: {ticketNumber}</p>
+      <h3>Resumo do Pedido</h3>
+      <div className="cliente-info">
+        <p><strong>Cliente:</strong> {cliente.nome}</p>
+        <p><strong>Telefone:</strong> {cliente.telefone}</p>
+        <p><strong>Número do Ticket:</strong> {ticketNumber}</p>
       </div>
       <div className="pecas-lista">
-        {Object.entries(pecasAgrupadas).map(([subTipo, { quantidade, total }], idx) => (
-          <p key={idx}>{subTipo} ({quantidade}) - valor R${total.toFixed(2)}</p>
+        {Object.entries(pecasAgrupadas).map(([key, { quantidade, total, cor, marca, defeito }], idx) => (
+          <p key={idx}>{key.split('-')[0]} ({quantidade}) - Cor: {colorNames[cor as ColorCode] || cor}, Marca: {marca}, Defeito: {defeito} - R${total.toFixed(2)}</p>
         ))}
       </div>
       <div className="total-container">
-        <p>Total de Peças: {totalPecas}</p>
-        <p>Total a Pagar: R${totalPreco.toFixed(2)}</p>
+        <p><strong>Total de Peças:</strong> {totalPecas}</p>
+        <p><strong>Total a Pagar:</strong> R${totalPreco.toFixed(2)}</p>
       </div>
       <button onClick={handleFinalizar} className='btnFinalizar'>Finalizar</button>
     </div>
   );
 };
 
-export default Totalizador;
+export default CriarTicket;

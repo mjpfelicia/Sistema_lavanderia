@@ -6,13 +6,13 @@ export type Delivery = {
   id?: string;
   ticketNumber?: string;
   codigo?: string;
-  clienteId: number; // Certifique-se de que é string
+  clienteId?: number; // Certifique-se de que é string
   deliveryTipo: DeliveryTipo;
   deliveryData: Date;
 };
 
 const api = axios.create({
-  baseURL: 'http://localhost:3008',
+  baseURL: 'http://localhost:3008/delivery',
 });
 
 const handleApiError = (error: unknown) => {
@@ -47,12 +47,12 @@ const postPutRequest = async <T>(url: string, data: T): Promise<T> => {
 
 export const listarDelivery = async (): Promise<Delivery[]> => {
   console.info("API Delivery - listarDelivery");
-  return getRequest<Delivery[]>('/deliverys');
+  return getRequest<Delivery[]>('/');
 };
 
 export const getDelivery = async (idDelivery: string): Promise<Delivery> => {
   console.info("API Delivery - getDelivery");
-  return getRequest<Delivery>(`/deliverys/${idDelivery}`);
+  return getRequest<Delivery>(`/${idDelivery}`);
 };
 
 export const buscarDelivery = async (clienteId: string): Promise<Delivery[]> => {
@@ -60,15 +60,15 @@ export const buscarDelivery = async (clienteId: string): Promise<Delivery[]> => 
   if (!clienteId) {
     throw new Error("[buscarDelivery] Precisa do clienteId para buscar Delivery");
   }
-  return getRequest<Delivery[]>(`/deliverys?clienteId=${clienteId}`);
+  return getRequest<Delivery[]>(`/?clienteId=${clienteId}`);
 };
 
 export const atualizaDelivery = async (idDelivery: string, delivery: Delivery): Promise<Delivery> => {
   console.info("API Delivery - atualizaDelivery");
-  return postPutRequest<Delivery>(`/deliverys/${idDelivery}`, delivery);
+  return postPutRequest<Delivery>(`/${idDelivery}`, delivery);
 };
 
 export const criarDelivery = async (delivery: Delivery): Promise<Delivery> => {
   console.info("API Delivery - criarDelivery");
-  return postPutRequest<Delivery>('/deliverys', delivery);
+  return postPutRequest<Delivery>('/', delivery);
 };

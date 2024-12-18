@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; // Importa React e o hook useState
 import { Modal, Button } from 'react-bootstrap'; // Importa componentes do React Bootstrap
-import { criarDelivery, Delivery, DeliveryTipo } from '../../service/apiDelivery'; // Importa funções e tipos do serviço de API de Delivery
-import { Cliente } from '../../service/apiCliente'; // Importa o tipo Cliente do serviço de API de Cliente
+import { criarDelivery, Delivery, DeliveryTipo } from '../../../service/apiDelivery'; // Importa funções e tipos do serviço de API de Delivery
+import { Cliente } from '../../../service/apiCliente'; // Importa o tipo Cliente do serviço de API de Cliente
 import classes from "../AgendaDelivery/AgendaDelivery.module.css"; // Importa os estilos do módulo CSS
 
 // Define a interface para as propriedades do componente AgendaDelivery
@@ -50,7 +50,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
 
     // Cria o objeto de delivery
     const delivery: Delivery = {
-      clienteId: cliente.id,
+      clienteId: cliente?.id,
       deliveryTipo,
       deliveryData: new Date(`${deliveryData}T${deliveryHora}`)
     };
@@ -75,7 +75,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
         <div id="printableArea">
           <h2>Cupom de Agendamento</h2>
           <p><strong>Cliente:</strong> ${cliente.nome}</p>
-          <p><strong>Endereço:</strong> ${cliente.endereco}, ${cliente.numero}, ${cliente.complemento}, ${cliente.bairro}, ${cliente.estado}, ${cliente.cep}</p>
+          <p><strong>Endereço:</strong> ${cliente.endereco.endereco}, ${cliente.endereco.numero}, ${cliente.endereco.complemento}, ${cliente.endereco.bairro}, ${cliente.endereco.estado}, ${cliente.endereco.cep}</p>
           <p><strong>Tipo de Entrega:</strong> ${cupom.deliveryTipo}</p>
           <p><strong>Data e Hora:</strong> ${cupom.deliveryData.toLocaleString()}</p>
         </div>
@@ -97,7 +97,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
     <div className={classes.container}>
       <div className={classes.containerForm}>
         <h2>{cliente.nome}</h2>
-        <p><strong>Endereço:</strong> {cliente.endereco}, {cliente.numero}, {cliente.complemento}, {cliente.bairro}, {cliente.estado}, {cliente.cep}</p>
+        <p><strong>Endereço:</strong> {cliente.endereco.endereco}, {cliente.endereco.numero}, {cliente.endereco.complemento}, {cliente.endereco.bairro}, {cliente.endereco.estado}, {cliente.endereco.cep}</p>
         <form className={classes.formulario} onSubmit={handleSubmit}>
           <div className={classes.controle_de_campo}>
             <label htmlFor="deliveryTipo">Tipo de Entrega:</label>
@@ -126,7 +126,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
           {cupom && (
             <div>
               <p><strong>Cliente:</strong> {cliente.nome}</p>
-              <p><strong>Endereço:</strong> {cliente.endereco}, {cliente.numero}, {cliente.complemento}, {cliente.bairro}, {cliente.estado}, {cliente.cep}</p>
+              <p><strong>Endereço:</strong> {cliente.endereco.endereco}, {cliente.endereco.numero}, {cliente.endereco.complemento}, {cliente.endereco.bairro}, {cliente.endereco.estado}, {cliente.endereco.cep}</p>
               <p><strong>Tipo de Entrega:</strong> {cupom.deliveryTipo}</p>
               <p><strong>Data e Hora:</strong> {cupom.deliveryData.toLocaleString()}</p>
             </div>

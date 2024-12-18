@@ -12,11 +12,13 @@ export type TipoPeca =
 
 // Interface que define a estrutura das peças
 export interface Peca {
-
+  defeito: string;
   id: string;
   tipo: TipoPeca;
   subTipo: string;
-  preco: number;
+  cor: string;
+  marca: string;
+    preco: number;
   quantidade: number;
   imagemUrl: string;
 }
@@ -26,14 +28,14 @@ export interface Peca {
 export type PecaTipo = "Entrega" | "Retirada";
 
 const api = axios.create({
-  baseURL: 'http://localhost:3008',
+  baseURL: 'http://localhost:3008/peca',
 });
 
 export const listarPeca = async (): Promise<Peca[]> => {
 
   console.info("API Peca - listarPeca ");
   return api
-    .get<Peca[]>('/pecas')
+    .get<Peca[]>('/')
     .then(response => response.data)
     .catch((error: AxiosError) => {
       console.error("[ERROR][listarPeca]", error.message);
@@ -45,7 +47,7 @@ export const getPeca = async (idPeca: number): Promise<Peca> => {
   console.info("API Peca - getPeca ");
 
   return api
-    .get<Peca>(`/pecas/${idPeca}`)
+    .get<Peca>(`//${idPeca}`)
     .then(response => response.data)
     .catch((error: AxiosError) => {
       console.error("[ERROR][getPeca]", error.message);
@@ -54,16 +56,16 @@ export const getPeca = async (idPeca: number): Promise<Peca> => {
 };
 
 export const getPecaPorTipo = async (tipoPeca:TipoPeca): Promise<Peca[]> => {
-  console.info("API Peca - get Peca ", { tipoPeca });
-
+  console.info("API Peca - get Peça tipoPeca: ", { tipoPeca });
+ 
   if (!tipoPeca) {
-    throw "[getTipoPeca] Precisa do tipo de peca";
+    throw "[getTipoPeca] Precisa do tipo de peça";
   }
 
   const params = `tipo=${tipoPeca}`;
 
   return api
-    .get<Peca[]>(`/pecas?${params}`)
+    .get<Peca[]>(`/?${params}`)
     .then(response => response.data)
     .catch((error: AxiosError) => {
       console.error("[ERROR][getPecaPorTipo]", error.message);
@@ -77,7 +79,7 @@ export const atualizaPeca = async (idPeca: string, Peca: Peca): Promise<Peca> =>
   console.info("API Peca - atualizaPeca ");
 
   return api
-    .put<Peca>(`/pecas/${idPeca}`, Peca)
+    .put<Peca>(`//${idPeca}`, Peca)
     .then(response => response.data)
     .catch((error: AxiosError) => {
       console.error("[ERROR][atualizaPeca]", error.message);

@@ -1,52 +1,77 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
 /* Estilos Gerais */
-.Servicodelavagem {
-  margin-top: 1rem;
+.ServicoLavagem {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
+  height: 100%;
+  margin-top: 5rem;
 }
 
+.content-wrapper {
+  margin: 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Layout da Página */
 .content {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
   margin-top: 2rem;
   padding: 1rem;
+  flex-wrap: wrap;
 }
 
+/* Estilo para o container de cards */
 .cards-container {
+  flex: 2;
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   align-content: center;
+
 }
 
+.totalizador-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Estilo dos Cards */
 .card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  width: 14rem; /* Tamanho fixo */
-  height: 14rem; /* Tamanho fixo */
+  width: 14rem;
+  height: 14rem;
   border-radius: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.2s;
-  background-color: var(--color-branca); /* Fundo branco */
-  border: 1px solid var(--color-border-primary); /* Borda */
-  overflow: hidden; /* Garante que o conteúdo não extrapole o card */
+  background-color: var(--color_branca);
+  border: 1px solid var(--color-border-primary);
+  overflow: hidden;
   text-align: center;
 }
 
 .card img {
-  width: 5rem;
-  height: 5rem;
-  object-fit: cover; /* Garante que a imagem mantenha suas proporções */
+  width: 100px;
+  /* Ajuste conforme necessário */
+  height: 100px;
+  /* Ajuste conforme necessário */
+  object-fit: cover;
   border-radius: 8px;
   margin-bottom: 1rem;
 }
@@ -77,58 +102,127 @@
   text-align: center;
 }
 
+.card button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Estilo para os cartões de cores */
+.cores-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.cor-card {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cor-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para os cartões de marcas */
+.marcas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.marca-card {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.marca-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* CSS do totalizador */
 .totalizador {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   width: 100%;
-  max-width: 400px;
+  height: 58vh;
+  max-height: 100vh; 
   text-align: left;
   padding: 1.5rem;
   border: 1px solid var(--color-borde);
   border-radius: 8px;
   background-color: var(--color-bg-cinza-claro);
+  z-index: 1000;
+  overflow-y: auto; 
 }
+
 
 .totalizador h3 {
   text-align: center;
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
-.pecas-selecionadas button,
-.btnFinalizar {
-  width: 100%;
-  padding: 1rem;
-  background-color: transparent;
-  color: var(--color-texto);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
+.cliente-info {
+  margin-bottom: 1rem;
 }
 
-.total-container,
-.pecas-lista {
-  margin-top: 32px;
-}
-
-.total-container p,
-.pecas-lista p, 
-.ticket-number {
-  margin: 6px 0;
-  white-space: nowrap;
-}
-
+.cliente-info p,
 .totalizador p {
   margin-bottom: 0.5rem;
 }
 
+.pecas-lista {
+  margin-bottom: 1rem;
+}
+
+.total-container p {
+  font-weight: bold;
+}
+
+.btnFinalizar {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--colorBtnCadastra);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  transition: background-color 0.3s;
+}
+
+.btnFinalizar:hover {
+  background-color: var(--colorHoverBtnCadastra);
+}
+
+/* Responsividade */
 @media only screen and (max-width: 768px) {
   .content {
-    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-    align-content: center;
-    padding-bottom: 2rem;
+  }
+
+  .cards-container,
+  .totalizador-container {
+    width: 100%;
   }
 }

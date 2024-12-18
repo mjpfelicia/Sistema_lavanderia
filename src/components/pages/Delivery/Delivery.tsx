@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from "../../Header/Header";
 import BuscaCliente from "../AgendaDelivery/BuscaCliente";
 import AgendaDelivery from "../AgendaDelivery/AgendaDelivery";
-import { Cliente } from '../../service/apiCliente';
+import { Cliente } from '../../../service/apiCliente';
 
 const Delivery: React.FC = () => {
   const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);

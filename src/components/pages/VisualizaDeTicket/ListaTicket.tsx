@@ -1,6 +1,6 @@
 // Importa as dependências necessárias
 import React, { useState, useEffect } from 'react';
-import { buscarTicket, atualizaTicket, Ticket } from '../../service/apiTicket'; // Importa as funções e tipos do serviço de tickets
+import { buscarTicket, atualizaTicket, Ticket } from '../../../service/apiTicket'; // Importa as funções e tipos do serviço de tickets
 import styles from './BuscaTicket.module.css'; // Importa os estilos CSS
 
 // Define a interface das props do componente
@@ -21,8 +21,8 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
         setLoading(true); // Define o estado de carregamento como true
         try {
           const ticketData = await buscarTicket(ticketNumber); // Chama a função para buscar o ticket
-          if (ticketData.length > 0) {
-            const fetchedTicket = ticketData[0];
+          if (ticketData) {
+            const fetchedTicket = ticketData;
             setTicket(fetchedTicket); // Define os detalhes do ticket no estado
             setError(null); // Limpa qualquer mensagem de erro
           } else {

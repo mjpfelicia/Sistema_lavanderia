@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './modal.css';
 import Pagamento from '../pagamento/Pagamento';
-import { Ticket } from '../service/apiTicket';
+import { Ticket } from '../../service/apiTicket';
 
 interface ModalPagamentoProps {
   total: number;

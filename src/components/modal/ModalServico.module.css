@@ -7,25 +7,33 @@
   left: 0;
   right: 0;
   bottom: 0;
-  /*background: rgba(0, 0, 0, 0.5);*/
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  /* Alinhamento ao lado esquerdo */
   align-items: center;
+  /* Centralização vertical */
   z-index: 1000;
+
 }
 
 /* Conteúdo da Modal */
 .modalContent {
-  background: var(--color-branca);
-  padding: 2rem;
-  border-radius: 8px;
-  position: relative;
-  box-sizing: border-box;
-  width: 90%;
-  max-width: 700px;
-  overflow-y: auto;
-  margin: 0 auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  /* top: 5rem; */
+  /* right: 5rem; */
+  /* padding: 2rem; */
+  /* border-radius: 8px; */
+  /* position: relative; */
+  /* box-sizing: border-box; */
+  /* width: 90%; */
+  /* max-width: 900px; */
+  /* overflow-y: auto; */
+  /* margin: 0; Remove as margens para alinhar à esquerda */
+
+  position: fixed;
+  right: 25rem;
+  top: 25rem;
+  width: 70%;
 }
 
 /* Container de Cartões */
@@ -33,9 +41,9 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-content: flex-start;
   width: 100%;
 }
 

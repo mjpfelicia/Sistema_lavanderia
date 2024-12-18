@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+.color-picker {
+  width: 0%;
+}
+
+.color-table {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+
+.color-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+  color: var(--color-text-light);
+  font-weight: bold;
+  background-color: var(--color_azul_bg);
+  /* Ajuste conforme necessário */
+  position: relative;
+}
+
+.color-cell.selected {
+  border: 3px solid var(--color-hover-primary);
+}
+
+.color-cell:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-cell span {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.color-code {
+  margin-top: 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+  text-align: center;
+  color: var(--color-texto);
+}

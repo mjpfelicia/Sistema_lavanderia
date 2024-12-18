@@ -1,5 +1,5 @@
 {
-  "clientes": [
+  "cliente": [
     {
       "nome": "Sandra teste",
       "telefone": "(11) 9999-9999",
@@ -136,17 +136,84 @@
       "endereco": "Rua teste delivery",
       "numero": "82",
       "complemento": "direcionando"
+    },
+    {
+      "id": "68ae",
+      "nome": "Sandra Felicio de Jesus",
+      "email": "mjpfelicia@gmail.com",
+      "telefone": "11973241419",
+      "endereco": {
+        "endereco": "Rua Francisco da Cruz Mellão",
+        "numero": "Blc g ap 31",
+        "estado": "SP",
+        "cep": "05763-470",
+        "bairro": "Chaçara Nossa Senhora do Bom Conselho",
+        "complemento": "ap teste"
+      }
+    },
+    {
+      "id": "df46",
+      "nome": "Sandra Felicio de Jesus",
+      "email": "mjpfelicia@gmail.com",
+      "telefone": "11973241419",
+      "endereco": {
+        "endereco": "Rua Francisco da Cruz Mellão",
+        "numero": "Blc g ap 31",
+        "estado": "SP",
+        "cep": "05763-470",
+        "bairro": "Chacara Nossa Senhora do Bom Conselho",
+        "complemento": "ap teste"
+      }
+    },
+    {
+      "id": "7c9a",
+      "nome": "Sandra Felicio de Jesus",
+      "email": "mjpfelicia@gmail.com",
+      "telefone": "11973241419",
+      "endereco": {
+        "endereco": "Rua teste",
+        "numero": "Blc g ap 31",
+        "estado": "SP",
+        "cep": "05763-470",
+        "bairro": "Chacara Nossa Senhora do Bom Conselho"
+      }
+    },
+    {
+      "id": "0ab9",
+      "nome": "Sandra Felicio de Jesus",
+      "email": "mjpfelicia@gmail.com",
+      "telefone": "11973241419",
+      "endereco": {
+        "endereco": "Rua teste",
+        "numero": "Blc g ap 31",
+        "estado": "SP",
+        "cep": "05763-470",
+        "bairro": "Chacara Nossa Senhora do Bom Conselho",
+        "complemento": "ap teste"
+      }
     }
   ],
-  "deliverys": [
+  "delivery": [
     {
       "id": "de8e",
       "clienteId": "68c4",
       "deliveryTipo": "Retirada",
       "deliveryData": "2025-01-20T18:00:00.000Z"
+    },
+    {
+      "id": "c035",
+      "clienteId": "68c4",
+      "deliveryTipo": "Retirada",
+      "deliveryData": "2024-11-22T13:45:00.000Z"
+    },
+    {
+      "id": "9447",
+      "clienteId": "3",
+      "deliveryTipo": "Retirada",
+      "deliveryData": "2024-12-19T14:11:00.000Z"
     }
   ],
-  "pecas": [
+  "peca": [
     {
       "id": "1",
       "tipo": "CALÇA",
@@ -463,10 +530,10 @@
       "imagemUrl": "/assets/img/toa.png"
     }
   ],
-  "tickets": [
+  "ticket": [
     {
       "id": "6f14",
-      "ticketNumber": "950938",
+      "ticketNumber": "95",
       "clienteId": "68c4",
       "estaPago": "sim",
       "items": [
@@ -596,14 +663,44 @@
       "dataEntrega": "2024-11-20T13:00:00.000Z"
     },
     {
-      "id": "bfce",
-      "ticketNumber": "903667",
-      "clienteId": "68c4",
+      "id": "1bc7",
+      "ticketNumber": "438630",
+      "clienteId": "3",
       "estaPago": "não",
       "items": [
         {
-          "pecaId": "v1",
-          "subTipo": "VESTIDO ESPECIAL",
+          "pecaId": "c1",
+          "subTipo": "EDREDOM",
+          "quantidade": 1,
+          "total": 50
+        },
+        {
+          "pecaId": "c2",
+          "subTipo": "EDREDOM KING",
+          "quantidade": 1,
+          "total": 60
+        }
+      ],
+      "total": 110,
+      "totalPago": 110,
+      "dataCriacao": "2024-12-13T11:08:40.230Z",
+      "dataEntrega": "2024-12-20T11:08:00.000Z"
+    },
+    {
+      "id": "29d4",
+      "ticketNumber": "338367",
+      "clienteId": "772a",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 1,
+          "total": 200.9
+        },
+        {
+          "pecaId": "v4",
+          "subTipo": "VESTIDO COURO",
           "quantidade": 1,
           "total": 200.9
         },
@@ -614,238 +711,94 @@
           "total": 200.9
         },
         {
-          "pecaId": "v3",
-          "subTipo": "VESTIDO SIMPLES",
+          "pecaId": "v1",
+          "subTipo": "VESTIDO ESPECIAL",
           "quantidade": 1,
           "total": 200.9
         }
       ],
-      "total": 602.7,
-      "totalPago": 602.7,
-      "dataCriacao": "2024-11-19T18:44:34.076Z",
-      "dataEntrega": "2024-11-21T18:44:00.000Z"
+      "total": 803.6,
+      "totalPago": 803.6,
+      "dataCriacao": "2024-12-13T16:02:16.832Z",
+      "dataEntrega": "2024-12-20T16:02:00.000Z"
     },
     {
-      "id": "b93c",
-      "ticketNumber": "97442",
-      "clienteId": "68c4",
+      "id": "7e1e",
+      "ticketNumber": "983095",
+      "clienteId": "3",
       "estaPago": "não",
       "items": [
         {
-          "pecaId": "M1",
-          "subTipo": "TOALHA LINHO",
+          "pecaId": "c3",
+          "subTipo": "EDREDOM QUEEN",
           "quantidade": 1,
           "total": 30
         },
         {
-          "pecaId": "M2",
-          "subTipo": "TOALHA RENDA",
+          "pecaId": "c4",
+          "subTipo": "EDREDOM MALHA",
+          "quantidade": 1,
+          "total": 30
+        },
+        {
+          "pecaId": "c2",
+          "subTipo": "EDREDOM KING",
+          "quantidade": 1,
+          "total": 60
+        },
+        {
+          "pecaId": "c1",
+          "subTipo": "EDREDOM",
+          "quantidade": 1,
+          "total": 50
+        }
+      ],
+      "total": 170,
+      "totalPago": 170,
+      "dataCriacao": "2024-12-13T16:05:41.494Z",
+      "dataEntrega": "2024-12-18T18:05:00.000Z"
+    },
+    {
+      "id": "2da1",
+      "ticketNumber": "781480",
+      "clienteId": "c63f",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "c4",
+          "subTipo": "EDREDOM MALHA",
+          "quantidade": 1,
+          "total": 30
+        },
+        {
+          "pecaId": "c5",
+          "subTipo": "EDREDOM PLUMA",
           "quantidade": 1,
           "total": 30
         }
       ],
       "total": 60,
       "totalPago": 60,
-      "dataCriacao": "2024-11-19T18:47:03.033Z",
+      "dataCriacao": "2024-12-13T16:07:50.548Z",
       "dataEntrega": ""
     },
     {
-      "id": "e4f9",
-      "ticketNumber": "869717",
-      "clienteId": "68c4",
+      "id": "7755",
+      "ticketNumber": "13396",
+      "clienteId": "c63f",
       "estaPago": "não",
       "items": [
         {
-          "pecaId": "JA3",
-          "subTipo": "JALECO DE COZINHA",
+          "pecaId": "v1",
+          "subTipo": "VESTIDO ESPECIAL",
           "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA4",
-          "subTipo": "JALECO SARJA",
-          "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA6",
-          "subTipo": "JALECO BRIM",
-          "quantidade": 1,
-          "total": 30
+          "total": 200.9
         }
       ],
-      "total": 90,
-      "totalPago": 90,
-      "dataCriacao": "2024-11-19T18:50:41.057Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "f5aa",
-      "ticketNumber": "266038",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "JA3",
-          "subTipo": "JALECO DE COZINHA",
-          "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA4",
-          "subTipo": "JALECO SARJA",
-          "quantidade": 1,
-          "total": 30
-        }
-      ],
-      "total": 60,
-      "totalPago": 60,
-      "dataCriacao": "2024-11-19T18:52:44.380Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "a1f5",
-      "ticketNumber": "292191",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "1",
-          "subTipo": "CALÇA ESPECIAL",
-          "quantidade": 1,
-          "total": 35
-        },
-        {
-          "pecaId": "2",
-          "subTipo": "CALÇA SARJA",
-          "quantidade": 1,
-          "total": 25.9
-        },
-        {
-          "pecaId": "4",
-          "subTipo": "CALÇA MOLETOM",
-          "quantidade": 1,
-          "total": 29.9
-        }
-      ],
-      "total": 90.8,
-      "totalPago": 90.8,
-      "dataCriacao": "2024-11-19T18:53:38.070Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "857b",
-      "ticketNumber": "839284",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "JA3",
-          "subTipo": "JALECO DE COZINHA",
-          "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA4",
-          "subTipo": "JALECO SARJA",
-          "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA6",
-          "subTipo": "JALECO BRIM",
-          "quantidade": 1,
-          "total": 30
-        }
-      ],
-      "total": 90,
-      "totalPago": 90,
-      "dataCriacao": "2024-11-19T18:58:17.872Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "0baf",
-      "ticketNumber": "830909",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "JA4",
-          "subTipo": "JALECO SARJA",
-          "quantidade": 1,
-          "total": 30
-        }
-      ],
-      "total": 30,
-      "totalPago": 30,
-      "dataCriacao": "2024-11-19T18:59:50.746Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "2ed2",
-      "ticketNumber": "917981",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "4",
-          "subTipo": "CALÇA MOLETOM",
-          "quantidade": 1,
-          "total": 29.9
-        }
-      ],
-      "total": 29.9,
-      "totalPago": 29.9,
-      "dataCriacao": "2024-11-19T19:03:44.115Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "ef5a",
-      "ticketNumber": "312144",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "JA3",
-          "subTipo": "JALECO DE COZINHA",
-          "quantidade": 1,
-          "total": 30
-        },
-        {
-          "pecaId": "JA4",
-          "subTipo": "JALECO SARJA",
-          "quantidade": 1,
-          "total": 30
-        }
-      ],
-      "total": 60,
-      "totalPago": 60,
-      "dataCriacao": "2024-11-19T19:07:24.170Z",
-      "dataEntrega": ""
-    },
-    {
-      "id": "47c5",
-      "ticketNumber": "447643",
-      "clienteId": "68c4",
-      "estaPago": "não",
-      "items": [
-        {
-          "pecaId": "1",
-          "subTipo": "CALÇA ESPECIAL",
-          "quantidade": 1,
-          "total": 35
-        },
-        {
-          "pecaId": "2",
-          "subTipo": "CALÇA SARJA",
-          "quantidade": 1,
-          "total": 25.9
-        }
-      ],
-      "total": 60.9,
-      "totalPago": 60.9,
-      "dataCriacao": "2024-11-19T19:08:08.819Z",
-      "dataEntrega": ""
+      "total": 200.9,
+      "totalPago": 200.9,
+      "dataCriacao": "2024-12-13T16:21:10.120Z",
+      "dataEntrega": "2025-01-03T17:21:00.000Z"
     }
   ]
 }

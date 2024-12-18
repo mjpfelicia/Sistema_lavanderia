@@ -34,12 +34,14 @@ const Rotas = () => {
           nome: "",
           email: "",
           telefone: "",
-          endereco: "",
-          numero: "",
-          complemento: "",
-          estado: "",
-          cep: "",
-          bairro: ""
+          endereco: {
+            endereco: "",
+            numero: "",
+            estado: "",
+            cep: "",
+            bairro: "",
+            complemento: ""
+          },
         }}/>} />
       </Routes>
     </BrowserRouter>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Cliente } from '../../service/apiCliente';
+import { ClienteToCreate, Cliente, criarCliente } from '../../../service/apiCliente';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CadastroCliente/CadastroCliente.css";
 import CloseButton from '../../buttons/CloseButton';
@@ -8,17 +8,29 @@ import Modal from '../../modal/modal';
 
 // Definindo as propriedades aceitas pelo componente CadastroCliente
 interface CadastroClienteProps {
-  cliente?: Cliente;
+  cliente?: ClienteToCreate;
+}
+
+interface ClienteFormCadastro {
+  bairro: string;
+  cep: string;
+  complemento: string;
+  email: string;
+  endereco: string;
+  estado: string;
+  nome: string;
+  numero: string;
+  telefone: string;
 }
 
 // Função principal do componente CadastroCliente
-const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Cliente }) => {
+const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as ClienteToCreate }) => {
   // Declarando estados para o formulário, lista de clientes, cliente selecionado e visibilidade do modal
-  const [formData, setFormData] = useState<Cliente>({ ...cliente });
+  const [formData, setFormData] = useState<ClienteFormCadastro>({} as ClienteFormCadastro);
   const [lista, setLista] = useState<Cliente[]>([]);
   const [clienteSelecionado, setClienteSelecionado] = useState<Cliente>({} as Cliente);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [errors, setErrors] = useState<Partial<Record<keyof Cliente, string>>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof ClienteToCreate, string>>>({});
 
   // Função para lidar com mudanças nos campos do formulário
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,8 +43,8 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Clien
 
   // Função para validar os campos do formulário
   const validateFields = () => {
-    const newErrors: Partial<Record<keyof Cliente, string>> = {};
-    (['nome', 'telefone', 'email', 'endereco', 'numero', 'cep', 'estado', 'bairro'] as (keyof Cliente)[]).forEach(field => {
+    const newErrors: Partial<Record<keyof ClienteFormCadastro, string>> = {};
+    (['nome', 'telefone', 'email', 'endereco', 'numero', 'cep', 'estado', 'bairro'] as (keyof ClienteFormCadastro)[]).forEach(field => {
       if (!formData[field]) {
         newErrors[field] = 'Este campo é obrigatório';
       }
@@ -47,26 +59,27 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Clien
     if (!validateFields()) {
       return;
     }
-    try {
-      const response = await fetch('http://localhost:3008/clientes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        const novoCliente = await response.json();
-        setLista([...lista, novoCliente]);
-        setFormData({ ...cliente });
-        setErrors({});
-        alert('Cliente cadastrado com sucesso!');
-      } else {
-        console.error('Erro ao cadastrar cliente');
+    console.log("criar cliente: ", { formData });
+
+    const clienteToCreate: ClienteToCreate = {
+      nome: formData.nome,
+      email: formData.email,
+      telefone: formData.telefone,
+      endereco: {
+        endereco: formData.endereco,
+        numero: formData.numero,
+        estado: formData.estado,
+        cep: formData.cep,
+        bairro: formData.bairro,
+        complemento: formData.complemento
       }
-    } catch (error) {
-      console.error('Erro ao conectar com a API', error);
     }
+
+    console.log({ clienteToCreate });
+
+    await criarCliente(clienteToCreate)
+      .catch(error => console.error({ error }));
+
   };
 
   // Função para lidar com a atualização do cliente na lista
@@ -87,7 +100,7 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Clien
       <ul className="list-group w-100 mt-4">
         {lista.map((item) => (
           <li key={item.id} className="list-group-item">
-            {item.nome} - {item.telefone} - {item.email} - {item.endereco}, {item.bairro}, {item.cep}
+            {item.nome} - {item.telefone} - {item.email} - {item.endereco.endereco}, {item.endereco.bairro}, {item.endereco.cep}
             <button onClick={() => { setClienteSelecionado(item); setIsModalOpen(true) }} className="btn btn-link">
               Editar
             </button>
@@ -103,9 +116,9 @@ const CadastroCliente: React.FC<CadastroClienteProps> = ({ cliente = {} as Clien
 };
 
 // Função para renderizar os campos do formulário dinamicamente
-const renderFormFields = (formData: Cliente, handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void, errors: Partial<Record<keyof Cliente, string>>) => (
+const renderFormFields = (formData: ClienteFormCadastro, handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void, errors: Partial<Record<keyof Cliente, string>>) => (
   <>
-    {(['nome', 'telefone', 'email', 'endereco', 'numero', 'complemento', 'cep', 'estado', 'bairro'] as (keyof Cliente)[]).map((field) => (
+    {(['nome', 'telefone', 'email', 'endereco', 'numero', 'complemento', 'cep', 'estado', 'bairro'] as (keyof ClienteToCreate)[]).map((field) => (
       <div key={field} className="form-group formGroup mb-3">
         <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
         <input

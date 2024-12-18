@@ -26,28 +26,24 @@ export type Ticket = {
 
 // Cria uma instância do axios com a baseURL configurada
 const api = axios.create({
-  baseURL: 'http://localhost:3008/tickets',
+  baseURL: 'http://localhost:3008/ticket',
 });
 
 // Função para lidar com erros da API
 const handleError = (error: AxiosError | any): never => {
   const errorMessage = error.response?.data?.message || error.message || 'Erro na API';
-  console.error(`[ERROR][${error.config?.url}]`, errorMessage);
+  console.error(`[Ticket ERROR][${error.config?.url}]`, errorMessage);
   throw new Error(errorMessage);
 };
 
 // Função para buscar um ticket pelo número
-export const buscarTicket = async (ticketNumber: string): Promise<Ticket[] | []> => {
+export const buscarTicket = async (ticketNumber: string): Promise<Ticket | null> => {
   console.info(`API Ticket - buscarTicket ${ticketNumber}`);
-  try {
-    const response = await api.get<Ticket[]>(`/?ticketNumber=${ticketNumber}&_embed=cliente`);
-    console.log('buscarTicket Response Data:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Erro ao buscar o ticket:', error);
-    handleError(error);
-    return []; // Garantir que sempre há um retorno
-  }
+
+  return api
+    .get<Ticket>(`/${ticketNumber}`)
+    .then(response => response.data)
+    .catch(handleError);
 };
 
 // Função para criar um novo ticket
@@ -80,7 +76,7 @@ export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
 export const atualizaTicket = async (ticket: Ticket): Promise<Ticket> => {
   console.info("API Ticket - atualiza Ticket ", { ticket });
   return api
-    .put<Ticket>(`/${ticket.id}`, ticket)
+    .patch<Ticket>(`/${ticket.id}`, ticket)
     .then(response => response.data)
     .catch(handleError);
 };

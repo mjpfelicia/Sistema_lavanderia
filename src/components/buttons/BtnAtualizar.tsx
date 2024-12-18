@@ -1,7 +1,7 @@
 // Importando React e o módulo de estilos CSS
 import React from 'react';
 import btnStyle from './BtnAtualiza.module.css';
-import { Cliente } from '../service/apiCliente';
+import { Cliente } from '../../service/apiCliente';
 import pencil from '../../img/pencil.png';
 
 // Definindo as propriedades aceitas pelo componente BtnAtualiza

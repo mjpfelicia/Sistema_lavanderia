@@ -14,12 +14,14 @@ const Home = () => {
         nome: '',
         email: '',
         telefone: '',
-        endereco: '',
-        numero: '',
-        complemento: '',
-        estado: '',
-        cep: '',
-        bairro: ''
+        endereco: {
+          endereco: '',
+          numero: '',
+          estado: '',
+          cep: '',
+          bairro: '',
+          complemento: ''
+        },
       }} />
     </div>
   )

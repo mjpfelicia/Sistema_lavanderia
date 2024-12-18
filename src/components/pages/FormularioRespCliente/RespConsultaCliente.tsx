@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from '../FormularioRespCliente/RespConsultaCliente.module.css';
-import { getCliente, Cliente } from "../../service/apiCliente";
+import { getCliente, Cliente } from "../../../service/apiCliente";
 
 interface RespostaConsultaClProps {
   onClienteEncontrado: (cliente: Cliente) => void;
@@ -9,16 +9,18 @@ interface RespostaConsultaClProps {
 
 const RespostaConsultaCl: React.FC<RespostaConsultaClProps> = ({ onClienteEncontrado }) => {
   const clienteVazio: Cliente = {
-    nome: '',
-    telefone: '',
-    endereco: '',
-    numero: '',
-    complemento: '',
-    estado: '',
-    cep: '',
-    bairro: '',
-    email: '',
     id: 0,
+    nome: '',
+    email: '',
+    telefone: '',
+    endereco: {
+      endereco: '',
+      numero: '',
+      estado: '',
+      cep: '',
+      bairro: '',
+      complemento: ''
+    },
   };
 
   const [cliente, setCliente] = useState<Cliente>(clienteVazio);
@@ -63,27 +65,27 @@ const RespostaConsultaCl: React.FC<RespostaConsultaClProps> = ({ onClienteEncont
         </div>
         <div className={classes.inputGroup}>
           <label>Endereço:</label>
-          <input type="text" className={classes.formControl} name="endereco" value={cliente.endereco} readOnly />
+          <input type="text" className={classes.formControl} name="endereco" value={cliente.endereco.endereco} readOnly />
           <div className={classes.formGroupNumero}>
             <label>Número:</label>
-            <input type="text" className={classes.formControl} name="numero" value={cliente.numero} readOnly />
+            <input type="text" className={classes.formControl} name="numero" value={cliente.endereco.numero} readOnly />
           </div>
         </div>
         <div className={classes.inputGroup}>
           <label>Complemento:</label>
-          <input type="text" className={classes.formControl} name="complemento" value={cliente.complemento} readOnly />
+          <input type="text" className={classes.formControl} name="complemento" value={cliente.endereco.complemento} readOnly />
           <div className={classes.formGroupCep}>
             <label>CEP:</label>
-            <input type="text" className={classes.formControl} name="cep" value={cliente.cep} readOnly />
+            <input type="text" className={classes.formControl} name="cep" value={cliente.endereco.cep} readOnly />
           </div>
         </div>
         <div className={classes.inputGroup}>
           <label>Estado</label>
-          <input type="text" name="estado" value={cliente.estado} readOnly />
+          <input type="text" name="estado" value={cliente.endereco.estado} readOnly />
         </div>
         <div className={classes.inputGroup}>
           <label>Bairro:</label>
-          <input type="text" name="bairro" value={cliente.bairro} readOnly />
+          <input type="text" name="bairro" value={cliente.endereco.bairro} readOnly />
         </div>
       </form>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from "./Formulario.module.css";
-import { Cliente, buscarCliente } from '../../service/apiCliente';
+import { Cliente, buscarCliente } from '../../../service/apiCliente';
 import ServicoLavagem from '../../ServicoLavagem/ServicoLavagem';
 
 interface FormData {

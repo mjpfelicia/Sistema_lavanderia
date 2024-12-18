@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Pagamento.css';
 import ImpressaoTicket from '../ImpressaoTicket/ImpressaoTicket';
-import { Ticket, atualizaTicket } from '../service/apiTicket';
+import { Ticket, atualizaTicket } from '../../service/apiTicket';
 
 export interface Item {
   nome: string;

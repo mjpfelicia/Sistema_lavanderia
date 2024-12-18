@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Cliente } from '../service/apiCliente';
+import { Cliente, ClienteToCreate, atualizaCliente } from '../../service/apiCliente';
 import "../AtualizaCliente/Atualiza.css";
 
 interface AtualizaClienteProps {
@@ -18,23 +18,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            const response = await fetch(`http://localhost:3008/clientes/${cliente.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            if (response.ok) {
-                const clienteAtualizado = await response.json();
-                onUpdate(clienteAtualizado);
-            } else {
-                console.error('Erro ao atualizar cliente');
-            }
-        } catch (error) {
-            console.error('Erro ao conectar com a API', error);
-        }
+        await atualizaCliente(cliente.id, formData)
     };
 
     return (
@@ -72,7 +56,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                 <label>Endereço</label>
                 <input type="text" className="form-control"
                     name="endereco"
-                    value={formData.endereco}
+                    value={formData.endereco.endereco}
                     onChange={handleChange}
                     style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
@@ -81,7 +65,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                 <label>Número</label>
                 <input type="text" className="form-control"
                     name="numero"
-                    value={formData.numero}
+                    value={formData.endereco.numero}
                     onChange={handleChange}
                     style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
@@ -90,7 +74,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                 <label>Complemento</label>
                 <input type="text" className="form-control"
                     name="complemento"
-                    value={formData.complemento}
+                    value={formData.endereco.complemento}
                     onChange={handleChange}
                     style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
@@ -99,7 +83,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                 <label>CEP</label>
                 <input type="text" className="form-control"
                     name="cep"
-                    value={formData.cep}
+                    value={formData.endereco.cep}
                     onChange={handleChange}
                     style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
@@ -108,7 +92,7 @@ const AtualizaCliente: React.FC<AtualizaClienteProps> = ({ cliente, onUpdate }) 
                 <label>Estado</label>
                 <input type="text" className="form-control"
                     name="estado"
-                    value={formData.estado}
+                    value={formData.endereco.estado}
                     onChange={handleChange}
                     style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 />
