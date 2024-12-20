@@ -29,7 +29,7 @@
 
 .brand-cell.selected {
   background-color: var(--colorBtnCadastra);
-  color: white;
+  color: var(--color_branca);
 }
 
 .brand-cell:hover {

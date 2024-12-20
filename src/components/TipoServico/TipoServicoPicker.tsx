@@ -1,0 +1,60 @@
+import React, { useState } from 'react';
+import './TipoServicoPicker.css';
+
+const servicos = [
+  'Lavagem',
+  'Lavar e Passar',
+  'so lavar',
+  'Passar',
+  'Costura',
+  'Tingimento',
+  'Higienização',
+  'Impermeabilização',
+  'Lavagem a Seco',
+  'Lavagem de Estofados',
+  'Lavagem de Tapetes',
+  'Lavagem de Cortinas',
+  'Lavagem de Persianas',
+  
+];
+
+interface TipoServicoPickerProps {
+  selecionarServico: (servicos: string[]) => void;
+}
+
+const TipoServicoPicker: React.FC<TipoServicoPickerProps> = ({ selecionarServico }) => {
+  const [selectedServicos, setSelectedServicos] = useState<string[]>([]);
+
+  const handleServicoClick = (servico: string) => {
+    setSelectedServicos((prevSelectedServicos) =>
+      prevSelectedServicos.includes(servico)
+        ? prevSelectedServicos.filter(s => s !== servico)
+        : [...prevSelectedServicos, servico]
+    );
+  };
+
+  const handleConfirm = () => {
+    selecionarServico(selectedServicos);
+  };
+
+  return (
+    <div className="servico-picker">
+      <h3>Selecione o Tipo de Serviço</h3>
+      <div className="servico-table">
+        {servicos.map((servico, index) => (
+          <div
+            key={index}
+            className={`servico-cell ${selectedServicos.includes(servico) ? 'selected' : ''}`}
+            onClick={() => handleServicoClick(servico)}>
+            {servico}
+          </div>
+        ))}
+      </div>
+      <div className="button-container">
+        <button className='button-TipoServicoPicker' onClick={handleConfirm}>Confirmar Serviços</button>
+      </div>
+    </div>
+  );
+};
+
+export default TipoServicoPicker;

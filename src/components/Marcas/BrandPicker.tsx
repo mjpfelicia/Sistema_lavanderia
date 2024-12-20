@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './BrandPicker.css';
 
 const brands = [
+  'Sem descrição',
   'Marca A',
   'Marca B',
   'Marca C',
@@ -40,8 +41,7 @@ const BrandPicker: React.FC<BrandPickerProps> = ({ selecionarMarca }) => {
           <div
             key={index}
             className={`brand-cell ${selectedBrand === brand ? 'selected' : ''}`}
-            onClick={() => handleBrandClick(brand)}
-          >
+            onClick={() => handleBrandClick(brand)} >
             {brand}
           </div>
         ))}

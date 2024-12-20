@@ -1,0 +1,71 @@
+.servico-picker {
+  width: 100%;
+}
+
+.servico-picker {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.servico-table {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+
+.servico-cell {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+  color: var(--color-text-primary);
+  font-weight: bold;
+  background-color: var(--color-bg-light);
+  position: relative;
+  word-break: break-word;
+  white-space: 'nowrap';
+
+}
+
+.servico-cell.selected {
+  border: 3px solid var(--color-hover-primary);
+}
+
+.servico-cell:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button-container {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.button-TipoServicoPicker {
+  margin-top: 20px;
+  padding: 10px 20px;
+  width: 40%;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: var(--colorBtnCadastra);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-TipoServicoPicker :hover {
+  background-color: var(--color-hover-secondary);
+}

@@ -8,6 +8,7 @@ import ModalPagamento from '../modal/ModalPagamento';
 import ColorPicker from '../Color/ColorPicker';
 import BrandPicker from '../Marcas/BrandPicker';
 import DefectPicker from '../Defeitos/DefectPicker';
+import TipoServicoPicker from '../TipoServico/TipoServicoPicker';
 
 // Imagens
 import BLAZER from '../../img/blazer.png';
@@ -20,6 +21,7 @@ import jaleco from '../../img/jaleco.png';
 import toalham from '../../img/toa.png';
 import { Ticket } from '../../service/apiTicket';
 import { Cliente } from '../../service/apiCliente';
+
 
 const tipoPecaImage = {
   "BLAZER": BLAZER,
@@ -57,8 +59,9 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
   const [step, setStep] = useState<number>(0);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [marcaSelecionada, setMarcaSelecionada] = useState<string>('');
-  const [defeitoSelecionado, setDefeitoSelecionado] = useState<string>('');
+  const [defeitosSelecionados, setDefeitosSelecionados] = useState<string[]>([]);
   const [pecaAtual, setPecaAtual] = useState<Peca | null>(null);
+  const [tipoServico, setTipoServico] = useState<string[]>([]);
 
   const abrirModal = useCallback(async (peca: TipoPeca) => {
     const pecaResponse = await getPecaPorTipo(peca);
@@ -72,8 +75,9 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
     setPecasSelecionada([]);
     setSelectedColors([]);
     setMarcaSelecionada('');
-    setDefeitoSelecionado('');
+    setDefeitosSelecionados([]);
     setPecaAtual(null);
+    setTipoServico([]);
   }, []);
 
   const adicionarPeca = (peca: Peca) => {
@@ -81,16 +85,26 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
     setStep(1);
   };
 
+  const selecionarServico = (servicos: string[]) => {
+    setTipoServico(servicos);
+    setStep(2);
+  };
+
   const selecionarCor = (cor: string) => {
     setSelectedColors((prevSelectedColors) =>
       prevSelectedColors.includes(cor)
-        ? prevSelectedColors.filter((c) => c !== cor)
+        ? prevSelectedColors
         : [...prevSelectedColors, cor]
     );
-    if (pecaAtual) {
-      setPecaAtual({ ...pecaAtual, cor });
+  };
+
+  const finalizarSelecaoCores = () => {
+    if (selectedColors.length > 0) {
+      if (pecaAtual) {
+        setPecaAtual({ ...pecaAtual, cores: selectedColors });
+      }
+      setStep(3);
     }
-    setStep(2);
   };
 
   const selecionarMarca = (marca: string) => {
@@ -98,19 +112,27 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
       setPecaAtual({ ...pecaAtual, marca });
     }
     setMarcaSelecionada(marca);
-    setStep(3);
+    setStep(4);
   };
 
   const selecionarDefeito = (defeito: string) => {
+    setDefeitosSelecionados((prevDefeitos) =>
+      prevDefeitos.includes(defeito)
+        ? prevDefeitos.filter((d) => d !== defeito)
+        : [...prevDefeitos, defeito]
+    );
+  };
+
+  const confirmarDefeitos = () => {
     if (pecaAtual) {
-      const pecaComDetalhes = { ...pecaAtual, defeito };
+      const pecaComDetalhes = { ...pecaAtual, defeitos: defeitosSelecionados, servicos: tipoServico };
       const pecaExistente = pecasAdicionadas.find(
-        p => p.subTipo === pecaAtual.subTipo && JSON.stringify(p.cor) === JSON.stringify(pecaAtual.cor) && p.marca === pecaAtual.marca && p.defeito === defeito
+        p => p.subTipo === pecaAtual.subTipo && JSON.stringify(p.cores) === JSON.stringify(pecaAtual.cores) && p.marca === pecaAtual.marca && JSON.stringify(p.defeitos) === JSON.stringify(defeitosSelecionados) && JSON.stringify(p.servicos) === JSON.stringify(tipoServico)
       );
       if (pecaExistente) {
         setPecasAdicionadas(prevPecas =>
           prevPecas.map(p =>
-            p.subTipo === pecaAtual.subTipo && JSON.stringify(p.cor) === JSON.stringify(pecaAtual.cor) && p.marca === pecaAtual.marca && p.defeito === defeito
+            p.subTipo === pecaAtual.subTipo && JSON.stringify(p.cores) === JSON.stringify(pecaAtual.cores) && p.marca === pecaAtual.marca && JSON.stringify(p.defeitos) === JSON.stringify(defeitosSelecionados) && JSON.stringify(p.servicos) === JSON.stringify(tipoServico)
               ? { ...p, quantidade: (p.quantidade || 1) + 1 }
               : p
           )
@@ -119,7 +141,6 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
         setPecasAdicionadas(prevPecas => [...prevPecas, pecaComDetalhes]);
       }
     }
-    setDefeitoSelecionado(defeito);
     fecharModal();
   };
 
@@ -163,13 +184,21 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
               <PecasSelecionadas pecas={pecasSelecionadas} adicionarPeca={adicionarPeca} />
             )}
             {step === 1 && pecaAtual && (
-              <ColorPicker selecionarCor={selecionarCor} />
+              <TipoServicoPicker selecionarServico={selecionarServico} />
             )}
-            {step === 2 && selectedColors.length > 0 && (
+            {step === 2 && tipoServico.length > 0 && (
+              <>
+                {step === 2 && tipoServico.length > 0 && (
+                  <ColorPicker selecionarCor={selecionarCor} finalizarSelecaoCores={finalizarSelecaoCores} />
+                )}
+
+              </>
+            )}
+            {step === 3 && selectedColors.length > 0 && (
               <BrandPicker selecionarMarca={selecionarMarca} />
             )}
-            {step === 3 && marcaSelecionada && (
-              <DefectPicker selecionarDefeito={selecionarDefeito} />
+            {step === 4 && marcaSelecionada && (
+              <DefectPicker selecionarDefeito={selecionarDefeito} confirmarDefeitos={confirmarDefeitos} />
             )}
           </Step>
         )}

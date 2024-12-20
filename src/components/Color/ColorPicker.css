@@ -1,13 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-
 .color-picker {
-  width: 0%;
+  width: 100%;
 }
 
 .color-table {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 10px;
   width: 100%;
 }
@@ -19,32 +18,53 @@
   height: 100px;
   border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
   text-align: center;
   color: var(--color-text-light);
   font-weight: bold;
-  background-color: var(--color_azul_bg);
-  /* Ajuste conforme necessário */
   position: relative;
+  border: 2px solid var(--color-border, #ccc);
+  background-color: var(--color-background, #f5f5f5);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .color-cell.selected {
   border: 3px solid var(--color-hover-primary);
+  background-color: var(--color-selected-background, #e0e0e0);
 }
 
 .color-cell:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.color-cell span {
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  background-color: var(--color-hover-background, #ddd);
 }
 
 .color-code {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   font-family: 'Courier New', Courier, monospace;
   font-size: 18px;
   text-align: center;
   color: var(--color-texto);
+  margin-bottom: 2rem;
+}
+
+.button_ColorPicker {
+  margin-top: 20px;
+  padding: 10px 20px;
+  width: 40%;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: var(--colorBtnCadastra);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button_ColorPicker:hover {
+  background-color: var(--color-hover-secondary);
 }

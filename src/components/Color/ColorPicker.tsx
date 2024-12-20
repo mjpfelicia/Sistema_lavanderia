@@ -38,18 +38,21 @@ const colors = [
   { name: 'Violeta', code: '#EE82EE' }
 ];
 
-console.log(colors);
-
 interface ColorPickerProps {
   selecionarCor: (cor: string) => void;
+  finalizarSelecaoCores: () => void;
 }
 
-const ColorPicker: React.FC<ColorPickerProps> = ({ selecionarCor }) => {
+const ColorPicker: React.FC<ColorPickerProps> = ({ selecionarCor, finalizarSelecaoCores }) => {
   const [selectedColor, setSelectedColor] = useState<string>('');
 
   const handleColorClick = (color: { name: string, code: string }) => {
-    setSelectedColor(color.code);
-    selecionarCor(color.name); // Passar o nome da cor em vez do código
+    if (selectedColor === color.code) {
+      console.log(`Cor confirmada: ${color.name}`);
+    } else {
+      setSelectedColor(color.code);
+      selecionarCor(color.name);
+    }
   };
 
   return (
@@ -68,6 +71,9 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ selecionarCor }) => {
       </div>
       <div className="color-code">
         {selectedColor ? `Cor selecionada: ${colors.find(color => color.code === selectedColor)?.name}` : ''}
+        {selectedColor && (
+          <button className='button_ColorPicker' onClick={finalizarSelecaoCores}>Confirmar Cores</button>
+        )}
       </div>
     </div>
   );

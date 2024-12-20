@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './DefectPicker.css';
 
 const defects = [
+  'sem descrição',
   'Rasgado',
   'Manchado',
   'Desbotado',
@@ -26,17 +27,17 @@ const defects = [
 
 console.log(defects);
 
-
 interface DefectPickerProps {
   selecionarDefeito: (defeito: string) => void;
+  confirmarDefeitos: () => void;
 }
 
-const DefectPicker: React.FC<DefectPickerProps> = ({ selecionarDefeito }) => {
+const DefectPicker: React.FC<DefectPickerProps> = ({ selecionarDefeito, confirmarDefeitos }) => {
   const [selectedDefect, setSelectedDefect] = useState<string>('');
 
   const handleDefectClick = (defect: string) => {
     setSelectedDefect(defect);
-    selecionarDefeito(defect); // Passar o defeito selecionado
+    selecionarDefeito(defect);
   };
 
   return (
@@ -55,6 +56,7 @@ const DefectPicker: React.FC<DefectPickerProps> = ({ selecionarDefeito }) => {
       <div className="defect-code">
         {selectedDefect ? `Defeito selecionado: ${selectedDefect}` : 'Clique em um defeito'}
       </div>
+      <button className='button-defect' onClick={confirmarDefeitos}>Confirmar Defeitos</button>
     </div>
   );
 };

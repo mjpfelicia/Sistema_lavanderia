@@ -40,22 +40,23 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
 
   const pecasAgrupadas = useMemo(() => {
     return pecas.reduce((acc, peca) => {
-      const key = `${peca.subTipo}-${peca.cor}-${peca.marca}-${peca.defeito}`;
+      const key = `${peca.subTipo}-${peca.cores.join(', ')}-${peca.marca}-${peca.defeitos.join(', ')}-${peca.servicos.join(', ')}`;
       if (acc[key]) {
-        acc[key].quantidade += 1;
+        acc[key].quantidade += peca.quantidade || 1;
         acc[key].total += peca.preco * (peca.quantidade || 1);
       } else {
         acc[key] = {
-          quantidade: 1,
+          quantidade: peca.quantidade || 1,
           total: peca.preco * (peca.quantidade || 1),
           pecaId: peca.id,
-          cor: peca.cor,
+          cores: peca.cores,
           marca: peca.marca,
-          defeito: peca.defeito
+          defeitos: peca.defeitos,
+          servicos: peca.servicos
         };
       }
       return acc;
-    }, {} as { [key: string]: { quantidade: number; total: number, pecaId: string, cor: string, marca: string, defeito: string } });
+    }, {} as { [key: string]: { quantidade: number; total: number, pecaId: string, cores: string[], marca: string, defeitos: string[], servicos: string[] } });
   }, [pecas]);
 
   useEffect(() => {
@@ -75,14 +76,15 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
       ticketNumber,
       clienteId: cliente.id.toString(),
       estaPago: "não",
-      items: Object.entries(pecasAgrupadas).map(([key, { quantidade, total, pecaId, cor, marca, defeito }]) => ({
+      items: Object.entries(pecasAgrupadas).map(([key, { quantidade, total, pecaId, cores, marca, defeitos, servicos }]) => ({
         pecaId,
         subTipo: key.split('-')[0],
         quantidade,
         total,
-        cor: colorNames[cor as ColorCode] || cor,
+        cores: cores.map(cor => colorNames[cor as ColorCode] || cor).join(', '),
         marca,
-        defeito
+        defeitos: defeitos.join(', '),
+        servicos: servicos.join(', ')
       })),
       total: totalPreco,
       totalPago: totalPreco,
@@ -112,8 +114,17 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
         <p><strong>Número do Ticket:</strong> {ticketNumber}</p>
       </div>
       <div className="pecas-lista">
-        {Object.entries(pecasAgrupadas).map(([key, { quantidade, total, cor, marca, defeito }], idx) => (
-          <p key={idx}>{key.split('-')[0]} ({quantidade}) - Cor: {colorNames[cor as ColorCode] || cor}, Marca: {marca}, Defeito: {defeito} - R${total.toFixed(2)}</p>
+        {Object.entries(pecasAgrupadas).map(([key, { quantidade, total, cores, marca, defeitos, servicos }], idx) => (
+          <div key={idx}>
+            <p><strong>{key.split('-')[0]} ({quantidade})</strong></p>
+            <ul>
+              <li><strong>Serviços:</strong> {servicos.join(', ')}</li>
+              <li><strong>Cores:</strong> {cores.map(cor => colorNames[cor as ColorCode] || cor).join(', ')}</li>
+              <li><strong>Marca:</strong> {marca}</li>
+              <li><strong>Defeitos:</strong> {defeitos.join(', ')}</li>
+              <li><strong>Preço Total:</strong> R${total.toFixed(2)}</li>
+            </ul>
+          </div>
         ))}
       </div>
       <div className="total-container">

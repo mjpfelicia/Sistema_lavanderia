@@ -12,6 +12,7 @@ export type TipoPeca =
 
 // Interface que define a estrutura das peças
 export interface Peca {
+  [x: string]: any;
   defeito: string;
   id: string;
   tipo: TipoPeca;
