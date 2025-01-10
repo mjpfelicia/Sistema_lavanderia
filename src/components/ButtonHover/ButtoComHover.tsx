@@ -1,6 +1,6 @@
 import { IconContext } from "react-icons";
 import { Card } from "../Header/Header";
-import "./ButtonHover.css"
+import "./ButtonHover.css";
 
 const card: Card = {
   name: "",
@@ -10,16 +10,15 @@ const card: Card = {
 
 export type BotaoHoverInput = {
   card: Card,
-  ativarHover: boolean
+  ativarHover: boolean,
+  className?: string 
 }
 
-const BotaoHover = ({ card }: BotaoHoverInput) => {
-
+const BotaoHover = ({ card, className }: BotaoHoverInput) => {
   return (
-    <div className='menu-item shadow-lg  estiloBase estiloHover'>
-
-      <a href={card.link}>
-        <IconContext.Provider value={{ size: "2rem", color: "#0000b3" }} >
+    <div className={`menu-item shadow-lg estiloBase estiloHover iconeEstiloBase ${className}`}>
+      <a href={card.link} className="custom-link">
+        <IconContext.Provider value={{ className: 'icon' }}>
           <img src={card.icon} width={48} height={48} alt={card.name}></img>
         </IconContext.Provider>
         {card.name}

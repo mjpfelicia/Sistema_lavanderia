@@ -1,0 +1,14 @@
+.close-button {
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 200
+}
+
+
+.close-button svg {
+    width: 20px;
+    /* Largura do ícone */
+    height: 20px;
+    /* Altura do ícone */
+}

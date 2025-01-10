@@ -3,19 +3,13 @@ import './TipoServicoPicker.css';
 
 const servicos = [
   'Lavagem',
-  'Lavar e Passar',
   'so lavar',
-  'Passar',
+  'So Passar',
   'Costura',
   'Tingimento',
   'Higienização',
   'Impermeabilização',
-  'Lavagem a Seco',
-  'Lavagem de Estofados',
-  'Lavagem de Tapetes',
-  'Lavagem de Cortinas',
-  'Lavagem de Persianas',
-  
+
 ];
 
 interface TipoServicoPickerProps {

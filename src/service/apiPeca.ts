@@ -19,7 +19,7 @@ export interface Peca {
   subTipo: string;
   cor: string;
   marca: string;
-    preco: number;
+  preco: number;
   quantidade: number;
   imagemUrl: string;
 }
@@ -56,9 +56,9 @@ export const getPeca = async (idPeca: number): Promise<Peca> => {
     });
 };
 
-export const getPecaPorTipo = async (tipoPeca:TipoPeca): Promise<Peca[]> => {
+export const getPecaPorTipo = async (tipoPeca: TipoPeca): Promise<Peca[]> => {
   console.info("API Peca - get Peça tipoPeca: ", { tipoPeca });
- 
+
   if (!tipoPeca) {
     throw "[getTipoPeca] Precisa do tipo de peça";
   }

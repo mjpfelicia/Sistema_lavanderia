@@ -1,4 +1,5 @@
-.estiloBase {
+.estiloBase,
+.iconeEstiloBase button {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +24,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--color-font);
-  /* font-size: 1.3vw; */
+  color: var(--color-texto-primario);
+  font-weight: 300; /* Fonte leve */
   text-decoration: none;
+}
+
+
+.custom-link img {
+  margin-right: 8px; /* Espaço entre a imagem e o texto */
 }

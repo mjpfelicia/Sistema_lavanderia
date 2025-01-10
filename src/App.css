@@ -48,7 +48,8 @@ body {
   --color-text-warning: #856404;  /* Texto de aviso */
   --color-text-info: #0c5460;  /* Texto de informação */
   --color-text-light: #f8f9fa;  /* Texto claro */
-    --color-text-dark: #343a40;  /* Texto escuro */
+  --color-texto-primario: #333;  /* Texto primário */
+  --color-text-dark: #343a40;  /* Texto escuro */
   --color-border-primary: #dae0e5;  /* Borda primária */
   --color-border-secondary: #ced4da;  /* Borda secundária */
   --color-border-success: #c3e6cb;  /* Borda de sucesso */

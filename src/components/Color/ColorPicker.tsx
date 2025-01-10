@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './ColorPicker.css';
 
 const colors = [
+  { name: 'sem descrição', code: 'rgba(0, 0, 0, 0.4)' }, 
   { name: 'Azul', code: '#0000FF' },
   { name: 'Laranja', code: '#FFA500' },
   { name: 'Preto', code: '#000000' },
@@ -37,6 +38,7 @@ const colors = [
   { name: 'Turquesa', code: '#40E0D0' },
   { name: 'Violeta', code: '#EE82EE' }
 ];
+
 
 interface ColorPickerProps {
   selecionarCor: (cor: string) => void;

@@ -1,4 +1,3 @@
-// Importando dependências e arquivos de estilo
 import "./Header.css";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -14,36 +13,31 @@ import mapa from "../../img/mapa.png";
 import relatorio from "../../img/relatorio2.png";
 import WhatsApp from "../../img/whapp.png";
 
-// Definindo tipos para propriedades
-export type BotaoPaginaAtiva = { 
+export type BotaoPaginaAtiva = {
   nomePagina: string
 }
 
-export type Card = { 
-  name: string; 
-  icon: any; 
+export type Card = {
+  name: string;
+  icon: any;
   link: string;
 }
 
-// Função principal do componente Header
-const Header = (botaoPaginaAtiva: BotaoPaginaAtiva) => { 
-  // Definindo o menu
-  const MyCarMenu = [ 
+const Header = ({ nomePagina }: BotaoPaginaAtiva) => {
+  const MyCarMenu = [
     { name: "Recepção", icon: recepcao, link: "/recepcao" },
     { name: "Entrada de peças", icon: peca, link: "/EntradaDePeca" },
     { name: "Delivery", icon: delivery, link: "/delivery" },
     { name: "Retorno", icon: retornoD, link: "/DevolucaoDoDelivery" },
-    { name: "visualizar ticket", icon: VisualizarTicket, link: "/BuscarTicket" },
+    { name: "Visualizar Ticket", icon: VisualizarTicket, link: "/BuscarTicket" },
     { name: "Mapa", icon: mapa, link: "/mapa" },
     { name: "Relatório", icon: relatorio, link: "/relatorio" },
     { name: "WhatsApp", icon: WhatsApp, link: "/Whatsapp" },
   ];
 
-  // Definindo estado para controle de expansão do menu
   const [expanded, setExpanded] = useState(false);
 
-  // Renderizando o componente
-  return ( 
+  return (
     <div>
       <div className='HeaderContent'>
         <div className='headerTitle'>
@@ -55,17 +49,19 @@ const Header = (botaoPaginaAtiva: BotaoPaginaAtiva) => {
         <CloseButton />
       </div>
       <Navbar expand="lg" expanded={expanded}>
-        <Navbar.Toggle 
-          aria-controls="responsive-navbar-nav" 
-          onClick={() => setExpanded(!expanded)} 
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          onClick={() => setExpanded(!expanded)}
+          aria-label="Toggle navigation"
         />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className='responsive-menu'>
-            {MyCarMenu.map((card: Card, id: number) => ( 
+            {MyCarMenu.map((card: Card, id: number) => (
               <Nav.Item key={id}>
-                <ButtonComHover 
-                  card={card} 
-                  ativarHover={card.name === botaoPaginaAtiva.nomePagina} 
+                <ButtonComHover
+                  card={card}
+                  ativarHover={card.name === nomePagina}
+                  className={card.name === nomePagina ? 'active-button' : 'iconeEstiloBase'}
                 />
               </Nav.Item>
             ))}
@@ -73,8 +69,7 @@ const Header = (botaoPaginaAtiva: BotaoPaginaAtiva) => {
         </Navbar.Collapse>
       </Navbar>
     </div>
-  )
-}
-
+  );
+};
 
 export default Header;
