@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { MdExitToApp } from "react-icons/md"; // Novo ícone
-import './CloseButton.css'; // Importando o arquivo CSS
+import { MdExitToApp } from "react-icons/md";
+import './CloseButton.css';
 
 const CloseButton = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const CloseButton = () => {
       className="close-button"
       aria-label="Close"
     >
-      <MdExitToApp /> {/* Novo ícone */}
+      <MdExitToApp style={{ color: '#333' }} />
     </button>
   );
 }

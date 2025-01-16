@@ -7,7 +7,7 @@
   gap: 2rem;
   padding: 1rem;
   background-color: var(--color_branca);
-  flex-wrap: wrap; /* Permitir que os itens quebrem para a próxima linha */
+  flex-wrap: wrap;
 }
 
 .HeaderContent {
@@ -23,14 +23,15 @@
 }
 
 .title-header {
-  font-size: calc(1rem + 0.4vw);
-  color: var(--color-primary);
+  font-size: calc(0.5rem + 0.4vw);
+  color: var(--color-texto-primario);
   text-align: center;
   padding: 0.5rem;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
   white-space: nowrap;
+  margin: 0;
 }
 
 .navbar {
@@ -47,7 +48,7 @@
 }
 
 .linkCadastro a {
-  color: var(--color-primary);
+  color: var(--color-texto-primario);
   text-decoration: none;
   font-size: calc(0.5rem + 0.4vw);
   padding: 0.5rem 1rem;
@@ -61,19 +62,18 @@
   width: 9rem;
   height: 5rem;
   border: none;
-  background-color: white;
+  background-color: var(--color_branca);
   text-decoration: none;
   cursor: pointer;
   font-family: roboto;
   font-weight: 500;
-  transition: background-color 0.3s ease; /* Efeito de transição para hover */
+  transition: background-color 0.3s ease;
 }
 
 .iconeEstiloBase:hover {
-  background-color: #f0f0f0; /* Adicione um efeito de hover */
+  background-color: var(--color-hover-clicado);
 }
 
-/* Media queries para responsividade */
 @media (max-width: 768px) {
 
   .title-header,
@@ -83,7 +83,7 @@
 
   .navbar {
     justify-content: end !important;
-    margin-top: 2rem;
+  
   }
 
   .navbar-toggler {
@@ -97,7 +97,7 @@
 
   .navbar-collapse {
     background: transparent;
-    flex-wrap: wrap
+    flex-wrap: wrap;
   }
 
   .HeaderContent {
@@ -120,5 +120,4 @@
   .linkCadastro a {
     font-size: calc(1rem + 0.4vw);
   }
-
 }

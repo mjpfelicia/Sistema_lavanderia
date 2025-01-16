@@ -8,13 +8,14 @@
 
 .content-wrapper {
   margin: 0 2rem;
+  padding: 1rem;
+  /* Adiciona padding para criar espaço ao redor */
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
   align-items: center;
 }
-
 
 /* Layout da Página */
 .content {
@@ -36,7 +37,6 @@
   align-items: center;
   justify-content: center;
   align-content: center;
-
 }
 
 .totalizador-container {
@@ -45,7 +45,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%; /* Adiciona largura total */
+  height: 100%; /* Adiciona altura total */
 }
+
 
 /* Estilo dos Cards */
 .card {
@@ -68,9 +71,7 @@
 
 .card img {
   width: 100px;
-  /* Ajuste conforme necessário */
   height: 100px;
-  /* Ajuste conforme necessário */
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 1rem;
@@ -172,13 +173,11 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-
 .totalizador h3 {
   text-align: center;
   margin-bottom: 1rem;
   font-size: 1.5rem;
   color: var(--color-texto-primario);
-  
 }
 
 .totalizador p,
@@ -204,11 +203,7 @@
   flex-direction: column;
   gap: 0.5rem;
   margin-bottom: 1rem;
-
 }
-
-
-
 
 .btnFinalizar {
   width: 100%;
@@ -228,18 +223,25 @@
   background-color: var(--colorHoverBtnCadastra);
 }
 
-
-
 /* Responsividade */
-@media only screen and (max-width: 768px) {
-  .content {
+@media only screen and (max-width: 700px) {
+  .content-wrapper {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
   }
 
-  .cards-container,
+  .cards-container .card {
+    width: calc(50% - 0.5rem);
+    /* Ajusta a largura dos cards para 50% com margem */
+  }
+
   .totalizador-container {
     width: 100%;
+    /* Ajusta a largura do totalizador-container para 100% */
+  }
+
+  .totalizador {
+    width: 100%;
+    /* Ajusta a largura do totalizador para 100% */
   }
 }
