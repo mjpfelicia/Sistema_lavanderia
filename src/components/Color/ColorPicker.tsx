@@ -39,7 +39,6 @@ const colors = [
   { name: 'Violeta', code: '#EE82EE' }
 ];
 
-
 interface ColorPickerProps {
   selecionarCor: (cor: string) => void;
   finalizarSelecaoCores: () => void;
@@ -58,12 +57,12 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ selecionarCor, finalizarSelec
   };
 
   return (
-    <div className="cards-container">
-      <div className="color-table">
+    <div className="color-picker-cards-container">
+      <div className="color-picker-table">
         {colors.map((color, index) => (
           <div
             key={index}
-            className={`color-cell ${selectedColor === color.code ? 'selected' : ''}`}
+            className={`color-picker-cell ${selectedColor === color.code ? 'selected' : ''}`}
             style={{ backgroundColor: color.code }}
             onClick={() => handleColorClick(color)}
           >
@@ -71,7 +70,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ selecionarCor, finalizarSelec
           </div>
         ))}
       </div>
-      <div className="color-code">
+      <div className="color-picker-code">
         {selectedColor ? `Cor selecionada: ${colors.find(color => color.code === selectedColor)?.name}` : ''}
         {selectedColor && (
           <button className='button_ColorPicker' onClick={finalizarSelecaoCores}>Confirmar Cores</button>
