@@ -91,7 +91,7 @@
   margin: 0;
   font-size: 1rem;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   text-align: center;
   white-space: nowrap;
 }
@@ -176,6 +176,7 @@
   text-align: center;
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  font-weight: 300;
   color: var(--color-texto-primario);
 }
 
