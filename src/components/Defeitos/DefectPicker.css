@@ -62,7 +62,7 @@
   margin-top: 0.25rem;
   padding: 0.625rem 1.25rem;
   width: 40%;
-  color: white;
+  color: var(--color_branca);
   background-color: var(--colorBtnCadastra);
   border: none;
   border-radius: 0.25rem;

@@ -11,8 +11,9 @@
 }
 
 .servico-table {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(6.25rem, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.625rem;
   width: 100%;
 }
@@ -23,6 +24,7 @@
   flex-direction: column;
   align-items: center;
   height: 6.25rem;
+  width: 6.25rem; /* Definindo largura fixa */
   border-radius: 0.625rem;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -34,7 +36,6 @@
   word-break: break-word;
   overflow-wrap: break-word;
 }
-
 
 .servico-cell.selected {
   border: 0.188rem solid var(--color-hover-primary);
@@ -56,7 +57,7 @@
   margin-top: 1.25rem;
   padding: 0.625rem 1.25rem;
   width: 40%;
-  color: white;
+  color: var(--color_branca);
   background-color: var(--colorBtnCadastra);
   border: none;
   border-radius: 0.25rem;

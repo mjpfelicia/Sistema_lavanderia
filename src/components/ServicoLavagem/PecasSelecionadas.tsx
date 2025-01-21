@@ -1,5 +1,5 @@
 import React from 'react';
-import './ServicoLavagem.css';
+import './PecasSelecionadas.css';
 import { Peca } from '../../service/apiPeca';
 
 // Mapeamento de URLs das imagens com base no nome das peças

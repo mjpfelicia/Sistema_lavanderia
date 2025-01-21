@@ -1,8 +1,8 @@
-import React, { useState } from 'react'; // Importa React e o hook useState
-import { Modal, Button } from 'react-bootstrap'; // Importa componentes do React Bootstrap
-import { criarDelivery, Delivery, DeliveryTipo } from '../../../service/apiDelivery'; // Importa funções e tipos do serviço de API de Delivery
-import { Cliente } from '../../../service/apiCliente'; // Importa o tipo Cliente do serviço de API de Cliente
-import classes from "../AgendaDelivery/AgendaDelivery.module.css"; // Importa os estilos do módulo CSS
+import React, { useState } from 'react'; 
+import { Modal, Button } from 'react-bootstrap'; 
+import { criarDelivery, Delivery, DeliveryTipo } from '../../../service/apiDelivery'; 
+import { Cliente } from '../../../service/apiCliente'; 
+import classes from "../AgendaDelivery/AgendaDelivery.module.css"; 
 
 // Define a interface para as propriedades do componente AgendaDelivery
 interface AgendaDeliveryProps {

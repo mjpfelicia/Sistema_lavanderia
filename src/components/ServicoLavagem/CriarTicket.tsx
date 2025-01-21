@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import './ServicoLavagem.css';
+import './CriarTicket.css'; 
 import { Ticket, criarTicket } from "../../service/apiTicket";
 import { Peca } from '../../service/apiPeca';
 import { Cliente } from '../../service/apiCliente';

@@ -86,12 +86,6 @@
     color: var(--color-error);
 }
 
-.msgError,
-.noResults p {
-    color: var(--color-text-danger);
-    font-size: 1.2rem;
-}
-
 .li {
     border-bottom: 1px solid var(--color-borde);
     padding: 0.5rem 0;
@@ -134,39 +128,24 @@ ul {
 .btn_confirm,
 .btn_cancel {
     background: var(--color_azul_bg);
-    /* Cor de fundo original */
     color: var(--color_branca);
-    /* Cor do texto original */
     border-radius: 4px;
-    /* Bordas arredondadas */
     height: 44px;
-    /* Altura do botão */
     line-height: 46px;
-    /* Altura da linha para centralizar o texto verticalmente */
     padding: 0 25px;
-    /* Preenchimento interno horizontal */
     border: 0;
-    /* Sem borda */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Sombra leve */
     font-weight: 700;
-    /* Texto em negrito */
     cursor: pointer;
-    /* Cursor de ponteiro para indicar que é clicável */
     transition: background 0.3s, box-shadow 0.3s;
-    /* Transições suaves para mudanças de estado */
     margin: 0 10px;
-    /* Espaçamento entre os botões */
 }
 
 .btn_confirm:hover,
 .btn_cancel:hover {
     background: var(--color-hover-info);
-    /* Cor de fundo ao passar o mouse */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    /* Sombra mais intensa ao passar o mouse */
 }
-
 
 .confirmacao .btn_confirm:hover {
     background-color: var(--color-text-success);

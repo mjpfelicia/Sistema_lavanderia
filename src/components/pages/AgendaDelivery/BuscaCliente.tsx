@@ -61,7 +61,9 @@ const BuscaCliente: React.FC<BuscaClienteProps> = ({ onClienteSelecionado }) => 
           <label htmlFor="telefone">Telefone:</label>
           <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} required />
         </div>
-        <button type="submit" className={classes.btn_enter}>Pesquisar</button>
+        <div className={classes.controle_de_campo}>
+          <button type="submit" className={classes.btn_enter}>Pesquisar</button>
+        </div>
       </form>
       {loading && <Spinner animation="border" role="status"><span className="visually-hidden">Carregando...</span></Spinner>}
       {error && <p className={classes.error}>{error}</p>}
