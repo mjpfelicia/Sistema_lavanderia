@@ -8,55 +8,64 @@ body {
 }
 
 :root {
-  --color_azul_bg: #5ca8ab;
-  --color_border: #8bbfc1;
-  --colorBtnCadastra: #6bb6b1;
-  --colorHoverBtnCadastra: #4e9894;
-  --color-hover-atualiza: #dcefed;
-  --color-icon: #5a8f98;
-  --color_branca: #fffdf9;
-  --color-bg_menu: #f7f3ed;
-  --color-hover-clicado: #eef5f2;
-  --color-borde: #d9e5df;
-  --color-bg-cinza-claro: rgba(255, 252, 246, 0.9);
-  --color-texto: #34505a;
-  --color-sub-titulo: #61737b;
-  --color-font: #23343c;
-  --color-line: rgba(52, 80, 90, 0.08);
-  --color-error: #b44b52;
-  --color-titleCadastro: #1f3138;
-  --color-bg-primary: #f3f7f4;
-  --color-bg-secondary: #e6f0eb;
-  --color-bg-success: #ddf0e7;
-  --color-bg-danger: #f8e4e2;
-  --color-bg-warning: #fbf1d8;
-  --color-bg-info: #e1f2f3;
-  --color-bg-light: #fffdfa;
-  --color-bg-leve: rgba(255, 253, 250, 0.84);
-  --color-bg-dark: #39545b;
-  --color-text-primary: #23343c;
-  --color-text-secondary: #6c7f85;
-  --color-text-success: #3f7b6f;
-  --color-text-danger: #8f4048;
-  --color-text-warning: #937245;
-  --color-text-info: #447b84;
-  --color-text-light: #fffdf9;
-  --color-texto-primario: #2b4149;
-  --color-text-dark: #39545b;
-  --color-border-primary: #dde8e2;
-  --color-border-secondary: #cfded8;
-  --color-border-success: #cfe4d9;
-  --color-border-danger: #f0cfd2;
-  --color-border-warning: #f1dfb8;
-  --color-border-info: #cee6e6;
-  --color-hover-primary: #78b9ba;
-  --color-hover-secondary: #8d9ca2;
-  --color-hover-success: #62a38d;
-  --color-hover-danger: #c16d74;
-  --color-hover-warning: #d6b772;
-  --color-hover-info: #78bfc5;
-  --color-hover-light: #fffdfa;
-  --color-hover-dark: #39545b;
+  /* Palette principal - inspirada nos tons da imagem de fundo */
+  --color_azul_bg: #4a9c9f;
+  --color_border: #7fb5b8;
+  --colorBtnCadastra: #5faaa5;
+  --colorHoverBtnCadastra: #468f8a;
+  --color-hover-atualiza: #d4ebe8;
+  --color-icon: #4d7f8a;
+  --color_branca: #fffef9;
+  --color-bg_menu: #faf7f3;
+  --color-hover-clicado: #e8f2ed;
+  --color-borde: #d3e0d8;
+  --color-bg-cinza-claro: rgba(255, 253, 247, 0.92);
+  --color-texto: #2d4a52;
+  --color-sub-titulo: #5a6f75;
+  --color-font: #1f2f35;
+  --color-line: rgba(45, 74, 82, 0.1);
+  --color-error: #c7525a;
+  --color-titleCadastro: #1a2f35;
+  
+  /* Sistema de cores semânticas modernas */
+  --color-bg-primary: #f0f5f3;
+  --color-bg-secondary: #e0ece7;
+  --color-bg-success: #d5ebe2;
+  --color-bg-danger: #f7e6e4;
+  --color-bg-warning: #fcf3de;
+  --color-bg-info: #dcf0f1;
+  --color-bg-light: #fffdf9;
+  --color-bg-leve: rgba(255, 254, 251, 0.88);
+  --color-bg-dark: #334d54;
+  
+  /* Cores de texto aprimoradas */
+  --color-text-primary: #1f2f35;
+  --color-text-secondary: #60757a;
+  --color-text-success: #356f5f;
+  --color-text-danger: #8a3f46;
+  --color-text-warning: #8a6a3e;
+  --color-text-info: #3d6f75;
+  --color-text-light: #fffef9;
+  --color-texto-primario: #263d44;
+  --color-text-dark: #334d54;
+  
+  /* Bordas sutis e modernas */
+  --color-border-primary: #d6e2da;
+  --color-border-secondary: #c5d4cc;
+  --color-border-success: #c8e0d3;
+  --color-border-danger: #efd0d3;
+  --color-border-warning: #eedcb3;
+  --color-border-info: #c7e0e1;
+  
+  /* Estados de hover vibrantes */
+  --color-hover-primary: #6ab0ac;
+  --color-hover-secondary: #85959a;
+  --color-hover-success: #5a9a85;
+  --color-hover-danger: #b8656c;
+  --color-hover-warning: #cfad65;
+  --color-hover-info: #6fb7bc;
+  --color-hover-light: #fffdf9;
+  --color-hover-dark: #334d54;
 }
 
 a {
@@ -70,9 +79,10 @@ li {
 header {
   position: fixed;
   width: 100%;
-  background-color: var(--color-bg_menu);
+  background-color: rgba(250, 247, 243, 0.96);
+  backdrop-filter: blur(12px);
   padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(45, 74, 82, 0.08);
 }
 
 .App {
@@ -80,9 +90,9 @@ header {
   width: 100%;
   text-align: center;
   background:
-    linear-gradient(180deg, rgba(255, 251, 245, 0.44) 0%, rgba(246, 251, 248, 0.5) 45%, rgba(250, 253, 250, 0.62) 100%),
-    radial-gradient(circle at top left, rgba(119, 189, 177, 0.14), transparent 22%),
-    radial-gradient(circle at right, rgba(205, 188, 158, 0.12), transparent 24%),
+    linear-gradient(180deg, rgba(255, 252, 247, 0.65) 0%, rgba(243, 250, 246, 0.65) 45%, rgba(248, 252, 249, 0.7) 100%),
+    radial-gradient(circle at top left, rgba(95, 170, 165, 0.18), transparent 24%),
+    radial-gradient(circle at right, rgba(195, 178, 155, 0.14), transparent 26%),
     url('./img/bgcontainer.jpg');
   background-position: center, top left, right, center;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;

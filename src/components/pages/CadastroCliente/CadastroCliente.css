@@ -13,7 +13,7 @@
 .formCadastro {
     border: 1px solid var(--color-border-primary);
     border-top: 2px solid var(--colorBtnCadastra);
-    box-shadow: 0 25px 100px -5px rgba(0, 0, 0, .15);
+    box-shadow: 0 25px 100px -5px rgba(45, 74, 82, 0.14);
     background: var(--color_branca);
     width: 60%;
 }
