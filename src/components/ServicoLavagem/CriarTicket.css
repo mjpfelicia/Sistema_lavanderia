@@ -19,8 +19,8 @@
     padding: 1.5rem;
     border: 1px solid var(--color-border-primary);
     border-radius: 18px;
-    background-color: rgba(255, 252, 246, 0.88);
-    box-shadow: 0 18px 38px rgba(104, 126, 123, 0.08);
+    background-color: rgba(255, 254, 251, 0.92);
+    box-shadow: 0 18px 38px rgba(45, 74, 82, 0.08);
     z-index: 1000;
     overflow-y: auto;
     font-family: 'Montserrat', sans-serif;
@@ -62,8 +62,8 @@
 .peca-card-resumo {
     padding: 0.85rem 1rem;
     border-radius: 12px;
-    background: rgba(248, 252, 248, 0.76);
-    border: 1px solid rgba(143, 187, 182, 0.14);
+    background: rgba(246, 251, 247, 0.78);
+    border: 1px solid rgba(135, 180, 172, 0.18);
 }
 
 .peca-card-resumo ul {
