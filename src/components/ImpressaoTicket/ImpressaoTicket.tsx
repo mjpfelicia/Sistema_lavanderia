@@ -2,7 +2,6 @@ import React from 'react';
 import '../pagamento/Pagamento.css';
 import { Ticket } from '../../service/apiTicket';
 
-// Definindo as propriedades aceitas pelo componente ImpressaoTicket
 interface ImpressaoTicketProps {
   ticket: Ticket;
   ticketNumber: string;
@@ -14,11 +13,7 @@ interface ImpressaoTicketProps {
   dataCriacao: string;
 }
 
-// Função principal do componente ImpressaoTicket
 const ImpressaoTicket: React.FC<ImpressaoTicketProps> = (props) => {
-  console.log("ImpressaoTicket:", props);
-
-  // Formatar data e hora de retirada
   const formatDataRetirada = (dataRetirada: string) => {
     const date = new Date(dataRetirada);
     const data = date.toLocaleDateString('pt-BR');
@@ -31,17 +26,27 @@ const ImpressaoTicket: React.FC<ImpressaoTicketProps> = (props) => {
       <h3>Impressão do Ticket</h3>
       <div id="printableArea" className="printableArea">
         <p><strong>Número do Ticket:</strong> {props.ticketNumber}</p>
-        <p><strong>Total de Peças:</strong> {props.quantidade}</p>
-        <p><strong>Total a Pagar:</strong> R${props.total.toFixed(2)}</p>
-        <p><strong>Forma de Pagamento:</strong> {props.formaPagamento}</p>
-        <p><strong>Status do Pagamento:</strong> {props.statusPagamento}</p>
-        <p><strong>Data de Criação:</strong> {props.dataCriacao}</p>
-        <p><strong>Data de Retirada:</strong> {formatDataRetirada(props.dataRetirada)}</p>
-        <h4>Itens:</h4>
+        <p><strong>Cliente:</strong> {props.ticket.cliente?.nome || 'Cliente do atendimento'}</p>
+        <p><strong>Total de peças:</strong> {props.quantidade}</p>
+        <p><strong>Total a pagar:</strong> R${props.total.toFixed(2)}</p>
+        <p><strong>Forma de pagamento:</strong> {props.formaPagamento}</p>
+        <p><strong>Status do pagamento:</strong> {props.statusPagamento}</p>
+        <p><strong>Tipo:</strong> {props.ticket.tipoAtendimento || 'Retirada'}</p>
+        <p><strong>Data de criação:</strong> {props.dataCriacao}</p>
+        <p><strong>Data de entrega/retirada:</strong> {formatDataRetirada(props.dataRetirada)}</p>
+        <h4>Peças</h4>
         <ul>
           {props.ticket.items.length > 0 ? props.ticket.items.map((item, idx) => (
             <li key={idx}>
-              {item.subTipo} ({item.quantidade}) - valor R${item.total.toFixed(2)}
+              <strong>{item.subTipo}</strong> ({item.quantidade}) - valor R${item.total.toFixed(2)}
+              <br />
+              Serviços: {item.servicos || 'Não informado'}
+              <br />
+              Cor: {item.cores || 'Não informada'}
+              <br />
+              Marca: {item.marca || 'Não informada'}
+              <br />
+              Defeitos: {item.defeitos || 'Nenhum'}
             </li>
           )) : <li>Nenhum item selecionado</li>}
         </ul>

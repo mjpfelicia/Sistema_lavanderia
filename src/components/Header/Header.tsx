@@ -2,6 +2,7 @@ import "./Header.css";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ButtonComHover from "../ButtonHover/ButtoComHover";
 import CloseButton from '../buttons/CloseButton';
 import recepcao from "../../img/recepcao.png";
@@ -42,9 +43,10 @@ const Header = ({ nomePagina }: BotaoPaginaAtiva) => {
       <div className='HeaderContent'>
         <div className='headerTitle'>
           <h1 className='title-header'>Sistema de lavanderia</h1>
+          <p className='title-subheader'>Recepção, produção, entrega e consulta em um fluxo só.</p>
         </div>
         <div className='linkCadastro'>
-          <a href="/CadastroCliente">Cadastrar Cliente</a>
+          <Link to="/CadastroCliente">Cadastrar Cliente</Link>
         </div>
         <CloseButton />
       </div>

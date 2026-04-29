@@ -6,5 +6,6 @@ interface Sale {
     valor: number;
     date: string;
   }
-  
+
+export {};
 

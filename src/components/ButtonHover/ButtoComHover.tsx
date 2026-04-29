@@ -1,4 +1,5 @@
 import { IconContext } from "react-icons";
+import { Link } from "react-router-dom";
 import { Card } from "../Header/Header";
 import "./ButtonHover.css";
 
@@ -17,12 +18,12 @@ export type BotaoHoverInput = {
 const BotaoHover = ({ card, className }: BotaoHoverInput) => {
   return (
     <div className={`menu-item shadow-lg estiloBase estiloHover iconeEstiloBase ${className}`}>
-      <a href={card.link} className="custom-link">
+      <Link to={card.link} className="custom-link">
         <IconContext.Provider value={{ className: 'icon' }}>
           <img src={card.icon} width={48} height={48} alt={card.name}></img>
         </IconContext.Provider>
         {card.name}
-      </a>
+      </Link>
     </div>
   );
 }

@@ -16,7 +16,7 @@ const CloseButton = () => {
       className="close-button"
       aria-label="Close"
     >
-      <MdExitToApp style={{ color: '#333' }} />
+      {MdExitToApp({ style: { color: '#333' } })}
     </button>
   );
 }

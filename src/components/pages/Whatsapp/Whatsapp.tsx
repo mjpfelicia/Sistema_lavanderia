@@ -15,7 +15,7 @@ const WhatsAppIcon: React.FC = () => {
     <div onClick={handleClick}>
       <Header nomePagina="header" />
       <div className="WhatsappContent" >
-        <FaWhatsapp />
+        {FaWhatsapp({})}
       </div>
     </div>
   );

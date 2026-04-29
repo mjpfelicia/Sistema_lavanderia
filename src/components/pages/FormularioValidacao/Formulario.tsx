@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import classes from "./Formulario.module.css";
 import { Cliente, buscarCliente } from '../../../service/apiCliente';
@@ -7,28 +8,27 @@ import ServicoLavagem from '../../ServicoLavagem/ServicoLavagem';
 interface FormData {
   nome: string;
   telefone: string;
-  senha: string;
 }
 
 const FormularioValidacao = () => {
-  const [formData, setFormData] = useState<FormData>({ nome: '', telefone: '', senha: '' });
+  const [formData, setFormData] = useState<FormData>({ nome: '', telefone: '' });
   const [erros, setErros] = useState<Partial<FormData>>({});
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [clienteSelecionado, setClienteSelecionado] = useState<Cliente | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [nenhumClienteEncontrado, setNenhumClienteEncontrado] = useState<boolean>(false);
   const [confirmarCadastro, setConfirmarCadastro] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const validarFormulario = (): boolean => {
     const novosErros: Partial<FormData> = {};
-    if (formData.nome.length < 3) {
+
+    if (!formData.nome.trim() && !formData.telefone.trim()) {
+      novosErros.nome = "Informe nome ou telefone para continuar.";
+    } else if (formData.nome.trim() && formData.nome.trim().length < 3) {
       novosErros.nome = "O nome deve ter pelo menos 3 caracteres.";
     }
-    if (formData.senha.length < 4) {
-      novosErros.senha = "A senha deve ter pelo menos 4 caracteres.";
-    }
+
     setErros(novosErros);
     return Object.keys(novosErros).length === 0;
   };
@@ -39,26 +39,32 @@ const FormularioValidacao = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validarFormulario()) {
-      setLoading(true);
-      setNenhumClienteEncontrado(false);
-      setError(null);
-      try {
-        const result = await buscarCliente(formData.nome, formData.telefone);
-        console.log('Resultado da API:', result);
-        setClientes(result);
-        if (result.length === 1) {
-          setClienteSelecionado(result[0]);
-        } else if (result.length === 0) {
-          setNenhumClienteEncontrado(true);
-          setConfirmarCadastro(true);
-        }
-      } catch (error) {
-        console.error("Erro ao buscar cliente", error);
-        setError("Erro ao buscar cliente. Tente novamente.");
-      } finally {
-        setLoading(false);
+    if (!validarFormulario()) {
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setConfirmarCadastro(false);
+
+    try {
+      const result = await buscarCliente(formData.nome, formData.telefone);
+      setClientes(result);
+
+      if (result.length === 1) {
+        setClienteSelecionado(result[0]);
+      } else if (result.length === 0) {
+        setConfirmarCadastro(true);
       }
+    } catch (requestError) {
+      console.error("Erro ao buscar cliente", requestError);
+      if (axios.isAxiosError(requestError) && !requestError.response) {
+        setError("Não foi possível conectar à base local de clientes. Inicie a API com 'npm run api' e tente novamente.");
+      } else {
+        setError("Erro ao buscar cliente. Tente novamente.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,32 +84,42 @@ const FormularioValidacao = () => {
     <>
       {!clienteSelecionado ? (
         <form className={classes.formulario} onSubmit={handleSubmit}>
+          <div className={classes.introBox}>
+            <h2>Receber cliente</h2>
+            <p>Pergunte nome ou telefone. Se não encontrar, cadastre e siga com as peças.</p>
+          </div>
+
           <div className={classes.controle_de_campo}>
             <label htmlFor="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
+            <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} />
             {erros.nome && <p className={classes.error}>{erros.nome}</p>}
           </div>
 
           <div className={classes.controle_de_campo}>
             <label htmlFor="telefone">Telefone:</label>
-            <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(XX) XXXXX-XXXX" required autoComplete="tel" />
+            <input
+              type="text"
+              id="telefone"
+              name="telefone"
+              value={formData.telefone}
+              onChange={handleChange}
+              placeholder="(XX) XXXXX-XXXX"
+              autoComplete="tel"
+            />
             {erros.telefone && <p className={classes.error}>{erros.telefone}</p>}
           </div>
 
-          <div className={classes.passwordInput}>
-            <label htmlFor="senha">Senha:</label>
-            <input type="password" autoComplete="current-password" id="senha" name="senha" value={formData.senha} onChange={handleChange} required />
-            {erros.senha && <p className={classes.error}>{erros.senha}</p>}
-          </div>
           <div className={classes.inputGroupButton}>
-            <button type="submit" className={classes.btn_enter}>Pesquisar</button>
+            <button type="submit" className={classes.btn_enter}>Continuar</button>
           </div>
         </form>
       ) : (
         <ServicoLavagem cliente={clienteSelecionado} />
       )}
+
       {loading && <p>Carregando...</p>}
       {error && <p className={classes.error}>{error}</p>}
+
       {!clienteSelecionado && !loading && (
         <div className={classes.box}>
           {clientes.length > 0 ? (
@@ -117,6 +133,7 @@ const FormularioValidacao = () => {
           ) : null}
         </div>
       )}
+
       {confirmarCadastro && (
         <div className={classes.confirmacao}>
           <p>Cliente não encontrado. Deseja cadastrar um novo cliente?</p>

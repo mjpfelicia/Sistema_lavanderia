@@ -18,11 +18,10 @@ interface PagamentoProps {
   ticket: Ticket;
 }
 
-const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, itens, ticket }) => {
-  console.log("[Pagamento]: ", { ticket });
-
-  const [formaPagamento, setFormaPagamento] = useState<string>('Cartão de Crédito');
+const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, ticket }) => {
+  const [formaPagamento, setFormaPagamento] = useState<string>('Cartao de Credito');
   const [pagamentoNaRetirada, setPagamentoNaRetirada] = useState<boolean>(false);
+  const [tipoAtendimento, setTipoAtendimento] = useState<'Entrega' | 'Retirada'>('Retirada');
   const [dataRetirada, setDataRetirada] = useState<string>('');
   const [horaRetirada, setHoraRetirada] = useState<string>('');
   const [statusPagamento, setStatusPagamento] = useState<string>('A Pagar');
@@ -31,46 +30,46 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
 
   const handlePagamento = async () => {
     if (!dataRetirada) {
-      setErro('Data de retirada não agendada');
+      setErro(`Data de ${tipoAtendimento.toLowerCase()} não agendada`);
       return;
     }
+
     if (!horaRetirada) {
-      setErro('Hora de retirada não agendada');
+      setErro(`Hora de ${tipoAtendimento.toLowerCase()} não agendada`);
       return;
     }
 
     const hoje = new Date();
     const dataSelecionada = new Date(`${dataRetirada}T${horaRetirada}:00`);
-
     const offset = dataSelecionada.getTimezoneOffset();
     const adjustedDataSelecionada = new Date(dataSelecionada.getTime() - offset * 60 * 1000);
 
     if (adjustedDataSelecionada < hoje) {
-      setErro('Data de retirada não pode ser anterior ao dia atual');
+      setErro(`Data de ${tipoAtendimento.toLowerCase()} não pode ser anterior ao dia atual`);
       return;
     }
-    setErro('');
 
+    setErro('');
     ticket.dataEntrega = adjustedDataSelecionada.toISOString();
+    ticket.tipoAtendimento = tipoAtendimento;
 
     if (pagamentoNaRetirada) {
-      setStatusPagamento('A Pagar na Retirada');
-      ticket.estaPago = "não";
+      setStatusPagamento('A pagar na retirada');
+      ticket.estaPago = "nÃ£o";
+      ticket.formaPagamento = 'Pagamento na retirada';
+      ticket.statusPagamentoDescricao = 'A pagar na retirada';
     } else {
-      setStatusPagamento(`Pago com ${formaPagamento}`);
+      const status = `Pago com ${formaPagamento}`;
+      setStatusPagamento(status);
       ticket.estaPago = "sim";
+      ticket.formaPagamento = formaPagamento;
+      ticket.statusPagamentoDescricao = status;
     }
 
-    try {
-      const ticketAtualizo = await atualizaTicket(ticket);
-      console.log("Dados antes de setMostrarImpressao:", {
-        ticketNumber: ticketAtualizo.ticketNumber,
-        formaPagamento,
-        dataRetirada: ticketAtualizo.dataEntrega,
-        statusPagamento: ticketAtualizo.estaPago,
-        itens: ticketAtualizo.items
-      });
+    ticket.statusEntrega = 'Aguardando retirada';
 
+    try {
+      await atualizaTicket(ticket);
       setMostrarImpressao(true);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -91,11 +90,11 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
   const handlePagamentoNaRetiradaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPagamentoNaRetirada(e.target.checked);
     if (e.target.checked) {
-      setStatusPagamento('A Pagar na Retirada');
+      setStatusPagamento('A pagar na retirada');
       setFormaPagamento('');
     } else {
-      setStatusPagamento(`Pago com ${formaPagamento}`);
-      setFormaPagamento('Cartão de Crédito');
+      setFormaPagamento('Cartao de Credito');
+      setStatusPagamento('Pago com Cartao de Credito');
     }
   };
 
@@ -106,44 +105,56 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
           <p>Número do Ticket: {ticketNumber}</p>
           <p>Total de Peças: {quantidade}</p>
           <p>Total a Pagar: R${total.toFixed(2)}</p>
+
+          <label>
+            Entrega ou retirada:
+            <select value={tipoAtendimento} onChange={(e) => setTipoAtendimento(e.target.value as 'Entrega' | 'Retirada')}>
+              <option value="Retirada">Retirada</option>
+              <option value="Entrega">Entrega</option>
+            </select>
+          </label>
+
           <div className="checkbox-container">
             <label>
-              Pagamento na Retirada:
+              Pagamento na retirada:
               <input type="checkbox" checked={pagamentoNaRetirada} onChange={handlePagamentoNaRetiradaChange} />
             </label>
           </div>
+
           {!pagamentoNaRetirada && (
             <label>
-              Forma de Pagamento:
+              Forma de pagamento:
               <select value={formaPagamento} onChange={handleFormaPagamentoChange}>
-                <option value="Cartão de Crédito">Cartão de Crédito</option>
-                <option value="Cartão de Débito">Cartão de Débito</option>
+                <option value="Cartao de Credito">Cartão de Crédito</option>
+                <option value="Cartao de Debito">Cartão de Débito</option>
                 <option value="Dinheiro">Dinheiro</option>
                 <option value="Pix">Pix</option>
               </select>
             </label>
           )}
+
           <div>
             <label>
-              Data de Retirada:
+              Data de {tipoAtendimento.toLowerCase()}:
               <input type="date" value={dataRetirada} onChange={(e) => setDataRetirada(e.target.value)} />
             </label>
             <label>
-              Hora de Retirada:
+              Hora de {tipoAtendimento.toLowerCase()}:
               <input type="time" value={horaRetirada} onChange={(e) => setHoraRetirada(e.target.value)} />
             </label>
           </div>
-          <button onClick={handlePagamento} className='btnpagamento'>Confirmar Pagamento</button>
+
+          <button onClick={handlePagamento} className='btnpagamento'>Confirmar atendimento</button>
           {erro && <p style={{ color: 'red' }}>{erro}</p>}
-          <p>Status do Pagamento: {statusPagamento}</p>
-          <p>Retirada em: {dataRetirada ? `${dataRetirada} às ${horaRetirada}` : 'Data e hora não agendadas'}</p>
+          <p>Status do pagamento: {statusPagamento}</p>
+          <p>{tipoAtendimento}: {dataRetirada ? `${dataRetirada} às ${horaRetirada}` : 'Data e hora não agendadas'}</p>
         </div>
       ) : (
         <ImpressaoTicket
           ticketNumber={ticketNumber}
-          formaPagamento={formaPagamento || 'Pagamento na Retirada'}
+          formaPagamento={ticket.formaPagamento || 'Pagamento na retirada'}
           dataRetirada={`${dataRetirada}T${horaRetirada}:00.000Z`}
-          statusPagamento={statusPagamento}
+          statusPagamento={ticket.statusPagamentoDescricao || statusPagamento}
           total={total}
           quantidade={quantidade}
           dataCriacao={new Date().toLocaleDateString()}
@@ -154,4 +165,4 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
   );
 };
 
-export default Pagamento; 
+export default Pagamento;

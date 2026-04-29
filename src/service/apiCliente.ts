@@ -19,6 +19,16 @@ export type Cliente = ClienteToCreate & {
   id: number;
 };
 
+const normalizeText = (value?: string) =>
+  (value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLowerCase();
+
+const normalizePhone = (value?: string) =>
+  (value || '').replace(/\D/g, '');
+
 const api = axios.create({
   baseURL: 'http://localhost:3008/cliente',
 });
@@ -53,13 +63,24 @@ export const buscarCliente = async (nomeCliente: string, celularCliente: string)
     throw "[buscarCliente] Precisa do nome ou celular do cliente";
   }
 
-  const params = `nome=${nomeCliente}&telefone=${celularCliente}`;
-
   return api
-    .get<Cliente[]>(`?${params}`)
+    .get<Cliente[]>('/')
     .then(({ data }) => {
-      console.info("response: ", { data });
-      return data;
+      const nomeBusca = normalizeText(nomeCliente);
+      const telefoneBusca = normalizePhone(celularCliente);
+
+      const clientesFiltrados = data.filter((cliente) => {
+        const nomeClienteNormalizado = normalizeText(cliente.nome);
+        const telefoneClienteNormalizado = normalizePhone(cliente.telefone);
+
+        const matchNome = nomeBusca ? nomeClienteNormalizado.includes(nomeBusca) : true;
+        const matchTelefone = telefoneBusca ? telefoneClienteNormalizado.includes(telefoneBusca) : true;
+
+        return matchNome && matchTelefone;
+      });
+
+      console.info("response: ", { clientesFiltrados });
+      return clientesFiltrados;
     })
     .catch((error: AxiosError) => {
       console.error("[ERROR][buscarCliente]", error.message);

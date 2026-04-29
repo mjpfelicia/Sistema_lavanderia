@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import './CriarTicket.css'; 
+import './CriarTicket.css';
 import { Ticket, criarTicket } from "../../service/apiTicket";
 import { Peca } from '../../service/apiPeca';
 import { Cliente } from '../../service/apiCliente';
@@ -35,8 +35,8 @@ type ColorCode = keyof typeof colorNames;
 const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSelecao, setTicket }) => {
   const [ticketNumber, setTicketNumber] = useState<string>('');
 
-  const totalPecas = useMemo(() => pecas.length, [pecas]);
-  const totalPreco = useMemo(() => pecas.reduce((acc, peca) => acc + peca.preco, 0), [pecas]);
+  const totalPecas = useMemo(() => pecas.reduce((acc, peca) => acc + (peca.quantidade || 1), 0), [pecas]);
+  const totalPreco = useMemo(() => pecas.reduce((acc, peca) => acc + (peca.preco * (peca.quantidade || 1)), 0), [pecas]);
 
   const pecasAgrupadas = useMemo(() => {
     return pecas.reduce((acc, peca) => {
@@ -56,7 +56,7 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
         };
       }
       return acc;
-    }, {} as { [key: string]: { quantidade: number; total: number, pecaId: string, cores: string[], marca: string, defeitos: string[], servicos: string[] } });
+    }, {} as { [key: string]: { quantidade: number; total: number; pecaId: string; cores: string[]; marca: string; defeitos: string[]; servicos: string[] } });
   }, [pecas]);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
     const ticketToCreate: Ticket = {
       ticketNumber,
       clienteId: cliente.id.toString(),
-      estaPago: "não",
+      estaPago: "nÃ£o",
       items: Object.entries(pecasAgrupadas).map(([key, { quantidade, total, pecaId, cores, marca, defeitos, servicos }]) => ({
         pecaId,
         subTipo: key.split('-')[0],
@@ -89,12 +89,12 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
       total: totalPreco,
       totalPago: totalPreco,
       dataCriacao: new Date().toISOString(),
-      dataEntrega: ""
+      dataEntrega: "",
+      statusEntrega: "Em producao"
     };
 
     try {
       const ticketResponse = await criarTicket(ticketToCreate);
-      console.log("criarTicket: ", { ticketResponse });
       setTicket(ticketResponse);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -107,7 +107,7 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
 
   return (
     <div className='totalizador'>
-      <h3>Resumo do Pedido</h3>
+      <h3>Resumo do Atendimento</h3>
       <div className="cliente-info">
         <p><strong>Cliente:</strong> {cliente.nome}</p>
         <p><strong>Telefone:</strong> {cliente.telefone}</p>
@@ -115,23 +115,23 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
       </div>
       <div className="pecas-lista">
         {Object.entries(pecasAgrupadas).map(([key, { quantidade, total, cores, marca, defeitos, servicos }], idx) => (
-          <div key={idx}>
+          <div key={idx} className="peca-card-resumo">
             <p><strong>{key.split('-')[0]} ({quantidade})</strong></p>
             <ul>
               <li><strong>Serviços:</strong> {servicos.join(', ')}</li>
               <li><strong>Cores:</strong> {cores.map(cor => colorNames[cor as ColorCode] || cor).join(', ')}</li>
               <li><strong>Marca:</strong> {marca}</li>
               <li><strong>Defeitos:</strong> {defeitos.join(', ')}</li>
-              <li><strong>Preço Total:</strong> R${total.toFixed(2)}</li>
+              <li><strong>Preço total:</strong> R${total.toFixed(2)}</li>
             </ul>
           </div>
         ))}
       </div>
       <div className="total-container">
-        <p><strong>Total de Peças:</strong> {totalPecas}</p>
-        <p><strong>Total a Pagar:</strong> R${totalPreco.toFixed(2)}</p>
+        <p><strong>Total de peças:</strong> {totalPecas}</p>
+        <p><strong>Total a pagar:</strong> R${totalPreco.toFixed(2)}</p>
       </div>
-      <button onClick={handleFinalizar} className='btnFinalizar'>Finalizar</button>
+      <button onClick={handleFinalizar} className='btnFinalizar'>Gerar ticket</button>
     </div>
   );
 };

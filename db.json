@@ -191,6 +191,48 @@
         "bairro": "Chacara Nossa Senhora do Bom Conselho",
         "complemento": "ap teste"
       }
+    },
+    {
+      "nome": "usuária teste ",
+      "email": "teste@exemplo.com",
+      "telefone": "11123456457",
+      "endereco": {
+        "endereco": "Rua teste, 451",
+        "numero": "451",
+        "estado": "SP",
+        "cep": "05763-470",
+        "bairro": "Chacara Nossa Senhora do Bom Conselho",
+        "complemento": "blc1"
+      },
+      "id": "C6ILWvm"
+    },
+    {
+      "nome": "usuária teste ",
+      "email": "teste@exemplo.com",
+      "telefone": "11123456457",
+      "endereco": {
+        "endereco": "Rua teste, 451",
+        "numero": "451",
+        "estado": "SP",
+        "cep": "05763-470",
+        "bairro": "Chacara Nossa Senhora do Bom Conselho",
+        "complemento": "blc1"
+      },
+      "id": "BOOOaB5"
+    },
+    {
+      "nome": "usuária teste ",
+      "email": "teste@exemplo.com",
+      "telefone": "11123456457",
+      "endereco": {
+        "endereco": "Rua teste, 451",
+        "numero": "451",
+        "estado": "SP",
+        "cep": "05763-470",
+        "bairro": "Chacara Nossa Senhora do Bom Conselho",
+        "complemento": "blc1"
+      },
+      "id": "R1En9GU"
     }
   ],
   "delivery": [
@@ -211,6 +253,12 @@
       "clienteId": "3",
       "deliveryTipo": "Retirada",
       "deliveryData": "2024-12-19T14:11:00.000Z"
+    },
+    {
+      "clienteId": "892b",
+      "deliveryTipo": "Entrega",
+      "deliveryData": "2026-04-30T23:31:00.000Z",
+      "id": "TSvLD2H"
     }
   ],
   "peca": [
@@ -799,6 +847,110 @@
       "totalPago": 200.9,
       "dataCriacao": "2024-12-13T16:21:10.120Z",
       "dataEntrega": "2025-01-03T17:21:00.000Z"
+    },
+    {
+      "ticketNumber": "680211",
+      "clienteId": "3",
+      "estaPago": "nÃ£o",
+      "items": [],
+      "total": 0,
+      "totalPago": 0,
+      "dataCriacao": "2026-04-29T19:24:00.422Z",
+      "dataEntrega": "",
+      "statusEntrega": "Em producao",
+      "id": "9z7mMLU"
+    },
+    {
+      "ticketNumber": "680211",
+      "clienteId": "3",
+      "estaPago": "sim",
+      "items": [
+        {
+          "pecaId": "bl4",
+          "subTipo": "BLAZER DETALHE",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "Azul",
+          "marca": "Marca O",
+          "defeitos": "Partes Soltas, Bolor",
+          "servicos": "Lavagem"
+        },
+        {
+          "pecaId": "c5",
+          "subTipo": "EDREDOM PLUMA",
+          "quantidade": 1,
+          "total": 30,
+          "cores": "Castanho",
+          "marca": "Marca H",
+          "defeitos": "",
+          "servicos": "Lavagem"
+        },
+        {
+          "pecaId": "JA6",
+          "subTipo": "JALECO BRIM",
+          "quantidade": 1,
+          "total": 30,
+          "cores": "Branco",
+          "marca": "Marca P",
+          "defeitos": "",
+          "servicos": "So Passar"
+        }
+      ],
+      "total": 149.9,
+      "totalPago": 149.9,
+      "dataCriacao": "2026-04-29T19:25:20.214Z",
+      "dataEntrega": "2026-05-01T17:25:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "jCQpUN8",
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Cartao de Credito",
+      "statusPagamentoDescricao": "Pago com Cartao de Credito"
+    },
+    {
+      "ticketNumber": "570963",
+      "clienteId": "c63f",
+      "estaPago": "nÃ£o",
+      "items": [
+        {
+          "pecaId": "cm1",
+          "subTipo": "CAMISA ESPECIAL",
+          "quantidade": 1,
+          "total": 39.9,
+          "cores": "Rosa",
+          "marca": "Marca B",
+          "defeitos": "",
+          "servicos": "So Passar"
+        },
+        {
+          "pecaId": "2",
+          "subTipo": "CALÇA SARJA",
+          "quantidade": 1,
+          "total": 25.9,
+          "cores": "Prata",
+          "marca": "Marca A",
+          "defeitos": "Costura Solta",
+          "servicos": "Lavagem, Costura"
+        },
+        {
+          "pecaId": "v2",
+          "subTipo": "VESTIDO RENDA",
+          "quantidade": 1,
+          "total": 200.9,
+          "cores": "Verde",
+          "marca": "Marca I",
+          "defeitos": "Bolor, Furo",
+          "servicos": "Lavagem"
+        }
+      ],
+      "total": 266.7,
+      "totalPago": 266.7,
+      "dataCriacao": "2026-04-29T19:28:32.747Z",
+      "dataEntrega": "2026-05-06T18:29:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "VqPIb2O",
+      "tipoAtendimento": "Entrega",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
     }
   ]
 }
