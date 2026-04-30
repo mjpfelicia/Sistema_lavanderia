@@ -6,6 +6,8 @@
 *.gif
 *.webm 
 node_modules/
+node_modules_broken_backup/
+build/
 dist/
 # Log files
 *.log
