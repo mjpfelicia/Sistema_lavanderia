@@ -4,4 +4,9 @@
 *.jpeg
 *.bmp
 *.gif
-*.webm
+*.webm 
+node_modules/
+dist/
+# Log files
+*.log
+# OS generated files
