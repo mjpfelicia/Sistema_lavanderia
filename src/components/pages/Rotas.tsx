@@ -12,6 +12,9 @@ import Validacao from "./FormularioValidacao/Formulario";
 import CadastroCliente from "./CadastroCliente/CadastroCliente";
 import CloseButton from "../buttons/CloseButton";
 import AgendamentoEntrega from "./AgendaDelivery/AgendaDelivery";
+import AdminDashboard from "./Admin/AdminDashboard";
+import RelatorioFinanceiro from "./Admin/RelatorioFinanceiro";
+import AdminPlaceholder from "./Admin/AdminPlaceholder";
 
 const Rotas = () => {
   return (
@@ -43,6 +46,14 @@ const Rotas = () => {
             complemento: ""
           },
         }}/>} />
+        
+        {/* Rotas Administrativas */}
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/financeiro" element={<RelatorioFinanceiro />} />
+        <Route path="/admin/tickets" element={<AdminPlaceholder title="Gestão de Tickets" description="Gerencie todos os tickets da lavanderia" icon="🎫" />} />
+        <Route path="/admin/clientes" element={<AdminPlaceholder title="Clientes" description="Cadastro e histórico de clientes" icon="👥" />} />
+        <Route path="/admin/delivery" element={<AdminPlaceholder title="Entregas" description="Controle de entregas e retiradas" icon="🚚" />} />
+        <Route path="/admin/configuracoes" element={<AdminPlaceholder title="Configurações" description="Ajustes do sistema" icon="⚙️" />} />
       </Routes>
     </BrowserRouter>
   );
