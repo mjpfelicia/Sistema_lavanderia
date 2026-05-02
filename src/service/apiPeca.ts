@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { config } from '../config';
 
 export type TipoPeca =
   | "BLAZER"
@@ -29,7 +30,7 @@ export interface Peca {
 export type PecaTipo = "Entrega" | "Retirada";
 
 const api = axios.create({
-  baseURL: 'http://localhost:3008/peca',
+  baseURL: `${config.apiUrl}/peca`,
 });
 
 export const listarPeca = async (): Promise<Peca[]> => {

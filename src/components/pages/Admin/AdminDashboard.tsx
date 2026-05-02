@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { config } from '../../../config';
 
 interface KPI {
   label: string;
@@ -38,7 +39,7 @@ const AdminDashboard: React.FC = () => {
       setLoading(true);
       
       // Buscar tickets
-      const responseTickets = await axios.get('http://localhost:3008/tickets');
+      const responseTickets = await axios.get(`${config.apiUrl}/tickets`);
       const tickets = responseTickets.data;
 
       // Calcular KPIs

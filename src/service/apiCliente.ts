@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { config } from '../config';
 
 export type Endereco = {
   endereco: string;
@@ -30,7 +31,7 @@ const normalizePhone = (value?: string) =>
   (value || '').replace(/\D/g, '');
 
 const api = axios.create({
-  baseURL: 'http://localhost:3008/cliente',
+  baseURL: `${config.apiUrl}/cliente`,
 });
 
 export const listarClientes = async (): Promise<Cliente[]> => {
