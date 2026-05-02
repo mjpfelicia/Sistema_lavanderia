@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { config } from '../config';
 import { Cliente } from './apiCliente';
 
 export type TicketItem = {
@@ -31,7 +32,7 @@ export type Ticket = {
 };
 
 const api = axios.create({
-  baseURL: 'http://localhost:3008/ticket',
+  baseURL: `${config.apiUrl}/ticket`,
 });
 
 const handleError = (error: AxiosError | any): never => {

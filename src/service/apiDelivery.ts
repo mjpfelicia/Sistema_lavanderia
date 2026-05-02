@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { config } from '../config';
 
 export type DeliveryTipo = "Entrega" | "Retirada";
 
@@ -12,7 +13,7 @@ export type Delivery = {
 };
 
 const api = axios.create({
-  baseURL: 'http://localhost:3008/delivery',
+  baseURL: `${config.apiUrl}/delivery`,
 });
 
 const handleApiError = (error: unknown) => {
