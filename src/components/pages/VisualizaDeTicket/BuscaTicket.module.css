@@ -1,68 +1,171 @@
+.pageShell {
+  min-height: 100vh;
+}
 
-  .contentInput {
-      display: flex;
-      flex-direction: column; 
-      align-items: center; 
-      width: 50%;
-      padding: 1.5rem;
-      margin: 0 auto;
-  }
-  
+.pageContent {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.heroPanel {
+  padding: 1.5rem;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(15, 76, 92, 0.16), transparent 26%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(244, 248, 255, 0.88));
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+}
+
+.eyebrow {
+  display: inline-flex;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+}
+
+.heroPanel h1 {
+  margin: 0.75rem 0 0.4rem;
+  color: #0f172a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 800;
+}
+
+.heroPanel p {
+  margin: 0;
+  max-width: 62ch;
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.searchSurface {
+  padding: 1.25rem;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+}
+
+.contentInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 860px);
+  padding: 0.5rem 0 1rem;
+  margin: 0 auto;
+}
+
+.inputGroup {
+  display: flex;
+  max-width: 100%;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.inputGroup input {
+  flex: 1;
+  padding: 0.95rem 1.1rem;
+  border: 1px solid var(--color_border);
+  border-right: none;
+  border-radius: 14px 0 0 14px;
+  outline: none;
+  background: #fff;
+  color: #0f172a;
+}
+
+.btn_buscar {
+  padding: 0.95rem 1.25rem;
+  background: linear-gradient(135deg, var(--colorBtnCadastra), var(--colorHoverBtnCadastra));
+  color: var(--color_branca);
+  border: 1px solid var(--color_border);
+  border-radius: 0 14px 14px 0;
+  border-left: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+.btn_buscar:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+.errorMessage {
+  color: var(--color-text-danger);
+  font-weight: 700;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.dateInput,
+.timeInput {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #d7dee7;
+  outline: none;
+  margin-top: 0.5rem;
+}
+
+.content {
+  width: 100%;
+}
+
+.totalizador {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  padding: 1.5rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 18px;
+  background-color: var(--color_branca);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+}
+
+.totalizador h3,
+.totalizador h4 {
+  color: #0f172a;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.totalizador p,
+.totalizador li,
+.totalizador label {
+  color: #475569;
+}
+
+.totalizador ul {
+  padding-left: 1rem;
+}
+
+.inputGroup label {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width: 720px) {
   .inputGroup {
-      display: flex;
-      max-width: 80%;
-      width: 100%;
-      margin: 0.5rem 0;
+    flex-direction: column;
   }
-  
-  input {
-      flex: 1;
-      padding: 10px 20px;
-      border: 1px solid var(--color_border); 
-      border-right: none; 
-      border-radius: 4px 0 0 4px; 
-      outline: none;
-  }
-  
+
+  .inputGroup input,
   .btn_buscar {
-      padding: 10px 20px;
-      background-color: var(--colorBtnCadastra);
-      color: var(--color_branca);
-      border: 1px solid var(--color_border);
-      border-radius: 0 4px 4px 0; /* Apenas os cantos externos são arredondados */
-      border-left: none; /* Remove a borda esquerda */
-      cursor: pointer;
-      transition: background-color 0.3s;
-      flex-shrink: 0; 
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--color_border);
   }
-  
-  .btn_buscar:hover {
-      background-color: var(--colorHoverBtnCadastra);
+
+  .btn_buscar {
+    margin-top: 0.75rem;
   }
-  
-  .errorMessage {
-      color: var(--color-text-danger);
-      font-weight: bold;
-      margin-top: 0.5rem; 
-      text-align: center; 
-  }
-  
-  .dateInput, .timeInput {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      outline: none;
-      margin-top: 0.5rem;
-  }
-  
-  .totalizador {
-      display: inline-block;
-      width: 70%;
-      text-align: left;
-      padding: 1.5rem;
-      border: 1px solid var(--color-borde);
-      border-radius: 8px;
-      background-color: var(--color_branca);
-  }
-  
+}
