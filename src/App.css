@@ -92,20 +92,22 @@ header {
   width: 100%;
   text-align: center;
   background:
-    linear-gradient(180deg, rgba(255, 251, 245, 0.72) 0%, rgba(240, 248, 244, 0.74) 45%, rgba(247, 251, 248, 0.76) 100%),
-    radial-gradient(circle at top left, rgba(31, 138, 132, 0.18), transparent 24%),
-    radial-gradient(circle at right, rgba(201, 139, 89, 0.14), transparent 26%),
-    url('./img/bgcontainer.jpg');
-  background-position: center, top left, right, center;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-size: cover, auto, auto, cover;
-  background-attachment: fixed, scroll, scroll, fixed;
+    linear-gradient(180deg, rgba(255, 250, 243, 0.96) 0%, rgba(243, 249, 246, 0.98) 48%, rgba(249, 252, 249, 1) 100%),
+    radial-gradient(circle at top left, rgba(31, 138, 132, 0.16), transparent 25%),
+    radial-gradient(circle at 88% 18%, rgba(201, 139, 89, 0.14), transparent 18%),
+    linear-gradient(115deg, transparent 0 58%, rgba(255, 255, 255, 0.38) 58%, rgba(255, 255, 255, 0.38) 64%, transparent 64%),
+    linear-gradient(90deg, rgba(24, 70, 78, 0.035) 0, rgba(24, 70, 78, 0.035) 1px, transparent 1px, transparent 96px),
+    linear-gradient(0deg, rgba(24, 70, 78, 0.025) 0, rgba(24, 70, 78, 0.025) 1px, transparent 1px, transparent 96px);
+  background-position: center, top left, right top, center, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
+  background-size: cover, auto, auto, cover, 96px 96px, 96px 96px;
+  background-attachment: fixed, scroll, scroll, scroll, fixed, fixed;
 }
 
 @media (max-width: 768px) {
   .App {
     min-height: 100vh;
-    background-attachment: scroll, scroll, scroll, scroll;
+    background-attachment: scroll, scroll, scroll, scroll, scroll, scroll;
   }
 }
 

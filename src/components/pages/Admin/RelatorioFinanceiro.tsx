@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './RelatorioFinanceiro.css';
 import axios from 'axios';
+import { config } from '../../../config';
 
 interface Ticket {
   id: number;
@@ -40,7 +41,7 @@ const RelatorioFinanceiro: React.FC = () => {
   const carregarDados = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:3008/tickets');
+      const response = await axios.get(`${config.apiUrl}/tickets`);
       let todosTickets = response.data;
 
       // Filtrar por mês e ano
