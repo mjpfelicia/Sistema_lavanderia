@@ -15,14 +15,25 @@
   grid-template-columns: 1.7fr 1fr;
   gap: 1.5rem;
   padding: 2rem;
-  border-radius: 28px;
+  border-radius: 16px;
   background:
-    radial-gradient(circle at top left, rgba(31, 138, 132, 0.26), transparent 34%),
-    radial-gradient(circle at right, rgba(201, 139, 89, 0.14), transparent 30%),
-    linear-gradient(135deg, rgba(255, 252, 246, 0.96), rgba(227, 241, 236, 0.96));
+    radial-gradient(circle at top left, rgba(15, 76, 92, 0.2), transparent 34%),
+    radial-gradient(circle at right, rgba(201, 123, 85, 0.18), transparent 30%),
+    radial-gradient(circle at 75% 78%, rgba(207, 141, 152, 0.12), transparent 18%),
+    linear-gradient(135deg, rgba(255, 251, 246, 0.98), rgba(247, 238, 230, 0.96));
   color: var(--color-texto-primario);
-  box-shadow: 0 24px 70px var(--color-shadow-soft);
-  border: 1px solid rgba(111, 176, 177, 0.3);
+  box-shadow: 0 28px 80px var(--color-shadow-soft);
+  border: 1px solid rgba(183, 110, 77, 0.16);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 0 62%, rgba(255, 255, 255, 0.34) 62%, transparent 72%);
+  pointer-events: none;
 }
 
 .hero-copy {
@@ -45,6 +56,7 @@
   font-family: 'Roboto Serif', serif;
   font-size: clamp(2rem, 4vw, 3.4rem);
   line-height: 1.05;
+  text-wrap: balance;
 }
 
 .hero-copy p {
@@ -72,9 +84,10 @@
   align-content: center;
   gap: 0.35rem;
   padding: 1.2rem 1.4rem;
-  border-radius: 20px;
-  background: rgba(255, 252, 247, 0.72);
-  border: 1px solid rgba(111, 176, 177, 0.28);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 253, 250, 0.9), rgba(246, 239, 232, 0.74));
+  border: 1px solid rgba(183, 110, 77, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 
 .hero-badge strong {
@@ -87,9 +100,10 @@
 
 .feedback-banner {
   padding: 1rem 1.25rem;
-  border-radius: 18px;
-  background: rgba(255, 252, 247, 0.92);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 253, 250, 0.96), rgba(245, 238, 231, 0.92));
   color: var(--color-texto);
+  box-shadow: 0 14px 28px rgba(16, 36, 42, 0.06);
 }
 
 .error-banner {
@@ -107,10 +121,11 @@
   display: grid;
   gap: 0.45rem;
   padding: 1.35rem;
-  border-radius: 20px;
-  background: rgba(255, 253, 249, 0.92);
-  box-shadow: 0 18px 40px rgba(22, 49, 55, 0.08);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(247, 240, 233, 0.92));
+  box-shadow: 0 20px 48px rgba(22, 49, 55, 0.08);
   text-align: left;
+  border: 1px solid rgba(183, 110, 77, 0.12);
 }
 
 .insight-card span {
@@ -137,9 +152,10 @@
 
 .dashboard-card {
   padding: 1.5rem;
-  border-radius: 24px;
-  background: rgba(255, 253, 249, 0.92);
-  box-shadow: 0 18px 40px rgba(22, 49, 55, 0.08);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(247, 240, 233, 0.92));
+  box-shadow: 0 20px 48px rgba(22, 49, 55, 0.08);
+  border: 1px solid rgba(183, 110, 77, 0.12);
 }
 
 .dashboard-card-wide {
@@ -177,17 +193,19 @@
   display: grid;
   gap: 0.45rem;
   padding: 1rem;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #fffdf8, #e5f1ec);
-  border: 1px solid rgba(111, 176, 177, 0.22);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.98), rgba(245, 236, 228, 0.92)),
+    var(--gradient-brand-soft);
+  border: 1px solid rgba(183, 110, 77, 0.16);
   color: var(--color-texto);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   text-align: left;
 }
 
 .action-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 30px rgba(31, 138, 132, 0.16);
+  transform: translateY(-4px);
+  box-shadow: 0 22px 36px rgba(183, 110, 77, 0.16);
 }
 
 .action-card span {
@@ -257,13 +275,13 @@
 }
 
 .status-paid {
-  background: rgba(91, 161, 131, 0.18);
-  color: #2f6d57;
+  background: rgba(191, 211, 198, 0.5);
+  color: #456a5a;
 }
 
 .status-open {
-  background: rgba(201, 139, 89, 0.18);
-  color: #8a6138;
+  background: rgba(243, 214, 196, 0.72);
+  color: #8d6540;
 }
 
 .opportunity-list {
@@ -305,7 +323,7 @@
   .hero-panel,
   .dashboard-card,
   .insight-card {
-    border-radius: 20px;
+    border-radius: 12px;
   }
 
   .ticket-table-row {
