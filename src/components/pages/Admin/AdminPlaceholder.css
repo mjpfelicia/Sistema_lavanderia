@@ -1,13 +1,13 @@
 .admin-placeholder {
   min-height: 100vh;
-  background: linear-gradient(135deg, #faf7f3 0%, #fffef9 100%);
+  background: linear-gradient(135deg, var(--color-bg_menu) 0%, var(--color-bg-light) 100%);
 }
 
 .placeholder-header {
-  background: linear-gradient(135deg, #4a9c9f 0%, #5faaa5 100%);
+  background: var(--gradient-brand);
   color: white;
   padding: 24px 32px;
-  box-shadow: 0 4px 12px rgba(74, 156, 159, 0.3);
+  box-shadow: 0 4px 12px rgba(23, 107, 116, 0.28);
 }
 
 .header-content h1 {
@@ -47,13 +47,13 @@
 
 .placeholder-card h2 {
   font-size: 24px;
-  color: #2d4a52;
+  color: var(--color-texto);
   margin: 0 0 12px 0;
   font-weight: 700;
 }
 
 .placeholder-card p {
-  color: #5a6b7c;
+  color: var(--color-text-secondary);
   font-size: 16px;
   margin: 0 0 32px 0;
   line-height: 1.6;
@@ -61,7 +61,7 @@
 
 .btn-voltar {
   display: inline-block;
-  background: linear-gradient(135deg, #4a9c9f 0%, #5faaa5 100%);
+  background: var(--gradient-brand);
   color: white;
   padding: 12px 28px;
   border-radius: 8px;
@@ -72,5 +72,5 @@
 
 .btn-voltar:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(74, 156, 159, 0.3);
+  box-shadow: 0 6px 16px rgba(23, 107, 116, 0.28);
 }

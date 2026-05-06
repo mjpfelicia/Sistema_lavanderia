@@ -44,7 +44,7 @@ const RelatorioFinanceiro: React.FC = () => {
       let todosTickets = response.data;
 
       // Filtrar por mês e ano
-      const ticketsFiltrados = todosTickets.filter((t: any) => {
+      let ticketsFiltrados = todosTickets.filter((t: any) => {
         const dataEntrada = new Date(t.dataEntrada);
         return dataEntrada.getMonth() === mes && dataEntrada.getFullYear() === ano;
       });

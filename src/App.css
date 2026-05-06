@@ -8,64 +8,66 @@ body {
 }
 
 :root {
-  /* Palette principal - inspirada nos tons da imagem de fundo */
-  --color_azul_bg: #4a9c9f;
-  --color_border: #7fb5b8;
-  --colorBtnCadastra: #5faaa5;
-  --colorHoverBtnCadastra: #468f8a;
-  --color-hover-atualiza: #d4ebe8;
-  --color-icon: #4d7f8a;
-  --color_branca: #fffef9;
-  --color-bg_menu: #faf7f3;
-  --color-hover-clicado: #e8f2ed;
-  --color-borde: #d3e0d8;
-  --color-bg-cinza-claro: rgba(255, 253, 247, 0.92);
-  --color-texto: #2d4a52;
-  --color-sub-titulo: #5a6f75;
-  --color-font: #1f2f35;
-  --color-line: rgba(45, 74, 82, 0.1);
-  --color-error: #c7525a;
-  --color-titleCadastro: #1a2f35;
-  
-  /* Sistema de cores semânticas modernas */
-  --color-bg-primary: #f0f5f3;
-  --color-bg-secondary: #e0ece7;
-  --color-bg-success: #d5ebe2;
-  --color-bg-danger: #f7e6e4;
-  --color-bg-warning: #fcf3de;
-  --color-bg-info: #dcf0f1;
-  --color-bg-light: #fffdf9;
-  --color-bg-leve: rgba(255, 254, 251, 0.88);
-  --color-bg-dark: #334d54;
-  
-  /* Cores de texto aprimoradas */
-  --color-text-primary: #1f2f35;
-  --color-text-secondary: #60757a;
-  --color-text-success: #356f5f;
-  --color-text-danger: #8a3f46;
-  --color-text-warning: #8a6a3e;
-  --color-text-info: #3d6f75;
-  --color-text-light: #fffef9;
-  --color-texto-primario: #263d44;
-  --color-text-dark: #334d54;
-  
-  /* Bordas sutis e modernas */
-  --color-border-primary: #d6e2da;
-  --color-border-secondary: #c5d4cc;
-  --color-border-success: #c8e0d3;
-  --color-border-danger: #efd0d3;
-  --color-border-warning: #eedcb3;
-  --color-border-info: #c7e0e1;
-  
-  /* Estados de hover vibrantes */
-  --color-hover-primary: #6ab0ac;
-  --color-hover-secondary: #85959a;
-  --color-hover-success: #5a9a85;
-  --color-hover-danger: #b8656c;
-  --color-hover-warning: #cfad65;
-  --color-hover-info: #6fb7bc;
-  --color-hover-light: #fffdf9;
-  --color-hover-dark: #334d54;
+  --color_azul_bg: #176b74;
+  --color_border: #6fb0b1;
+  --colorBtnCadastra: #1f8a84;
+  --colorHoverBtnCadastra: #166964;
+  --color-hover-atualiza: #d8efec;
+  --color-icon: #2f6a73;
+  --color_branca: #fffdf8;
+  --color-bg_menu: #f7f1e8;
+  --color-hover-clicado: #e4f1ee;
+  --color-borde: #d4e3de;
+  --color-bg-cinza-claro: rgba(255, 251, 245, 0.94);
+  --color-texto: #1f3f46;
+  --color-sub-titulo: #5c7277;
+  --color-font: #15292e;
+  --color-line: rgba(31, 63, 70, 0.12);
+  --color-error: #c45b4d;
+  --color-titleCadastro: #12262c;
+
+  --color-bg-primary: #eef6f4;
+  --color-bg-secondary: #dcece8;
+  --color-bg-success: #d6ebe3;
+  --color-bg-danger: #f9e5e0;
+  --color-bg-warning: #f6ead3;
+  --color-bg-info: #d8edf0;
+  --color-bg-light: #fffdf8;
+  --color-bg-leve: rgba(255, 253, 249, 0.9);
+  --color-bg-dark: #234b53;
+
+  --color-text-primary: #15292e;
+  --color-text-secondary: #61757a;
+  --color-text-success: #2d6d60;
+  --color-text-danger: #8d453d;
+  --color-text-warning: #88663a;
+  --color-text-info: #2e6c73;
+  --color-text-light: #fffdf8;
+  --color-texto-primario: #1d3940;
+  --color-text-dark: #234b53;
+
+  --color-border-primary: #d4e2dc;
+  --color-border-secondary: #c7d7d1;
+  --color-border-success: #c3ddd2;
+  --color-border-danger: #efcbc4;
+  --color-border-warning: #ead7ae;
+  --color-border-info: #c4dfe2;
+
+  --color-hover-primary: #43a29b;
+  --color-hover-secondary: #7f9196;
+  --color-hover-success: #4f917b;
+  --color-hover-danger: #b76357;
+  --color-hover-warning: #c9a45f;
+  --color-hover-info: #58a4ae;
+  --color-hover-light: #fffdf8;
+  --color-hover-dark: #234b53;
+
+  --color-accent-warm: #c98b59;
+  --color-accent-soft: #f2dfca;
+  --color-surface-glass: rgba(255, 252, 247, 0.76);
+  --color-shadow-soft: rgba(22, 49, 55, 0.12);
+  --gradient-brand: linear-gradient(135deg, #176b74 0%, #1f8a84 52%, #7fc7b6 100%);
+  --gradient-surface: linear-gradient(135deg, rgba(255, 252, 247, 0.96), rgba(225, 241, 236, 0.96));
 }
 
 a {
@@ -79,10 +81,10 @@ li {
 header {
   position: fixed;
   width: 100%;
-  background-color: rgba(250, 247, 243, 0.96);
+  background-color: rgba(247, 241, 232, 0.94);
   backdrop-filter: blur(12px);
   padding: 10px 0;
-  box-shadow: 0 4px 12px rgba(45, 74, 82, 0.08);
+  box-shadow: 0 4px 12px var(--color-shadow-soft);
 }
 
 .App {
@@ -90,9 +92,9 @@ header {
   width: 100%;
   text-align: center;
   background:
-    linear-gradient(180deg, rgba(255, 252, 247, 0.65) 0%, rgba(243, 250, 246, 0.65) 45%, rgba(248, 252, 249, 0.7) 100%),
-    radial-gradient(circle at top left, rgba(95, 170, 165, 0.18), transparent 24%),
-    radial-gradient(circle at right, rgba(195, 178, 155, 0.14), transparent 26%),
+    linear-gradient(180deg, rgba(255, 251, 245, 0.72) 0%, rgba(240, 248, 244, 0.74) 45%, rgba(247, 251, 248, 0.76) 100%),
+    radial-gradient(circle at top left, rgba(31, 138, 132, 0.18), transparent 24%),
+    radial-gradient(circle at right, rgba(201, 139, 89, 0.14), transparent 26%),
     url('./img/bgcontainer.jpg');
   background-position: center, top left, right, center;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;

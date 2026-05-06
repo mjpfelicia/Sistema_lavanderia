@@ -17,11 +17,12 @@
   padding: 2rem;
   border-radius: 28px;
   background:
-    radial-gradient(circle at top left, rgba(95, 170, 165, 0.28), transparent 34%),
-    linear-gradient(135deg, rgba(255, 252, 246, 0.94), rgba(230, 242, 238, 0.95));
-  color: #263d44;
-  box-shadow: 0 24px 70px rgba(45, 74, 82, 0.12);
-  border: 1px solid rgba(145, 185, 178, 0.28);
+    radial-gradient(circle at top left, rgba(31, 138, 132, 0.26), transparent 34%),
+    radial-gradient(circle at right, rgba(201, 139, 89, 0.14), transparent 30%),
+    linear-gradient(135deg, rgba(255, 252, 246, 0.96), rgba(227, 241, 236, 0.96));
+  color: var(--color-texto-primario);
+  box-shadow: 0 24px 70px var(--color-shadow-soft);
+  border: 1px solid rgba(111, 176, 177, 0.3);
 }
 
 .hero-copy {
@@ -49,7 +50,7 @@
 .hero-copy p {
   margin: 0;
   max-width: 58ch;
-  color: rgba(48, 76, 82, 0.84);
+  color: rgba(31, 63, 70, 0.84);
   font-size: 1rem;
 }
 
@@ -72,8 +73,8 @@
   gap: 0.35rem;
   padding: 1.2rem 1.4rem;
   border-radius: 20px;
-  background: rgba(255, 254, 251, 0.68);
-  border: 1px solid rgba(135, 180, 172, 0.28);
+  background: rgba(255, 252, 247, 0.72);
+  border: 1px solid rgba(111, 176, 177, 0.28);
 }
 
 .hero-badge strong {
@@ -81,19 +82,19 @@
 }
 
 .hero-badge span {
-  color: rgba(52, 84, 88, 0.78);
+  color: rgba(38, 72, 78, 0.78);
 }
 
 .feedback-banner {
   padding: 1rem 1.25rem;
   border-radius: 18px;
-  background: rgba(255, 253, 250, 0.9);
+  background: rgba(255, 252, 247, 0.92);
   color: var(--color-texto);
 }
 
 .error-banner {
-  background: rgba(255, 234, 234, 0.92);
-  color: #8a1f11;
+  background: rgba(251, 229, 224, 0.94);
+  color: #8d453d;
 }
 
 .insights-grid {
@@ -107,24 +108,24 @@
   gap: 0.45rem;
   padding: 1.35rem;
   border-radius: 20px;
-  background: rgba(255, 254, 250, 0.9);
-  box-shadow: 0 18px 40px rgba(45, 74, 82, 0.08);
+  background: rgba(255, 253, 249, 0.92);
+  box-shadow: 0 18px 40px rgba(22, 49, 55, 0.08);
   text-align: left;
 }
 
 .insight-card span {
-  color: #5a6f73;
+  color: var(--color-sub-titulo);
   font-size: 0.92rem;
 }
 
 .insight-card strong {
   font-size: 1.8rem;
-  color: #243b40;
+  color: var(--color-texto-primario);
 }
 
 .insight-card p {
   margin: 0;
-  color: #60787d;
+  color: var(--color-text-secondary);
   font-size: 0.92rem;
 }
 
@@ -137,8 +138,8 @@
 .dashboard-card {
   padding: 1.5rem;
   border-radius: 24px;
-  background: rgba(255, 254, 250, 0.9);
-  box-shadow: 0 18px 40px rgba(45, 74, 82, 0.08);
+  background: rgba(255, 253, 249, 0.92);
+  box-shadow: 0 18px 40px rgba(22, 49, 55, 0.08);
 }
 
 .dashboard-card-wide {
@@ -158,11 +159,11 @@
   margin: 0.3rem 0 0;
   font-family: 'Roboto Serif', serif;
   font-size: 1.45rem;
-  color: #243b40;
+  color: var(--color-texto-primario);
 }
 
 .text-link {
-  color: #529590;
+  color: var(--color_azul_bg);
   font-weight: 600;
 }
 
@@ -177,20 +178,20 @@
   gap: 0.45rem;
   padding: 1rem;
   border-radius: 18px;
-  background: linear-gradient(180deg, #fffef9, #e8f2ee);
-  border: 1px solid rgba(125, 180, 172, 0.22);
-  color: #2d464d;
+  background: linear-gradient(180deg, #fffdf8, #e5f1ec);
+  border: 1px solid rgba(111, 176, 177, 0.22);
+  color: var(--color-texto);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   text-align: left;
 }
 
 .action-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 30px rgba(95, 155, 148, 0.16);
+  box-shadow: 0 18px 30px rgba(31, 138, 132, 0.16);
 }
 
 .action-card span {
-  color: #5f757a;
+  color: var(--color-sub-titulo);
   font-size: 0.92rem;
 }
 
@@ -222,7 +223,7 @@
 
 .timeline-item span,
 .timeline-item time {
-  color: #65787d;
+  color: var(--color-text-secondary);
   font-size: 0.94rem;
 }
 
@@ -234,12 +235,12 @@
   padding: 0.9rem 0;
   border-bottom: 1px solid rgba(45, 74, 82, 0.08);
   text-align: left;
-  color: #364d53;
+  color: var(--color-texto);
 }
 
 .ticket-table-head {
   padding-top: 0;
-  color: #768a8f;
+  color: #71868b;
   font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.08rem;
@@ -256,20 +257,20 @@
 }
 
 .status-paid {
-  background: rgba(95, 170, 145, 0.18);
-  color: #42806a;
+  background: rgba(91, 161, 131, 0.18);
+  color: #2f6d57;
 }
 
 .status-open {
-  background: rgba(215, 190, 130, 0.26);
-  color: #856838;
+  background: rgba(201, 139, 89, 0.18);
+  color: #8a6138;
 }
 
 .opportunity-list {
   padding-left: 1rem;
   margin: 0;
   text-align: left;
-  color: #485d63;
+  color: #476067;
 }
 
 .opportunity-list li {
@@ -278,7 +279,7 @@
 
 .empty-state {
   margin: 0;
-  color: #65787d;
+  color: var(--color-text-secondary);
   text-align: left;
 }
 
