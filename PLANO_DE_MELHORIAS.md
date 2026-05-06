@@ -217,19 +217,19 @@ useEffect(() => {
 **Objetivo:** Manter todos informados automaticamente.
 
 #### Tipos de Notificação:
-| Tipo | Gatilho | Canal | Destinatário |
-|------|---------|-------|--------------|
-| Ticket Pronto | Status muda para "Pronto" | WhatsApp/SMS | Cliente |
-| Pagamento Confirmado | PIX/Pagamento recebido | WhatsApp | Cliente |
-| Entrega Saiu | Status muda para "Em Rota" | WhatsApp | Cliente |
-| Ticket Atrasado | > 24h do prazo | Dashboard | Admin |
-| Meta Batida | Faturamento mensal atinge objetivo | Toast | Admin |
-| Aniversário Cliente | Data de nascimento | WhatsApp | Cliente |
+| Tipo | Gatilho | Canal | Destinatário | Status |
+|------|---------|-------|--------------|--------|
+| Ticket Pronto | Status muda para "Pronto" | WhatsApp/SMS | Cliente | ❌ Não implementado |
+| Pagamento Confirmado | PIX/Pagamento recebido | WhatsApp | Cliente | ❌ Não implementado |
+| Entrega Saiu | Status muda para "Em Rota" | WhatsApp | Cliente | ❌ Não implementado |
+| Ticket Atrasado | > 24h do prazo | Dashboard | Admin | ✅ Implementado |
+| Meta Batida | Faturamento mensal atinge objetivo | Toast | Admin | ❌ Não implementado |
+| Aniversário Cliente | Data de nascimento | WhatsApp | Cliente | ❌ Não implementado |
 
 #### Tecnologias:
 - `react-toastify` - Notificações internas
-- Integração com API de WhatsApp (Twilio/Z-API)
-- Envio de e-mails via SendGrid/Nodemailer
+- Integração com API de WhatsApp (Twilio/Z-API) ❌ Pendente
+- Envio de e-mails via SendGrid/Nodemailer ❌ Pendente
 
 ---
 
@@ -291,16 +291,16 @@ useEffect(() => {
 ├── components/
 │   ├── pages/
 │   │   ├── Admin/
-│   │   │   ├── Dashboard.tsx
-│   │   │   ├── RelatorioFinanceiro.tsx
-│   │   │   ├── RelatorioEntregas.tsx
-│   │   │   ├── ControlePagamentos.tsx
-│   │   │   ├── GestaoTickets.tsx
-│   │   │   ├── GestaoClientes.tsx
-│   │   │   └── Configuracoes.tsx
+│   │   │   ├── Dashboard.tsx ✅ IMPLEMENTADO (AdminDashboard.tsx)
+│   │   │   ├── RelatorioFinanceiro.tsx ✅ IMPLEMENTADO
+│   │   │   ├── RelatorioEntregas.tsx ⏳ EM ANDAMENTO (placeholder)
+│   │   │   ├── ControlePagamentos.tsx ❌ NÃO INICIADO
+│   │   │   ├── GestaoTickets.tsx ⏳ EM ANDAMENTO (placeholder)
+│   │   │   ├── GestaoClientes.tsx ⏳ EM ANDAMENTO (placeholder)
+│   │   │   └── Configuracoes.tsx ⏳ EM ANDAMENTO (placeholder)
 │   │   ├── Cliente/
-│   │   │   ├── AreaDoCliente.tsx
-│   │   │   └── AcompanhamentoTicket.tsx
+│   │   │   ├── AreaDoCliente.tsx ❌ NÃO INICIADO
+│   │   │   └── AcompanhamentoTicket.tsx ❌ NÃO INICIADO
 │   │   └── ...
 │   ├── common/
 │   │   ├── Header.tsx
@@ -309,22 +309,28 @@ useEffect(() => {
 │   │   ├── Table.tsx
 │   │   └── Modal.tsx
 │   └── charts/
-│       ├── FaturamentoMensal.tsx
-│       ├── TicketsPorStatus.tsx
-│       └── EvolucaoAnual.tsx
+│       ├── FaturamentoMensal.tsx ❌ NÃO INICIADO
+│       ├── TicketsPorStatus.tsx ❌ NÃO INICIADO
+│       └── EvolucaoAnual.tsx ❌ NÃO INICIADO
 ├── hooks/
-│   ├── useDashboard.ts
-│   ├── useRelatorios.ts
-│   └── useNotificacoes.ts
+│   ├── useDashboard.ts ❌ NÃO INICIADO
+│   ├── useRelatorios.ts ❌ NÃO INICIADO
+│   └── useNotificacoes.ts ❌ NÃO INICIADO
 ├── services/
 │   ├── api.ts
-│   ├── relatorios.ts
-│   └── notificacoes.ts
+│   ├── relatorios.ts ❌ NÃO INICIADO
+│   └── notificacoes.ts ❌ NÃO INICIADO
 └── utils/
-    ├── exportPDF.ts
-    ├── exportExcel.ts
-    └── formatadores.ts
+    ├── exportPDF.ts ✅ PARCIAL (implementado no componente)
+    ├── exportExcel.ts ✅ PARCIAL (implementado no componente)
+    └── formatadores.ts ❌ NÃO INICIADO
 ```
+
+**Legenda:**
+- ✅ IMPLEMENTADO - Funcionalidade completa e operacional
+- ✅ PARCIAL - Funcionalidade implementada de forma básica
+- ⏳ EM ANDAMENTO - Placeholder ou desenvolvimento em progresso
+- ❌ NÃO INICIADO - Funcionalidade ainda não desenvolvida
 
 ---
 
@@ -354,40 +360,50 @@ useEffect(() => {
 
 ## 🗓️ Roadmap de Implementação
 
-### Fase 1: Fundação Administrativa (2-3 semanas)
-- [ ] Criar estrutura de rotas `/admin/*`
-- [ ] Implementar `RelatorioFinanceiro.tsx` com filtros básicos
-- [ ] Adicionar exportação PDF/Excel
-- [ ] Criar menu lateral administrativo
-- [ ] Configurar autenticação de admin
+### Fase 1: Fundação Administrativa (2-3 semanas) ✅ CONCLUÍDO
+- [x] Criar estrutura de rotas `/admin/*`
+- [x] Implementar `RelatorioFinanceiro.tsx` com filtros básicos
+- [x] Adicionar exportação PDF/Excel
+- [x] Criar menu lateral administrativo
+- [x] Configurar autenticação de admin
 
-### Fase 2: Dashboard e Gráficos (2 semanas)
-- [ ] Desenvolver `Dashboard.tsx` com KPIs
+**Status:** Funcionalidades básicas implementadas. Relatórios financeiros operacionais com exportação.
+
+### Fase 2: Dashboard e Gráficos (2 semanas) ✅ PARCIALMENTE CONCLUÍDO
+- [x] Desenvolver `Dashboard.tsx` com KPIs
 - [ ] Integrar gráficos com `recharts`
-- [ ] Implementar auto-atualização (30s)
-- [ ] Criar alertas de tickets atrasados
+- [x] Implementar auto-atualização (30s)
+- [x] Criar alertas de tickets atrasados
 - [ ] Otimizar versão mobile
 
-### Fase 3: Gestão de Status e Entregas (2-3 semanas)
+**Status:** Dashboard funcional com KPIs em tempo real e auto-atualização. Gráficos ainda pendentes.
+
+### Fase 3: Gestão de Status e Entregas (2-3 semanas) ⏳ EM ANDAMENTO
 - [ ] Implementar timeline de status
 - [ ] Criar módulo de roteirização de entregas
 - [ ] Adicionar upload de comprovantes
 - [ ] Integrar notificações WhatsApp
 - [ ] Desenvolver calendário de retiradas
 
-### Fase 4: Pagamentos e Relatórios Avançados (2 semanas)
+**Status:** Páginas de entrega criadas como placeholder. Funcionalidades completas pendentes.
+
+### Fase 4: Pagamentos e Relatórios Avançados (2 semanas) ⏳ NÃO INICIADO
 - [ ] Criar `ControlePagamentos.tsx`
 - [ ] Implementar histórico por cliente
 - [ ] Adicionar relatório de inadimplência
 - [ ] Integrar geração de QR Code PIX
 - [ ] Refinar filtros avançados
 
-### Fase 5: UX/UI e Polimento (1-2 semanas)
+**Status:** Módulo de pagamentos não implementado.
+
+### Fase 5: UX/UI e Polimento (1-2 semanas) ⏳ NÃO INICIADO
 - [ ] Implementar tema claro/escuro
 - [ ] Adicionar atalhos de teclado
 - [ ] Criar empty states e loading skeletons
 - [ ] Otimizar animações e transições
 - [ ] Testes de usabilidade e ajustes finais
+
+**Status:** Melhorias de UX/UI pendentes.
 
 ---
 
@@ -417,12 +433,23 @@ useEffect(() => {
 
 ## 📞 Próximos Passos
 
-1. **Priorizar**: Escolher 3 funcionalidades da Fase 1 para começar
-2. **Configurar**: Instalar dependências necessárias
-3. **Prototipar**: Criar wireframes das telas administrativas
-4. **Desenvolver**: Implementar MVP do relatório financeiro
-5. **Testar**: Validar com usuários reais
-6. **Iterar**: Coletar feedback e melhorar continuamente
+### ✅ Concluídos:
+1. ~~**Priorizar**: Escolher 3 funcionalidades da Fase 1 para começar~~
+2. ~~**Configurar**: Instalar dependências necessárias~~
+3. ~~**Desenvolver**: Implementar MVP do relatório financeiro~~
+
+### 🔄 Em Andamento:
+4. **Desenvolver**: Criar módulos de gestão de clientes e entregas
+5. **Implementar**: Timeline de status dos tickets
+6. **Integrar**: Sistema de notificações WhatsApp
+
+### ⏳ Pendentes:
+7. **Prototipar**: Criar wireframes das telas administrativas restantes
+8. **Testar**: Validar com usuários reais
+9. **Iterar**: Coletar feedback e melhorar continuamente
+10. **Implementar**: Gráficos com recharts no dashboard
+11. **Criar**: Módulo de controle de pagamentos
+12. **Adicionar**: Tema claro/escuro e melhorias de UX/UI
 
 ---
 
@@ -438,5 +465,30 @@ useEffect(() => {
 
 **🎯 Objetivo Final**: Transformar o sistema em uma ferramenta indispensável para gestão eficiente da lavanderia, economizando tempo, reduzindo erros e aumentando a satisfação dos clientes!
 
-*Documento criado em: Janeiro 2025*
-*Versão: 1.0*
+*Documento criado em: Janeiro 2025*  
+*Última atualização: 06/05/2026*  
+*Versão: 1.1*
+
+---
+
+## 📝 Resumo do Status Atual (Atualizado)
+
+### ✅ Funcionalidades Implementadas:
+- **Dashboard Administrativo** (`/admin`) - KPIs em tempo real, auto-atualização (30s), alertas de tickets atrasados
+- **Relatório Financeiro** (`/admin/financeiro`) - Filtros por período/status, exportação PDF/Excel, resumo financeiro completo
+- **Rotas Administrativas** - Estrutura completa de rotas `/admin/*` com navegação integrada
+- **Placeholders** - Páginas de Gestão de Tickets, Clientes, Entregas e Configurações criadas
+
+### ⏳ Em Desenvolvimento (Placeholders):
+- Gestão de Tickets
+- Gestão de Clientes  
+- Controle de Entregas
+- Configurações do Sistema
+
+### ❌ Pendentes de Implementação:
+- Gráficos interativos (recharts)
+- Timeline de status dos tickets
+- Módulo de pagamentos e controle de inadimplência
+- Notificações automáticas (WhatsApp/SMS/Email)
+- Tema claro/escuro
+- Melhorias de UX/UI (atalhos de teclado, skeletons, animações)

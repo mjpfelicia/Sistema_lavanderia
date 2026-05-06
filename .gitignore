@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Image files
 *.png
 *.jpg
@@ -68,9 +67,3 @@ htmlcov/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-<<<<<<< HEAD
-
-```
->>>>>>> db218c2a506720c802d55407899dbf9d69ef309e
-=======
->>>>>>> 020b4164444bdbc53832e39c2e96009324975898
