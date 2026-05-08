@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './CriarTicket.css';
-import { Ticket, criarTicket } from "../../service/apiTicket";
+import { Ticket, criarTicket } from '../../service/apiTicket';
 import { Peca } from '../../service/apiPeca';
 import { Cliente } from '../../service/apiCliente';
 
@@ -27,7 +27,7 @@ const colorNames = {
   '#90EE90': 'Verde Claro',
   '#FFFFE0': 'Amarelo Claro',
   '#FFB6C1': 'Rosa Claro',
-  '#D3D3D3': 'Cinza Claro'
+  '#D3D3D3': 'Cinza Claro',
 } as const;
 
 type ColorCode = keyof typeof colorNames;
@@ -36,7 +36,7 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
   const [ticketNumber, setTicketNumber] = useState<string>('');
 
   const totalPecas = useMemo(() => pecas.reduce((acc, peca) => acc + (peca.quantidade || 1), 0), [pecas]);
-  const totalPreco = useMemo(() => pecas.reduce((acc, peca) => acc + (peca.preco * (peca.quantidade || 1)), 0), [pecas]);
+  const totalPreco = useMemo(() => pecas.reduce((acc, peca) => acc + peca.preco * (peca.quantidade || 1), 0), [pecas]);
 
   const pecasAgrupadas = useMemo(() => {
     return pecas.reduce((acc, peca) => {
@@ -52,7 +52,7 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
           cores: peca.cores,
           marca: peca.marca,
           defeitos: peca.defeitos,
-          servicos: peca.servicos
+          servicos: peca.servicos,
         };
       }
       return acc;
@@ -66,7 +66,7 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
 
   const handleFinalizar = async () => {
     if (!cliente.id || !cliente.nome || !cliente.telefone) {
-      alert("Por favor, preencha todos os dados do cliente antes de finalizar o pedido.");
+      alert('Por favor, preencha todos os dados do cliente antes de finalizar o pedido.');
       return;
     }
 
@@ -75,22 +75,22 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
     const ticketToCreate: Ticket = {
       ticketNumber,
       clienteId: cliente.id.toString(),
-      estaPago: "nÃ£o",
+      estaPago: 'nÃ£o',
       items: Object.entries(pecasAgrupadas).map(([key, { quantidade, total, pecaId, cores, marca, defeitos, servicos }]) => ({
         pecaId,
         subTipo: key.split('-')[0],
         quantidade,
         total,
-        cores: cores.map(cor => colorNames[cor as ColorCode] || cor).join(', '),
+        cores: cores.map((cor) => colorNames[cor as ColorCode] || cor).join(', '),
         marca,
         defeitos: defeitos.join(', '),
-        servicos: servicos.join(', ')
+        servicos: servicos.join(', '),
       })),
       total: totalPreco,
       totalPago: totalPreco,
       dataCriacao: new Date().toISOString(),
-      dataEntrega: "",
-      statusEntrega: "Em producao"
+      dataEntrega: '',
+      statusEntrega: 'Em producao',
     };
 
     try {
@@ -98,40 +98,55 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
       setTicket(ticketResponse);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        console.log("[ERROR] criar ticket:", error.message);
+        console.log('[ERROR] criar ticket:', error.message);
       } else {
-        console.log("[ERROR] criar ticket:", String(error));
+        console.log('[ERROR] criar ticket:', String(error));
       }
     }
   };
 
   return (
-    <div className='totalizador'>
-      <h3>Resumo do Atendimento</h3>
+    <div className="totalizador">
+      <div className="totalizador-header">
+        <span className="totalizador-kicker">{'Resumo do atendimento'}</span>
+        <h3>{'Ticket em constru\u00e7\u00e3o'}</h3>
+      </div>
+
       <div className="cliente-info">
-        <p><strong>Cliente:</strong> {cliente.nome}</p>
-        <p><strong>Telefone:</strong> {cliente.telefone}</p>
-        <p><strong>Número do Ticket:</strong> {ticketNumber}</p>
+        <p><strong>Cliente:</strong> {cliente.nome || 'Selecione um cliente na recep\u00e7\u00e3o'}</p>
+        <p><strong>Telefone:</strong> {cliente.telefone || '-'}</p>
+        <p><strong>{'N\u00famero do ticket:'}</strong> {ticketNumber}</p>
       </div>
+
       <div className="pecas-lista">
-        {Object.entries(pecasAgrupadas).map(([key, { quantidade, total, cores, marca, defeitos, servicos }], idx) => (
-          <div key={idx} className="peca-card-resumo">
-            <p><strong>{key.split('-')[0]} ({quantidade})</strong></p>
-            <ul>
-              <li><strong>Serviços:</strong> {servicos.join(', ')}</li>
-              <li><strong>Cores:</strong> {cores.map(cor => colorNames[cor as ColorCode] || cor).join(', ')}</li>
-              <li><strong>Marca:</strong> {marca}</li>
-              <li><strong>Defeitos:</strong> {defeitos.join(', ')}</li>
-              <li><strong>Preço total:</strong> R${total.toFixed(2)}</li>
-            </ul>
+        {Object.entries(pecasAgrupadas).length ? (
+          Object.entries(pecasAgrupadas).map(([key, { quantidade, total, cores, marca, defeitos, servicos }], idx) => (
+            <div key={idx} className="peca-card-resumo">
+              <p className="peca-resumo-title"><strong>{key.split('-')[0]}</strong><span>{`${quantidade}x`}</span></p>
+              <ul>
+                <li><strong>{'Servi\u00e7os:'}</strong> {servicos.join(', ')}</li>
+                <li><strong>Cores:</strong> {cores.map((cor) => colorNames[cor as ColorCode] || cor).join(', ')}</li>
+                <li><strong>Marca:</strong> {marca}</li>
+                <li><strong>Defeitos:</strong> {defeitos.join(', ') || 'Nenhum'}</li>
+                <li><strong>{'Pre\u00e7o total:'}</strong> {`R$ ${total.toFixed(2)}`}</li>
+              </ul>
+            </div>
+          ))
+        ) : (
+          <div className="peca-card-resumo empty">
+            <p>{'Nenhuma pe\u00e7a adicionada ainda. Escolha uma categoria ao lado para come\u00e7ar.'}</p>
           </div>
-        ))}
+        )}
       </div>
+
       <div className="total-container">
-        <p><strong>Total de peças:</strong> {totalPecas}</p>
-        <p><strong>Total a pagar:</strong> R${totalPreco.toFixed(2)}</p>
+        <p><strong>{'Total de pe\u00e7as:'}</strong> {totalPecas}</p>
+        <p><strong>Total a pagar:</strong> {`R$ ${totalPreco.toFixed(2)}`}</p>
       </div>
-      <button onClick={handleFinalizar} className='btnFinalizar'>Gerar ticket</button>
+
+      <button onClick={handleFinalizar} className="btnFinalizar">
+        {'Gerar ticket'}
+      </button>
     </div>
   );
 };

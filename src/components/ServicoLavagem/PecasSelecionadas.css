@@ -1,116 +1,65 @@
-/* Estilo para o container de cards */
-.cards-container {
-    flex: 2;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-  }
-  
-  /* Estilo dos Cards */
-  .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    width: 14rem;
-    height: 14rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.2s;
-    background-color: var(--color_branca);
-    border: 1px solid var(--color-border-primary);
-    overflow: hidden;
-    text-align: center;
-  }
-  
-  .card img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-  }
-  
-  .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .card.selected {
-    border-color: var(--colorBtnCadastra);
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
-  }
-  
-  .card h3 {
-    width: 100%;
-    margin: 0;
-    font-size: 1rem;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    text-align: center;
-    white-space: nowrap;
-  }
-  
-  .card p {
-    margin: 8px 0 0;
-    font-size: 1em;
-    text-align: center;
-  }
-  
-  .card button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  /* Estilo para os cartões de cores */
-  .cores-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .cor-card {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-  .cor-card:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Estilo para os cartões de marcas */
-  .marcas-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .marca-card {
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    text-align: center;
-  }
-  
-  .marca-card:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
+.pecas-selecionadas {
+  display: grid;
+  gap: 1rem;
+}
+
+.pecas-header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.pecas-kicker {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.4rem 0.74rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+}
+
+.pecas-header p {
+  margin: 0;
+  color: #64748b;
+}
+
+.card {
+  align-items: start;
+}
+
+.card img {
+  margin-bottom: 0;
+}
+
+.peca-card-body {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.card h3 {
+  margin: 0;
+}
+
+.card p {
+  margin: 0;
+  color: #64748b;
+}
+
+.card button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1rem;
+  border-radius: 14px;
+  border: 0;
+  background: linear-gradient(135deg, #2d7fff, #4e9cff);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 16px 28px rgba(45, 127, 255, 0.18);
+}

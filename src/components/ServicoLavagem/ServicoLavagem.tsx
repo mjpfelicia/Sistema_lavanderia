@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import Step from './Step';
 import { getPecaPorTipo, Peca, TipoPeca } from '../../service/apiPeca';
 import PecasSelecionadas from './PecasSelecionadas';
@@ -9,8 +9,6 @@ import ColorPicker from '../Color/ColorPicker';
 import BrandPicker from '../Marcas/BrandPicker';
 import DefectPicker from '../Defeitos/DefectPicker';
 import TipoServicoPicker from '../TipoServico/TipoServicoPicker';
-
-// Imagens
 import BLAZER from '../../img/blazer.png';
 import camisa from '../../img/camisa.jpg';
 import calcaSimples from '../../img/calcaSimples.png';
@@ -22,32 +20,40 @@ import toalham from '../../img/toa.png';
 import { Ticket } from '../../service/apiTicket';
 import { Cliente } from '../../service/apiCliente';
 
-
-const tipoPecaImage = {
-  "BLAZER": BLAZER,
-  "CAMISA": camisa,
-  "CALÇA": calcaSimples,
-  "VESTIDO": vestidoSimples,
-  "JAQUETA": jaqueta,
-  "JALECO": jaleco,
-  "CAMA": edredom,
-  "MESA": toalham,
+const tipoPecaImage: Record<TipoPeca, string> = {
+  BLAZER,
+  CAMISA: camisa,
+  ['CAL\u00c7A']: calcaSimples,
+  VESTIDO: vestidoSimples,
+  JAQUETA: jaqueta,
+  JALECO: jaleco,
+  CAMA: edredom,
+  MESA: toalham,
 };
 
 const tipoPecaLista: TipoPeca[] = [
-  "BLAZER",
-  "CAMISA",
-  "CALÇA",
-  "VESTIDO",
-  "JAQUETA",
-  "JALECO",
-  "CAMA",
-  "MESA",
+  'BLAZER',
+  'CAMISA',
+  'CAL\u00c7A',
+  'VESTIDO',
+  'JAQUETA',
+  'JALECO',
+  'CAMA',
+  'MESA',
 ];
 
 interface ServicoLavagemProps {
   cliente: Cliente;
 }
+
+const stepTitles = [
+  'Escolha o tipo',
+  'Selecione o subtipo',
+  'Defina o servi\u00e7o',
+  'Escolha as cores',
+  'Informe a marca',
+  'Registre os defeitos',
+];
 
 const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
   const [modalAberto, setModalAberto] = useState<boolean>(false);
@@ -92,9 +98,7 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
 
   const selecionarCor = (cor: string) => {
     setSelectedColors((prevSelectedColors) =>
-      prevSelectedColors.includes(cor)
-        ? prevSelectedColors
-        : [...prevSelectedColors, cor]
+      prevSelectedColors.includes(cor) ? prevSelectedColors : [...prevSelectedColors, cor],
     );
   };
 
@@ -119,7 +123,7 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
     setDefeitosSelecionados((prevDefeitos) =>
       prevDefeitos.includes(defeito)
         ? prevDefeitos.filter((d) => d !== defeito)
-        : [...prevDefeitos, defeito]
+        : [...prevDefeitos, defeito],
     );
   };
 
@@ -127,25 +131,36 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
     if (pecaAtual) {
       const pecaComDetalhes = { ...pecaAtual, defeitos: defeitosSelecionados, servicos: tipoServico };
       const pecaExistente = pecasAdicionadas.find(
-        p => p.subTipo === pecaAtual.subTipo && JSON.stringify(p.cores) === JSON.stringify(pecaAtual.cores) && p.marca === pecaAtual.marca && JSON.stringify(p.defeitos) === JSON.stringify(defeitosSelecionados) && JSON.stringify(p.servicos) === JSON.stringify(tipoServico)
+        (p) =>
+          p.subTipo === pecaAtual.subTipo &&
+          JSON.stringify(p.cores) === JSON.stringify(pecaAtual.cores) &&
+          p.marca === pecaAtual.marca &&
+          JSON.stringify(p.defeitos) === JSON.stringify(defeitosSelecionados) &&
+          JSON.stringify(p.servicos) === JSON.stringify(tipoServico),
       );
+
       if (pecaExistente) {
-        setPecasAdicionadas(prevPecas =>
-          prevPecas.map(p =>
-            p.subTipo === pecaAtual.subTipo && JSON.stringify(p.cores) === JSON.stringify(pecaAtual.cores) && p.marca === pecaAtual.marca && JSON.stringify(p.defeitos) === JSON.stringify(defeitosSelecionados) && JSON.stringify(p.servicos) === JSON.stringify(tipoServico)
+        setPecasAdicionadas((prevPecas) =>
+          prevPecas.map((p) =>
+            p.subTipo === pecaAtual.subTipo &&
+            JSON.stringify(p.cores) === JSON.stringify(pecaAtual.cores) &&
+            p.marca === pecaAtual.marca &&
+            JSON.stringify(p.defeitos) === JSON.stringify(defeitosSelecionados) &&
+            JSON.stringify(p.servicos) === JSON.stringify(tipoServico)
               ? { ...p, quantidade: (p.quantidade || 1) + 1 }
-              : p
-          )
+              : p,
+          ),
         );
       } else {
-        setPecasAdicionadas(prevPecas => [...prevPecas, pecaComDetalhes]);
+        setPecasAdicionadas((prevPecas) => [...prevPecas, pecaComDetalhes]);
       }
     }
+
     fecharModal();
   };
 
-  const finalizarSelecao = (ticketNumber: string) => {
-    setTicketNumber(ticketNumber);
+  const finalizarSelecao = (newTicketNumber: string) => {
+    setTicketNumber(newTicketNumber);
     setMostrarPagamento(true);
   };
 
@@ -155,53 +170,80 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
 
   const totalPecas = pecasAdicionadas.reduce((acc, peca) => acc + (peca.quantidade || 1), 0);
   const totalPreco = pecasAdicionadas.reduce((acc, peca) => acc + peca.preco * (peca.quantidade || 1), 0);
+  const activeStepTitle = modalAberto ? stepTitles[Math.min(step + 1, stepTitles.length - 1)] : stepTitles[0];
 
   return (
-    <div className="ServicoLavagem">
-      <div className="content-wrapper">
-        <div className="totalizador-container">
+    <div className="servico-lavagem">
+      <div className="servico-layout">
+        <aside className="servico-summary-panel">
           <CriarTicket
             pecas={pecasAdicionadas}
             finalizarSelecao={finalizarSelecao}
             setTicket={setTicket}
             cliente={cliente}
           />
-        </div>
-        {!modalAberto && (
-          <div className="cards-container">
-            {tipoPecaLista.map((peca, idx) => (
-              <div key={idx} className="card" onClick={() => abrirModal(peca)}>
-                <img src={tipoPecaImage[peca]} alt={peca} />
-                <h3>{peca}</h3>
-              </div>
-            ))}
-          </div>
-        )}
+        </aside>
 
-        {modalAberto && (
-          <Step>
-            {step === 0 && pecasSelecionadas.length > 0 && (
-              <PecasSelecionadas pecas={pecasSelecionadas} adicionarPeca={adicionarPeca} />
-            )}
-            {step === 1 && pecaAtual && (
-              <TipoServicoPicker selecionarServico={selecionarServico} />
-            )}
-            {step === 2 && tipoServico.length > 0 && (
-              <>
+        <section className="servico-workspace">
+          <div className="servico-workspace-header">
+            <div>
+              <span className="servico-eyebrow">{modalAberto ? 'Detalhamento da pe\u00e7a' : 'Cat\u00e1logo de entrada'}</span>
+              <h2>{modalAberto ? activeStepTitle : 'Escolha o tipo de pe\u00e7a para come\u00e7ar'}</h2>
+            </div>
+            <div className="servico-metrics">
+              <div className="servico-metric-pill">
+                <strong>{totalPecas}</strong>
+                <span>{'pe\u00e7as'}</span>
+              </div>
+              <div className="servico-metric-pill">
+                <strong>{`R$ ${totalPreco.toFixed(2)}`}</strong>
+                <span>{'total parcial'}</span>
+              </div>
+            </div>
+          </div>
+
+          {!modalAberto && (
+            <div className="servico-catalog-grid">
+              {tipoPecaLista.map((peca, idx) => (
+                <button key={idx} type="button" className="servico-piece-card" onClick={() => abrirModal(peca)}>
+                  <div className="servico-piece-illustration">
+                    <img src={tipoPecaImage[peca]} alt={peca} />
+                  </div>
+                  <div className="servico-piece-copy">
+                    <strong>{peca}</strong>
+                    <span>{'Selecionar categoria'}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {modalAberto && (
+            <div className="servico-step-shell">
+              <div className="servico-step-topbar">
+                <span>{`Etapa ${step + 2} de 6`}</span>
+                <button type="button" onClick={fecharModal} className="servico-back-button">
+                  {'Voltar ao cat\u00e1logo'}
+                </button>
+              </div>
+
+              <Step>
+                {step === 0 && pecasSelecionadas.length > 0 && (
+                  <PecasSelecionadas pecas={pecasSelecionadas} adicionarPeca={adicionarPeca} />
+                )}
+                {step === 1 && pecaAtual && <TipoServicoPicker selecionarServico={selecionarServico} />}
                 {step === 2 && tipoServico.length > 0 && (
                   <ColorPicker selecionarCor={selecionarCor} finalizarSelecaoCores={finalizarSelecaoCores} />
                 )}
+                {step === 3 && selectedColors.length > 0 && <BrandPicker selecionarMarca={selecionarMarca} />}
+                {step === 4 && marcaSelecionada && (
+                  <DefectPicker selecionarDefeito={selecionarDefeito} confirmarDefeitos={confirmarDefeitos} />
+                )}
+              </Step>
+            </div>
+          )}
+        </section>
 
-              </>
-            )}
-            {step === 3 && selectedColors.length > 0 && (
-              <BrandPicker selecionarMarca={selecionarMarca} />
-            )}
-            {step === 4 && marcaSelecionada && (
-              <DefectPicker selecionarDefeito={selecionarDefeito} confirmarDefeitos={confirmarDefeitos} />
-            )}
-          </Step>
-        )}
         {mostrarPagamento && (
           <ModalPagamento
             ticket={ticket}

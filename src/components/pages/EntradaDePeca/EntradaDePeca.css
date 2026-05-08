@@ -1,0 +1,112 @@
+.entrada-page {
+  min-height: 100vh;
+  padding: 1.25rem;
+  background:
+    radial-gradient(circle at top left, rgba(76, 132, 255, 0.1), transparent 24%),
+    linear-gradient(180deg, #eef4ff 0%, #f7faff 42%, #edf3ff 100%);
+}
+
+.entrada-layout {
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.entrada-hero,
+.entrada-service-shell {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.08);
+}
+
+.entrada-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.35rem;
+}
+
+.entrada-hero-copy {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.entrada-kicker {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.42rem 0.78rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+}
+
+.entrada-hero h1 {
+  margin: 0;
+  color: #0f172a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.55rem, 2.5vw, 2rem);
+  font-weight: 800;
+}
+
+.entrada-hero p {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.65;
+  max-width: 60ch;
+}
+
+.entrada-hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.entrada-action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1rem;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2d7fff, #4e9cff);
+  box-shadow: 0 16px 28px rgba(45, 127, 255, 0.22);
+}
+
+.entrada-action-link.secondary {
+  color: #1d4ed8;
+  background: linear-gradient(180deg, #ffffff, #f3f7ff);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: none;
+}
+
+.entrada-service-shell {
+  padding: 1.1rem;
+}
+
+@media (max-width: 900px) {
+  .entrada-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 720px) {
+  .entrada-page {
+    padding: 0.85rem;
+  }
+
+  .entrada-hero,
+  .entrada-service-shell {
+    padding: 1rem;
+  }
+}
