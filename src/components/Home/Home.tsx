@@ -118,15 +118,15 @@ const normalizeDashboardData = (clientesRaw: any[], deliveriesRaw: any[], ticket
 });
 
 const sidebarItems: SidebarItem[] = [
-  { label: 'Início', href: '/', icon: 'home' },
-  { label: 'Recepção', href: '/Recepcao', icon: 'desk' },
+  { label: 'In\u00edcio', href: '/', icon: 'home' },
+  { label: 'Recep\u00e7\u00e3o', href: '/Recepcao', icon: 'desk' },
   { label: 'Clientes', href: '/CadastroCliente', icon: 'clients' },
-  { label: 'Entrada de Peça', href: '/EntradaDePeca', icon: 'piece' },
+  { label: 'Entrada de Pe\u00e7a', href: '/EntradaDePeca', icon: 'piece' },
   { label: 'Buscar Ticket', href: '/BuscarTicket', icon: 'ticket' },
   { label: 'Delivery', href: '/Delivery', icon: 'delivery' },
-  { label: 'Relatórios', href: '/relatorio', icon: 'reports' },
+  { label: 'Relat\u00f3rios', href: '/relatorio', icon: 'reports' },
   { label: 'Financeiro', href: '/admin/financeiro', icon: 'money' },
-  { label: 'Configurações', href: '/admin', icon: 'settings' },
+  { label: 'Configura\u00e7\u00f5es', href: '/admin', icon: 'settings' },
 ];
 
 const SaasIcon = ({ name }: { name: IconName }) => {
@@ -196,7 +196,7 @@ const Home = () => {
         setDashboard(normalizeDashboardData(clientesRaw as any[], deliveriesRaw as any[], ticketsRaw as any[]));
       } catch (err) {
         console.error(err);
-        setError('Não foi possível carregar os indicadores. Verifique se a API local está ativa na porta 3008.');
+        setError('N\u00e3o foi poss\u00edvel carregar os indicadores. Verifique se a API local est\u00e1 ativa na porta 3008.');
       } finally {
         setLoading(false);
       }
@@ -236,13 +236,13 @@ const Home = () => {
     {
       label: 'Faturamento confirmado',
       value: formatCurrency(revenue),
-      help: 'Total já marcado como pago nos tickets registrados.',
+      help: 'Total j\u00e1 marcado como pago nos tickets registrados.',
       icon: 'money',
     },
     {
-      label: 'Ticket médio',
+      label: 'Ticket m\u00e9dio',
       value: formatCurrency(averageTicket),
-      help: 'Ajuda a acompanhar valor médio por atendimento.',
+      help: 'Ajuda a acompanhar valor m\u00e9dio por atendimento.',
       icon: 'insight',
     },
   ];
@@ -251,19 +251,19 @@ const Home = () => {
     {
       title: 'Cadastrar cliente',
       href: '/CadastroCliente',
-      description: 'Novo cadastro com dados de contato e endereço.',
+      description: 'Novo cadastro com dados de contato e endere\u00e7o.',
       icon: 'clients',
     },
     {
-      title: 'Nova entrada de peças',
+      title: 'Nova entrada de pe\u00e7as',
       href: '/EntradaDePeca',
-      description: 'Registrar itens, serviços e gerar ticket.',
+      description: 'Registrar itens, servi\u00e7os e gerar ticket.',
       icon: 'piece',
     },
     {
       title: 'Visualizar ticket',
       href: '/BuscarTicket',
-      description: 'Consultar andamento e impressão de atendimento.',
+      description: 'Consultar andamento e impress\u00e3o de atendimento.',
       icon: 'ticket',
     },
     {
@@ -305,16 +305,16 @@ const Home = () => {
         <header className="saas-topbar">
           <div>
             <span className="saas-overline">Dashboard SaaS</span>
-            <h1>Painel de Operação</h1>
+            <h1>{'Painel de Opera\u00e7\u00e3o'}</h1>
           </div>
 
           <div className="saas-topbar-actions">
-            <button className="topbar-icon-button" type="button" aria-label="Notificações">
+            <button className="topbar-icon-button" type="button" aria-label={'Notifica\u00e7\u00f5es'}>
               <SaasIcon name="bell" />
             </button>
-            <button className="topbar-profile" type="button" aria-label="Perfil do usuário">
+            <button className="topbar-profile" type="button" aria-label={'Perfil do usu\u00e1rio'}>
               <SaasIcon name="user" />
-              <span>Felícia</span>
+              <span>{'Fel\u00edcia'}</span>
             </button>
           </div>
         </header>
@@ -322,11 +322,10 @@ const Home = () => {
         <main className="home-dashboard">
           <section className="hero-panel">
             <div className="hero-copy">
-              <span className="hero-kicker">Operação da lavanderia</span>
-              <h2>Painel moderno para acompanhar pedidos, clientes e entregas em um só lugar</h2>
+              <span className="hero-kicker">{'Opera\u00e7\u00e3o da lavanderia'}</span>
+              <h2>{'Painel moderno para acompanhar pedidos, clientes e entregas em um s\u00f3 lugar'}</h2>
               <p>
-                A home funciona como um centro operacional de alto nível: exibe a saúde do negócio, oferece atalhos
-                do dia e antecipa os próximos compromissos da equipe.
+                {'A home funciona como um centro operacional de alto n\u00edvel: exibe a sa\u00fade do neg\u00f3cio, oferece atalhos do dia e antecipa os pr\u00f3ximos compromissos da equipe.'}
               </p>
             </div>
 
@@ -369,10 +368,10 @@ const Home = () => {
             <article className="dashboard-card">
               <div className="card-heading">
                 <div>
-                  <span className="card-eyebrow">Ações rápidas</span>
+                  <span className="card-eyebrow">{'A\u00e7\u00f5es r\u00e1pidas'}</span>
                   <h3>Fluxos principais</h3>
                 </div>
-                <Link to="/Recepcao" className="text-link">Abrir recepção</Link>
+                <Link to="/Recepcao" className="text-link">{'Abrir recep\u00e7\u00e3o'}</Link>
               </div>
 
               <div className="action-list">
@@ -392,7 +391,7 @@ const Home = () => {
               <div className="card-heading">
                 <div>
                   <span className="card-eyebrow">Agenda</span>
-                  <h3>Próximos deliveries</h3>
+                  <h3>{'Pr\u00f3ximos deliveries'}</h3>
                 </div>
               </div>
 
@@ -406,7 +405,7 @@ const Home = () => {
                       </div>
                       <div className="timeline-content">
                         <time>{formatDate(delivery.deliveryData)}</time>
-                        <strong>{cliente?.nome ?? 'Cliente não encontrado'}</strong>
+                        <strong>{cliente?.nome ?? 'Cliente n\u00e3o encontrado'}</strong>
                         <span>{delivery.deliveryTipo}</span>
                       </div>
                     </div>
@@ -455,7 +454,7 @@ const Home = () => {
             <article className="dashboard-card">
               <div className="card-heading">
                 <div>
-                  <span className="card-eyebrow">Leituras rápidas</span>
+                  <span className="card-eyebrow">{'Leituras r\u00e1pidas'}</span>
                   <h3>Insights operacionais</h3>
                 </div>
               </div>
@@ -467,11 +466,11 @@ const Home = () => {
                 </li>
                 <li>
                   <SaasIcon name="delivery" />
-                  <span>Organize {dashboard.deliveries.length} retiradas e entregas com foco nas próximas janelas.</span>
+                  <span>{`Organize ${dashboard.deliveries.length} retiradas e entregas com foco nas pr\u00f3ximas janelas.`}</span>
                 </li>
                 <li>
                   <SaasIcon name="insight" />
-                  <span>Com {dashboard.clientes.length} clientes na base, já vale estruturar campanhas de retorno.</span>
+                  <span>{`Com ${dashboard.clientes.length} clientes na base, j\u00e1 vale estruturar campanhas de retorno.`}</span>
                 </li>
               </ul>
             </article>
