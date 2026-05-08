@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import classes from "./Formulario.module.css";
+import classes from './Formulario.module.css';
 import { Cliente, buscarCliente } from '../../../service/apiCliente';
 import ServicoLavagem from '../../ServicoLavagem/ServicoLavagem';
 
@@ -24,9 +24,9 @@ const FormularioValidacao = () => {
     const novosErros: Partial<FormData> = {};
 
     if (!formData.nome.trim() && !formData.telefone.trim()) {
-      novosErros.nome = "Informe nome ou telefone para continuar.";
+      novosErros.nome = 'Informe nome ou telefone para continuar.';
     } else if (formData.nome.trim() && formData.nome.trim().length < 3) {
-      novosErros.nome = "O nome deve ter pelo menos 3 caracteres.";
+      novosErros.nome = 'O nome deve ter pelo menos 3 caracteres.';
     }
 
     setErros(novosErros);
@@ -57,11 +57,11 @@ const FormularioValidacao = () => {
         setConfirmarCadastro(true);
       }
     } catch (requestError) {
-      console.error("Erro ao buscar cliente", requestError);
+      console.error('Erro ao buscar cliente', requestError);
       if (axios.isAxiosError(requestError) && !requestError.response) {
-        setError("Não foi possível conectar à base local de clientes. Inicie a API com 'npm run api' e tente novamente.");
+        setError('N\u00e3o foi poss\u00edvel conectar \u00e0 base local de clientes. Inicie a API com \'npm run api\' e tente novamente.');
       } else {
-        setError("Erro ao buscar cliente. Tente novamente.");
+        setError('Erro ao buscar cliente. Tente novamente.');
       }
     } finally {
       setLoading(false);
@@ -85,61 +85,76 @@ const FormularioValidacao = () => {
       {!clienteSelecionado ? (
         <form className={classes.formulario} onSubmit={handleSubmit}>
           <div className={classes.introBox}>
+            <span className={classes.kicker}>{'Busca r\u00e1pida'}</span>
             <h2>Receber cliente</h2>
-            <p>Pergunte nome ou telefone. Se não encontrar, cadastre e siga com as peças.</p>
+            <p>{'Informe nome ou telefone para localizar a ficha e seguir com o atendimento sem perder ritmo.'}</p>
           </div>
 
-          <div className={classes.controle_de_campo}>
-            <label htmlFor="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} />
-            {erros.nome && <p className={classes.error}>{erros.nome}</p>}
-          </div>
+          <div className={classes.fieldsGrid}>
+            <div className={classes.controle_de_campo}>
+              <label htmlFor="nome">Nome</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                value={formData.nome}
+                onChange={handleChange}
+                placeholder="Ex.: Maria Souza"
+              />
+              {erros.nome && <p className={classes.error}>{erros.nome}</p>}
+            </div>
 
-          <div className={classes.controle_de_campo}>
-            <label htmlFor="telefone">Telefone:</label>
-            <input
-              type="text"
-              id="telefone"
-              name="telefone"
-              value={formData.telefone}
-              onChange={handleChange}
-              placeholder="(XX) XXXXX-XXXX"
-              autoComplete="tel"
-            />
-            {erros.telefone && <p className={classes.error}>{erros.telefone}</p>}
+            <div className={classes.controle_de_campo}>
+              <label htmlFor="telefone">Telefone</label>
+              <input
+                type="text"
+                id="telefone"
+                name="telefone"
+                value={formData.telefone}
+                onChange={handleChange}
+                placeholder="(XX) XXXXX-XXXX"
+                autoComplete="tel"
+              />
+              {erros.telefone && <p className={classes.error}>{erros.telefone}</p>}
+            </div>
           </div>
 
           <div className={classes.inputGroupButton}>
-            <button type="submit" className={classes.btn_enter}>Continuar</button>
+            <button type="submit" className={classes.btn_enter} disabled={loading}>
+              {loading ? 'Buscando...' : 'Continuar'}
+            </button>
           </div>
         </form>
       ) : (
         <ServicoLavagem cliente={clienteSelecionado} />
       )}
 
-      {loading && <p>Carregando...</p>}
-      {error && <p className={classes.error}>{error}</p>}
+      {error && <p className={classes.feedbackError}>{error}</p>}
 
-      {!clienteSelecionado && !loading && (
+      {!clienteSelecionado && !loading && clientes.length > 0 && (
         <div className={classes.box}>
-          {clientes.length > 0 ? (
-            <ul>
-              {clientes.map((cliente, index) => (
-                <li className={classes.li} key={index} onClick={() => handleClienteSelecionado(cliente)}>
-                  {cliente.nome} - {cliente.telefone}
-                </li>
-              ))}
-            </ul>
-          ) : null}
+          <div className={classes.resultHeader}>
+            <strong>{'Clientes encontrados'}</strong>
+            <span>{`${clientes.length} resultado(s)`}</span>
+          </div>
+
+          <ul className={classes.resultList}>
+            {clientes.map((cliente, index) => (
+              <li className={classes.li} key={index} onClick={() => handleClienteSelecionado(cliente)}>
+                <strong>{cliente.nome}</strong>
+                <span>{cliente.telefone}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 
       {confirmarCadastro && (
         <div className={classes.confirmacao}>
-          <p>Cliente não encontrado. Deseja cadastrar um novo cliente?</p>
+          <p>{'Cliente n\u00e3o encontrado. Deseja cadastrar um novo cliente?'}</p>
           <div className={classes.btn_group}>
-            <button onClick={handleCadastrarCliente} className={classes.btn_confirm}>Sim</button>
-            <button onClick={() => setConfirmarCadastro(false)} className={classes.btn_cancel}>Não</button>
+            <button onClick={handleCadastrarCliente} className={classes.btn_confirm}>Sim, cadastrar</button>
+            <button onClick={() => setConfirmarCadastro(false)} className={classes.btn_cancel}>Voltar</button>
           </div>
         </div>
       )}
