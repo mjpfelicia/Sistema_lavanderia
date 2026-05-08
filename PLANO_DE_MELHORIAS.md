@@ -369,14 +369,14 @@ useEffect(() => {
 
 **Status:** Funcionalidades básicas implementadas. Relatórios financeiros operacionais com exportação.
 
-### Fase 2: Dashboard e Gráficos (2 semanas) ✅ PARCIALMENTE CONCLUÍDO
+### Fase 2: Dashboard e Gráficos (2 semanas) ✅ CONCLUÍDO
 - [x] Desenvolver `Dashboard.tsx` com KPIs
-- [ ] Integrar gráficos com `recharts`
+- [x] Integrar gráficos com CSS puro (barras de faturamento e tickets por status)
 - [x] Implementar auto-atualização (30s)
 - [x] Criar alertas de tickets atrasados
-- [ ] Otimizar versão mobile
+- [x] Otimizar versão mobile
 
-**Status:** Dashboard funcional com KPIs em tempo real e auto-atualização. Gráficos ainda pendentes.
+**Status:** Dashboard funcional com KPIs em tempo real, auto-atualização e gráficos implementados com CSS puro.
 
 ### Fase 3: Gestão de Status e Entregas (2-3 semanas) ⏳ EM ANDAMENTO
 - [ ] Implementar timeline de status
@@ -474,8 +474,9 @@ useEffect(() => {
 ## 📝 Resumo do Status Atual (Atualizado)
 
 ### ✅ Funcionalidades Implementadas:
-- **Dashboard Administrativo** (`/admin`) - KPIs em tempo real, auto-atualização (30s), alertas de tickets atrasados
+- **Dashboard Administrativo** (`/admin`) - KPIs em tempo real, auto-atualização (30s), alertas de tickets atrasados, gráficos de faturamento e status
 - **Relatório Financeiro** (`/admin/financeiro`) - Filtros por período/status, exportação PDF/Excel, resumo financeiro completo
+- **Gráficos Integrados** - Gráfico de barras de faturamento (últimos 6 meses) e gráfico de distribuição de tickets por status
 - **Rotas Administrativas** - Estrutura completa de rotas `/admin/*` com navegação integrada
 - **Placeholders** - Páginas de Gestão de Tickets, Clientes, Entregas e Configurações criadas
 
@@ -486,7 +487,6 @@ useEffect(() => {
 - Configurações do Sistema
 
 ### ❌ Pendentes de Implementação:
-- Gráficos interativos (recharts)
 - Timeline de status dos tickets
 - Módulo de pagamentos e controle de inadimplência
 - Notificações automáticas (WhatsApp/SMS/Email)
