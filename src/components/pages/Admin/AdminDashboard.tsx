@@ -21,12 +21,19 @@ interface TicketResumo {
   dataPrevista: string;
 }
 
+interface DadosGrafico {
+  mes: string;
+  valor: number;
+}
+
 const AdminDashboard: React.FC = () => {
   const [kpis, setKpis] = useState<KPI[]>([]);
   const [ticketsRecentes, setTicketsRecentes] = useState<TicketResumo[]>([]);
   const [ticketsAtrasados, setTicketsAtrasados] = useState<TicketResumo[]>([]);
   const [faturamentoMes, setFaturamentoMes] = useState<number>(0);
   const [loading, setLoading] = useState(true);
+  const [dadosGrafico, setDadosGrafico] = useState<DadosGrafico[]>([]);
+  const [ticketsPorStatus, setTicketsPorStatus] = useState<{status: string, quantidade: number}[]>([]);
 
   useEffect(() => {
     carregarDados();
@@ -79,6 +86,36 @@ const AdminDashboard: React.FC = () => {
         .slice(0, 10);
 
       setTicketsRecentes(recentes);
+
+      // Dados para gráfico de faturamento mensal (últimos 6 meses)
+      const mesesNome = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+      const dadosGraficoFaturamento: DadosGrafico[] = [];
+      for (let i = 5; i >= 0; i--) {
+        const mesRef = new Date(anoAtual, mesAtual - i, 1);
+        const mesIndex = mesRef.getMonth();
+        const ticketsDoMes = tickets.filter((t: any) => {
+          const dataEntrada = new Date(t.dataEntrada);
+          return dataEntrada.getMonth() === mesIndex && dataEntrada.getFullYear() === mesRef.getFullYear();
+        });
+        const valorMes = ticketsDoMes.reduce((acc: number, t: any) => acc + (t.valorTotal || t.valor || 0), 0);
+        dadosGraficoFaturamento.push({
+          mes: `${mesesNome[mesIndex]}/${String(mesRef.getFullYear()).slice(-2)}`,
+          valor: parseFloat(valorMes.toFixed(2))
+        });
+      }
+      setDadosGrafico(dadosGraficoFaturamento);
+
+      // Dados para gráfico de tickets por status
+      const statusMap: Record<string, number> = {};
+      tickets.forEach((t: any) => {
+        const status = t.status || 'Desconhecido';
+        statusMap[status] = (statusMap[status] || 0) + 1;
+      });
+      const ticketsPorStatusData = Object.entries(statusMap).map(([status, quantidade]) => ({
+        status,
+        quantidade
+      }));
+      setTicketsPorStatus(ticketsPorStatusData);
 
       // Definir KPIs
       setKpis([
@@ -259,9 +296,73 @@ const AdminDashboard: React.FC = () => {
             </table>
           </div>
         </section>
+
+        {/* Gráficos Section */}
+        <section className="charts-section">
+          <div className="charts-grid">
+            {/* Gráfico de Faturamento Mensal */}
+            <div className="chart-card">
+              <h3>📈 Faturamento dos Últimos 6 Meses</h3>
+              <div className="chart-container">
+                <div className="bar-chart">
+                  {dadosGrafico.map((item, index) => (
+                    <div key={index} className="bar-item">
+                      <div 
+                        className="bar" 
+                        style={{ height: `${Math.max((item.valor / Math.max(...dadosGrafico.map(d => d.valor))) * 100, 5)}%` }}
+                        title={`R$ ${item.valor.toFixed(2)}`}
+                      ></div>
+                      <span className="bar-label">{item.mes}</span>
+                      <span className="bar-value">R$ {item.valor.toFixed(2)}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Gráfico de Tickets por Status */}
+            <div className="chart-card">
+              <h3>🎫 Tickets por Status</h3>
+              <div className="chart-container">
+                <div className="status-chart">
+                  {ticketsPorStatus.map((item, index) => (
+                    <div key={index} className="status-item">
+                      <div className="status-info">
+                        <span className="status-name">{item.status}</span>
+                        <span className="status-count">{item.quantidade}</span>
+                      </div>
+                      <div className="status-bar-container">
+                        <div 
+                          className="status-bar" 
+                          style={{ 
+                            width: `${(item.quantidade / ticketsRecentes.length) * 100}%`,
+                            backgroundColor: getStatusColor(item.status)
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
+};
+
+// Função auxiliar para cores dos status
+const getStatusColor = (status: string): string => {
+  const statusColors: Record<string, string> = {
+    'Pendente': '#ffc107',
+    'Em produção': '#2196f3',
+    'Pronto': '#4caf50',
+    'Liberado': '#9c27b0',
+    'Entregue': '#607d8b',
+    'Cancelado': '#f44336'
+  };
+  return statusColors[status] || '#757575';
 };
 
 export default AdminDashboard;
