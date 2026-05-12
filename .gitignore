@@ -1,6 +1,6 @@
-```gitignore
 # Dependencies
 node_modules/
+node_modules_broken_backup/
 
 # Build outputs
 dist/
@@ -44,15 +44,6 @@ Thumbs.db
 *.swo
 *.tmp
 
-# Environment specific
-.env
-.env.local
-*.env.*
-
-# Coverage
-coverage/
-htmlcov/
-
 # Compressed files
 *.zip
 *.gz
@@ -76,4 +67,3 @@ htmlcov/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-```
