@@ -59,7 +59,7 @@ const Recepcao = () => {
   return (
     <div className="recepcao-page">
       <main className="recepcao-layout">
-        <section className="recepcao-form-card recepcao-form-card-top">
+        <section className="recepcao-form-card">
           <div className="recepcao-card-heading">
             <div>
               <span className="recepcao-card-eyebrow">{'Recep\u00e7\u00e3o'}</span>
