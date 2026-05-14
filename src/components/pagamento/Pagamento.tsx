@@ -24,18 +24,29 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
   const [tipoAtendimento, setTipoAtendimento] = useState<'Entrega' | 'Retirada'>('Retirada');
   const [dataRetirada, setDataRetirada] = useState<string>('');
   const [horaRetirada, setHoraRetirada] = useState<string>('');
-  const [statusPagamento, setStatusPagamento] = useState<string>('A Pagar');
+  const [statusPagamento, setStatusPagamento] = useState<string>('A pagar');
   const [erro, setErro] = useState<string>('');
   const [mostrarImpressao, setMostrarImpressao] = useState<boolean>(false);
+  const [processandoPagamento, setProcessandoPagamento] = useState<boolean>(false);
+  const [dadosConfirmados, setDadosConfirmados] = useState<{
+    formaPagamento: string;
+    statusPagamento: string;
+    dataRetirada: string;
+  } | null>(null);
 
   const handlePagamento = async () => {
+    if (!ticket.id) {
+      setErro('O ticket ainda nao terminou de ser criado. Aguarde alguns segundos e tente novamente.');
+      return;
+    }
+
     if (!dataRetirada) {
-      setErro(`Data de ${tipoAtendimento.toLowerCase()} não agendada`);
+      setErro(`Data de ${tipoAtendimento.toLowerCase()} nao agendada`);
       return;
     }
 
     if (!horaRetirada) {
-      setErro(`Hora de ${tipoAtendimento.toLowerCase()} não agendada`);
+      setErro(`Hora de ${tipoAtendimento.toLowerCase()} nao agendada`);
       return;
     }
 
@@ -45,7 +56,7 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
     const adjustedDataSelecionada = new Date(dataSelecionada.getTime() - offset * 60 * 1000);
 
     if (adjustedDataSelecionada < hoje) {
-      setErro(`Data de ${tipoAtendimento.toLowerCase()} não pode ser anterior ao dia atual`);
+      setErro(`Data de ${tipoAtendimento.toLowerCase()} nao pode ser anterior ao dia atual`);
       return;
     }
 
@@ -55,13 +66,13 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
 
     if (pagamentoNaRetirada) {
       setStatusPagamento('A pagar na retirada');
-      ticket.estaPago = "nÃ£o";
+      ticket.estaPago = 'nao';
       ticket.formaPagamento = 'Pagamento na retirada';
       ticket.statusPagamentoDescricao = 'A pagar na retirada';
     } else {
       const status = `Pago com ${formaPagamento}`;
       setStatusPagamento(status);
-      ticket.estaPago = "sim";
+      ticket.estaPago = 'sim';
       ticket.formaPagamento = formaPagamento;
       ticket.statusPagamentoDescricao = status;
     }
@@ -69,14 +80,24 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
     ticket.statusEntrega = 'Aguardando retirada';
 
     try {
+      setProcessandoPagamento(true);
       await atualizaTicket(ticket);
+      setDadosConfirmados({
+        formaPagamento: ticket.formaPagamento || 'Pagamento na retirada',
+        statusPagamento: ticket.statusPagamentoDescricao || statusPagamento,
+        dataRetirada: `${dataRetirada}T${horaRetirada}:00.000Z`,
+      });
       setMostrarImpressao(true);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        console.log("[ERROR] atualizaTicket:", error.message);
+        console.log('[ERROR] atualizaTicket:', error.message);
+        setErro(`Nao foi possivel finalizar o pagamento: ${error.message}`);
       } else {
-        console.log("[ERROR] atualizaTicket:", String(error));
+        console.log('[ERROR] atualizaTicket:', String(error));
+        setErro('Nao foi possivel finalizar o pagamento.');
       }
+    } finally {
+      setProcessandoPagamento(false);
     }
   };
 
@@ -101,60 +122,88 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
   return (
     <>
       {!mostrarImpressao ? (
-        <div className='pagamento'>
-          <p>Número do Ticket: {ticketNumber}</p>
-          <p>Total de Peças: {quantidade}</p>
-          <p>Total a Pagar: R${total.toFixed(2)}</p>
+        <div className="pagamento">
+          <div className="pagamento-resumo-grid">
+            <div className="pagamento-resumo-card">
+              <span>Numero do ticket</span>
+              <strong>{ticketNumber}</strong>
+            </div>
+            <div className="pagamento-resumo-card">
+              <span>Total de pecas</span>
+              <strong>{quantidade}</strong>
+            </div>
+            <div className="pagamento-resumo-card destaque">
+              <span>Total a pagar</span>
+              <strong>{`R$ ${total.toFixed(2)}`}</strong>
+            </div>
+          </div>
 
-          <label>
-            Entrega ou retirada:
-            <select value={tipoAtendimento} onChange={(e) => setTipoAtendimento(e.target.value as 'Entrega' | 'Retirada')}>
-              <option value="Retirada">Retirada</option>
-              <option value="Entrega">Entrega</option>
-            </select>
-          </label>
+          <div className="pagamento-form-grid">
+            <label>
+              Entrega ou retirada
+              <select
+                value={tipoAtendimento}
+                onChange={(e) => setTipoAtendimento(e.target.value as 'Entrega' | 'Retirada')}
+              >
+                <option value="Retirada">Retirada</option>
+                <option value="Entrega">Entrega</option>
+              </select>
+            </label>
+
+            <label>
+              Data de {tipoAtendimento.toLowerCase()}
+              <input type="date" value={dataRetirada} onChange={(e) => setDataRetirada(e.target.value)} />
+            </label>
+
+            <label>
+              Hora de {tipoAtendimento.toLowerCase()}
+              <input type="time" value={horaRetirada} onChange={(e) => setHoraRetirada(e.target.value)} />
+            </label>
+          </div>
 
           <div className="checkbox-container">
-            <label>
-              Pagamento na retirada:
-              <input type="checkbox" checked={pagamentoNaRetirada} onChange={handlePagamentoNaRetiradaChange} />
+            <label className="checkbox-card">
+              <span>Pagamento na retirada</span>
+              <input
+                type="checkbox"
+                checked={pagamentoNaRetirada}
+                onChange={handlePagamentoNaRetiradaChange}
+              />
             </label>
           </div>
 
           {!pagamentoNaRetirada && (
             <label>
-              Forma de pagamento:
+              Forma de pagamento
               <select value={formaPagamento} onChange={handleFormaPagamentoChange}>
-                <option value="Cartao de Credito">Cartão de Crédito</option>
-                <option value="Cartao de Debito">Cartão de Débito</option>
+                <option value="Cartao de Credito">Cartao de Credito</option>
+                <option value="Cartao de Debito">Cartao de Debito</option>
                 <option value="Dinheiro">Dinheiro</option>
                 <option value="Pix">Pix</option>
               </select>
             </label>
           )}
 
-          <div>
-            <label>
-              Data de {tipoAtendimento.toLowerCase()}:
-              <input type="date" value={dataRetirada} onChange={(e) => setDataRetirada(e.target.value)} />
-            </label>
-            <label>
-              Hora de {tipoAtendimento.toLowerCase()}:
-              <input type="time" value={horaRetirada} onChange={(e) => setHoraRetirada(e.target.value)} />
-            </label>
-          </div>
+          <button onClick={handlePagamento} className="btnpagamento" disabled={processandoPagamento}>
+            {processandoPagamento ? 'Finalizando...' : 'Confirmar atendimento'}
+          </button>
 
-          <button onClick={handlePagamento} className='btnpagamento'>Confirmar atendimento</button>
-          {erro && <p style={{ color: 'red' }}>{erro}</p>}
-          <p>Status do pagamento: {statusPagamento}</p>
-          <p>{tipoAtendimento}: {dataRetirada ? `${dataRetirada} às ${horaRetirada}` : 'Data e hora não agendadas'}</p>
+          {erro && <p className="pagamento-erro">{erro}</p>}
+
+          <div className="pagamento-status-card">
+            <p><strong>Status do pagamento:</strong> {statusPagamento}</p>
+            <p>
+              <strong>{tipoAtendimento}:</strong>{' '}
+              {dataRetirada ? `${dataRetirada} as ${horaRetirada}` : 'Data e hora nao agendadas'}
+            </p>
+          </div>
         </div>
       ) : (
         <ImpressaoTicket
           ticketNumber={ticketNumber}
-          formaPagamento={ticket.formaPagamento || 'Pagamento na retirada'}
-          dataRetirada={`${dataRetirada}T${horaRetirada}:00.000Z`}
-          statusPagamento={ticket.statusPagamentoDescricao || statusPagamento}
+          formaPagamento={dadosConfirmados?.formaPagamento || ticket.formaPagamento || 'Pagamento na retirada'}
+          dataRetirada={dadosConfirmados?.dataRetirada || `${dataRetirada}T${horaRetirada}:00.000Z`}
+          statusPagamento={dadosConfirmados?.statusPagamento || ticket.statusPagamentoDescricao || statusPagamento}
           total={total}
           quantidade={quantidade}
           dataCriacao={new Date().toLocaleDateString()}

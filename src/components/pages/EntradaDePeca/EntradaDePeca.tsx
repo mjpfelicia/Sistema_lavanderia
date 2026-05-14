@@ -1,8 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ServicoLavagem from '../../ServicoLavagem/ServicoLavagem';
+import type { Cliente } from '../../../service/apiCliente';
 import './EntradaDePeca.css';
 
 const EntradaDePeca = () => {
+  const location = useLocation();
+  const cliente = (location.state as { cliente?: Cliente } | null)?.cliente ?? null;
+
   return (
     <div className="entrada-page">
       <main className="entrada-layout">
@@ -20,22 +24,26 @@ const EntradaDePeca = () => {
         </section>
 
         <section className="entrada-service-shell">
-          <ServicoLavagem
-            cliente={{
-              id: 0,
-              nome: '',
-              email: '',
-              telefone: '',
-              endereco: {
-                endereco: '',
-                numero: '',
-                estado: '',
-                cep: '',
-                bairro: '',
-                complemento: '',
-              },
-            }}
-          />
+          {!cliente ? (
+            <div className="entrada-empty-state">
+              <span className="entrada-kicker">Cliente obrigatorio</span>
+              <h2>Selecione um cliente antes de cadastrar as pecas</h2>
+              <p>
+                A entrada de pecas agora depende de um cliente real selecionado. Volte para a recepcao,
+                faça a busca e siga com o atendimento a partir da ficha correta.
+              </p>
+              <div className="entrada-hero-actions">
+                <Link to="/Recepcao" className="entrada-action-link">
+                  Ir para recepcao
+                </Link>
+                <Link to="/CadastroCliente" className="entrada-action-link secondary">
+                  Cadastrar cliente
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <ServicoLavagem cliente={cliente} />
+          )}
         </section>
       </main>
     </div>

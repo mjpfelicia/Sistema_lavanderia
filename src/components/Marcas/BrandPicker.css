@@ -1,15 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
 .brand-picker {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 0;
+  display: grid;
+  gap: 1rem;
 }
 
 .brand-table {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
   width: 100%;
 }
 
@@ -17,9 +16,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
-  width: 100px;
-  border-radius: 10px;
+  min-height: 100px;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 1rem;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
   text-align: center;
@@ -27,7 +27,9 @@
   font-weight: bold;
   background-color: var(--color-bg-light);
   position: relative;
-  font-size: 1rem; /* Tamanho de fonte padrão */
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+  border: 1px solid rgba(148, 163, 184, 0.18);
 }
 
 .brand-cell.selected {
@@ -36,12 +38,12 @@
 }
 
 .brand-cell:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 .brand-code {
-  margin-top: 20px;
+  margin-top: 0;
   font-family: 'Courier New', Courier, monospace;
   font-size: 1.125rem;
   text-align: center;
@@ -50,9 +52,8 @@
 
 @media (max-width: 768px) {
   .brand-cell {
-    height: 80px;
-    width: 80px;
-    font-size: 0.875rem; /* Tamanho de fonte ajustado para telas menores */
+    min-height: 84px;
+    font-size: 0.82rem;
   }
 
   .brand-code {
@@ -61,10 +62,13 @@
 }
 
 @media (max-width: 480px) {
+  .brand-table {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .brand-cell {
-    height: 70px;
-    width: 70px;
-    font-size: 0.75rem; 
+    min-height: 76px;
+    font-size: 0.72rem;
   }
 
   .brand-code {

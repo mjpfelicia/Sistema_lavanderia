@@ -1,31 +1,32 @@
 .servico-picker {
-  width: 100%;
-}
-
-.servico-picker {
   display: flex;
   width: 100%;
   flex-direction: column;
-  align-items: center;
-  margin: 1.25rem;
+  align-items: stretch;
+  margin: 0;
+  gap: 1rem;
+}
+
+.servico-picker h3 {
+  margin: 0;
+  color: #0f172a;
 }
 
 .servico-table {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.625rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.875rem;
   width: 100%;
 }
 
 .servico-cell {
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
-  height: 6.25rem;
-  width: 6.25rem; /* Definindo largura fixa */
-  border-radius: 0.625rem;
+  min-height: 6.25rem;
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 1rem;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
   text-align: center;
@@ -35,28 +36,29 @@
   position: relative;
   word-break: break-word;
   overflow-wrap: break-word;
+  border: 1px solid rgba(148, 163, 184, 0.18);
 }
 
 .servico-cell.selected {
   border: 0.188rem solid var(--color-hover-primary);
+  background: rgba(45, 127, 255, 0.08);
 }
 
 .servico-cell:hover {
-  transform: scale(1.05);
-  box-shadow: 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.14);
 }
 
 .button-container {
-  margin-top: auto;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .button-TipoServicoPicker {
-  margin-top: 1.25rem;
+  margin-top: 0.25rem;
   padding: 0.625rem 1.25rem;
-  width: 40%;
+  width: min(100%, 20rem);
   color: var(--color_branca);
   background-color: var(--colorBtnCadastra);
   border: none;
@@ -74,26 +76,27 @@
 
 @media (max-width: 48rem) {
   .servico-cell {
-    height: 5rem;
-    width: 5rem;
-    font-size: 0.75rem;
+    min-height: 5.3rem;
+    font-size: 0.82rem;
   }
 
   .button-TipoServicoPicker {
-    width: 80%;
+    width: 100%;
     font-size: 0.875rem;
   }
 }
 
 @media (max-width: 30rem) {
+  .servico-table {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .servico-cell {
-    height: 4.375rem;
-    width: 4.375rem;
-    font-size: 0.625rem;
+    min-height: 4.8rem;
+    font-size: 0.72rem;
   }
 
   .button-TipoServicoPicker {
-    width: 80%;
     font-size: 0.75rem;
   }
 }

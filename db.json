@@ -951,6 +951,263 @@
       "tipoAtendimento": "Entrega",
       "formaPagamento": "Pagamento na retirada",
       "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "3210",
+      "clienteId": "3",
+      "estaPago": "nÃ£o",
+      "items": [],
+      "total": 0,
+      "totalPago": 0,
+      "dataCriacao": "2026-05-14T19:14:28.693Z",
+      "dataEntrega": "",
+      "statusEntrega": "Em producao",
+      "id": "6Zu_I8p"
+    },
+    {
+      "ticketNumber": "867390",
+      "clienteId": "68c4",
+      "estaPago": "nÃ£o",
+      "items": [
+        {
+          "pecaId": "v1",
+          "subTipo": "VESTIDO ESPECIAL",
+          "quantidade": 1,
+          "total": 200.9,
+          "cores": "Preto",
+          "marca": "Marca P",
+          "defeitos": "",
+          "servicos": "Higienização"
+        },
+        {
+          "pecaId": "3",
+          "subTipo": "CALÇA SOCIAL",
+          "quantidade": 1,
+          "total": 29.9,
+          "cores": "Violeta",
+          "marca": "Marca M",
+          "defeitos": "",
+          "servicos": "So Passar"
+        },
+        {
+          "pecaId": "j1",
+          "subTipo": "JAQUETA SIMPLES",
+          "quantidade": 1,
+          "total": 20.9,
+          "cores": "Laranja",
+          "marca": "Marca L",
+          "defeitos": "",
+          "servicos": "Tingimento"
+        }
+      ],
+      "total": 251.70000000000002,
+      "totalPago": 251.70000000000002,
+      "dataCriacao": "2026-05-14T19:22:59.087Z",
+      "dataEntrega": "2026-05-21T17:23:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "HMnuvVU",
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "853169",
+      "clienteId": "68ae",
+      "estaPago": "nÃ£o",
+      "items": [
+        {
+          "pecaId": "bl3",
+          "subTipo": "BLAZER CASUAL",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "Azul",
+          "marca": "Marca I",
+          "defeitos": "Encolhido",
+          "servicos": "Costura"
+        },
+        {
+          "pecaId": "c2",
+          "subTipo": "EDREDOM KING",
+          "quantidade": 1,
+          "total": 60,
+          "cores": "Branco",
+          "marca": "Marca O",
+          "defeitos": "",
+          "servicos": "Impermeabilização"
+        }
+      ],
+      "total": 149.9,
+      "totalPago": 149.9,
+      "dataCriacao": "2026-05-14T19:24:42.596Z",
+      "dataEntrega": "",
+      "statusEntrega": "Em producao",
+      "id": "ere49ab"
+    },
+    {
+      "ticketNumber": "739116",
+      "clienteId": "3",
+      "estaPago": "nao",
+      "items": [
+        {
+          "pecaId": "bl1",
+          "subTipo": "BLAZER ESPECIAL",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "sem descrição",
+          "marca": "Marca I",
+          "defeitos": "",
+          "servicos": "Lavagem"
+        }
+      ],
+      "total": 89.9,
+      "totalPago": 89.9,
+      "dataCriacao": "2026-05-14T19:31:34.659Z",
+      "dataEntrega": "2026-05-21T17:01:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "Vf3pj8v",
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "739116",
+      "clienteId": "3",
+      "estaPago": "nao",
+      "items": [
+        {
+          "pecaId": "bl1",
+          "subTipo": "BLAZER ESPECIAL",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "sem descrição",
+          "marca": "Marca I",
+          "defeitos": "",
+          "servicos": "Lavagem"
+        },
+        {
+          "pecaId": "cm1",
+          "subTipo": "CAMISA ESPECIAL",
+          "quantidade": 1,
+          "total": 39.9,
+          "cores": "Rosa",
+          "marca": "Marca N",
+          "defeitos": "",
+          "servicos": "So Passar"
+        }
+      ],
+      "total": 129.8,
+      "totalPago": 129.8,
+      "dataCriacao": "2026-05-14T19:34:30.279Z",
+      "dataEntrega": "2026-05-21T17:34:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "k0j36sr",
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "224637",
+      "clienteId": "3",
+      "estaPago": "nao",
+      "items": [
+        {
+          "pecaId": "v2",
+          "subTipo": "VESTIDO RENDA",
+          "quantidade": 1,
+          "total": 200.9,
+          "cores": "Roxo",
+          "marca": "Marca M",
+          "defeitos": "",
+          "servicos": "Higienização"
+        }
+      ],
+      "total": 200.9,
+      "totalPago": 200.9,
+      "dataCriacao": "2026-05-14T19:36:16.239Z",
+      "dataEntrega": "2026-05-18T15:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "uZbaZq3",
+      "tipoAtendimento": "Entrega",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "31867",
+      "clienteId": "3",
+      "estaPago": "nao",
+      "items": [
+        {
+          "pecaId": "v1",
+          "subTipo": "VESTIDO ESPECIAL",
+          "quantidade": 1,
+          "total": 200.9,
+          "cores": "Azul",
+          "marca": "Marca G",
+          "defeitos": "",
+          "servicos": "Lavagem"
+        }
+      ],
+      "total": 200.9,
+      "totalPago": 200.9,
+      "dataCriacao": "2026-05-14T19:41:42.440Z",
+      "dataEntrega": "2026-05-21T12:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "8gzcf3P",
+      "tipoAtendimento": "Entrega",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "337150",
+      "clienteId": "3",
+      "estaPago": "nao",
+      "items": [
+        {
+          "pecaId": "v1",
+          "subTipo": "VESTIDO ESPECIAL",
+          "quantidade": 1,
+          "total": 200.9,
+          "cores": "Lima",
+          "marca": "Marca F",
+          "defeitos": "",
+          "servicos": "Lavagem"
+        }
+      ],
+      "total": 200.9,
+      "totalPago": 200.9,
+      "dataCriacao": "2026-05-14T19:46:00.047Z",
+      "dataEntrega": "2026-05-24T13:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "PqO6BuF",
+      "tipoAtendimento": "Entrega",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "502360",
+      "clienteId": "68c4",
+      "estaPago": "nao",
+      "items": [
+        {
+          "pecaId": "JA1",
+          "subTipo": "JALECO AVENTAL",
+          "quantidade": 1,
+          "total": 10,
+          "cores": "Verde Claro",
+          "marca": "Marca J",
+          "defeitos": "",
+          "servicos": "Lavagem"
+        }
+      ],
+      "total": 10,
+      "totalPago": 10,
+      "dataCriacao": "2026-05-14T19:48:32.107Z",
+      "dataEntrega": "2026-05-16T13:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "a0McIWA",
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
     }
   ]
 }

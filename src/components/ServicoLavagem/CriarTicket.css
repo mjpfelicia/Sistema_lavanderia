@@ -108,3 +108,9 @@
   background: linear-gradient(135deg, #2d7fff, #4e9cff);
   box-shadow: 0 18px 30px rgba(45, 127, 255, 0.22);
 }
+
+.btnFinalizar:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+}

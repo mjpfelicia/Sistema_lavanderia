@@ -9,7 +9,7 @@ interface ModalProps {
 // Função principal do componente Modal
 const Step: React.FC<ModalProps> = ({ children }) => {
   return (
-    <div className="cards-container">
+    <div className="servico-step-content">
       {children}
     </div>
   );

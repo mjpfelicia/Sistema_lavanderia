@@ -43,7 +43,7 @@ const tipoPecaLista: TipoPeca[] = [
 ];
 
 interface ServicoLavagemProps {
-  cliente: Cliente;
+  cliente: Cliente | null;
 }
 
 const stepTitles = [
@@ -56,6 +56,22 @@ const stepTitles = [
 ];
 
 const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
+  const clienteVazio: Cliente = {
+    id: 0,
+    nome: '',
+    email: '',
+    telefone: '',
+    endereco: {
+      endereco: '',
+      numero: '',
+      estado: '',
+      cep: '',
+      bairro: '',
+      complemento: '',
+    },
+  };
+  const clienteAtual = cliente ?? clienteVazio;
+  const clienteValido = Boolean(cliente?.id && cliente.nome.trim());
   const [modalAberto, setModalAberto] = useState<boolean>(false);
   const [pecasSelecionadas, setPecasSelecionada] = useState<Peca[]>([]);
   const [pecasAdicionadas, setPecasAdicionadas] = useState<Peca[]>([]);
@@ -70,11 +86,15 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
   const [tipoServico, setTipoServico] = useState<string[]>([]);
 
   const abrirModal = useCallback(async (peca: TipoPeca) => {
+    if (!clienteValido) {
+      return;
+    }
+
     const pecaResponse = await getPecaPorTipo(peca);
     setPecasSelecionada(pecaResponse);
     setModalAberto(true);
     setStep(0);
-  }, []);
+  }, [clienteValido]);
 
   const fecharModal = useCallback(() => {
     setModalAberto(false);
@@ -180,7 +200,7 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
             pecas={pecasAdicionadas}
             finalizarSelecao={finalizarSelecao}
             setTicket={setTicket}
-            cliente={cliente}
+            cliente={clienteAtual}
           />
         </aside>
 
@@ -202,7 +222,18 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
             </div>
           </div>
 
-          {!modalAberto && (
+          {!clienteValido && (
+            <div className="servico-empty-state">
+              <span className="servico-empty-kicker">Cliente nao selecionado</span>
+              <h3>Escolha um cliente para liberar a entrada de pecas</h3>
+              <p>
+                O ticket precisa ficar vinculado a uma ficha real. Volte para a recepcao e selecione
+                um cliente antes de continuar.
+              </p>
+            </div>
+          )}
+
+          {clienteValido && !modalAberto && (
             <div className="servico-catalog-grid">
               {tipoPecaLista.map((peca, idx) => (
                 <button key={idx} type="button" className="servico-piece-card" onClick={() => abrirModal(peca)}>

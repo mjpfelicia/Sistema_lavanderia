@@ -34,6 +34,8 @@ type ColorCode = keyof typeof colorNames;
 
 const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSelecao, setTicket }) => {
   const [ticketNumber, setTicketNumber] = useState<string>('');
+  const [gerandoTicket, setGerandoTicket] = useState<boolean>(false);
+  const clienteValido = Boolean(cliente.id && cliente.nome && cliente.telefone);
 
   const totalPecas = useMemo(() => pecas.reduce((acc, peca) => acc + (peca.quantidade || 1), 0), [pecas]);
   const totalPreco = useMemo(() => pecas.reduce((acc, peca) => acc + peca.preco * (peca.quantidade || 1), 0), [pecas]);
@@ -65,12 +67,10 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
   }, []);
 
   const handleFinalizar = async () => {
-    if (!cliente.id || !cliente.nome || !cliente.telefone) {
+    if (!clienteValido) {
       alert('Por favor, preencha todos os dados do cliente antes de finalizar o pedido.');
       return;
     }
-
-    finalizarSelecao(ticketNumber);
 
     const ticketToCreate: Ticket = {
       ticketNumber,
@@ -94,14 +94,19 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
     };
 
     try {
+      setGerandoTicket(true);
       const ticketResponse = await criarTicket(ticketToCreate);
       setTicket(ticketResponse);
+      finalizarSelecao(ticketResponse.ticketNumber || ticketNumber);
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.log('[ERROR] criar ticket:', error.message);
       } else {
         console.log('[ERROR] criar ticket:', String(error));
       }
+      alert('Nao foi possivel gerar o ticket antes do pagamento. Tente novamente.');
+    } finally {
+      setGerandoTicket(false);
     }
   };
 
@@ -144,8 +149,8 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
         <p><strong>Total a pagar:</strong> {`R$ ${totalPreco.toFixed(2)}`}</p>
       </div>
 
-      <button onClick={handleFinalizar} className="btnFinalizar">
-        {'Gerar ticket'}
+      <button onClick={handleFinalizar} className="btnFinalizar" disabled={!clienteValido || !pecas.length || gerandoTicket}>
+        {gerandoTicket ? 'Gerando ticket...' : 'Gerar ticket'}
       </button>
     </div>
   );
