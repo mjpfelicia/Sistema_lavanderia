@@ -40,24 +40,36 @@ const DetalhesUsuario: React.FC = () => {
 
     return (
         <div className={classes.content}>
-            <h1 className={classes.title}>Lista de Clientes</h1>
-            <div className='col-xs-12'>
-                <div className={classes.box}>
-                    {clientes.length > 0 ? (
-                        clientes.map((cliente) => (
-                            <ClienteUnico
-                                key={cliente.id}
-                                cliente={cliente}
-                                onEdit={(cliente: Cliente) => {
-                                    console.log("Editar cliente", { cliente });
-                                }}
-                            />
-                        ))
-                    ) : (
-                        <p>Nenhum cliente encontrado.</p>
-                    )}
+            <section className={classes.heroPanel}>
+                <span className={classes.eyebrow}>Gestão de Clientes</span>
+                <h1>Lista de Clientes</h1>
+                <p>
+                    Visualize e gerencie todos os clientes cadastrados no sistema. 
+                    Clique em um cliente para ver detalhes completos ou editar informações.
+                </p>
+            </section>
+
+            <section className={classes.searchSurface}>
+                <div className='col-xs-12'>
+                    <div className={classes.box}>
+                        {clientes.length > 0 ? (
+                            clientes.map((cliente) => (
+                                <ClienteUnico
+                                    key={cliente.id}
+                                    cliente={cliente}
+                                    onEdit={(cliente: Cliente) => {
+                                        console.log("Editar cliente", { cliente });
+                                    }}
+                                />
+                            ))
+                        ) : (
+                            <div className={classes.emptyState}>
+                                <p>Nenhum cliente encontrado.</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     );
 };

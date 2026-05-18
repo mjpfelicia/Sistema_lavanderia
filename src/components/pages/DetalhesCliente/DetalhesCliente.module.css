@@ -2,11 +2,58 @@
 
 /* Container principal */
 .content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 1.5rem 0 3rem;
+    display: grid;
+    gap: 1rem;
+}
+
+/* Hero Panel - Cabeçalho da página */
+.heroPanel {
+    padding: 1.5rem;
+    border-radius: 22px;
+    background:
+        radial-gradient(circle at top left, rgba(15, 76, 92, 0.16), transparent 26%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(244, 248, 255, 0.88));
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+}
+
+.eyebrow {
+    display: inline-flex;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
+
+.heroPanel h1 {
+    margin: 0.75rem 0 0.4rem;
+    color: #0f172a;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 800;
+}
+
+.heroPanel p {
+    margin: 0;
+    max-width: 62ch;
+    color: #64748b;
+    line-height: 1.7;
+}
+
+/* Superfície de conteúdo */
+.searchSurface {
+    padding: 1.25rem;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
 }
 
 /* Wrapper para elementos */
@@ -14,9 +61,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-bottom: 1px solid var(--color-borde);
-    background: var(--color_branca);
-    width: 80vw;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    background: rgba(255, 255, 255, 0.6);
+    width: 100%;
     margin: 0 auto;
     padding: 0 1rem;
 }
@@ -24,19 +71,22 @@
 /* Caixa de conteúdo */
 .box {
     padding: 2rem;
-    background: var(--color_branca);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+    opacity: 0.98;
     margin: 0 auto;
+    width: 100%;
 }
 
 /* Título */
 .title {
-    color: var(--color-texto);
-    font-size: 0.9rem;
+    color: #0f172a;
+    font-size: 1.1rem;
     line-height: 1.25;
-    font-weight: 400;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 1.5rem;
 }
 
 /* Estilo para cliente */
@@ -44,9 +94,18 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 0.2rem 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
     flex-wrap: wrap;
-    width: 90%;
+    width: 100%;
+    transition: background 0.2s ease;
+}
+
+.cliente:hover {
+    background: rgba(37, 99, 235, 0.03);
+    border-radius: 12px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 /* Botão de atualização */
@@ -58,9 +117,11 @@
 /* Estilo para título do cliente */
 .cliente h2 {
     margin: 0;
-    color: var(--color-texto);
+    color: #0f172a;
     line-height: 1.25;
-    font-size: calc(0.6rem + 0.6vw);
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
     margin-right: 1rem;
 }
 
@@ -68,40 +129,60 @@
 .cliente span {
     margin: 5px 0.1rem 0;
     padding-right: 0.5rem;
-    color: var(--color-texto);
-    font-size: calc(0.5rem + 0.4vw);
-    font-family: 'Montserrat', sans-serif;
-    line-height: 35px;
+    color: #475569;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
 }
 
 /* Estilo para inputs do cliente */
 .cliente input {
     margin: 5px 0 0;
-    color: var(--color-texto);
-    font-size: calc(0.6rem + 0.6vw);
-    border: 1px solid var(--color-border-primary);
-    border-radius: 4px;
-    padding: 0.5rem;
+    color: #0f172a;
+    font-size: 0.9rem;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255, 255, 255, 0.8);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .cliente input:focus {
-    border-color: var(--color-hover-primary);
+    border-color: #2563eb;
     outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 /* Botão de registro */
 .registerButton {
     width: 100%;
-    padding: 10px;
-    background-color: var(--colorBtnCadastra);
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, var(--colorBtnCadastra), var(--colorHoverBtnCadastra));
     color: var(--color_branca);
     border: none;
-    border-radius: 4px;
+    border-radius: 14px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
+    font-weight: 700;
     margin-top: 2rem;
+    transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.08);
 }
 
 .registerButton:hover {
-    background-color: var(--colorHoverBtnCadastra);
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+}
+
+/* Empty state */
+.emptyState {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #64748b;
+}
+
+.emptyState p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
 }

@@ -24,8 +24,8 @@ const VisualizarTicketPage = () => {
 
       <main className={styles.pageContent}>
         <section className={styles.heroPanel}>
-          <span className={styles.eyebrow}>Busca operacional</span>
-          <h1>Consultar ticket com mais contexto</h1>
+          <span className={styles.eyebrow}>Busca Operacional</span>
+          <h1>Consultar Ticket</h1>
           <p>
             Busque pelo número do ticket para revisar peças, entrega, pagamento e liberar a conferência com mais
             segurança.
