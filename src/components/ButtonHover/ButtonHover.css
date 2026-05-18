@@ -1,43 +1,66 @@
-.estiloBase,
-.iconeEstiloBase button {
+.menuCard {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.55rem;
   width: 9rem;
-  height: 5rem;
-  border: none;
-  background-color: transparent;
-  text-decoration: none;
-  cursor: pointer;
-  font-family: roboto, sans-serif;
-  font-weight: 500;
-}
-
-.menu-item {
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-.menu-item:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 28px rgba(18, 39, 48, 0.14);
-}
-
-.menu-item a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  gap: 0.45rem;
-  padding: 0.4rem;
+  min-height: 5.4rem;
+  padding: 0.85rem 0.75rem;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(246, 250, 248, 0.78)),
+    rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
   color: var(--color-texto-primario);
-  font-weight: 500;
   text-decoration: none;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
-.custom-link img {
-  margin-right: 0;
+.menuCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(37, 99, 235, 0.24);
+  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.1);
+}
+
+.menuCardIconWrap {
+  display: grid;
+  place-items: center;
+  width: 3.35rem;
+  height: 3.35rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.94), rgba(224, 242, 254, 0.88));
+  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.16);
+}
+
+.menuCardIcon {
+  display: block;
   object-fit: contain;
+}
+
+.menuCardLabel {
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.menuCard.is-active {
+  border-color: rgba(37, 99, 235, 0.18);
+  background:
+    linear-gradient(180deg, rgba(239, 246, 255, 0.96), rgba(224, 231, 255, 0.88)),
+    rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 34px rgba(37, 99, 235, 0.14);
+}
+
+.menuCard.is-active .menuCardIconWrap {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.24);
+}
+
+@media (max-width: 768px) {
+  .menuCard {
+    width: 100%;
+  }
 }

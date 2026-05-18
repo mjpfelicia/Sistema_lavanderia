@@ -1,10 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { buscarTicket, atualizaTicket, Ticket } from '../../../service/apiTicket';
+import React, { useEffect, useState } from 'react';
+import { atualizaTicket, buscarTicket, Ticket } from '../../../service/apiTicket';
 import styles from './BuscaTicket.module.css';
 
 interface VisualizarTicketProps {
   ticketNumber: string;
 }
+
+const formatCurrency = (value: number) =>
+  value.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+
+const formatDateTime = (value?: string) => {
+  if (!value) {
+    return 'Não informado';
+  }
+
+  return new Date(value).toLocaleString('pt-BR');
+};
+
+const getEntregaTone = (status?: Ticket['statusEntrega']) => {
+  switch (status) {
+    case 'Liberado':
+      return styles.statusSuccess;
+    case 'Pronto':
+      return styles.statusInfo;
+    case 'Aguardando retirada':
+      return styles.statusWarning;
+    default:
+      return styles.statusNeutral;
+  }
+};
 
 const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => {
   const [ticket, setTicket] = useState<Ticket | null>(null);
@@ -13,24 +40,27 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
 
   useEffect(() => {
     const fetchTicket = async () => {
-      if (ticketNumber.trim()) {
-        setLoading(true);
-        try {
-          const ticketData = await buscarTicket(ticketNumber);
-          if (ticketData) {
-            setTicket(ticketData);
-            setError(null);
-          } else {
-            setTicket(null);
-            setError('Ticket não encontrado');
-          }
-        } catch (err: any) {
-          setError(err.message || 'Não foi possível buscar o ticket.');
+      if (!ticketNumber.trim()) {
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const ticketData = await buscarTicket(ticketNumber);
+
+        if (ticketData) {
+          setTicket(ticketData);
+          setError(null);
+        } else {
           setTicket(null);
-        } finally {
-          setLoading(false);
+          setError('Ticket não encontrado.');
         }
-      } else {
+      } catch (err: any) {
+        setError(err.message || 'Não foi possível buscar o ticket.');
+        setTicket(null);
+      } finally {
         setLoading(false);
       }
     };
@@ -83,7 +113,7 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
   };
 
   if (loading) {
-    return <div>Carregando...</div>;
+    return <div className={styles.infoBanner}>Carregando ticket...</div>;
   }
 
   if (error && !ticket) {
@@ -94,59 +124,159 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
     return null;
   }
 
+  const totalPecas = ticket.items.reduce((acc, item) => acc + item.quantidade, 0);
+  const pagamentoStatus = ticket.estaPago === 'sim' ? 'Pagamento confirmado' : 'Pagamento pendente';
+  const entregaStatus = ticket.statusEntrega || 'Em produção';
+
   return (
-    <div className={styles.content}>
-      <div className={styles.totalizador}>
-        <h3>Conferência do Ticket</h3>
-        <p><strong>Número do Ticket:</strong> {ticket.ticketNumber}</p>
-        <p><strong>Cliente:</strong> {ticket.cliente?.nome || 'Cliente do atendimento'}</p>
-        <p><strong>Data de criação:</strong> {ticket.dataCriacao ? new Date(ticket.dataCriacao).toLocaleString('pt-BR') : 'Não informada'}</p>
-        <p><strong>Forma de pagamento:</strong> {ticket.formaPagamento || 'Não informado'}</p>
-        <p><strong>Entrega/retirada:</strong> {ticket.tipoAtendimento || 'Retirada'}</p>
-        <p><strong>Status da conferência:</strong> {ticket.statusEntrega || 'Em producao'}</p>
-        <h4>Peças</h4>
-        <ul>
-          {ticket.items.map((item, index) => (
-            <li key={index} style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(148, 163, 184, 0.1)' }}>
-              <div style={{ display: 'grid', gap: '0.25rem' }}>
-                <div><strong>Tipo:</strong> {item.subTipo}</div>
-                <div><strong>Quantidade:</strong> {item.quantidade}</div>
-                <div><strong>Total:</strong> R${item.total.toFixed(2)}</div>
-                <div><strong>Serviços:</strong> {item.servicos || 'Não informado'}</div>
-                <div><strong>Cor:</strong> {item.cores || 'Não informada'}</div>
-                <div><strong>Marca:</strong> {item.marca || 'Não informada'}</div>
-                <div><strong>Defeitos:</strong> {item.defeitos || 'Nenhum'}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <p><strong>Total pago:</strong> R${ticket.totalPago.toFixed(2)}</p>
-        <div className={styles.inputGroup}>
-          <label>
-            Data de entrega:
-            <input
-              type="date"
-              value={ticket.dataEntrega?.split('T')[0] || ""}
-              onChange={handleDataChange}
-              className={styles.dateInput}
-            />
-          </label>
-          <label>
-            Hora de entrega:
-            <input
-              type="time"
-              value={ticket.dataEntrega?.split('T')[1]?.substring(0, 5) || ""}
-              onChange={handleHoraChange}
-              className={styles.timeInput}
-            />
-          </label>
+    <section className={styles.ticketWorkspace}>
+      <div className={styles.ticketHero}>
+        <div className={styles.ticketHeroHeader}>
+          <div>
+            <span className={styles.sectionEyebrow}>Conferência</span>
+            <h3>Ticket #{ticket.ticketNumber}</h3>
+            <p>Dados atuais do ticket para conferência e atualização.</p>
+          </div>
+
+          <div className={`${styles.statusBadge} ${getEntregaTone(ticket.statusEntrega)}`}>{entregaStatus}</div>
         </div>
-        <button className={styles.btn_buscar} onClick={handleLiberarPecas}>
-          Liberar peças na conferência
-        </button>
-        {error && <div className={styles.errorMessage}>{error}</div>}
       </div>
-    </div>
+
+      <div className={styles.ticketGrid}>
+        <article className={styles.detailCard}>
+          <div className={styles.cardHeader}>
+            <div>
+              <span className={styles.sectionEyebrow}>Cliente</span>
+              <h4>Dados principais</h4>
+            </div>
+          </div>
+
+          <div className={styles.detailList}>
+            <div className={styles.detailItem}>
+              <span>Cliente</span>
+              <strong>{ticket.cliente?.nome || 'Cliente do atendimento'}</strong>
+            </div>
+            <div className={styles.detailItem}>
+              <span>Criado em</span>
+              <strong>{formatDateTime(ticket.dataCriacao)}</strong>
+            </div>
+            <div className={styles.detailItem}>
+              <span>Pagamento</span>
+              <strong>{ticket.formaPagamento || 'Não informado'}</strong>
+            </div>
+            <div className={styles.detailItem}>
+              <span>Status financeiro</span>
+              <strong>{ticket.statusPagamentoDescricao || pagamentoStatus}</strong>
+            </div>
+            <div className={styles.detailItem}>
+              <span>Atendimento</span>
+              <strong>{ticket.tipoAtendimento || 'Retirada'}</strong>
+            </div>
+            <div className={styles.detailItem}>
+              <span>Total pago</span>
+              <strong>{formatCurrency(ticket.totalPago)}</strong>
+            </div>
+          </div>
+        </article>
+
+        <article className={styles.detailCard}>
+          <div className={styles.cardHeader}>
+            <div>
+              <span className={styles.sectionEyebrow}>Entrega</span>
+              <h4>Programação</h4>
+            </div>
+          </div>
+
+          <div className={styles.scheduleGrid}>
+            <label className={styles.fieldGroup}>
+              <span>Data de entrega</span>
+              <div className={styles.inputWrap}>
+                <input
+                  type="date"
+                  value={ticket.dataEntrega?.split('T')[0] || ""}
+                  onChange={handleDataChange}
+                  className={styles.dateInput}
+                />
+              </div>
+            </label>
+
+            <label className={styles.fieldGroup}>
+              <span>Hora de entrega</span>
+              <div className={styles.inputWrap}>
+                <input
+                  type="time"
+                  value={ticket.dataEntrega?.split('T')[1]?.substring(0, 5) || ""}
+                  onChange={handleHoraChange}
+                  className={styles.timeInput}
+                />
+              </div>
+            </label>
+          </div>
+
+          <div className={styles.deliveryInfo}>
+            <div className={styles.deliveryInfoRow}>
+              <span>Entrega prevista</span>
+              <strong>{formatDateTime(ticket.dataEntrega)}</strong>
+            </div>
+            <div className={styles.deliveryInfoRow}>
+              <span>Status atual</span>
+              <strong>{entregaStatus}</strong>
+            </div>
+          </div>
+
+          <button className={styles.primaryButton} onClick={handleLiberarPecas}>
+            Liberar peças na conferência
+          </button>
+        </article>
+      </div>
+
+      <article className={styles.detailCard}>
+        <div className={styles.cardHeader}>
+          <div>
+            <span className={styles.sectionEyebrow}>Peças</span>
+            <h4>Itens do ticket</h4>
+          </div>
+          <div className={styles.ticketTotal}>{totalPecas} peça(s)</div>
+        </div>
+
+        <div className={styles.itemsGrid}>
+          {ticket.items.map((item, index) => (
+            <div key={`${item.subTipo}-${index}`} className={styles.itemCard}>
+              <div className={styles.itemCardHeader}>
+                <strong>{item.subTipo}</strong>
+                <span>{item.quantidade} un.</span>
+              </div>
+
+              <div className={styles.itemMetaGrid}>
+                <div>
+                  <span>Serviços</span>
+                  <strong>{item.servicos || 'Não informado'}</strong>
+                </div>
+                <div>
+                  <span>Cor</span>
+                  <strong>{item.cores || 'Não informada'}</strong>
+                </div>
+                <div>
+                  <span>Marca</span>
+                  <strong>{item.marca || 'Não informada'}</strong>
+                </div>
+                <div>
+                  <span>Defeitos</span>
+                  <strong>{item.defeitos || 'Nenhum'}</strong>
+                </div>
+              </div>
+
+              <div className={styles.itemTotalRow}>
+                <span>Total do item</span>
+                <strong>{formatCurrency(item.total)}</strong>
+              </div>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      {error && <div className={styles.errorMessage}>{error}</div>}
+    </section>
   );
 };
 

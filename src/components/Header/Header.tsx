@@ -1,7 +1,4 @@
 import "./Header.css";
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ButtonComHover from "../ButtonHover/ButtoComHover";
 import CloseButton from '../buttons/CloseButton';
@@ -9,68 +6,66 @@ import recepcao from "../../img/recepcao.png";
 import peca from "../../img/peca.png";
 import delivery from "../../img/delivery.png";
 import retornoD from "../../img/retornoD.png";
-import VisualizarTicket from "../../img/entrega.png";
+import visualizarTicket from "../../img/entrega.png";
 import mapa from "../../img/mapa.png";
 import relatorio from "../../img/relatorio2.png";
-import WhatsApp from "../../img/whapp.png";
+import whatsApp from "../../img/whapp.png";
 
 export type BotaoPaginaAtiva = {
-  nomePagina: string
-}
+  nomePagina: string;
+};
 
 export type Card = {
   name: string;
-  icon: any;
+  icon: string;
   link: string;
-}
+};
+
+const menuCards: Card[] = [
+  { name: "Recepção", icon: recepcao, link: "/recepcao" },
+  { name: "Entrada de peças", icon: peca, link: "/EntradaDePeca" },
+  { name: "Delivery", icon: delivery, link: "/delivery" },
+  { name: "Retorno", icon: retornoD, link: "/DevolucaoDoDelivery" },
+  { name: "Visualizar Ticket", icon: visualizarTicket, link: "/BuscarTicket" },
+  { name: "Mapa", icon: mapa, link: "/mapa" },
+  { name: "Relatório", icon: relatorio, link: "/relatorio" },
+  { name: "WhatsApp", icon: whatsApp, link: "/Whatsapp" },
+];
 
 const Header = ({ nomePagina }: BotaoPaginaAtiva) => {
-  const MyCarMenu = [
-    { name: "Recepção", icon: recepcao, link: "/recepcao" },
-    { name: "Entrada de peças", icon: peca, link: "/EntradaDePeca" },
-    { name: "Delivery", icon: delivery, link: "/delivery" },
-    { name: "Retorno", icon: retornoD, link: "/DevolucaoDoDelivery" },
-    { name: "Visualizar Ticket", icon: VisualizarTicket, link: "/BuscarTicket" },
-    { name: "Mapa", icon: mapa, link: "/mapa" },
-    { name: "Relatório", icon: relatorio, link: "/relatorio" },
-    { name: "WhatsApp", icon: WhatsApp, link: "/Whatsapp" },
-  ];
-
-  const [expanded, setExpanded] = useState(false);
-
   return (
-    <div>
-      <div className='HeaderContent'>
-        <div className='headerTitle'>
-          <h1 className='title-header'>Sistema de lavanderia</h1>
-          <p className='title-subheader'>Recepção, produção, entrega e consulta em um fluxo só.</p>
+    <header className="appHeader">
+      <div className="headerContent">
+        <div className="headerBrand">
+          <div className="headerBrandMark">SL</div>
+          <div className="headerTitle">
+            <h1 className="titleHeader">Sistema de lavanderia</h1>
+            <p className="titleSubheader">Recepção, produção, entrega e consulta em um fluxo só.</p>
+          </div>
         </div>
-        <div className='linkCadastro'>
-          <Link to="/CadastroCliente">Cadastrar Cliente</Link>
+
+        <div className="headerActions">
+          <Link to="/CadastroCliente" className="headerPrimaryLink">
+            Cadastrar cliente
+          </Link>
+          <CloseButton />
         </div>
-        <CloseButton />
       </div>
-      <Navbar expand="lg" expanded={expanded}>
-        <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          onClick={() => setExpanded(!expanded)}
-          aria-label="Toggle navigation"
-        />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className='responsive-menu'>
-            {MyCarMenu.map((card: Card, id: number) => (
-              <Nav.Item key={id}>
-                <ButtonComHover
-                  card={card}
-                  ativarHover={card.name === nomePagina}
-                  className={card.name === nomePagina ? 'active-button' : 'iconeEstiloBase'}
-                />
-              </Nav.Item>
-            ))}
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    </div>
+
+      <nav className="headerNav" aria-label="Navegação principal">
+        <div className="headerMenu">
+          {menuCards.map((card) => (
+            <div key={card.link} className="headerMenuItem">
+              <ButtonComHover
+                card={card}
+                ativarHover={card.name === nomePagina}
+                className={card.name === nomePagina ? 'is-active' : ''}
+              />
+            </div>
+          ))}
+        </div>
+      </nav>
+    </header>
   );
 };
 

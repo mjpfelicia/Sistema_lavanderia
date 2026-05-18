@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { buscarCliente, Cliente } from '../../../service/apiCliente';
 import classes from "../FormularioValidacao/Formulario.module.css";
-import Spinner from 'react-bootstrap/Spinner';
 
 interface BuscaClienteProps {
   onClienteSelecionado: (cliente: Cliente) => void;

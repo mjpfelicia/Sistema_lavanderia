@@ -1,31 +1,24 @@
-import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import { Card } from "../Header/Header";
 import "./ButtonHover.css";
 
-const card: Card = {
-  name: "",
-  icon: undefined,
-  link: ""
+export type BotaoHoverInput = {
+  card: Card;
+  ativarHover: boolean;
+  className?: string;
 };
 
-export type BotaoHoverInput = {
-  card: Card,
-  ativarHover: boolean,
-  className?: string 
-}
+const BotaoHover = ({ card, ativarHover, className = "" }: BotaoHoverInput) => {
+  const stateClassName = ativarHover ? "menuCard is-active" : "menuCard";
 
-const BotaoHover = ({ card, className }: BotaoHoverInput) => {
   return (
-    <div className={`menu-item shadow-lg estiloBase estiloHover iconeEstiloBase ${className}`}>
-      <Link to={card.link} className="custom-link">
-        <IconContext.Provider value={{ className: 'icon' }}>
-          <img src={card.icon} width={48} height={48} alt={card.name}></img>
-        </IconContext.Provider>
-        {card.name}
-      </Link>
-    </div>
+    <Link to={card.link} className={`${stateClassName} ${className}`.trim()} aria-current={ativarHover ? "page" : undefined}>
+      <span className="menuCardIconWrap">
+        <img src={card.icon} width={42} height={42} alt="" className="menuCardIcon" />
+      </span>
+      <span className="menuCardLabel">{card.name}</span>
+    </Link>
   );
-}
+};
 
 export default BotaoHover;

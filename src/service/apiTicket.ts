@@ -18,7 +18,7 @@ export type Ticket = {
   id?: string;
   clienteId: string;
   ticketNumber: string;
-  estaPago: "sim" | "nÃ£o";
+  estaPago: "sim" | "não";
   totalPago: number;
   items: TicketItem[];
   total: number;
@@ -42,11 +42,26 @@ const handleError = (error: AxiosError | any): never => {
 };
 
 export const buscarTicket = async (ticketNumber: string): Promise<Ticket | null> => {
-  console.info(`API Ticket - buscarTicket ${ticketNumber}`);
+  const normalizedTicketNumber = ticketNumber.trim();
+
+  console.info(`API Ticket - buscarTicket ${normalizedTicketNumber}`);
 
   return api
-    .get<Ticket>(`/${ticketNumber}`)
-    .then(response => response.data)
+    .get<Ticket[]>('/', {
+      params: {
+        ticketNumber: normalizedTicketNumber,
+        _embed: 'cliente',
+      },
+    })
+    .then(response => {
+      const [ticketMaisRecente] = [...response.data].sort((a, b) => {
+        const dataA = new Date(a.dataCriacao || 0).getTime();
+        const dataB = new Date(b.dataCriacao || 0).getTime();
+        return dataB - dataA;
+      });
+
+      return ticketMaisRecente || null;
+    })
     .catch(handleError);
 };
 
@@ -61,7 +76,11 @@ export const criarTicket = async (ticket: Ticket): Promise<Ticket> => {
 export const listarTickets = async (): Promise<Ticket[]> => {
   console.info("API Ticket - listar Tickets ");
   return api
-    .get<Ticket[]>('/')
+    .get<Ticket[]>('/', {
+      params: {
+        _embed: 'cliente',
+      },
+    })
     .then(response => response.data)
     .catch(handleError);
 };
@@ -69,8 +88,25 @@ export const listarTickets = async (): Promise<Ticket[]> => {
 export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
   console.info("API Ticket - getTicket ");
   return api
-    .get<Ticket>(`/${ticketNumber}`)
-    .then(response => response.data)
+    .get<Ticket[]>('/', {
+      params: {
+        ticketNumber: ticketNumber.trim(),
+        _embed: 'cliente',
+      },
+    })
+    .then(response => {
+      const [ticketMaisRecente] = [...response.data].sort((a, b) => {
+        const dataA = new Date(a.dataCriacao || 0).getTime();
+        const dataB = new Date(b.dataCriacao || 0).getTime();
+        return dataB - dataA;
+      });
+
+      if (!ticketMaisRecente) {
+        throw new Error('Ticket não encontrado.');
+      }
+
+      return ticketMaisRecente;
+    })
     .catch(handleError);
 };
 
