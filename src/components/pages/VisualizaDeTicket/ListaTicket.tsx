@@ -98,29 +98,29 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
     <div className={styles.content}>
       <div className={styles.totalizador}>
         <h3>Conferência do Ticket</h3>
-        <p>Número do Ticket: {ticket.ticketNumber}</p>
-        <p>Cliente: {ticket.cliente?.nome || 'Cliente do atendimento'}</p>
-        <p>Data de criação: {ticket.dataCriacao ? new Date(ticket.dataCriacao).toLocaleString('pt-BR') : 'Não informada'}</p>
-        <p>Forma de pagamento: {ticket.formaPagamento || 'Não informado'}</p>
-        <p>Entrega/retirada: {ticket.tipoAtendimento || 'Retirada'}</p>
-        <p>Status da conferência: {ticket.statusEntrega || 'Em producao'}</p>
+        <p><strong>Número do Ticket:</strong> {ticket.ticketNumber}</p>
+        <p><strong>Cliente:</strong> {ticket.cliente?.nome || 'Cliente do atendimento'}</p>
+        <p><strong>Data de criação:</strong> {ticket.dataCriacao ? new Date(ticket.dataCriacao).toLocaleString('pt-BR') : 'Não informada'}</p>
+        <p><strong>Forma de pagamento:</strong> {ticket.formaPagamento || 'Não informado'}</p>
+        <p><strong>Entrega/retirada:</strong> {ticket.tipoAtendimento || 'Retirada'}</p>
+        <p><strong>Status da conferência:</strong> {ticket.statusEntrega || 'Em producao'}</p>
         <h4>Peças</h4>
         <ul>
           {ticket.items.map((item, index) => (
-            <li key={index}>
-              <strong>{item.subTipo}</strong> - Quantidade: {item.quantidade} - Total: R${item.total.toFixed(2)}
-              <br />
-              Serviços: {item.servicos || 'Não informado'}
-              <br />
-              Cor: {item.cores || 'Não informada'}
-              <br />
-              Marca: {item.marca || 'Não informada'}
-              <br />
-              Defeitos: {item.defeitos || 'Nenhum'}
+            <li key={index} style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(148, 163, 184, 0.1)' }}>
+              <div style={{ display: 'grid', gap: '0.25rem' }}>
+                <div><strong>Tipo:</strong> {item.subTipo}</div>
+                <div><strong>Quantidade:</strong> {item.quantidade}</div>
+                <div><strong>Total:</strong> R${item.total.toFixed(2)}</div>
+                <div><strong>Serviços:</strong> {item.servicos || 'Não informado'}</div>
+                <div><strong>Cor:</strong> {item.cores || 'Não informada'}</div>
+                <div><strong>Marca:</strong> {item.marca || 'Não informada'}</div>
+                <div><strong>Defeitos:</strong> {item.defeitos || 'Nenhum'}</div>
+              </div>
             </li>
           ))}
         </ul>
-        <p>Total pago: R${ticket.totalPago.toFixed(2)}</p>
+        <p><strong>Total pago:</strong> R${ticket.totalPago.toFixed(2)}</p>
         <div className={styles.inputGroup}>
           <label>
             Data de entrega:

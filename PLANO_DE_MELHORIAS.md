@@ -467,8 +467,8 @@ useEffect(() => {
 **🎯 Objetivo Final**: Transformar o sistema em uma ferramenta indispensável para gestão eficiente da lavanderia, economizando tempo, reduzindo erros e aumentando a satisfação dos clientes!
 
 *Documento criado em: Janeiro 2025*  
-*Última atualização: 06/05/2026 (Recepção Redesenhada)*  
-*Versão: 1.2*
+*Última atualização: 18/05/2026 (Redesign de Clientes e Busca de Ticket)*  
+*Versão: 1.3*
 
 ---
 
@@ -481,6 +481,8 @@ useEffect(() => {
 - **Rotas Administrativas** - Estrutura completa de rotas `/admin/*` com navegação integrada
 - **Placeholders** - Páginas de Gestão de Tickets, Clientes, Entregas e Configurações criadas
 - **Redesign da Recepção** - Tela de Recepção modernizada com layout minimalista, foco no formulário principal, backdrop blur, sombras suaves e animações refinadas
+- **Redesign da Página de Clientes** - Lista de clientes com hero panel, superfícies elevadas, tipografia moderna (Montserrat/Poppins), hover effects e empty states
+- **Redesign da Busca de Ticket** - Layout harmônico com gradientes sutis, hierarquia visual clara, labels em negrito e organização em grid para itens do ticket
 
 ### ⏳ Em Desenvolvimento (Placeholders):
 - Gestão de Tickets
