@@ -12,7 +12,7 @@
   margin: 0 auto;
   padding: 1.2rem 0 3rem;
   display: grid;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .heroPanel,
@@ -60,7 +60,7 @@
   border-radius: 999px;
   font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 0.08rem;
+  letter-spacing: 0.09rem;
   text-transform: uppercase;
 }
 
@@ -94,6 +94,7 @@
   margin: 0;
   color: #64748b;
   line-height: 1.7;
+  font-size: 0.95rem;
 }
 
 .detailItem strong,
@@ -411,5 +412,10 @@
   .primaryButton,
   .secondaryButton {
     width: 100%;
+  }
+
+  .inputGroup label + label {
+    margin-left: 0;
+    margin-top: 1rem;
   }
 }
