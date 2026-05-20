@@ -1,246 +1,417 @@
 .pageShell {
   min-height: 100vh;
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  background:
+    linear-gradient(180deg, rgba(248, 250, 255, 0.96) 0%, rgba(240, 244, 255, 0.98) 42%, rgba(247, 250, 255, 1) 100%),
+    radial-gradient(circle at 10% 12%, rgba(56, 189, 248, 0.16), transparent 24%),
+    radial-gradient(circle at 88% 10%, rgba(99, 102, 241, 0.16), transparent 18%),
+    radial-gradient(circle at 78% 82%, rgba(139, 92, 246, 0.1), transparent 16%);
 }
 
 .pageContent {
   width: min(1180px, calc(100% - 2rem));
   margin: 0 auto;
-  padding: 1.5rem 0 3rem;
+  padding: 1.2rem 0 3rem;
   display: grid;
   gap: 1.5rem;
 }
 
-.heroPanel {
-  padding: 2rem 1.5rem;
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at top left, rgba(15, 76, 92, 0.12), transparent 28%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(244, 248, 255, 0.92));
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.06);
-  backdrop-filter: blur(8px);
+.heroPanel,
+.searchSurface,
+.ticketHero,
+.detailCard {
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(18px);
 }
 
-.eyebrow {
+.heroPanel {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1.75rem;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+}
+
+.heroPanel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent 30%, transparent 65%, rgba(255, 255, 255, 0.08));
+  pointer-events: none;
+}
+
+.heroCopy {
+  position: relative;
+  z-index: 1;
+}
+
+.heroCopy {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.eyebrow,
+.sectionEyebrow {
   display: inline-flex;
-  padding: 0.4rem 0.85rem;
+  width: fit-content;
+  padding: 0.42rem 0.8rem;
   border-radius: 999px;
-  background: rgba(37, 99, 235, 0.08);
-  color: #2563eb;
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.09rem;
   text-transform: uppercase;
 }
 
-.heroPanel h1 {
-  margin: 0.85rem 0 0.5rem;
-  color: #0f172a;
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
-  font-weight: 800;
-  line-height: 1.2;
+.eyebrow {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
 }
 
-.heroPanel p {
+.sectionEyebrow {
+  background: rgba(239, 246, 255, 0.9);
+  color: #5f6f8c;
+}
+
+.heroPanel h1,
+.searchHeader h2,
+.ticketHeroHeader h3,
+.cardHeader h4 {
   margin: 0;
-  max-width: 62ch;
+  color: #0f172a;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.heroPanel h1 {
+  font-size: clamp(1.9rem, 3vw, 2.7rem);
+}
+
+.heroPanel p,
+.searchHeader p,
+.ticketHeroHeader p {
+  margin: 0;
   color: #64748b;
   line-height: 1.7;
   font-size: 0.95rem;
 }
 
+.detailItem strong,
+.deliveryInfoRow strong,
+.itemCardHeader strong,
+.itemMetaGrid strong,
+.itemTotalRow strong,
+.ticketTotal {
+  color: #0f172a;
+}
+
+.detailItem span,
+.deliveryInfoRow span,
+.itemCardHeader span,
+.itemMetaGrid span,
+.itemTotalRow span {
+  color: #64748b;
+}
+
+.searchSurface,
+.ticketWorkspace {
+  display: grid;
+  gap: 1rem;
+}
+
 .searchSurface {
   padding: 1.5rem;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.06);
+  border-radius: 26px;
 }
 
-.contentInput {
+.searchHeader,
+.ticketHeroHeader,
+.cardHeader {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: min(100%, 860px);
-  padding: 0.5rem 0 1rem;
-  margin: 0 auto;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
-.inputGroup {
-  display: flex;
-  max-width: 100%;
+.searchForm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+.fieldGroup {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.fieldGroup span {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.inputWrap input {
   width: 100%;
-  margin: 0.5rem 0;
-  gap: 0;
-}
-
-.inputGroup input {
-  flex: 1;
-  padding: 0.95rem 1.1rem;
-  border: 1px solid #cbd5e1;
-  border-right: none;
-  border-radius: 14px 0 0 14px;
-  outline: none;
-  background: #fff;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 16px;
+  padding: 1rem 1.05rem;
+  background: rgba(248, 250, 252, 0.96);
   color: #0f172a;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.inputWrap input:focus {
+  border-color: rgba(59, 130, 246, 0.38);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.searchActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.primaryButton,
+.secondaryButton {
+  min-height: 48px;
+  border-radius: 14px;
+  padding: 0.95rem 1.2rem;
   font-size: 0.95rem;
-  transition: border-color 0.2s ease;
-}
-
-.inputGroup input:focus {
-  border-color: #2563eb;
-}
-
-.btn_buscar {
-  padding: 0.95rem 1.5rem;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: #ffffff;
-  border: none;
-  border-radius: 0 14px 14px 0;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  flex-shrink: 0;
   font-weight: 700;
-  font-size: 0.95rem;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, filter 0.2s ease;
 }
 
-.btn_buscar:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.28);
+.primaryButton {
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  box-shadow: 0 14px 24px rgba(37, 99, 235, 0.18);
 }
 
-.btn_buscar:active {
-  transform: translateY(0);
+.secondaryButton {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  color: #1e293b;
+  background: linear-gradient(135deg, #eff6ff, #f8fafc);
+}
+
+.primaryButton:hover,
+.secondaryButton:hover {
+  transform: translateY(-1px);
+}
+
+.primaryButton:hover {
+  box-shadow: 0 18px 28px rgba(37, 99, 235, 0.24);
+}
+
+.secondaryButton:hover {
+  border-color: rgba(59, 130, 246, 0.28);
+}
+
+.errorMessage,
+.infoBanner {
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  font-weight: 600;
 }
 
 .errorMessage {
-  color: #dc2626;
-  font-weight: 600;
-  margin-top: 0.75rem;
-  text-align: center;
-  font-size: 0.9rem;
+  background: rgba(254, 226, 226, 0.8);
+  border: 1px solid rgba(248, 113, 113, 0.22);
+  color: #b91c1c;
 }
 
-.dateInput,
-.timeInput {
-  width: 100%;
-  padding: 0.85rem 0.95rem;
-  border-radius: 12px;
-  border: 1px solid #cbd5e1;
-  outline: none;
-  margin-top: 0.5rem;
-  background: #fff;
-  color: #0f172a;
-  font-size: 0.95rem;
-  transition: border-color 0.2s ease;
+.infoBanner {
+  background: rgba(239, 246, 255, 0.86);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  color: #2563eb;
 }
 
-.dateInput:focus,
-.timeInput:focus {
-  border-color: #2563eb;
+.ticketHero {
+  padding: 1.5rem;
+  border-radius: 26px;
+  display: grid;
+  gap: 1.25rem;
 }
 
-.content {
-  width: 100%;
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 40px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
-.totalizador {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 1.75rem;
+.statusSuccess {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.statusInfo {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.statusWarning {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.statusNeutral {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.ticketGrid,
+.itemsGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.itemCard {
+  padding: 1.15rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.74);
   border: 1px solid rgba(148, 163, 184, 0.12);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
+}
+
+.ticketGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.detailCard {
+  padding: 1.5rem;
+  border-radius: 24px;
+}
+
+.detailList,
+.scheduleGrid,
+.deliveryInfo,
+.itemMetaGrid {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.detailList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.detailItem,
+.deliveryInfoRow {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1rem;
   border-radius: 18px;
-  background-color: #ffffff;
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.04);
+  background: rgba(248, 250, 252, 0.86);
+  border: 1px solid rgba(148, 163, 184, 0.12);
 }
 
-.totalizador h3 {
-  color: #0f172a;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin: 0 0 1.25rem;
-}
-
-.totalizador h4 {
-  color: #0f172a;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin: 1.5rem 0 0.75rem;
-}
-
-.totalizador p {
-  color: #475569;
-  line-height: 1.7;
-  margin: 0.5rem 0;
-  font-size: 0.95rem;
-}
-
-.totalizador li {
-  color: #475569;
-  line-height: 1.6;
-}
-
-.totalizador label {
-  color: #475569;
-  font-weight: 600;
-  display: block;
-  margin-bottom: 0.35rem;
-  font-size: 0.9rem;
-}
-
-.totalizador ul {
-  padding-left: 0;
-  list-style: none;
-  margin: 0;
-}
-
-.totalizador > ul > li {
-  padding: 1.25rem;
+.scheduleGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-bottom: 1rem;
-  border-radius: 14px;
-  background: rgba(248, 250, 252, 0.6);
-  border: 1px solid rgba(148, 163, 184, 0.08);
 }
 
-.totalizador > ul > li:last-child {
-  margin-bottom: 0;
-  border-bottom: none;
+.deliveryInfo {
+  margin-bottom: 1rem;
 }
 
-.inputGroup label {
-  display: block;
-  width: 100%;
-  flex: 1;
+.ticketTotal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 40px;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(239, 246, 255, 0.9);
+  color: #2563eb;
+  font-weight: 700;
 }
 
-.inputGroup label + label {
-  margin-left: 1rem;
+.itemsGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.itemCard {
+  display: grid;
+  gap: 1rem;
+}
+
+.itemCardHeader,
+.itemTotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.itemMetaGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.itemMetaGrid div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+@media (max-width: 960px) {
+  .ticketGrid,
+  .itemsGrid,
+  .detailList {
+    grid-template-columns: 1fr;
+  }
+
+  .searchForm {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 720px) {
-  .inputGroup {
+  .pageContent {
+    width: min(100%, calc(100% - 1rem));
+    padding-bottom: 2rem;
+  }
+
+  .heroPanel,
+  .searchSurface,
+  .ticketHero,
+  .detailCard {
+    padding: 1.2rem;
+    border-radius: 22px;
+  }
+
+  .searchHeader,
+  .ticketHeroHeader,
+  .cardHeader,
+  .itemCardHeader,
+  .itemTotalRow {
     flex-direction: column;
+    align-items: stretch;
   }
 
-  .inputGroup input,
-  .btn_buscar {
+  .searchActions,
+  .scheduleGrid,
+  .itemMetaGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .primaryButton,
+  .secondaryButton {
     width: 100%;
-    border-radius: 14px;
-    border: 1px solid #cbd5e1;
-  }
-
-  .inputGroup input {
-    border-right: 1px solid #cbd5e1;
-  }
-
-  .btn_buscar {
-    margin-top: 0.75rem;
   }
 
   .inputGroup label + label {

@@ -233,6 +233,20 @@
         "complemento": "blc1"
       },
       "id": "R1En9GU"
+    },
+    {
+      "nome": "Felicia teste",
+      "email": "teste@exemplo.com",
+      "telefone": "(11) 97324-1419",
+      "endereco": {
+        "endereco": "Rua teste",
+        "numero": "451",
+        "estado": "SP",
+        "cep": "05763-470",
+        "bairro": "Chacara Nossa Senhora do Bom Conselho",
+        "complemento": "Blc f ap 103"
+      },
+      "id": "K75f2Qf"
     }
   ],
   "delivery": [
@@ -1177,11 +1191,12 @@
       "totalPago": 200.9,
       "dataCriacao": "2026-05-14T19:46:00.047Z",
       "dataEntrega": "2026-05-24T13:00:00.000Z",
-      "statusEntrega": "Aguardando retirada",
+      "statusEntrega": "Liberado",
       "id": "PqO6BuF",
       "tipoAtendimento": "Entrega",
       "formaPagamento": "Pagamento na retirada",
-      "statusPagamentoDescricao": "A pagar na retirada"
+      "statusPagamentoDescricao": "A pagar na retirada",
+      "cliente": []
     },
     {
       "ticketNumber": "502360",
@@ -1205,6 +1220,58 @@
       "dataEntrega": "2026-05-16T13:00:00.000Z",
       "statusEntrega": "Aguardando retirada",
       "id": "a0McIWA",
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "572420",
+      "clienteId": "3",
+      "estaPago": "sim",
+      "items": [
+        {
+          "pecaId": "bl1",
+          "subTipo": "BLAZER ESPECIAL",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "Amarelo",
+          "marca": "Marca I",
+          "defeitos": "",
+          "servicos": "Lavagem"
+        }
+      ],
+      "total": 89.9,
+      "totalPago": 89.9,
+      "dataCriacao": "2026-05-18T12:59:55.594Z",
+      "dataEntrega": "2026-05-20T14:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "lWvxkJk",
+      "tipoAtendimento": "Entrega",
+      "formaPagamento": "Dinheiro",
+      "statusPagamentoDescricao": "Pago com Dinheiro"
+    },
+    {
+      "ticketNumber": "240631",
+      "clienteId": "772a",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "cm2",
+          "subTipo": "CAMISA SOCIAL",
+          "quantidade": 1,
+          "total": 19.9,
+          "cores": "Preto, sem descrição, Azul-Marinho",
+          "marca": "Marca G",
+          "defeitos": "sem descrição",
+          "servicos": "Lavagem, So Passar"
+        }
+      ],
+      "total": 19.9,
+      "totalPago": 19.9,
+      "dataCriacao": "2026-05-18T14:29:52.071Z",
+      "dataEntrega": "2026-05-21T12:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "SdYEZFK",
       "tipoAtendimento": "Retirada",
       "formaPagamento": "Pagamento na retirada",
       "statusPagamentoDescricao": "A pagar na retirada"

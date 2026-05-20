@@ -66,7 +66,7 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
 
     if (pagamentoNaRetirada) {
       setStatusPagamento('A pagar na retirada');
-      ticket.estaPago = 'nao';
+      ticket.estaPago = 'não';
       ticket.formaPagamento = 'Pagamento na retirada';
       ticket.statusPagamentoDescricao = 'A pagar na retirada';
     } else {

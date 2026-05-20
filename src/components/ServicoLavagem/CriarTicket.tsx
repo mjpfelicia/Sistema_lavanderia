@@ -75,7 +75,7 @@ const CriarTicket: React.FC<CriarTickerProps> = ({ cliente, pecas, finalizarSele
     const ticketToCreate: Ticket = {
       ticketNumber,
       clienteId: cliente.id.toString(),
-      estaPago: 'nÃ£o',
+      estaPago: 'não',
       items: Object.entries(pecasAgrupadas).map(([key, { quantidade, total, pecaId, cores, marca, defeitos, servicos }]) => ({
         pecaId,
         subTipo: key.split('-')[0],
