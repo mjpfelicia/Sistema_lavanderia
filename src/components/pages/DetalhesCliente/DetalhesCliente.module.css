@@ -12,6 +12,7 @@
 /* Hero Panel - Cabeçalho da página */
 .heroPanel {
     padding: 1.5rem;
+    margin-top: 4rem;
     border-radius: 22px;
     background:
         radial-gradient(circle at top left, rgba(15, 76, 92, 0.16), transparent 26%),

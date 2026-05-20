@@ -1275,6 +1275,33 @@
       "tipoAtendimento": "Retirada",
       "formaPagamento": "Pagamento na retirada",
       "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "130851",
+      "clienteId": "7119",
+      "estaPago": "sim",
+      "items": [
+        {
+          "pecaId": "bl2",
+          "subTipo": "BLAZER",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "Azul Claro, Chartreuse",
+          "marca": "Marca M",
+          "defeitos": "Rasgo nas Costuras",
+          "servicos": "so lavar"
+        }
+      ],
+      "total": 89.9,
+      "totalPago": 89.9,
+      "dataCriacao": "2026-05-20T19:39:24.015Z",
+      "dataEntrega": "2026-05-29T12:00:00.000Z",
+      "statusEntrega": "Liberado",
+      "id": "4uci4PZ",
+      "tipoAtendimento": "Entrega",
+      "formaPagamento": "Cartao de Credito",
+      "statusPagamentoDescricao": "Pago com Cartao de Credito",
+      "cliente": []
     }
   ]
 }

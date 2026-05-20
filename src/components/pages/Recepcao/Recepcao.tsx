@@ -212,7 +212,6 @@ const Recepcao = () => {
 
       <header className="recepcao-header">
         <div className="header-left">
-          <BackToHome variant="icon" />
           <div className="logo-wrapper">
             <div className="logo-icon">
               {Icon(LuSparkles, { size: 18 })}
@@ -232,9 +231,11 @@ const Recepcao = () => {
           <button type="button" className="icon-btn" aria-label="Notificacoes">
             {Icon(LuBell, { size: 18 })}
           </button>
+
           <button type="button" className="icon-btn" aria-label="Configuracoes">
             {Icon(LuSettings2, { size: 18 })}
           </button>
+          <BackToHome variant="icon" />
         </div>
       </header>
 
