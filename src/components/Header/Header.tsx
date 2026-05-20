@@ -52,19 +52,7 @@ const Header = ({ nomePagina }: BotaoPaginaAtiva) => {
         </div>
       </div>
 
-      <nav className="headerNav" aria-label="Navegação principal">
-        <div className="headerMenu">
-          {menuCards.map((card) => (
-            <div key={card.link} className="headerMenuItem">
-              <ButtonComHover
-                card={card}
-                ativarHover={card.name === nomePagina}
-                className={card.name === nomePagina ? 'is-active' : ''}
-              />
-            </div>
-          ))}
-        </div>
-      </nav>
+
     </header>
   );
 };

@@ -59,6 +59,7 @@
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translate3d(0, 0, 0) scale(1);
@@ -206,6 +207,7 @@
 .hero-card {
   width: 100%;
   padding: 2rem;
+  margin-top: 4rem;
   border-radius: 28px;
   position: relative;
   overflow: hidden;
@@ -608,6 +610,7 @@
 }
 
 @media (max-width: 960px) {
+
   .shortcuts-grid,
   .stats-widget {
     grid-template-columns: 1fr;
@@ -615,6 +618,7 @@
 }
 
 @media (max-width: 768px) {
+
   .recepcao-header,
   .section-header,
   .result-header,
