@@ -106,6 +106,7 @@ Este documento consolida a direcao do produto, o que ja foi entregue e o que ain
 - 18/05/2026: correcao dos erros de compilacao em `react-bootstrap` e tipagem de pagamento.
 - 18/05/2026: build e validacao TypeScript concluídos com sucesso.
 - 18/05/2026: redesign da pagina de Cadastro de Cliente com layout mais moderno e responsivo.
+- 18/05/2026: definicao de nova diretriz de design com foco em personalizacoes modernas, superficies elevadas, sombras suaves, bordas arredondadas e hierarquia visual clara para as proximas etapas de desenvolvimento.
 
 ## Resumo executivo
-O projeto ja saiu de uma base visual mais simples para um caminho de interface mais moderna nas telas centrais. O proximo passo mais valioso e levar esse mesmo nivel de qualidade para Delivery, AgendaDelivery e modulos administrativos pendentes, enquanto o fluxo financeiro e de status ganha mais profundidade.
+O projeto ja saiu de uma base visual mais simples para um caminho de interface mais moderna nas telas centrais. Foi estabelecida uma correção nas páginas existentes e definida uma nova diretriz de design mais personalizado e moderno (com uso de sombras suaves, bordas arredondadas, gradientes sutis e melhor tipografia) que sera aplicada nas próximas etapas. O proximo passo mais valioso e levar esse mesmo nivel de qualidade para Delivery, AgendaDelivery e modulos administrativos pendentes, enquanto o fluxo financeiro e de status ganha mais profundidade.
