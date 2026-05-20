@@ -1191,11 +1191,12 @@
       "totalPago": 200.9,
       "dataCriacao": "2026-05-14T19:46:00.047Z",
       "dataEntrega": "2026-05-24T13:00:00.000Z",
-      "statusEntrega": "Aguardando retirada",
+      "statusEntrega": "Liberado",
       "id": "PqO6BuF",
       "tipoAtendimento": "Entrega",
       "formaPagamento": "Pagamento na retirada",
-      "statusPagamentoDescricao": "A pagar na retirada"
+      "statusPagamentoDescricao": "A pagar na retirada",
+      "cliente": []
     },
     {
       "ticketNumber": "502360",
