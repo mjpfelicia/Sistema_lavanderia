@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './RelatorioFinanceiro.css';
+import BackToHome from '../../buttons/BackToHome';
 import axios from 'axios';
 import { config } from '../../../config';
 
@@ -122,14 +123,14 @@ const RelatorioFinanceiro: React.FC = () => {
   return (
     <div className="relatorio-financeiro">
       <header className="relatorio-header no-print">
-        <div className="header-content">
-          <h1>💰 Relatório Financeiro</h1>
-          <p>Faturamento mensal e análise financeira</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <BackToHome variant="icon" />
+          <div className="header-content">
+            <h1>💰 Relatório Financeiro</h1>
+            <p>Faturamento mensal e análise financeira</p>
+          </div>
         </div>
         <div className="header-actions">
-          <button onClick={() => window.history.back()} className="btn-voltar">
-            ← Voltar
-          </button>
         </div>
       </header>
 

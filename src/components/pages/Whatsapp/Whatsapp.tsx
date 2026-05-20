@@ -2,6 +2,7 @@ import React from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import '../Whatsapp/Whatsapp.css';
 import Header from "../../Header/Header"
+import BackToHome from "../../buttons/BackToHome"
 
 const WhatsAppIcon: React.FC = () => {
   const handleClick = () => {
@@ -14,6 +15,9 @@ const WhatsAppIcon: React.FC = () => {
   return (
     <div onClick={handleClick}>
       <Header nomePagina="header" />
+      <div style={{ padding: '0.5rem 1rem' }}>
+        <BackToHome variant="icon" />
+      </div>
       <div className="WhatsappContent" >
         {FaWhatsapp({})}
       </div>

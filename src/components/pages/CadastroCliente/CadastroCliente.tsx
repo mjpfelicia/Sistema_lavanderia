@@ -11,6 +11,7 @@ import {
   LuUser,
 } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
+import BackToHome from '../../buttons/BackToHome';
 import { ClienteToCreate, criarCliente } from '../../../service/apiCliente';
 import './CadastroCliente.css';
 
@@ -223,10 +224,7 @@ const CadastroCliente = () => {
       <main className="cadastro-shell">
         <section className="cadastro-hero">
           <div className="cadastro-hero-topbar">
-            <Link to="/Recepcao" className="cadastro-back-link">
-              {renderIcon(LuChevronLeft, 18)}
-              <span>Voltar para recepcao</span>
-            </Link>
+            <BackToHome variant="full" />
             <div className="cadastro-chip">
               {renderIcon(LuShieldCheck, 16)}
               <span>Cadastro validado</span>

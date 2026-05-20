@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from "../../Header/Header";
 import VisualizarTicket from "./ListaTicket";
 import styles from './BuscaTicket.module.css';
@@ -31,7 +32,6 @@ const VisualizarTicketPage = () => {
 
   return (
     <div className={styles.pageShell}>
-      <Header nomePagina="Visualizar Ticket" />
 
       <main className={styles.pageContent}>
         <section className={styles.heroPanel}>
@@ -41,6 +41,14 @@ const VisualizarTicketPage = () => {
             <p>
               Busque o ticket atual para revisar entrega, pagamento e liberar as peças com o visual novo do sistema.
             </p>
+          </div>
+          <div className={styles.heroActions}>
+            <Link to="/" className={styles.actionLink}>
+              Voltar para Home
+            </Link>
+            <Link to="/Recepcao" className={`${styles.actionLink} ${styles.secondary}`}>
+              Ir para Recepção
+            </Link>
           </div>
         </section>
 

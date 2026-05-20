@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import React from 'react';
 import type { ComponentType, FormEvent, ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import BackToHome from '../../buttons/BackToHome';
 import {
   LuArrowRight,
   LuBell,
@@ -211,6 +212,7 @@ const Recepcao = () => {
 
       <header className="recepcao-header">
         <div className="header-left">
+          <BackToHome variant="icon" />
           <div className="logo-wrapper">
             <div className="logo-icon">
               {Icon(LuSparkles, { size: 18 })}

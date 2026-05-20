@@ -26,7 +26,9 @@
 }
 
 .heroPanel {
-  display: grid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 1.5rem;
   padding: 1.75rem;
   border-radius: 28px;
@@ -50,6 +52,46 @@
 .heroCopy {
   display: grid;
   gap: 0.8rem;
+}
+
+.heroActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.actionLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 1rem;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2d7fff, #4e9cff);
+  box-shadow: 0 16px 28px rgba(45, 127, 255, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.actionLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 36px rgba(45, 127, 255, 0.32);
+}
+
+.actionLink.secondary {
+  color: #1d4ed8;
+  background: linear-gradient(180deg, #ffffff, #f3f7ff);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: none;
+}
+
+.actionLink.secondary:hover {
+  border-color: rgba(59, 130, 246, 0.28);
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.12);
 }
 
 .eyebrow,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './AdminDashboard.css';
 import { Link } from 'react-router-dom';
+import BackToHome from '../../buttons/BackToHome';
 import axios from 'axios';
 import { config } from '../../../config';
 
@@ -169,8 +170,13 @@ const AdminDashboard: React.FC = () => {
     <div className="admin-dashboard">
       <header className="admin-header">
         <div className="header-content">
-          <h1>📊 Painel Administrativo</h1>
-          <p>Gestão completa da sua lavanderia</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <BackToHome variant="icon" />
+            <div>
+              <h1>📊 Painel Administrativo</h1>
+              <p>Gestão completa da sua lavanderia</p>
+            </div>
+          </div>
         </div>
         <div className="header-actions">
           <span className="last-update">

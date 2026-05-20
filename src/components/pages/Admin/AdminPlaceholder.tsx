@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import BackToHome from '../../buttons/BackToHome';
 import './AdminPlaceholder.css';
 
 interface AdminPlaceholderProps {
@@ -12,9 +13,12 @@ const AdminPlaceholder: React.FC<AdminPlaceholderProps> = ({ title, description,
   return (
     <div className="admin-placeholder">
       <header className="placeholder-header">
-        <div className="header-content">
-          <h1>{icon} {title}</h1>
-          <p>{description}</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <BackToHome variant="icon" />
+          <div className="header-content">
+            <h1>{icon} {title}</h1>
+            <p>{description}</p>
+          </div>
         </div>
       </header>
       

@@ -1,0 +1,35 @@
+.back-to-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+}
+
+.back-to-home--icon {
+  color: #2563eb;
+  padding: 0.6rem;
+  border-radius: 10px;
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.back-to-home--icon:hover {
+  background: rgba(37, 99, 235, 0.14);
+  transform: translateX(-2px);
+}
+
+.back-to-home--full {
+  color: #2563eb;
+  padding: 0.65rem 1rem;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.14);
+}
+
+.back-to-home--full:hover {
+  background: rgba(37, 99, 235, 0.14);
+  border-color: rgba(37, 99, 235, 0.24);
+  transform: translateX(-2px);
+}

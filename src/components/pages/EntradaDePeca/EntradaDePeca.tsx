@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import BackToHome from '../../buttons/BackToHome';
 import ServicoLavagem from '../../ServicoLavagem/ServicoLavagem';
 import type { Cliente } from '../../../service/apiCliente';
 import './EntradaDePeca.css';
@@ -18,8 +19,9 @@ const EntradaDePeca = () => {
           </div>
 
           <div className="entrada-hero-actions">
-            <Link to="/Recepcao" className="entrada-action-link">{'Voltar para recep\u00e7\u00e3o'}</Link>
-            <Link to="/BuscarTicket" className="entrada-action-link secondary">{'Buscar ticket'}</Link>
+            <BackToHome variant="full" />
+            <Link to="/Recepcao" className="entrada-action-link">Ir para Recepção</Link>
+            <Link to="/BuscarTicket" className="entrada-action-link secondary">Buscar ticket</Link>
           </div>
         </section>
 
