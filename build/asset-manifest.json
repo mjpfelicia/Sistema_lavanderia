@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.73860bff.css",
+    "main.js": "/static/js/main.45c2b61c.js",
+    "static/js/488.6d332b21.chunk.js": "/static/js/488.6d332b21.chunk.js",
+    "static/media/jaleco.png": "/static/media/jaleco.b1c5f5bdcfef38fec602.png",
+    "static/media/toa.png": "/static/media/toa.89f7369b62e0f60071a6.png",
+    "static/media/camisa.jpg": "/static/media/camisa.e8b2bae60fba454c9097.jpg",
+    "static/media/vestidoSimple.jpg": "/static/media/vestidoSimple.f800b7ceb7ba5489a281.jpg",
+    "index.html": "/index.html",
+    "main.73860bff.css.map": "/static/css/main.73860bff.css.map",
+    "main.45c2b61c.js.map": "/static/js/main.45c2b61c.js.map",
+    "488.6d332b21.chunk.js.map": "/static/js/488.6d332b21.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.73860bff.css",
+    "static/js/main.45c2b61c.js"
+  ]
+}
