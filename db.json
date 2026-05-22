@@ -273,6 +273,12 @@
       "deliveryTipo": "Entrega",
       "deliveryData": "2026-04-30T23:31:00.000Z",
       "id": "TSvLD2H"
+    },
+    {
+      "clienteId": "772a",
+      "deliveryTipo": "Entrega",
+      "deliveryData": "2026-05-28T15:22:00.000Z",
+      "id": "CI25VTQ"
     }
   ],
   "peca": [
@@ -1270,11 +1276,12 @@
       "totalPago": 19.9,
       "dataCriacao": "2026-05-18T14:29:52.071Z",
       "dataEntrega": "2026-05-21T12:00:00.000Z",
-      "statusEntrega": "Aguardando retirada",
+      "statusEntrega": "Liberado",
       "id": "SdYEZFK",
       "tipoAtendimento": "Retirada",
       "formaPagamento": "Pagamento na retirada",
-      "statusPagamentoDescricao": "A pagar na retirada"
+      "statusPagamentoDescricao": "A pagar na retirada",
+      "cliente": []
     },
     {
       "ticketNumber": "130851",
@@ -1302,6 +1309,29 @@
       "formaPagamento": "Cartao de Credito",
       "statusPagamentoDescricao": "Pago com Cartao de Credito",
       "cliente": []
+    },
+    {
+      "ticketNumber": "581426",
+      "clienteId": "df46",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "cm2",
+          "subTipo": "CAMISA SOCIAL",
+          "quantidade": 1,
+          "total": 19.9,
+          "cores": "Roxo",
+          "marca": "Marca I",
+          "defeitos": "Encolhido",
+          "servicos": "so lavar"
+        }
+      ],
+      "total": 19.9,
+      "totalPago": 19.9,
+      "dataCriacao": "2026-05-22T19:58:22.357Z",
+      "dataEntrega": "",
+      "statusEntrega": "Em producao",
+      "id": "pVSusot"
     }
   ]
 }

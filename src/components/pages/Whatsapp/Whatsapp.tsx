@@ -1,29 +1,37 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaWhatsapp } from 'react-icons/fa';
-import '../Whatsapp/Whatsapp.css';
-import Header from "../../Header/Header"
-import BackToHome from "../../buttons/BackToHome"
+import './Whatsapp.css';
+import PageFrame from '../../layouts/PageFrame';
 
 const WhatsAppIcon: React.FC = () => {
   const handleClick = () => {
-    // Substitua pelo número de telefone desejado
-    const phoneNumber = "5511999999999";
-    const WhatsappUrl = `https://wa.me/${phoneNumber}`;
-    window.open(WhatsappUrl, "_blank");
+    const phoneNumber = '5511999999999';
+    const whatsappUrl = `https://wa.me/${phoneNumber}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
-    <div onClick={handleClick}>
-      <Header nomePagina="header" />
-      <div style={{ padding: '0.5rem 1rem' }}>
-        <BackToHome variant="icon" />
-      </div>
-      <div className="WhatsappContent" >
+    <PageFrame
+      eyebrow="Canal rapido"
+      title="Atendimento via WhatsApp"
+      description="Abra a conversa oficial em um ponto de contato que acompanha a mesma identidade visual da recepcao e das telas operacionais."
+      actions={
+        <>
+          <Link to="/Recepcao" className="page-frame-chip">Recepcao</Link>
+          <button type="button" className="page-frame-chip is-primary" onClick={handleClick}>
+            Abrir conversa
+          </button>
+        </>
+      }
+    >
+      <button type="button" className="WhatsappContent" onClick={handleClick}>
+        <span className="whatsapp-badge">Clique para abrir o WhatsApp</span>
         {FaWhatsapp({})}
-      </div>
-    </div>
+        <p>Atalho direto para continuar o atendimento fora do balcao.</p>
+      </button>
+    </PageFrame>
   );
 };
 
 export default WhatsAppIcon;
-

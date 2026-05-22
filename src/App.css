@@ -8,72 +8,72 @@ body {
 }
 
 :root {
-  --color_azul_bg: #0f4c5c;
-  --color_border: #6ea9aa;
-  --colorBtnCadastra: #b76e4d;
-  --colorHoverBtnCadastra: #97563a;
-  --color-hover-atualiza: #efe3da;
-  --color-icon: #204c58;
-  --color_branca: #fffdfa;
-  --color-bg_menu: #f6ede4;
-  --color-hover-clicado: #f1e7df;
-  --color-borde: #decfc4;
-  --color-bg-cinza-claro: rgba(255, 252, 247, 0.95);
-  --color-texto: #213640;
-  --color-sub-titulo: #766763;
-  --color-font: #1b2730;
-  --color-line: rgba(33, 54, 64, 0.12);
-  --color-error: #be5a53;
+  --color_azul_bg: #2563eb;
+  --color_border: #94a3b8;
+  --colorBtnCadastra: #2563eb;
+  --colorHoverBtnCadastra: #1d4ed8;
+  --color-hover-atualiza: #dbeafe;
+  --color-icon: #1e40af;
+  --color_branca: #ffffff;
+  --color-bg_menu: #eff6ff;
+  --color-hover-clicado: #e0e7ff;
+  --color-borde: #cbd5e1;
+  --color-bg-cinza-claro: rgba(248, 250, 255, 0.95);
+  --color-texto: #0f172a;
+  --color-sub-titulo: #64748b;
+  --color-font: #0f172a;
+  --color-line: rgba(148, 163, 184, 0.18);
+  --color-error: #dc2626;
   --color-titleCadastro: #16222a;
 
-  --color-bg-primary: #f8f3ee;
-  --color-bg-secondary: #efe2d7;
-  --color-bg-success: #dde9de;
-  --color-bg-danger: #f8e2de;
-  --color-bg-warning: #f5e0cf;
-  --color-bg-info: #dbe8ea;
-  --color-bg-light: #fffdfa;
-  --color-bg-leve: rgba(255, 253, 250, 0.92);
-  --color-bg-dark: #233640;
+  --color-bg-primary: #f8faff;
+  --color-bg-secondary: #eef4ff;
+  --color-bg-success: #dcfce7;
+  --color-bg-danger: #fee2e2;
+  --color-bg-warning: #ffedd5;
+  --color-bg-info: #dbeafe;
+  --color-bg-light: #ffffff;
+  --color-bg-leve: rgba(255, 255, 255, 0.92);
+  --color-bg-dark: #0f172a;
 
-  --color-text-primary: #1b2730;
-  --color-text-secondary: #766863;
-  --color-text-success: #456a5a;
-  --color-text-danger: #8f4842;
-  --color-text-warning: #8f6540;
-  --color-text-info: #315967;
-  --color-text-light: #fffdfa;
-  --color-texto-primario: #162c35;
-  --color-text-dark: #233640;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-success: #15803d;
+  --color-text-danger: #b91c1c;
+  --color-text-warning: #c2410c;
+  --color-text-info: #1d4ed8;
+  --color-text-light: #ffffff;
+  --color-texto-primario: #0f172a;
+  --color-text-dark: #0f172a;
 
-  --color-border-primary: #dfd3c8;
-  --color-border-secondary: #d4c7bc;
-  --color-border-success: #ccdcd0;
-  --color-border-danger: #edccc6;
-  --color-border-warning: #e9d2b5;
-  --color-border-info: #cedde0;
+  --color-border-primary: #dbe4f0;
+  --color-border-secondary: #cbd5e1;
+  --color-border-success: #bbf7d0;
+  --color-border-danger: #fecaca;
+  --color-border-warning: #fed7aa;
+  --color-border-info: #bfdbfe;
 
-  --color-hover-primary: #b76e4d;
-  --color-hover-secondary: #8a7770;
-  --color-hover-success: #618673;
-  --color-hover-danger: #bf6860;
-  --color-hover-warning: #cc9b65;
-  --color-hover-info: #5b8894;
-  --color-hover-light: #fffdfa;
-  --color-hover-dark: #233640;
+  --color-hover-primary: #1d4ed8;
+  --color-hover-secondary: #475569;
+  --color-hover-success: #166534;
+  --color-hover-danger: #991b1b;
+  --color-hover-warning: #9a3412;
+  --color-hover-info: #1e40af;
+  --color-hover-light: #ffffff;
+  --color-hover-dark: #020617;
 
-  --color-accent-warm: #c97b55;
-  --color-accent-soft: #f3d6c4;
-  --color-accent-rose: #cf8d98;
-  --color-accent-sage: #bfd3c6;
-  --color-accent-gold: #c6a06a;
-  --color-surface-glass: rgba(255, 253, 249, 0.74);
+  --color-accent-warm: #3b82f6;
+  --color-accent-soft: #dbeafe;
+  --color-accent-rose: #c4b5fd;
+  --color-accent-sage: #e0e7ff;
+  --color-accent-gold: #93c5fd;
+  --color-surface-glass: rgba(255, 255, 255, 0.74);
   --color-surface-elevated: rgba(255, 255, 255, 0.86);
-  --color-shadow-soft: rgba(29, 27, 25, 0.08);
-  --color-shadow-strong: rgba(25, 24, 22, 0.16);
-  --gradient-brand: linear-gradient(135deg, #0f4c5c 0%, #1b5b67 36%, #b76e4d 100%);
-  --gradient-brand-soft: linear-gradient(135deg, rgba(15, 76, 92, 0.12), rgba(183, 110, 77, 0.12) 58%, rgba(207, 141, 152, 0.12));
-  --gradient-surface: linear-gradient(135deg, rgba(255, 252, 248, 0.98), rgba(244, 236, 228, 0.96));
+  --color-shadow-soft: rgba(15, 23, 42, 0.08);
+  --color-shadow-strong: rgba(15, 23, 42, 0.16);
+  --gradient-brand: linear-gradient(135deg, #2563eb 0%, #4f46e5 52%, #7c3aed 100%);
+  --gradient-brand-soft: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(79, 70, 229, 0.1) 58%, rgba(124, 58, 237, 0.12));
+  --gradient-surface: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(243, 247, 255, 0.96));
 }
 
 a {
@@ -88,10 +88,10 @@ header {
   position: fixed;
   width: 100%;
   background:
-    linear-gradient(180deg, rgba(248, 241, 232, 0.95), rgba(255, 253, 250, 0.88)),
+    linear-gradient(180deg, rgba(248, 250, 255, 0.95), rgba(255, 255, 255, 0.88)),
     rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(183, 110, 77, 0.14);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
   padding: 10px 0;
   box-shadow: 0 4px 12px var(--color-shadow-soft);
 }
@@ -101,13 +101,13 @@ header {
   width: 100%;
   text-align: center;
   background:
-    linear-gradient(180deg, rgba(255, 250, 245, 0.98) 0%, rgba(247, 240, 232, 0.98) 42%, rgba(251, 248, 244, 1) 100%),
-    radial-gradient(circle at 8% 10%, rgba(15, 76, 92, 0.14), transparent 22%),
-    radial-gradient(circle at 86% 12%, rgba(201, 123, 85, 0.18), transparent 18%),
-    radial-gradient(circle at 78% 82%, rgba(207, 141, 152, 0.12), transparent 16%),
+    linear-gradient(180deg, rgba(248, 250, 255, 0.98) 0%, rgba(240, 244, 255, 0.98) 42%, rgba(247, 250, 255, 1) 100%),
+    radial-gradient(circle at 8% 10%, rgba(56, 189, 248, 0.14), transparent 22%),
+    radial-gradient(circle at 86% 12%, rgba(99, 102, 241, 0.18), transparent 18%),
+    radial-gradient(circle at 78% 82%, rgba(139, 92, 246, 0.12), transparent 16%),
     linear-gradient(120deg, transparent 0 57%, rgba(255, 255, 255, 0.5) 57%, rgba(255, 255, 255, 0.5) 63%, transparent 63%),
-    linear-gradient(90deg, rgba(30, 44, 52, 0.024) 0, rgba(30, 44, 52, 0.024) 1px, transparent 1px, transparent 90px),
-    linear-gradient(0deg, rgba(30, 44, 52, 0.018) 0, rgba(30, 44, 52, 0.018) 1px, transparent 1px, transparent 90px);
+    linear-gradient(90deg, rgba(148, 163, 184, 0.024) 0, rgba(148, 163, 184, 0.024) 1px, transparent 1px, transparent 90px),
+    linear-gradient(0deg, rgba(148, 163, 184, 0.018) 0, rgba(148, 163, 184, 0.018) 1px, transparent 1px, transparent 90px);
   background-position: center, top left, right top, right bottom, center, center, center;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
   background-size: cover, auto, auto, auto, cover, 90px 90px, 90px 90px;
