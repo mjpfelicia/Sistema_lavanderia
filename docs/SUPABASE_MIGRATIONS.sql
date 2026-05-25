@@ -6,8 +6,8 @@
 -- Baseado em db.json existente
 -- ============================================
 
--- Habilitar extensão UUID
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- UUID: gen_random_uuid() vem do pgcrypto
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- ============================================
 -- 1. TABELA: cliente (Customers)
@@ -47,6 +47,9 @@ CREATE TABLE IF NOT EXISTS peca (
 
 -- Índice para performance
 CREATE INDEX IF NOT EXISTS idx_peca_tipo ON peca(tipo);
+
+-- Seed idempotente
+CREATE UNIQUE INDEX IF NOT EXISTS ux_peca_tipo_subtipo ON peca(tipo, subTipo);
 
 -- ============================================
 -- 3. TABELA: ticket (Service Orders)
@@ -97,7 +100,6 @@ CREATE INDEX IF NOT EXISTS idx_delivery_clienteId ON delivery(clienteId);
 -- ROW LEVEL SECURITY (RLS)
 -- ============================================
 
--- Habilitar RLS em todas as tabelas
 ALTER TABLE cliente ENABLE ROW LEVEL SECURITY;
 ALTER TABLE peca ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ticket ENABLE ROW LEVEL SECURITY;
@@ -107,88 +109,90 @@ ALTER TABLE delivery ENABLE ROW LEVEL SECURITY;
 -- POLÍTICAS RLS: cliente
 -- ============================================
 
--- SELECT: Usuários veem apenas seus próprios clientes
 DROP POLICY IF EXISTS "Users can view their own clients" ON cliente;
 CREATE POLICY "Users can view their own clients" ON cliente
-  FOR SELECT USING (auth.uid() = user_id);
+  FOR SELECT
+  USING (auth.uid() = user_id);
 
--- INSERT: Usuários podem criar clientes
 DROP POLICY IF EXISTS "Users can create clients" ON cliente;
 CREATE POLICY "Users can create clients" ON cliente
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+  FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
 
--- UPDATE: Usuários podem atualizar seus próprios clientes
 DROP POLICY IF EXISTS "Users can update their own clients" ON cliente;
 CREATE POLICY "Users can update their own clients" ON cliente
-  FOR UPDATE USING (auth.uid() = user_id);
+  FOR UPDATE
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
 
--- DELETE: Usuários podem deletar seus próprios clientes
 DROP POLICY IF EXISTS "Users can delete their own clients" ON cliente;
 CREATE POLICY "Users can delete their own clients" ON cliente
-  FOR DELETE USING (auth.uid() = user_id);
+  FOR DELETE
+  USING (auth.uid() = user_id);
 
 -- ============================================
 -- POLÍTICAS RLS: ticket
 -- ============================================
 
--- SELECT: Usuários veem apenas seus próprios tickets
 DROP POLICY IF EXISTS "Users can view their own tickets" ON ticket;
 CREATE POLICY "Users can view their own tickets" ON ticket
-  FOR SELECT USING (auth.uid() = user_id);
+  FOR SELECT
+  USING (auth.uid() = user_id);
 
--- INSERT: Usuários podem criar tickets
 DROP POLICY IF EXISTS "Users can create tickets" ON ticket;
 CREATE POLICY "Users can create tickets" ON ticket
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+  FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
 
--- UPDATE: Usuários podem atualizar seus próprios tickets
 DROP POLICY IF EXISTS "Users can update their own tickets" ON ticket;
 CREATE POLICY "Users can update their own tickets" ON ticket
-  FOR UPDATE USING (auth.uid() = user_id);
+  FOR UPDATE
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
 
--- DELETE: Usuários podem deletar seus próprios tickets
 DROP POLICY IF EXISTS "Users can delete their own tickets" ON ticket;
 CREATE POLICY "Users can delete their own tickets" ON ticket
-  FOR DELETE USING (auth.uid() = user_id);
+  FOR DELETE
+  USING (auth.uid() = user_id);
 
 -- ============================================
 -- POLÍTICAS RLS: delivery
 -- ============================================
 
--- SELECT: Usuários veem apenas suas próprias entregas
 DROP POLICY IF EXISTS "Users can view their own deliveries" ON delivery;
 CREATE POLICY "Users can view their own deliveries" ON delivery
-  FOR SELECT USING (auth.uid() = user_id);
+  FOR SELECT
+  USING (auth.uid() = user_id);
 
--- INSERT: Usuários podem criar entregas
 DROP POLICY IF EXISTS "Users can create deliveries" ON delivery;
 CREATE POLICY "Users can create deliveries" ON delivery
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+  FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
 
--- UPDATE: Usuários podem atualizar suas próprias entregas
 DROP POLICY IF EXISTS "Users can update their own deliveries" ON delivery;
 CREATE POLICY "Users can update their own deliveries" ON delivery
-  FOR UPDATE USING (auth.uid() = user_id);
+  FOR UPDATE
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
 
--- DELETE: Usuários podem deletar suas próprias entregas
 DROP POLICY IF EXISTS "Users can delete their own deliveries" ON delivery;
 CREATE POLICY "Users can delete their own deliveries" ON delivery
-  FOR DELETE USING (auth.uid() = user_id);
+  FOR DELETE
+  USING (auth.uid() = user_id);
 
 -- ============================================
 -- POLÍTICAS RLS: peca
 -- ============================================
 
--- SELECT: Público para leitura (catálogo compartilhado)
 DROP POLICY IF EXISTS "Everyone can view pecas" ON peca;
 CREATE POLICY "Everyone can view pecas" ON peca
-  FOR SELECT USING (true);
+  FOR SELECT
+  USING (true);
 
 -- ============================================
 -- TRIGGER: Atualizar updated_at automaticamente
 -- ============================================
 
--- Função para atualizar timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -197,7 +201,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Triggers para cada tabela
 DROP TRIGGER IF EXISTS update_cliente_updated_at ON cliente;
 CREATE TRIGGER update_cliente_updated_at
   BEFORE UPDATE ON cliente
@@ -223,9 +226,9 @@ CREATE TRIGGER update_delivery_updated_at
   EXECUTE FUNCTION update_updated_at_column();
 
 -- ============================================
--- SEED DATA: Popular tabela peca (Catálogo)
+-- SEED DATA: Popular tabela peca (catálogo)
+-- (idempotente por UNIQUE(tipo, subTipo))
 -- ============================================
--- Dados baseados no db.json existente (45 peças)
 
 INSERT INTO peca (tipo, subTipo, preco, imagemUrl) VALUES
 -- CALÇAS (6 itens)
@@ -273,7 +276,7 @@ INSERT INTO peca (tipo, subTipo, preco, imagemUrl) VALUES
 ('JALECO', 'JALECO OXFORD', 30.00, '/assets/img/jaleco.png'),
 ('JALECO', 'JALECO BRIM', 30.00, '/assets/img/jaleco.png'),
 
--- CAMA (5 itens)
+-- CAMA (6 itens)
 ('CAMA', 'EDREDOM', 50.00, '/assets/img/edredom.png'),
 ('CAMA', 'EDREDOM KING', 60.00, '/assets/img/edredom.png'),
 ('CAMA', 'EDREDOM QUEEN', 30.00, '/assets/img/edredom.png'),
@@ -281,19 +284,26 @@ INSERT INTO peca (tipo, subTipo, preco, imagemUrl) VALUES
 ('CAMA', 'EDREDOM PLUMA', 30.00, '/assets/img/edredom.png'),
 ('CAMA', 'EDREDOM BABADO', 30.00, '/assets/img/edredom.png'),
 
--- MESA (5 itens)
+-- MESA (6 itens)
 ('MESA', 'TOALHA LINHO', 30.00, '/assets/img/toa.png'),
 ('MESA', 'TOALHA RENDA', 30.00, '/assets/img/toa.png'),
 ('MESA', 'TOALHA GRANDE', 30.00, '/assets/img/toa.png'),
 ('MESA', 'TOALHA REDONDA', 30.00, '/assets/img/toa.png'),
 ('MESA', 'TOALHA MALHA', 30.00, '/assets/img/toa.png'),
-('MESA', 'TOALHA PEQUENA', 30.00, '/assets/img/toa.png');
+('MESA', 'TOALHA PEQUENA', 30.00, '/assets/img/toa.png')
+ON CONFLICT (tipo, subTipo) DO UPDATE
+SET
+  preco = EXCLUDED.preco,
+  imagemUrl = EXCLUDED.imagemUrl,
+  updated_at = NOW();
 
 -- ============================================
 -- FIM DO SCRIPT DE MIGRAÇÃO
 -- ============================================
--- Verificação pós-execução:
--- 1. Execute: SELECT COUNT(*) FROM peca; (deve retornar 45)
--- 2. Execute: SELECT * FROM peca LIMIT 5;
--- 3. Verifique se RLS está habilitado: SELECT relname, relrowsecurity FROM pg_class WHERE relname IN ('cliente', 'peca', 'ticket', 'delivery');
--- ============================================
+
+-- Verificação pós-execução (manual no SQL Editor):
+-- 1) SELECT COUNT(*) FROM peca;
+-- 2) SELECT * FROM peca LIMIT 5;
+-- 3) SELECT relname, relrowsecurity
+--    FROM pg_class
+--    WHERE relname IN ('cliente', 'peca', 'ticket', 'delivery');
