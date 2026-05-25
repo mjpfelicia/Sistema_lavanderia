@@ -6,8 +6,8 @@
 -- Baseado em db.json existente
 -- ============================================
 
--- Habilitar extensão UUID
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- Habilitar extensão para geração de UUIDs (pgcrypto)
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- ============================================
 -- 1. TABELA: cliente (Customers)
@@ -42,8 +42,12 @@ CREATE TABLE IF NOT EXISTS peca (
   preco DECIMAL(10, 2) NOT NULL,
   imagemUrl TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(tipo, subTipo)
 );
+
+-- Índice único para garantir idempotência no seed
+CREATE UNIQUE INDEX IF NOT EXISTS ux_peca_tipo_subtipo ON peca(tipo, subTipo);
 
 -- Índice para performance
 CREATE INDEX IF NOT EXISTS idx_peca_tipo ON peca(tipo);
@@ -117,10 +121,12 @@ DROP POLICY IF EXISTS "Users can create clients" ON cliente;
 CREATE POLICY "Users can create clients" ON cliente
   FOR INSERT WITH CHECK (auth.uid() = user_id);
 
--- UPDATE: Usuários podem atualizar seus próprios clientes
+-- UPDATE: Usuários podem atualizar seus próprios clientes (com WITH CHECK para segurança)
 DROP POLICY IF EXISTS "Users can update their own clients" ON cliente;
 CREATE POLICY "Users can update their own clients" ON cliente
-  FOR UPDATE USING (auth.uid() = user_id);
+  FOR UPDATE 
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
 
 -- DELETE: Usuários podem deletar seus próprios clientes
 DROP POLICY IF EXISTS "Users can delete their own clients" ON cliente;
@@ -141,10 +147,12 @@ DROP POLICY IF EXISTS "Users can create tickets" ON ticket;
 CREATE POLICY "Users can create tickets" ON ticket
   FOR INSERT WITH CHECK (auth.uid() = user_id);
 
--- UPDATE: Usuários podem atualizar seus próprios tickets
+-- UPDATE: Usuários podem atualizar seus próprios tickets (com WITH CHECK para segurança)
 DROP POLICY IF EXISTS "Users can update their own tickets" ON ticket;
 CREATE POLICY "Users can update their own tickets" ON ticket
-  FOR UPDATE USING (auth.uid() = user_id);
+  FOR UPDATE 
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
 
 -- DELETE: Usuários podem deletar seus próprios tickets
 DROP POLICY IF EXISTS "Users can delete their own tickets" ON ticket;
@@ -165,10 +173,12 @@ DROP POLICY IF EXISTS "Users can create deliveries" ON delivery;
 CREATE POLICY "Users can create deliveries" ON delivery
   FOR INSERT WITH CHECK (auth.uid() = user_id);
 
--- UPDATE: Usuários podem atualizar suas próprias entregas
+-- UPDATE: Usuários podem atualizar suas próprias entregas (com WITH CHECK para segurança)
 DROP POLICY IF EXISTS "Users can update their own deliveries" ON delivery;
 CREATE POLICY "Users can update their own deliveries" ON delivery
-  FOR UPDATE USING (auth.uid() = user_id);
+  FOR UPDATE 
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
 
 -- DELETE: Usuários podem deletar suas próprias entregas
 DROP POLICY IF EXISTS "Users can delete their own deliveries" ON delivery;
@@ -226,6 +236,7 @@ CREATE TRIGGER update_delivery_updated_at
 -- SEED DATA: Popular tabela peca (Catálogo)
 -- ============================================
 -- Dados baseados no db.json existente (45 peças)
+-- Usando ON CONFLICT para garantir idempotência
 
 INSERT INTO peca (tipo, subTipo, preco, imagemUrl) VALUES
 -- CALÇAS (6 itens)
@@ -273,7 +284,7 @@ INSERT INTO peca (tipo, subTipo, preco, imagemUrl) VALUES
 ('JALECO', 'JALECO OXFORD', 30.00, '/assets/img/jaleco.png'),
 ('JALECO', 'JALECO BRIM', 30.00, '/assets/img/jaleco.png'),
 
--- CAMA (5 itens)
+-- CAMA (6 itens)
 ('CAMA', 'EDREDOM', 50.00, '/assets/img/edredom.png'),
 ('CAMA', 'EDREDOM KING', 60.00, '/assets/img/edredom.png'),
 ('CAMA', 'EDREDOM QUEEN', 30.00, '/assets/img/edredom.png'),
@@ -281,13 +292,18 @@ INSERT INTO peca (tipo, subTipo, preco, imagemUrl) VALUES
 ('CAMA', 'EDREDOM PLUMA', 30.00, '/assets/img/edredom.png'),
 ('CAMA', 'EDREDOM BABADO', 30.00, '/assets/img/edredom.png'),
 
--- MESA (5 itens)
+-- MESA (6 itens)
 ('MESA', 'TOALHA LINHO', 30.00, '/assets/img/toa.png'),
 ('MESA', 'TOALHA RENDA', 30.00, '/assets/img/toa.png'),
 ('MESA', 'TOALHA GRANDE', 30.00, '/assets/img/toa.png'),
 ('MESA', 'TOALHA REDONDA', 30.00, '/assets/img/toa.png'),
 ('MESA', 'TOALHA MALHA', 30.00, '/assets/img/toa.png'),
-('MESA', 'TOALHA PEQUENA', 30.00, '/assets/img/toa.png');
+('MESA', 'TOALHA PEQUENA', 30.00, '/assets/img/toa.png')
+ON CONFLICT (tipo, subTipo) 
+DO UPDATE SET 
+  preco = EXCLUDED.preco, 
+  imagemUrl = EXCLUDED.imagemUrl,
+  updated_at = NOW();
 
 -- ============================================
 -- FIM DO SCRIPT DE MIGRAÇÃO
