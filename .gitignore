@@ -1,2 +1,6 @@
-Nothing needs to be added to .gitignore since only a markdown file (PLANO_DE_MELHORIAS.md) was modified and no build artifacts, dependencies, or temporary files were detected in the changes.
+.env.*
+!.env.example
 node_modules
+dist
+build
+coverage
