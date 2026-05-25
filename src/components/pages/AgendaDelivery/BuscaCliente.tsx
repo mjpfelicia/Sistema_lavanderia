@@ -13,72 +13,95 @@ const BuscaCliente: React.FC<BuscaClienteProps> = ({ onClienteSelecionado }) => 
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [noResults, setNoResults] = useState<boolean>(false);
-  const [confirmarCadastro, setConfirmarCadastro] = useState<boolean>(false); // Novo estado para confirmação
+  const [confirmarCadastro, setConfirmarCadastro] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  // Função para lidar com mudanças nos campos do formulário
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError(null);
+    setConfirmarCadastro(false);
+    if (clientes.length) {
+      setClientes([]);
+    }
   };
 
-  // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const nome = formData.nome.trim();
+    const telefone = formData.telefone.trim();
+
+    if (!nome && !telefone) {
+      setError('Informe ao menos o nome ou o telefone para buscar.');
+      return;
+    }
+
+    if (nome && nome.length < 3) {
+      setError('Digite pelo menos 3 caracteres no nome para buscar.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
-    setNoResults(false);
     setConfirmarCadastro(false);
+
     try {
-      // Busca o cliente na API
-      const result: Cliente[] = await buscarCliente(formData.nome, formData.telefone);
+      const result: Cliente[] = await buscarCliente(nome, telefone);
+      setClientes(result);
+
+      if (result.length === 1) {
+        onClienteSelecionado(result[0]);
+        return;
+      }
+
       if (result.length === 0) {
-        setNoResults(true);
         setConfirmarCadastro(true);
       }
-      setClientes(result);
-    } catch (error) {
-      setError("Erro ao buscar cliente. Tente novamente.");
+    } catch (requestError) {
+      console.error('Erro ao buscar cliente no delivery', requestError);
+      setError('Erro ao buscar cliente. Verifique se a API local esta ativa e tente novamente.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Função para redirecionar para a página de cadastro
   const handleCadastrarCliente = () => {
-    setConfirmarCadastro(false); // Ocultar a confirmação de cadastro
-    navigate('/CadastroCliente'); // Redirecionando para a rota de cadastro
+    navigate('/CadastroCliente');
   };
 
   return (
     <div>
       <form className={classes.formulario} onSubmit={handleSubmit}>
         <div className={classes.controle_de_campo}>
-          <label htmlFor="nome">Nome:</label>
-          <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
+          <label htmlFor="nome">Nome</label>
+          <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} />
         </div>
         <div className={classes.controle_de_campo}>
-          <label htmlFor="telefone">Telefone:</label>
-          <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} required />
+          <label htmlFor="telefone">Telefone</label>
+          <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} />
         </div>
         <div className={classes.controle_de_campo}>
-          <button type="submit" className={classes.btn_enter}>Pesquisar</button>
+          <button type="submit" className={classes.btn_enter} disabled={loading}>
+            {loading ? 'Buscando...' : 'Pesquisar'}
+          </button>
         </div>
       </form>
+
       {loading && <Spinner animation="border" role="status"><span className="visually-hidden">Carregando...</span></Spinner>}
       {error && <p className={classes.error}>{error}</p>}
+
       {!loading && !error && confirmarCadastro && (
         <div className={classes.confirmacao}>
-          <p>Cliente não encontrado. Deseja cadastrar um novo cliente?</p>
+          <p>Cliente nao encontrado. Deseja cadastrar um novo cliente?</p>
           <div className={classes.btn_group}>
-            <button onClick={handleCadastrarCliente} className={`${classes.btn_confirm} ${classes.btn}`}>Sim</button>
-            <button onClick={() => setConfirmarCadastro(false)} className={`${classes.btn_cancel} ${classes.btn}`}>Não</button>
+            <button onClick={handleCadastrarCliente} className={`${classes.btn_confirm} ${classes.btn}`}>Cadastrar</button>
+            <button onClick={() => setConfirmarCadastro(false)} className={`${classes.btn_cancel} ${classes.btn}`}>Revisar</button>
           </div>
         </div>
-
       )}
+
       <div className={classes.box}>
-        {clientes.length > 0 && (
+        {clientes.length > 1 && (
           <ul>
             {clientes.map((cliente) => (
               <li className={classes.li} key={cliente.id} onClick={() => onClienteSelecionado(cliente)}>

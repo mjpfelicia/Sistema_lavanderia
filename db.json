@@ -279,6 +279,13 @@
       "deliveryTipo": "Entrega",
       "deliveryData": "2026-05-28T15:22:00.000Z",
       "id": "CI25VTQ"
+    },
+    {
+      "clienteId": "68c4",
+      "ticketNumber": "228610",
+      "deliveryTipo": "Entrega",
+      "deliveryData": "2026-05-27T18:00:00.000Z",
+      "id": "85fSuCB"
     }
   ],
   "peca": [
@@ -1478,6 +1485,83 @@
       "dataEntrega": "2026-05-31T15:00:00.000Z",
       "statusEntrega": "Aguardando retirada",
       "id": "-V_KafY",
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "821079",
+      "clienteId": "2a5d",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "bl1",
+          "subTipo": "BLAZER ESPECIAL",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "Laranja, Vermelho",
+          "estampa": "Listrado",
+          "marca": "Marca I",
+          "defeitos": "Faltando Botao, Encolhido",
+          "servicos": "Lavagem, Costura"
+        }
+      ],
+      "total": 89.9,
+      "totalPago": 89.9,
+      "dataCriacao": "2026-05-25T19:49:57.565Z",
+      "dataEntrega": "2026-05-31T14:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "AyQk3r5",
+      "cliente": {
+        "id": "2a5d",
+        "nome": "Maria Oliveira",
+        "email": "mjpfelicia@gmail.com",
+        "endereco": "Rua Francisco da Cruz Mellão",
+        "numero": "82",
+        "cep": "05782351",
+        "estado": "São Paulo",
+        "telefone": "11973241419",
+        "complemento": "ap teste",
+        "bairro": "Teste"
+      },
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "228610",
+      "clienteId": "68c4",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "bl1",
+          "subTipo": "BLAZER ESPECIAL",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "Azul, Roxo",
+          "estampa": "Liso",
+          "marca": "Marca H",
+          "defeitos": "Costura solta",
+          "servicos": "Lavagem, so lavar"
+        }
+      ],
+      "total": 89.9,
+      "totalPago": 89.9,
+      "dataCriacao": "2026-05-25T20:01:47.145Z",
+      "dataEntrega": "2026-05-27T16:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "Wu-xX0J",
+      "cliente": {
+        "nome": "SANDRA FELICIO DE JESUS",
+        "email": "mjpfelicia@gmail.com",
+        "cep": "05782351",
+        "estado": "São Paulo",
+        "telefone": "(11)96415-8920",
+        "endereco": "Rua teste 2",
+        "numero": "00",
+        "complemento": "ap atualiza",
+        "id": "68c4"
+      },
       "tipoAtendimento": "Retirada",
       "formaPagamento": "Pagamento na retirada",
       "statusPagamentoDescricao": "A pagar na retirada"
