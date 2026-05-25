@@ -2,61 +2,74 @@ import React, { useState } from 'react';
 import './DefectPicker.css';
 
 const defects = [
-  'sem descrição',
+  'Sem descricao',
   'Rasgado',
   'Manchado',
   'Desbotado',
-  'Faltando Botão',
-  'Rasgão no Tecido',
-  'Zíper Quebrado',
+  'Faltando Botao',
+  'Rasgao no tecido',
+  'Ziper quebrado',
   'Furo',
   'Desfiado',
-  'Costura Solta',
-  'Tecido Esticado',
+  'Costura solta',
+  'Tecido esticado',
   'Desgaste',
   'Bolor',
   'Encolhido',
-  'Mancha de Tinta',
-  'Parte Queimada',
-  'Orlas Desgastadas',
-  'Partes Soltas',
-  'Elasticidade Perdida',
-  'Fecho Defeituoso',
-  'Rasgo nas Costuras'
+  'Mancha de tinta',
+  'Parte queimada',
+  'Orlas desgastadas',
+  'Partes soltas',
+  'Elasticidade perdida',
+  'Fecho defeituoso',
+  'Rasgo nas costuras',
 ];
 
-console.log(defects);
-
 interface DefectPickerProps {
-  selecionarDefeito: (defeito: string) => void;
+  selecionarDefeito: (defeitos: string[]) => void;
   confirmarDefeitos: () => void;
 }
 
 const DefectPicker: React.FC<DefectPickerProps> = ({ selecionarDefeito, confirmarDefeitos }) => {
-  const [selectedDefect, setSelectedDefect] = useState<string>('');
+  const [selectedDefects, setSelectedDefects] = useState<string[]>([]);
 
   const handleDefectClick = (defect: string) => {
-    setSelectedDefect(defect);
-    selecionarDefeito(defect);
+    setSelectedDefects((current) => {
+      const nextDefects = current.includes(defect)
+        ? current.filter((item) => item !== defect)
+        : [...current, defect];
+      selecionarDefeito(nextDefects);
+      return nextDefects;
+    });
   };
 
   return (
     <div className="defect-picker">
+      <div className="defect-header">
+        <h3>Selecione os defeitos</h3>
+        <p>Marque um ou mais defeitos. Se nao houver, pode deixar vazio.</p>
+      </div>
+
       <div className="defect-table">
-        {defects.map((defect, index) => (
-          <div
-            key={index}
-            className={`defect-cell ${selectedDefect === defect ? 'selected' : ''}`}
+        {defects.map((defect) => (
+          <button
+            key={defect}
+            type="button"
+            className={`defect-cell ${selectedDefects.includes(defect) ? 'selected' : ''}`}
             onClick={() => handleDefectClick(defect)}
           >
             {defect}
-          </div>
+          </button>
         ))}
       </div>
+
       <div className="defect-code">
-        {selectedDefect ? `Defeito selecionado: ${selectedDefect}` : 'Clique em um defeito'}
+        {selectedDefects.length ? `Defeitos selecionados: ${selectedDefects.join(', ')}` : 'Clique em um ou mais defeitos'}
       </div>
-      <button className='button-defect' onClick={confirmarDefeitos}>Confirmar Defeitos</button>
+
+      <button className="button-defect" onClick={confirmarDefeitos}>
+        Confirmar Defeitos
+      </button>
     </div>
   );
 };

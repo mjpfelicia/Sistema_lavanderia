@@ -36,14 +36,19 @@ const BrandPicker: React.FC<BrandPickerProps> = ({ selecionarMarca }) => {
 
   return (
     <div className="brand-picker">
+      <div className="brand-header">
+        <h3>Selecione a marca</h3>
+        <p>Escolha a marca principal da peca para facilitar a identificacao.</p>
+      </div>
       <div className="brand-table">
         {brands.map((brand, index) => (
-          <div
+          <button
             key={index}
+            type="button"
             className={`brand-cell ${selectedBrand === brand ? 'selected' : ''}`}
             onClick={() => handleBrandClick(brand)} >
             {brand}
-          </div>
+          </button>
         ))}
       </div>
       <div className="brand-code">

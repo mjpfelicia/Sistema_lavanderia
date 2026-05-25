@@ -1332,6 +1332,155 @@
       "dataEntrega": "",
       "statusEntrega": "Em producao",
       "id": "pVSusot"
+    },
+    {
+      "ticketNumber": "743882",
+      "clienteId": "3",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "v3",
+          "subTipo": "VESTIDO SIMPLES",
+          "quantidade": 1,
+          "total": 200.9,
+          "cores": "Rosa, Roxo",
+          "marca": "Marca A",
+          "defeitos": "Rasgo nas Costuras, Partes Soltas",
+          "servicos": "Lavagem"
+        },
+        {
+          "pecaId": "j1",
+          "subTipo": "JAQUETA SIMPLES",
+          "quantidade": 1,
+          "total": 20.9,
+          "cores": "Laranja",
+          "marca": "Marca M",
+          "defeitos": "Rasgado",
+          "servicos": "Costura"
+        }
+      ],
+      "total": 221.8,
+      "totalPago": 221.8,
+      "dataCriacao": "2026-05-25T19:09:34.948Z",
+      "dataEntrega": "2026-05-29T15:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "B2z0kx8",
+      "tipoAtendimento": "Entrega",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "181558",
+      "clienteId": "3",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "bl1",
+          "subTipo": "BLAZER ESPECIAL",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "Amarelo, Roxo",
+          "marca": "Marca M",
+          "defeitos": "",
+          "servicos": "Lavagem, so lavar"
+        }
+      ],
+      "total": 89.9,
+      "totalPago": 89.9,
+      "dataCriacao": "2026-05-25T19:40:04.377Z",
+      "dataEntrega": "2026-05-27T18:40:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "7PV2E5W",
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "193566",
+      "clienteId": "f1bc",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "cm2",
+          "subTipo": "CAMISA SOCIAL",
+          "quantidade": 1,
+          "total": 19.9,
+          "cores": "Aqua, Branco",
+          "estampa": "Florido",
+          "marca": "Marca I",
+          "defeitos": "Ziper quebrado, Costura solta",
+          "servicos": "Lavagem, Tingimento"
+        },
+        {
+          "pecaId": "c3",
+          "subTipo": "EDREDOM QUEEN",
+          "quantidade": 1,
+          "total": 30,
+          "cores": "Rosa, Amarelo, Oliva",
+          "estampa": "Estampado",
+          "marca": "Marca I",
+          "defeitos": "Encolhido",
+          "servicos": "so lavar"
+        }
+      ],
+      "total": 49.9,
+      "totalPago": 49.9,
+      "dataCriacao": "2026-05-25T19:43:48.189Z",
+      "dataEntrega": "2026-05-29T12:30:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "QqjNMla",
+      "tipoAtendimento": "Entrega",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "193566",
+      "clienteId": "f1bc",
+      "estaPago": "não",
+      "items": [
+        {
+          "pecaId": "cm2",
+          "subTipo": "CAMISA SOCIAL",
+          "quantidade": 1,
+          "total": 19.9,
+          "cores": "Aqua, Branco",
+          "estampa": "Florido",
+          "marca": "Marca I",
+          "defeitos": "Ziper quebrado, Costura solta",
+          "servicos": "Lavagem, Tingimento"
+        },
+        {
+          "pecaId": "c3",
+          "subTipo": "EDREDOM QUEEN",
+          "quantidade": 1,
+          "total": 30,
+          "cores": "Rosa, Amarelo, Oliva",
+          "estampa": "Estampado",
+          "marca": "Marca I",
+          "defeitos": "Encolhido",
+          "servicos": "so lavar"
+        },
+        {
+          "pecaId": "bl1",
+          "subTipo": "BLAZER ESPECIAL",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "Azul Claro",
+          "estampa": "Tie-dye",
+          "marca": "Marca M",
+          "defeitos": "Rasgo nas costuras",
+          "servicos": "Higienização"
+        }
+      ],
+      "total": 139.8,
+      "totalPago": 139.8,
+      "dataCriacao": "2026-05-25T19:44:48.034Z",
+      "dataEntrega": "2026-05-31T15:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "-V_KafY",
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Pagamento na retirada",
+      "statusPagamentoDescricao": "A pagar na retirada"
     }
   ]
 }

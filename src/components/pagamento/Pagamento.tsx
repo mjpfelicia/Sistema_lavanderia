@@ -28,6 +28,7 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
   const [erro, setErro] = useState<string>('');
   const [mostrarImpressao, setMostrarImpressao] = useState<boolean>(false);
   const [processandoPagamento, setProcessandoPagamento] = useState<boolean>(false);
+  const [ticketParaImpressao, setTicketParaImpressao] = useState<Ticket>(ticket);
   const [dadosConfirmados, setDadosConfirmados] = useState<{
     formaPagamento: string;
     statusPagamento: string;
@@ -81,7 +82,12 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
 
     try {
       setProcessandoPagamento(true);
-      await atualizaTicket(ticket);
+      const ticketAtualizado = await atualizaTicket(ticket);
+      setTicketParaImpressao({
+        ...ticketAtualizado,
+        cliente: ticket.cliente || ticketAtualizado.cliente,
+        items: ticketAtualizado.items?.length ? ticketAtualizado.items : ticket.items,
+      });
       setDadosConfirmados({
         formaPagamento: ticket.formaPagamento || 'Pagamento na retirada',
         statusPagamento: ticket.statusPagamentoDescricao || statusPagamento,
@@ -207,7 +213,7 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
           total={total}
           quantidade={quantidade}
           dataCriacao={new Date().toLocaleDateString()}
-          ticket={ticket}
+          ticket={ticketParaImpressao}
         />
       )}
     </>
