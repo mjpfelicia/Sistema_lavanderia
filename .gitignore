@@ -72,3 +72,13 @@ htmlcov/
 *.tar.xz
 *.tar.zst
 ```
+.env*
+!.env.example
+node_modules
+dist
+build
+coverage
+
+# Database migrations and docs
+*.sql
+*.md
