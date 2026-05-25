@@ -11,7 +11,7 @@ As seguintes variáveis já estão configuradas no ambiente:
 
 1. **Acesse o Dashboard:**
    ```
-   https://supabase.com/dashboard/project/koqoinhppexhltvgfeel
+   https://supabase.com/dashboard
    ```
 
 2. **Navegue até o SQL Editor:**
