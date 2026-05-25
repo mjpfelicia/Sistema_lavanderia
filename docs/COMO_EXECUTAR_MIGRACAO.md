@@ -4,11 +4,6 @@
 
 As seguintes variáveis já estão configuradas no ambiente:
 
-```bash
-VITE_SUPABASE_URL=https://koqoinhppexhltvgfeel.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_JvKWPCtiplZy8UFCdgkCnw_QC2S7lSH
-VITE_SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-```
 
 ## 📋 Passo a Passo para Executar a Migração
 
