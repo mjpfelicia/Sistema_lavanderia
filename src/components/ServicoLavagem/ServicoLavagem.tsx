@@ -5,10 +5,11 @@ import PecasSelecionadas from './PecasSelecionadas';
 import CriarTicket from '../ServicoLavagem/CriarTicket';
 import '../ServicoLavagem/ServicoLavagem.css';
 import ModalPagamento from '../modal/ModalPagamento';
-import ColorPicker from '../Color/ColorPicker';
-import BrandPicker from '../Marcas/BrandPicker';
-import DefectPicker from '../Defeitos/DefectPicker';
 import TipoServicoPicker from '../TipoServico/TipoServicoPicker';
+import ColorPicker from '../Color/ColorPicker';
+import EstampaPicker from '../Estampa/EstampaPicker';
+import DefectPicker from '../Defeitos/DefectPicker';
+import BrandPicker from '../Marcas/BrandPicker';
 import BLAZER from '../../img/blazer.png';
 import camisa from '../../img/camisa.jpg';
 import calcaSimples from '../../img/calcaSimples.png';
@@ -47,12 +48,12 @@ interface ServicoLavagemProps {
 }
 
 const stepTitles = [
-  'Escolha o tipo',
   'Selecione o subtipo',
-  'Defina o servi\u00e7o',
+  'Defina o servico',
   'Escolha as cores',
-  'Informe a marca',
+  'Escolha a estampa',
   'Registre os defeitos',
+  'Informe a marca',
 ];
 
 const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
@@ -70,6 +71,7 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
       complemento: '',
     },
   };
+
   const clienteAtual = cliente ?? clienteVazio;
   const clienteValido = Boolean(cliente?.id && cliente.nome.trim());
   const [modalAberto, setModalAberto] = useState<boolean>(false);
@@ -80,6 +82,7 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
   const [ticket, setTicket] = useState<Ticket>({} as Ticket);
   const [step, setStep] = useState<number>(0);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  const [estampaSelecionada, setEstampaSelecionada] = useState<string>('');
   const [marcaSelecionada, setMarcaSelecionada] = useState<string>('');
   const [defeitosSelecionados, setDefeitosSelecionados] = useState<string[]>([]);
   const [pecaAtual, setPecaAtual] = useState<Peca | null>(null);
@@ -100,6 +103,7 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
     setModalAberto(false);
     setPecasSelecionada([]);
     setSelectedColors([]);
+    setEstampaSelecionada('');
     setMarcaSelecionada('');
     setDefeitosSelecionados([]);
     setPecaAtual(null);
@@ -116,45 +120,48 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
     setStep(2);
   };
 
-  const selecionarCor = (cor: string) => {
-    setSelectedColors((prevSelectedColors) =>
-      prevSelectedColors.includes(cor) ? prevSelectedColors : [...prevSelectedColors, cor],
-    );
+  const selecionarCores = (cores: string[]) => {
+    setSelectedColors(cores);
   };
 
   const finalizarSelecaoCores = () => {
     if (selectedColors.length > 0) {
-      if (pecaAtual) {
-        setPecaAtual({ ...pecaAtual, cores: selectedColors });
-      }
       setStep(3);
     }
   };
 
-  const selecionarMarca = (marca: string) => {
-    if (pecaAtual) {
-      setPecaAtual({ ...pecaAtual, marca });
-    }
-    setMarcaSelecionada(marca);
+  const selecionarEstampa = (estampa: string) => {
+    setEstampaSelecionada(estampa);
     setStep(4);
   };
 
-  const selecionarDefeito = (defeito: string) => {
-    setDefeitosSelecionados((prevDefeitos) =>
-      prevDefeitos.includes(defeito)
-        ? prevDefeitos.filter((d) => d !== defeito)
-        : [...prevDefeitos, defeito],
-    );
+  const selecionarDefeitos = (defeitos: string[]) => {
+    setDefeitosSelecionados(defeitos);
   };
 
   const confirmarDefeitos = () => {
+    setStep(5);
+  };
+
+  const selecionarMarca = (marca: string) => {
+    setMarcaSelecionada(marca);
+
     if (pecaAtual) {
-      const pecaComDetalhes = { ...pecaAtual, defeitos: defeitosSelecionados, servicos: tipoServico };
+      const pecaComDetalhes = {
+        ...pecaAtual,
+        cores: selectedColors,
+        estampa: estampaSelecionada,
+        marca,
+        defeitos: defeitosSelecionados,
+        servicos: tipoServico,
+      };
+
       const pecaExistente = pecasAdicionadas.find(
         (p) =>
           p.subTipo === pecaAtual.subTipo &&
-          JSON.stringify(p.cores) === JSON.stringify(pecaAtual.cores) &&
-          p.marca === pecaAtual.marca &&
+          JSON.stringify(p.cores) === JSON.stringify(selectedColors) &&
+          p.estampa === estampaSelecionada &&
+          p.marca === marca &&
           JSON.stringify(p.defeitos) === JSON.stringify(defeitosSelecionados) &&
           JSON.stringify(p.servicos) === JSON.stringify(tipoServico),
       );
@@ -163,8 +170,9 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
         setPecasAdicionadas((prevPecas) =>
           prevPecas.map((p) =>
             p.subTipo === pecaAtual.subTipo &&
-            JSON.stringify(p.cores) === JSON.stringify(pecaAtual.cores) &&
-            p.marca === pecaAtual.marca &&
+            JSON.stringify(p.cores) === JSON.stringify(selectedColors) &&
+            p.estampa === estampaSelecionada &&
+            p.marca === marca &&
             JSON.stringify(p.defeitos) === JSON.stringify(defeitosSelecionados) &&
             JSON.stringify(p.servicos) === JSON.stringify(tipoServico)
               ? { ...p, quantidade: (p.quantidade || 1) + 1 }
@@ -190,7 +198,7 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
 
   const totalPecas = pecasAdicionadas.reduce((acc, peca) => acc + (peca.quantidade || 1), 0);
   const totalPreco = pecasAdicionadas.reduce((acc, peca) => acc + peca.preco * (peca.quantidade || 1), 0);
-  const activeStepTitle = modalAberto ? stepTitles[Math.min(step + 1, stepTitles.length - 1)] : stepTitles[0];
+  const activeStepTitle = modalAberto ? stepTitles[Math.min(step, stepTitles.length - 1)] : 'Escolha o tipo de peca para comecar';
 
   return (
     <div className="servico-lavagem">
@@ -207,17 +215,17 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
         <section className="servico-workspace">
           <div className="servico-workspace-header">
             <div>
-              <span className="servico-eyebrow">{modalAberto ? 'Detalhamento da pe\u00e7a' : 'Cat\u00e1logo de entrada'}</span>
-              <h2>{modalAberto ? activeStepTitle : 'Escolha o tipo de pe\u00e7a para come\u00e7ar'}</h2>
+              <span className="servico-eyebrow">{modalAberto ? 'Detalhamento da peca' : 'Catalogo de entrada'}</span>
+              <h2>{modalAberto ? activeStepTitle : 'Escolha o tipo de peca para comecar'}</h2>
             </div>
             <div className="servico-metrics">
               <div className="servico-metric-pill">
                 <strong>{totalPecas}</strong>
-                <span>{'pe\u00e7as'}</span>
+                <span>pecas</span>
               </div>
               <div className="servico-metric-pill">
                 <strong>{`R$ ${totalPreco.toFixed(2)}`}</strong>
-                <span>{'total parcial'}</span>
+                <span>total parcial</span>
               </div>
             </div>
           </div>
@@ -242,7 +250,7 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
                   </div>
                   <div className="servico-piece-copy">
                     <strong>{peca}</strong>
-                    <span>{'Selecionar categoria'}</span>
+                    <span>Selecionar categoria</span>
                   </div>
                 </button>
               ))}
@@ -252,9 +260,9 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
           {modalAberto && (
             <div className="servico-step-shell">
               <div className="servico-step-topbar">
-                <span>{`Etapa ${step + 2} de 6`}</span>
+                <span>{`Etapa ${step + 1} de ${stepTitles.length}`}</span>
                 <button type="button" onClick={fecharModal} className="servico-back-button">
-                  {'Voltar ao cat\u00e1logo'}
+                  Voltar ao catalogo
                 </button>
               </div>
 
@@ -264,12 +272,13 @@ const ServicoLavagem: React.FC<ServicoLavagemProps> = ({ cliente }) => {
                 )}
                 {step === 1 && pecaAtual && <TipoServicoPicker selecionarServico={selecionarServico} />}
                 {step === 2 && tipoServico.length > 0 && (
-                  <ColorPicker selecionarCor={selecionarCor} finalizarSelecaoCores={finalizarSelecaoCores} />
+                  <ColorPicker selecionarCor={selecionarCores} finalizarSelecaoCores={finalizarSelecaoCores} />
                 )}
-                {step === 3 && selectedColors.length > 0 && <BrandPicker selecionarMarca={selecionarMarca} />}
-                {step === 4 && marcaSelecionada && (
-                  <DefectPicker selecionarDefeito={selecionarDefeito} confirmarDefeitos={confirmarDefeitos} />
+                {step === 3 && selectedColors.length > 0 && <EstampaPicker selecionarEstampa={selecionarEstampa} />}
+                {step === 4 && estampaSelecionada && (
+                  <DefectPicker selecionarDefeito={selecionarDefeitos} confirmarDefeitos={confirmarDefeitos} />
                 )}
+                {step === 5 && <BrandPicker selecionarMarca={selecionarMarca} />}
               </Step>
             </div>
           )}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ColorPicker.css';
 
 const colors = [
-  { name: 'sem descrição', code: 'rgba(0, 0, 0, 0.4)' }, 
+  { name: 'Sem descricao', code: 'rgba(100, 116, 139, 0.4)' },
   { name: 'Azul', code: '#0000FF' },
   { name: 'Laranja', code: '#FFA500' },
   { name: 'Preto', code: '#000000' },
@@ -34,46 +34,56 @@ const colors = [
   { name: 'Lima', code: '#00FF00' },
   { name: 'Oliva', code: '#808000' },
   { name: 'Prata', code: '#C0C0C0' },
-  { name: 'Salmão', code: '#FA8072' },
+  { name: 'Salmao', code: '#FA8072' },
   { name: 'Turquesa', code: '#40E0D0' },
-  { name: 'Violeta', code: '#EE82EE' }
+  { name: 'Violeta', code: '#EE82EE' },
 ];
 
 interface ColorPickerProps {
-  selecionarCor: (cor: string) => void;
+  selecionarCor: (cores: string[]) => void;
   finalizarSelecaoCores: () => void;
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = ({ selecionarCor, finalizarSelecaoCores }) => {
-  const [selectedColor, setSelectedColor] = useState<string>('');
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
 
-  const handleColorClick = (color: { name: string, code: string }) => {
-    if (selectedColor === color.code) {
-      console.log(`Cor confirmada: ${color.name}`);
-    } else {
-      setSelectedColor(color.code);
-      selecionarCor(color.name);
-    }
+  const handleColorClick = (colorName: string) => {
+    setSelectedColors((current) => {
+      const nextColors = current.includes(colorName)
+        ? current.filter((item) => item !== colorName)
+        : [...current, colorName];
+      selecionarCor(nextColors);
+      return nextColors;
+    });
   };
 
   return (
     <div className="color-picker-cards-container">
+      <div className="color-picker-header">
+        <h3>Selecione as cores</h3>
+        <p>Voce pode escolher mais de uma cor.</p>
+      </div>
+
       <div className="color-picker-table">
-        {colors.map((color, index) => (
-          <div
-            key={index}
-            className={`color-picker-cell ${selectedColor === color.code ? 'selected' : ''}`}
-            style={{ backgroundColor: color.code }}
-            onClick={() => handleColorClick(color)}
+        {colors.map((color) => (
+          <button
+            key={color.name}
+            type="button"
+            className={`color-picker-cell ${selectedColors.includes(color.name) ? 'selected' : ''}`}
+            onClick={() => handleColorClick(color.name)}
           >
-            {color.name}
-          </div>
+            <span className="color-swatch" style={{ backgroundColor: color.code }} aria-hidden="true"></span>
+            <span className="color-label">{color.name}</span>
+          </button>
         ))}
       </div>
+
       <div className="color-picker-code">
-        {selectedColor ? `Cor selecionada: ${colors.find(color => color.code === selectedColor)?.name}` : ''}
-        {selectedColor && (
-          <button className='button_ColorPicker' onClick={finalizarSelecaoCores}>Confirmar Cores</button>
+        {selectedColors.length ? `Cores selecionadas: ${selectedColors.join(', ')}` : 'Clique em uma ou mais cores'}
+        {selectedColors.length > 0 && (
+          <button className="button_ColorPicker" onClick={finalizarSelecaoCores}>
+            Confirmar Cores
+          </button>
         )}
       </div>
     </div>

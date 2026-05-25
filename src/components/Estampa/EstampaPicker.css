@@ -1,0 +1,62 @@
+.estampa-picker {
+  display: grid;
+  gap: 1rem;
+}
+
+.estampa-header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.estampa-header h3,
+.estampa-header p {
+  margin: 0;
+}
+
+.estampa-header h3 {
+  color: #0f172a;
+}
+
+.estampa-header p {
+  color: #64748b;
+}
+
+.estampa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.estampa-card {
+  min-height: 5rem;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 18px;
+  background: linear-gradient(135deg, #fff7ed, #fef3c7);
+  color: #7c2d12;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.estampa-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(245, 158, 11, 0.12);
+}
+
+.estampa-card.selected {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  border-color: transparent;
+}
+
+.estampa-feedback {
+  color: #475569;
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+}
+
+@media (max-width: 680px) {
+  .estampa-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

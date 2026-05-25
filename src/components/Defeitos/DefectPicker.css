@@ -4,6 +4,24 @@
   gap: 1rem;
 }
 
+.defect-header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.defect-header h3,
+.defect-header p {
+  margin: 0;
+}
+
+.defect-header h3 {
+  color: #0f172a;
+}
+
+.defect-header p {
+  color: #64748b;
+}
+
 .defect-table {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

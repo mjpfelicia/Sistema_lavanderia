@@ -9,6 +9,7 @@ export type TicketItem = {
   subTipo: string;
   total: number;
   cores?: string;
+  estampa?: string;
   marca?: string;
   defeitos?: string;
   servicos?: string;
@@ -102,7 +103,7 @@ export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
       });
 
       if (!ticketMaisRecente) {
-        throw new Error('Ticket não encontrado.');
+        throw new Error('Ticket nÃ£o encontrado.');
       }
 
       return ticketMaisRecente;
