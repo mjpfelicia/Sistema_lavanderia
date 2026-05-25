@@ -6,7 +6,7 @@
 -- Baseado em db.json existente
 -- ============================================
 
--- UUID: gen_random_uuid() vem do pgcrypto
+-- Habilitar extensão para geração de UUIDs (pgcrypto)
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- ============================================
@@ -42,8 +42,12 @@ CREATE TABLE IF NOT EXISTS peca (
   preco DECIMAL(10, 2) NOT NULL,
   imagemUrl TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(tipo, subTipo)
 );
+
+-- Índice único para garantir idempotência no seed
+CREATE UNIQUE INDEX IF NOT EXISTS ux_peca_tipo_subtipo ON peca(tipo, subTipo);
 
 -- Índice para performance
 CREATE INDEX IF NOT EXISTS idx_peca_tipo ON peca(tipo);
@@ -119,9 +123,10 @@ CREATE POLICY "Users can create clients" ON cliente
   FOR INSERT
   WITH CHECK (auth.uid() = user_id);
 
+-- UPDATE: Usuários podem atualizar seus próprios clientes (com WITH CHECK para segurança)
 DROP POLICY IF EXISTS "Users can update their own clients" ON cliente;
 CREATE POLICY "Users can update their own clients" ON cliente
-  FOR UPDATE
+  FOR UPDATE 
   USING (auth.uid() = user_id)
   WITH CHECK (auth.uid() = user_id);
 
@@ -144,9 +149,10 @@ CREATE POLICY "Users can create tickets" ON ticket
   FOR INSERT
   WITH CHECK (auth.uid() = user_id);
 
+-- UPDATE: Usuários podem atualizar seus próprios tickets (com WITH CHECK para segurança)
 DROP POLICY IF EXISTS "Users can update their own tickets" ON ticket;
 CREATE POLICY "Users can update their own tickets" ON ticket
-  FOR UPDATE
+  FOR UPDATE 
   USING (auth.uid() = user_id)
   WITH CHECK (auth.uid() = user_id);
 
@@ -169,9 +175,10 @@ CREATE POLICY "Users can create deliveries" ON delivery
   FOR INSERT
   WITH CHECK (auth.uid() = user_id);
 
+-- UPDATE: Usuários podem atualizar suas próprias entregas (com WITH CHECK para segurança)
 DROP POLICY IF EXISTS "Users can update their own deliveries" ON delivery;
 CREATE POLICY "Users can update their own deliveries" ON delivery
-  FOR UPDATE
+  FOR UPDATE 
   USING (auth.uid() = user_id)
   WITH CHECK (auth.uid() = user_id);
 
@@ -229,6 +236,8 @@ CREATE TRIGGER update_delivery_updated_at
 -- SEED DATA: Popular tabela peca (catálogo)
 -- (idempotente por UNIQUE(tipo, subTipo))
 -- ============================================
+-- Dados baseados no db.json existente (45 peças)
+-- Usando ON CONFLICT para garantir idempotência
 
 INSERT INTO peca (tipo, subTipo, preco, imagemUrl) VALUES
 -- CALÇAS (6 itens)
@@ -291,9 +300,9 @@ INSERT INTO peca (tipo, subTipo, preco, imagemUrl) VALUES
 ('MESA', 'TOALHA REDONDA', 30.00, '/assets/img/toa.png'),
 ('MESA', 'TOALHA MALHA', 30.00, '/assets/img/toa.png'),
 ('MESA', 'TOALHA PEQUENA', 30.00, '/assets/img/toa.png')
-ON CONFLICT (tipo, subTipo) DO UPDATE
-SET
-  preco = EXCLUDED.preco,
+ON CONFLICT (tipo, subTipo) 
+DO UPDATE SET 
+  preco = EXCLUDED.preco, 
   imagemUrl = EXCLUDED.imagemUrl,
   updated_at = NOW();
 
