@@ -278,11 +278,6 @@ const Home = () => {
   const revenue = paidTickets.reduce((sum, ticket) => sum + ticket.total, 0);
   const averageTicket = dashboard.tickets.length ? revenue / dashboard.tickets.length : 0;
 
-  const upcomingDeliveries = [...dashboard.deliveries]
-    .filter((delivery) => delivery.deliveryData)
-    .sort((a, b) => new Date(a.deliveryData ?? '').getTime() - new Date(b.deliveryData ?? '').getTime())
-    .slice(0, 4);
-
   const today = getToday();
   const operacoesDoDia: OperacaoResumo[] = [...dashboard.deliveries]
     .filter((delivery) => isSameDay(delivery.deliveryData, today))
@@ -319,6 +314,33 @@ const Home = () => {
 
   const entregasDoDia = operacoesDoDia.filter((operacao) => operacao.tipo === 'Entrega').slice(0, 4);
   const retiradasDoDia = operacoesDoDia.filter((operacao) => operacao.tipo === 'Retirada').slice(0, 4);
+  const pendenciasOperacionais = [
+    ...operacoesDoDia
+      .filter((operacao) => operacao.tipo === 'Entrega' && operacao.tickets.length === 0)
+      .map((operacao) => ({
+        id: `operacao-sem-ticket-${operacao.id}`,
+        titulo: `${operacao.clienteNome} sem ticket vinculado`,
+        descricao: `Entrega prevista para ${operacao.horario} ainda precisa de conferencia manual.`,
+        tom: 'warning',
+      })),
+    ...operacoesDoDia
+      .filter((operacao) => operacao.status === 'Separar e expedir')
+      .map((operacao) => ({
+        id: `operacao-separar-${operacao.id}`,
+        titulo: `Separar ${operacao.tickets.length} ticket(s) de ${operacao.clienteNome}`,
+        descricao: `${operacao.horario} | ${operacao.tickets.map((ticket) => `#${ticket}`).join(', ')}`,
+        tom: 'info',
+      })),
+    ...unpaidTickets.slice(0, 3).map((ticket) => {
+      const cliente = ticket.clienteId ? clientesById.get(ticket.clienteId) : undefined;
+      return {
+        id: `ticket-aberto-${ticket.id}`,
+        titulo: `Ticket #${ticket.ticketNumber} em aberto`,
+        descricao: `${cliente?.nome ?? 'Cliente vinculado no ticket'} | ${formatCurrency(ticket.total)}`,
+        tom: 'neutral',
+      };
+    }),
+  ].slice(0, 5);
 
   const recentTickets = [...dashboard.tickets]
     .sort((a, b) => new Date(b.dataCriacao ?? '').getTime() - new Date(a.dataCriacao ?? '').getTime())
@@ -543,27 +565,22 @@ const Home = () => {
             <article className="dashboard-card">
               <div className="card-heading">
                 <div>
-                  <span className="card-eyebrow">Agenda</span>
-                  <h3>{'Pr\u00f3ximos deliveries'}</h3>
+                  <span className="card-eyebrow">Prioridades</span>
+                  <h3>Pendencias da operacao</h3>
                 </div>
+                <Link to="/Relatorio" className="text-link">Ir para o quadro</Link>
               </div>
 
-              <div className="timeline-list">
-                {upcomingDeliveries.length ? upcomingDeliveries.map((delivery) => {
-                  const cliente = delivery.clienteId ? clientesById.get(delivery.clienteId) : undefined;
-                  return (
-                    <div key={delivery.id} className="timeline-item">
-                      <div className="timeline-marker">
-                        <SaasIcon name="clock" />
-                      </div>
-                      <div className="timeline-content">
-                        <time>{formatDate(delivery.deliveryData)}</time>
-                        <strong>{cliente?.nome ?? 'Cliente n\u00e3o encontrado'}</strong>
-                        <span>{delivery.deliveryTipo}</span>
-                      </div>
+              <div className="pending-list">
+                {pendenciasOperacionais.length ? pendenciasOperacionais.map((pendencia) => (
+                  <div key={pendencia.id} className={`pending-item pending-${pendencia.tom}`}>
+                    <div className="pending-bullet" />
+                    <div className="pending-content">
+                      <strong>{pendencia.titulo}</strong>
+                      <span>{pendencia.descricao}</span>
                     </div>
-                  );
-                }) : <p className="empty-state">Nenhum delivery agendado no momento.</p>}
+                  </div>
+                )) : <p className="empty-state">Nenhuma pendencia operacional critica no momento.</p>}
               </div>
             </article>
 
