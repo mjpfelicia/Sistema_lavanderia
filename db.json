@@ -286,6 +286,38 @@
       "deliveryTipo": "Entrega",
       "deliveryData": "2026-05-27T18:00:00.000Z",
       "id": "85fSuCB"
+    },
+    {
+      "clienteId": "f1bc",
+      "ticketNumber": "193566, 193566",
+      "ticketNumbers": [
+        "193566",
+        "193566"
+      ],
+      "deliveryTipo": "Entrega",
+      "deliveryData": "2026-05-31T16:00:00.000Z",
+      "id": "I2a35gw"
+    },
+    {
+      "clienteId": "3",
+      "ticketNumber": "181558, 743882, 572420, 31867, 224637, 739116, 739116, 3210, 680211, 680211, 983095, 438630",
+      "ticketNumbers": [
+        "181558",
+        "743882",
+        "572420",
+        "31867",
+        "224637",
+        "739116",
+        "739116",
+        "3210",
+        "680211",
+        "680211",
+        "983095",
+        "438630"
+      ],
+      "deliveryTipo": "Entrega",
+      "deliveryData": "2026-05-30T15:00:00.000Z",
+      "id": "6OuqZTR"
     }
   ],
   "peca": [

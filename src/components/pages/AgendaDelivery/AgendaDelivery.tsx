@@ -32,7 +32,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [ticketsCliente, setTicketsCliente] = useState<Ticket[]>([]);
   const [carregandoTickets, setCarregandoTickets] = useState<boolean>(true);
-  const [selectedTicketId, setSelectedTicketId] = useState<string>('');
+  const [selectedTicketIds, setSelectedTicketIds] = useState<string[]>([]);
   const [selectedAction, setSelectedAction] = useState<DeliveryAction | null>(null);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
           });
 
         setTicketsCliente(ticketsDoCliente);
-        setSelectedTicketId(ticketsDoCliente[0]?.id || '');
+        setSelectedTicketIds(ticketsDoCliente[0]?.id ? [ticketsDoCliente[0].id] : []);
       } catch (ticketError) {
         console.error('Erro ao buscar tickets do cliente para delivery', ticketError);
         if (ativo) {
@@ -90,41 +90,70 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
 
     if (ticketsElegiveis.length === 0) {
       setSelectedAction('new-pickup');
-      setSelectedTicketId('');
+      setSelectedTicketIds([]);
       return;
     }
 
-    setSelectedTicketId((currentTicketId) => {
-      if (currentTicketId && ticketsElegiveis.some((ticket) => ticket.id === currentTicketId)) {
-        return currentTicketId;
+    setSelectedTicketIds((currentTicketIds) => {
+      const idsValidos = currentTicketIds.filter((ticketId) =>
+        ticketsElegiveis.some((ticket) => ticket.id === ticketId),
+      );
+
+      if (idsValidos.length > 0) {
+        return idsValidos;
       }
 
-      return ticketsElegiveis[0]?.id || '';
+      return ticketsElegiveis[0]?.id ? [ticketsElegiveis[0].id] : [];
     });
   }, [carregandoTickets, ticketsElegiveis]);
 
-  const ticketSelecionado = useMemo(
-    () => ticketsElegiveis.find((ticket) => ticket.id === selectedTicketId) || ticketsElegiveis[0] || null,
-    [selectedTicketId, ticketsElegiveis],
+  const ticketsSelecionados = useMemo(
+    () => ticketsElegiveis.filter((ticket) => ticket.id && selectedTicketIds.includes(ticket.id)),
+    [selectedTicketIds, ticketsElegiveis],
   );
 
   const deliveryTipo: DeliveryTipo = selectedAction === 'new-pickup' ? 'Retirada' : 'Entrega';
   const actionLabel =
     selectedAction === 'existing-ticket' ? 'Entregar ticket existente' : selectedAction === 'new-pickup' ? 'Agendar nova retirada' : '';
-  const totalPecasTicketSelecionado = ticketSelecionado?.items.reduce((acc, item) => acc + item.quantidade, 0) || 0;
-  const etapaAtual = !selectedAction ? 1 : selectedAction === 'existing-ticket' && !ticketSelecionado ? 2 : 3;
+  const totalPecasSelecionadas = ticketsSelecionados.reduce(
+    (acc, ticket) => acc + ticket.items.reduce((ticketAcc, item) => ticketAcc + item.quantidade, 0),
+    0,
+  );
+  const etapaAtual = !selectedAction ? 1 : selectedAction === 'existing-ticket' && ticketsSelecionados.length === 0 ? 2 : 3;
   const resumoTickets = ticketsElegiveis.length === 0 ? 'Nenhum ticket em aberto' : `${ticketsElegiveis.length} ticket(s) em aberto`;
+  const resumoTicketsSelecionados = ticketsSelecionados.map((ticket) => `#${ticket.ticketNumber}`).join(', ');
 
   const handleSelectAction = (action: DeliveryAction) => {
     setSelectedAction(action);
     setError(null);
 
     if (action === 'existing-ticket' && ticketsElegiveis.length > 0) {
-      setSelectedTicketId((currentTicketId) => currentTicketId || ticketsElegiveis[0]?.id || '');
+      setSelectedTicketIds((currentTicketIds) => {
+        if (currentTicketIds.length > 0) {
+          return currentTicketIds;
+        }
+
+        return ticketsElegiveis[0]?.id ? [ticketsElegiveis[0].id] : [];
+      });
       return;
     }
 
-    setSelectedTicketId('');
+    setSelectedTicketIds([]);
+  };
+
+  const handleToggleTicket = (ticketId?: string) => {
+    if (!ticketId) {
+      return;
+    }
+
+    setSelectedTicketIds((currentTicketIds) => {
+      if (currentTicketIds.includes(ticketId)) {
+        return currentTicketIds.filter((id) => id !== ticketId);
+      }
+
+      return [...currentTicketIds, ticketId];
+    });
+    setError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -138,8 +167,8 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
       return;
     }
 
-    if (selectedAction === 'existing-ticket' && !ticketSelecionado) {
-      setError('Selecione um ticket em aberto para concluir a entrega.');
+    if (selectedAction === 'existing-ticket' && ticketsSelecionados.length === 0) {
+      setError('Selecione pelo menos um ticket em aberto para concluir a entrega.');
       setLoading(false);
       return;
     }
@@ -158,9 +187,12 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
       return;
     }
 
+    const ticketNumbersSelecionados = ticketsSelecionados.map((ticket) => ticket.ticketNumber);
+
     const delivery: Delivery = {
       clienteId: cliente.id,
-      ticketNumber: selectedAction === 'existing-ticket' ? ticketSelecionado?.ticketNumber : undefined,
+      ticketNumber: selectedAction === 'existing-ticket' ? ticketNumbersSelecionados.join(', ') : undefined,
+      ticketNumbers: selectedAction === 'existing-ticket' ? ticketNumbersSelecionados : undefined,
       deliveryTipo,
       deliveryData: deliveryDate,
     };
@@ -189,7 +221,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
         <p><strong>Telefone:</strong> ${cliente.telefone}</p>
         <p><strong>Endereco:</strong> ${formatAddress(cliente)}</p>
         <p><strong>Acao:</strong> ${actionLabel}</p>
-        ${ticketSelecionado ? `<p><strong>Ticket:</strong> ${ticketSelecionado.ticketNumber}</p>` : ''}
+        ${ticketsSelecionados.length ? `<p><strong>Tickets:</strong> ${ticketsSelecionados.map((ticket) => `#${ticket.ticketNumber}`).join(', ')}</p>` : ''}
         <p><strong>Tipo:</strong> ${cupom.deliveryTipo}</p>
         <p><strong>Data e Hora:</strong> ${new Date(cupom.deliveryData).toLocaleString()}</p>
       </div>
@@ -232,7 +264,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
           </div>
           <div className={`${classes.progressStep} ${etapaAtual >= 2 && selectedAction === 'existing-ticket' ? classes.progressStepActive : ''}`}>
             <strong>2</strong>
-            <span>Confirme o ticket</span>
+            <span>Selecione os tickets</span>
           </div>
           <div className={`${classes.progressStep} ${etapaAtual >= 3 ? classes.progressStepActive : ''}`}>
             <strong>3</strong>
@@ -269,7 +301,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
                   >
                     <span className={classes.actionPill}>Entrega</span>
                     <strong>Entregar Ticket Existente</strong>
-                    <span>Vincula este atendimento a um ticket em aberto do cliente.</span>
+                    <span>Vincula este atendimento a um ou mais tickets em aberto do cliente.</span>
                   </button>
                 )}
 
@@ -290,27 +322,27 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
                 <div className={classes.stageHeader}>
                   <span className={classes.stageIndex}>Etapa 2</span>
                   <div>
-                    <h3>Escolha o ticket</h3>
-                    <p>Selecione qual ticket em aberto sera atendido neste delivery.</p>
+                    <h3>Escolha os tickets</h3>
+                    <p>Selecione um ou mais tickets em aberto que devem sair juntos nesta entrega.</p>
                   </div>
                 </div>
 
                 <div className={classes.ticketPanelCompact}>
                   <div className={classes.ticketPanelHeader}>
                     <span>Tickets disponiveis</span>
-                    <strong>{ticketsElegiveis.length}</strong>
+                    <strong>{ticketsSelecionados.length} selecionado(s)</strong>
                   </div>
                   <div className={classes.ticketList}>
                     {ticketsElegiveis.map((ticket) => (
                       <button
                         key={ticket.id}
                         type="button"
-                        className={`${classes.ticketCard} ${ticketSelecionado?.id === ticket.id ? classes.ticketCardActive : ''}`}
-                        onClick={() => {
-                          setSelectedTicketId(ticket.id || '');
-                          setError(null);
-                        }}
+                        className={`${classes.ticketCard} ${ticket.id && selectedTicketIds.includes(ticket.id) ? classes.ticketCardActive : ''}`}
+                        onClick={() => handleToggleTicket(ticket.id)}
                       >
+                        <span className={classes.ticketSelectionTag}>
+                          {ticket.id && selectedTicketIds.includes(ticket.id) ? 'Selecionado' : 'Toque para incluir'}
+                        </span>
                         <strong>Ticket #{ticket.ticketNumber}</strong>
                         <span>Status: {ticket.statusEntrega || 'Em producao'}</span>
                         <span>{ticket.items.reduce((acc, item) => acc + item.quantidade, 0)} peca(s)</span>
@@ -335,11 +367,14 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
                   <strong>Resumo da decisao</strong>
                   <span>{actionLabel}</span>
                   <span>Tipo do atendimento: {deliveryTipo}</span>
-                  {selectedAction === 'existing-ticket' && ticketSelecionado && (
-                    <span>Ticket #{ticketSelecionado.ticketNumber} com {totalPecasTicketSelecionado} peca(s).</span>
+                  {selectedAction === 'existing-ticket' && ticketsSelecionados.length > 0 && (
+                    <>
+                      <span>Tickets selecionados: {resumoTicketsSelecionados}</span>
+                      <span>{totalPecasSelecionadas} peca(s) somadas para entregar.</span>
+                    </>
                   )}
                   {selectedAction === 'new-pickup' && (
-                    <span>Nova coleta sem vinculacao com ticket ja existente.</span>
+                    <span>Nova coleta independente. Os tickets que estao na loja permanecem sem entrega.</span>
                   )}
                 </div>
               ) : (
@@ -382,7 +417,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
               <p><strong>Telefone:</strong> {cliente.telefone}</p>
               <p><strong>Endereco:</strong> {formatAddress(cliente)}</p>
               <p><strong>Acao:</strong> {actionLabel}</p>
-              {ticketSelecionado && <p><strong>Ticket:</strong> #{ticketSelecionado.ticketNumber}</p>}
+              {ticketsSelecionados.length > 0 && <p><strong>Tickets:</strong> {resumoTicketsSelecionados}</p>}
               <p><strong>Tipo de Entrega:</strong> {cupom.deliveryTipo}</p>
               <p><strong>Data e Hora:</strong> {new Date(cupom.deliveryData).toLocaleString()}</p>
             </div>

@@ -6,6 +6,7 @@ export type DeliveryTipo = "Entrega" | "Retirada";
 export type Delivery = {
   id?: string;
   ticketNumber?: string;
+  ticketNumbers?: string[];
   codigo?: string;
   clienteId?: number; // Certifique-se de que é string
   deliveryTipo: DeliveryTipo;
