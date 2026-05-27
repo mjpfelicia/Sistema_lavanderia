@@ -14,8 +14,8 @@ const Delivery: React.FC = () => {
       title={clienteSelecionado ? `Agendar delivery para ${clienteSelecionado.nome}` : 'Agenda de entregas e retiradas'}
       description={
         clienteSelecionado
-          ? 'Confirme tipo, data e horario e valide se existe ticket para entrega antes de concluir o agendamento.'
-          : 'Primeiro localize o cliente por nome ou telefone. Se existir, seguimos para validar ticket e agendar delivery.'
+          ? 'Valide os tickets em aberto, escolha entre entregar um ticket existente ou agendar nova retirada e confirme o horario.'
+          : 'Primeiro localize o cliente por nome ou telefone. Depois o sistema vai validar tickets em aberto e exigir a definicao do proximo passo.'
       }
       actions={
         <>
