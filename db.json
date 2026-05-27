@@ -318,6 +318,12 @@
       "deliveryTipo": "Entrega",
       "deliveryData": "2026-05-30T15:00:00.000Z",
       "id": "6OuqZTR"
+    },
+    {
+      "clienteId": "3",
+      "deliveryTipo": "Retirada",
+      "deliveryData": "2026-05-31T19:00:00.000Z",
+      "id": "wsyiMIT"
     }
   ],
   "peca": [
@@ -1597,6 +1603,47 @@
       "tipoAtendimento": "Retirada",
       "formaPagamento": "Pagamento na retirada",
       "statusPagamentoDescricao": "A pagar na retirada"
+    },
+    {
+      "ticketNumber": "973940",
+      "clienteId": "0ab9",
+      "estaPago": "sim",
+      "items": [
+        {
+          "pecaId": "bl1",
+          "subTipo": "BLAZER ESPECIAL",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "Laranja, Aqua",
+          "estampa": "Florido",
+          "marca": "Marca D",
+          "defeitos": "Elasticidade perdida, Fecho defeituoso",
+          "servicos": "Lavagem, Higienização"
+        }
+      ],
+      "total": 89.9,
+      "totalPago": 89.9,
+      "dataCriacao": "2026-05-27T12:50:54.407Z",
+      "dataEntrega": "2026-05-28T12:00:00.000Z",
+      "statusEntrega": "Aguardando retirada",
+      "id": "qDG23qc",
+      "cliente": {
+        "id": "0ab9",
+        "nome": "Sandra Felicio de Jesus",
+        "email": "mjpfelicia@gmail.com",
+        "telefone": "11973241419",
+        "endereco": {
+          "endereco": "Rua teste",
+          "numero": "Blc g ap 31",
+          "estado": "SP",
+          "cep": "05763-470",
+          "bairro": "Chacara Nossa Senhora do Bom Conselho",
+          "complemento": "ap teste"
+        }
+      },
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Cartao de Credito",
+      "statusPagamentoDescricao": "Pago com Cartao de Credito"
     }
   ]
 }
