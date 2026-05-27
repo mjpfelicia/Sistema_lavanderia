@@ -433,16 +433,6 @@ const Home = () => {
             <span className="saas-overline">Dashboard SaaS</span>
             <h1>{'Painel de Opera\u00e7\u00e3o'}</h1>
           </div>
-
-          <div className="saas-topbar-actions">
-            <button className="topbar-icon-button" type="button" aria-label={'Notifica\u00e7\u00f5es'}>
-              <SaasIcon name="bell" />
-            </button>
-            <button className="topbar-profile" type="button" aria-label={'Perfil do usu\u00e1rio'}>
-              <SaasIcon name="user" />
-              <span>{'Fel\u00edcia'}</span>
-            </button>
-          </div>
         </header>
 
         <main className="home-dashboard">

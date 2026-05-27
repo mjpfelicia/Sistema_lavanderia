@@ -1586,20 +1586,10 @@
       "total": 89.9,
       "totalPago": 89.9,
       "dataCriacao": "2026-05-25T20:01:47.145Z",
-      "dataEntrega": "2026-05-27T16:00:00.000Z",
-      "statusEntrega": "Aguardando retirada",
+      "dataEntrega": "2026-05-28T16:00:00.000Z",
+      "statusEntrega": "Liberado",
       "id": "Wu-xX0J",
-      "cliente": {
-        "nome": "SANDRA FELICIO DE JESUS",
-        "email": "mjpfelicia@gmail.com",
-        "cep": "05782351",
-        "estado": "São Paulo",
-        "telefone": "(11)96415-8920",
-        "endereco": "Rua teste 2",
-        "numero": "00",
-        "complemento": "ap atualiza",
-        "id": "68c4"
-      },
+      "cliente": [],
       "tipoAtendimento": "Retirada",
       "formaPagamento": "Pagamento na retirada",
       "statusPagamentoDescricao": "A pagar na retirada"
