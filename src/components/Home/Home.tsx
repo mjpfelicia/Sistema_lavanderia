@@ -58,9 +58,6 @@ type IconName =
   | 'reports'
   | 'money'
   | 'settings'
-  | 'bell'
-  | 'user'
-  | 'clock'
   | 'insight';
 
 type Insight = {
@@ -226,12 +223,6 @@ const SaasIcon = ({ name }: { name: IconName }) => {
       return <svg {...common}><path d="M12 4v16" /><path d="M16 7.5c0-1.4-1.8-2.5-4-2.5s-4 1.1-4 2.5 1.1 2.1 4 2.7 4 1.3 4 3-1.8 2.8-4 2.8-4-1.1-4-2.8" /></svg>;
     case 'settings':
       return <svg {...common}><circle cx="12" cy="12" r="3" /><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1a7.7 7.7 0 0 0-1.8-1l-.3-2.6h-4l-.3 2.6a7.7 7.7 0 0 0-1.8 1l-2.4-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7.7 7.7 0 0 0 1.8 1l.3 2.6h4l.3-2.6a7.7 7.7 0 0 0 1.8-1l2.4 1 2-3.4-2-1.5c.1-.4.1-.7.1-1Z" /></svg>;
-    case 'bell':
-      return <svg {...common}><path d="M8 18h8" /><path d="M10 20a2 2 0 0 0 4 0" /><path d="M18 16V11a6 6 0 1 0-12 0v5l-1.5 1.5h15Z" /></svg>;
-    case 'user':
-      return <svg {...common}><circle cx="12" cy="8.5" r="3.2" /><path d="M6 19a6 6 0 0 1 12 0" /></svg>;
-    case 'clock':
-      return <svg {...common}><circle cx="12" cy="12" r="8" /><path d="M12 8v4.2l2.8 1.8" /></svg>;
     case 'insight':
       return <svg {...common}><path d="M12 4 13.8 8.5 19 9.2l-3.8 3.5.9 5-4.1-2.2-4.1 2.2.9-5L5 9.2l5.2-.7Z" /></svg>;
     default:
@@ -428,13 +419,6 @@ const Home = () => {
       </aside>
 
       <div className="saas-main">
-        <header className="saas-topbar">
-          <div>
-            <span className="saas-overline">Dashboard SaaS</span>
-            <h1>{'Painel de Opera\u00e7\u00e3o'}</h1>
-          </div>
-        </header>
-
         <main className="home-dashboard">
           <section className="hero-panel">
             <div className="hero-copy">
