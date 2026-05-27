@@ -16,6 +16,8 @@ type DeliveryResumo = {
   clienteId?: string;
   deliveryTipo: string;
   deliveryData?: string;
+  ticketNumber?: string;
+  ticketNumbers?: string[];
 };
 
 type TicketResumo = {
@@ -32,6 +34,18 @@ type DashboardData = {
   clientes: ClienteResumo[];
   deliveries: DeliveryResumo[];
   tickets: TicketResumo[];
+};
+
+type OperacaoResumo = {
+  id: string;
+  horario: string;
+  horarioOrdenacao: number;
+  tipo: string;
+  clienteNome: string;
+  telefone: string;
+  tickets: string[];
+  totalPecas: number;
+  status: string;
 };
 
 type IconName =
@@ -94,6 +108,57 @@ const formatDate = (value?: string) => {
   }).format(date);
 };
 
+const formatHour = (value?: string) => {
+  if (!value) {
+    return 'Sem horario';
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return 'A combinar';
+  }
+
+  return new Intl.DateTimeFormat('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
+};
+
+const getToday = () => {
+  const now = new Date();
+  const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+  return localDate.toISOString().slice(0, 10);
+};
+
+const isSameDay = (value: string | undefined, selectedDate: string) => {
+  if (!value) {
+    return false;
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return false;
+  }
+
+  const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  return localDate === selectedDate;
+};
+
+const getDeliveryTicketNumbers = (delivery: DeliveryResumo) => {
+  if (delivery.ticketNumbers?.length) {
+    return delivery.ticketNumbers;
+  }
+
+  if (!delivery.ticketNumber) {
+    return [];
+  }
+
+  return delivery.ticketNumber
+    .split(',')
+    .map((item) => item.replace('#', '').trim())
+    .filter(Boolean);
+};
+
 const normalizeDashboardData = (clientesRaw: any[], deliveriesRaw: any[], ticketsRaw: any[]): DashboardData => ({
   clientes: clientesRaw.map((cliente) => ({
     id: String(cliente.id ?? ''),
@@ -105,6 +170,8 @@ const normalizeDashboardData = (clientesRaw: any[], deliveriesRaw: any[], ticket
     clienteId: delivery.clienteId ? String(delivery.clienteId) : undefined,
     deliveryTipo: delivery.deliveryTipo ?? 'Entrega',
     deliveryData: typeof delivery.deliveryData === 'string' ? delivery.deliveryData : undefined,
+    ticketNumber: typeof delivery.ticketNumber === 'string' ? delivery.ticketNumber : undefined,
+    ticketNumbers: Array.isArray(delivery.ticketNumbers) ? delivery.ticketNumbers.map((item: unknown) => String(item)) : undefined,
   })),
   tickets: ticketsRaw.map((ticket) => ({
     id: String(ticket.id ?? ''),
@@ -215,6 +282,43 @@ const Home = () => {
     .filter((delivery) => delivery.deliveryData)
     .sort((a, b) => new Date(a.deliveryData ?? '').getTime() - new Date(b.deliveryData ?? '').getTime())
     .slice(0, 4);
+
+  const today = getToday();
+  const operacoesDoDia: OperacaoResumo[] = [...dashboard.deliveries]
+    .filter((delivery) => isSameDay(delivery.deliveryData, today))
+    .map((delivery) => {
+      const cliente = delivery.clienteId ? clientesById.get(delivery.clienteId) : undefined;
+      const ticketsRelacionados = getDeliveryTicketNumbers(delivery);
+      const ticketsDoAtendimento = ticketsRelacionados
+        .map((ticketNumber) => dashboard.tickets.find((ticket) => ticket.ticketNumber === ticketNumber))
+        .filter((ticket): ticket is TicketResumo => Boolean(ticket));
+      const totalPecas = ticketsDoAtendimento.length;
+      const status =
+        delivery.deliveryTipo === 'Retirada'
+          ? ticketsRelacionados.length
+            ? 'Retirada com tickets'
+            : 'Nova coleta'
+          : ticketsRelacionados.length
+            ? 'Separar e expedir'
+            : 'Entrega sem ticket';
+
+      return {
+        id: delivery.id,
+        horario: formatHour(delivery.deliveryData),
+        horarioOrdenacao: new Date(delivery.deliveryData ?? '').getTime(),
+        tipo: delivery.deliveryTipo,
+        clienteNome: cliente?.nome ?? 'Cliente nao encontrado',
+        telefone: cliente?.telefone ?? 'Sem telefone',
+        tickets: ticketsRelacionados,
+        totalPecas,
+        status,
+      };
+    })
+    .sort((a, b) => a.horarioOrdenacao - b.horarioOrdenacao)
+    .slice(0, 8);
+
+  const entregasDoDia = operacoesDoDia.filter((operacao) => operacao.tipo === 'Entrega').slice(0, 4);
+  const retiradasDoDia = operacoesDoDia.filter((operacao) => operacao.tipo === 'Retirada').slice(0, 4);
 
   const recentTickets = [...dashboard.tickets]
     .sort((a, b) => new Date(b.dataCriacao ?? '').getTime() - new Date(a.dataCriacao ?? '').getTime())
@@ -365,25 +469,74 @@ const Home = () => {
           </section>
 
           <section className="content-grid">
-            <article className="dashboard-card">
+            <article className="dashboard-card dashboard-card-wide operations-card">
               <div className="card-heading">
                 <div>
-                  <span className="card-eyebrow">{'A\u00e7\u00f5es r\u00e1pidas'}</span>
-                  <h3>Fluxos principais</h3>
+                  <span className="card-eyebrow">Operacao de hoje</span>
+                  <h3>Entregas e retiradas em destaque</h3>
                 </div>
-                <Link to="/Recepcao" className="text-link">{'Abrir recep\u00e7\u00e3o'}</Link>
+                <Link to="/Relatorio" className="text-link">Ver quadro completo</Link>
               </div>
 
-              <div className="action-list">
-                {quickActions.map((action) => (
-                  <Link key={action.href} to={action.href} className="action-card">
-                    <div className="action-icon">
-                      <SaasIcon name={action.icon} />
-                    </div>
-                    <strong>{action.title}</strong>
-                    <span>{action.description}</span>
-                  </Link>
-                ))}
+              <div className="operations-overview">
+                <div className="operations-column">
+                  <div className="operations-column-header entrega">
+                    <strong>Entregas</strong>
+                    <span>{entregasDoDia.length} no dia</span>
+                  </div>
+                  <div className="operations-list">
+                    {entregasDoDia.length ? entregasDoDia.map((operacao) => (
+                      <div key={operacao.id} className="operation-item">
+                        <div className="operation-item-top">
+                          <span className="operation-time">{operacao.horario}</span>
+                          <span className="operation-status">{operacao.status}</span>
+                        </div>
+                        <strong>{operacao.clienteNome}</strong>
+                        <span>{operacao.telefone}</span>
+                        <small>{operacao.tickets.length ? operacao.tickets.map((ticket) => `#${ticket}`).join(', ') : 'Sem ticket vinculado'}</small>
+                      </div>
+                    )) : <p className="empty-state">Nenhuma entrega agendada para hoje.</p>}
+                  </div>
+                </div>
+
+                <div className="operations-column">
+                  <div className="operations-column-header retirada">
+                    <strong>Retiradas</strong>
+                    <span>{retiradasDoDia.length} no dia</span>
+                  </div>
+                  <div className="operations-list">
+                    {retiradasDoDia.length ? retiradasDoDia.map((operacao) => (
+                      <div key={operacao.id} className="operation-item">
+                        <div className="operation-item-top">
+                          <span className="operation-time">{operacao.horario}</span>
+                          <span className="operation-status">{operacao.status}</span>
+                        </div>
+                        <strong>{operacao.clienteNome}</strong>
+                        <span>{operacao.telefone}</span>
+                        <small>{operacao.tickets.length ? operacao.tickets.map((ticket) => `#${ticket}`).join(', ') : 'Nova coleta sem ticket'}</small>
+                      </div>
+                    )) : <p className="empty-state">Nenhuma retirada agendada para hoje.</p>}
+                  </div>
+                </div>
+              </div>
+
+              <div className="operations-grid">
+                <div className="operations-grid-row operations-grid-head">
+                  <span>Horario</span>
+                  <span>Tipo</span>
+                  <span>Cliente</span>
+                  <span>Tickets</span>
+                  <span>Status</span>
+                </div>
+                {operacoesDoDia.length ? operacoesDoDia.map((operacao) => (
+                  <div key={`grid-${operacao.id}`} className="operations-grid-row">
+                    <strong>{operacao.horario}</strong>
+                    <span>{operacao.tipo}</span>
+                    <span>{operacao.clienteNome}</span>
+                    <span>{operacao.tickets.length ? operacao.tickets.map((ticket) => `#${ticket}`).join(', ') : 'Sem ticket'}</span>
+                    <span>{operacao.status}</span>
+                  </div>
+                )) : <p className="empty-state">Nenhuma operacao lancada para hoje.</p>}
               </div>
             </article>
 
@@ -411,6 +564,28 @@ const Home = () => {
                     </div>
                   );
                 }) : <p className="empty-state">Nenhum delivery agendado no momento.</p>}
+              </div>
+            </article>
+
+            <article className="dashboard-card">
+              <div className="card-heading">
+                <div>
+                  <span className="card-eyebrow">{'A\u00e7\u00f5es r\u00e1pidas'}</span>
+                  <h3>Fluxos principais</h3>
+                </div>
+                <Link to="/Recepcao" className="text-link">{'Abrir recep\u00e7\u00e3o'}</Link>
+              </div>
+
+              <div className="action-list">
+                {quickActions.map((action) => (
+                  <Link key={action.href} to={action.href} className="action-card">
+                    <div className="action-icon">
+                      <SaasIcon name={action.icon} />
+                    </div>
+                    <strong>{action.title}</strong>
+                    <span>{action.description}</span>
+                  </Link>
+                ))}
               </div>
             </article>
 
