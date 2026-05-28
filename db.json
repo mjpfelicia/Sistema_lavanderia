@@ -276,6 +276,11 @@
     },
     {
       "clienteId": "772a",
+      "ticketNumber": "456123, 456124",
+      "ticketNumbers": [
+        "456123",
+        "456124"
+      ],
       "deliveryTipo": "Entrega",
       "deliveryData": "2026-05-28T15:22:00.000Z",
       "id": "CI25VTQ"
@@ -324,6 +329,12 @@
       "deliveryTipo": "Retirada",
       "deliveryData": "2026-05-31T19:00:00.000Z",
       "id": "wsyiMIT"
+    },
+    {
+      "clienteId": "3",
+      "deliveryTipo": "Retirada",
+      "deliveryData": "2026-05-28T19:00:00.000Z",
+      "id": "rgm8evW"
     }
   ],
   "peca": [
@@ -708,18 +719,9 @@
       "total": 120,
       "totalPago": 120,
       "dataCriacao": "2024-11-07T19:10:45.993Z",
-      "dataEntrega": "T02:15:00.000Z",
-      "cliente": {
-        "nome": "SANDRA FELICIO DE JESUS",
-        "email": "mjpfelicia@gmail.com",
-        "cep": "05782351",
-        "estado": "São Paulo",
-        "telefone": "(11)96415-8920",
-        "endereco": "Rua teste 2",
-        "numero": "00",
-        "complemento": "ap atualiza",
-        "id": "68c4"
-      }
+      "dataEntrega": "2026-05-28T02:15:00.000Z",
+      "cliente": [],
+      "statusEntrega": "Liberado"
     },
     {
       "id": "7019",

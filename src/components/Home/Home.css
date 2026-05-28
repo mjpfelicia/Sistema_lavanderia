@@ -500,6 +500,36 @@
   color: #64748b;
 }
 
+.operation-tickets {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin-top: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.tickets-label {
+  color: #64748b;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.tickets-numbers {
+  color: #1e40af;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+  background: rgba(191, 219, 254, 0.5);
+  border-radius: 6px;
+  word-break: break-word;
+}
+
+.no-tickets {
+  color: #e11d48;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
 .operations-grid {
   display: grid;
   gap: 0;
