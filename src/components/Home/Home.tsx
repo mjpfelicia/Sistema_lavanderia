@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import { listarClientes } from '../../service/apiCliente';
-import { listarDelivery } from '../../service/apiDelivery';
-import { listarTickets } from '../../service/apiTicket';
+import { listarDelivery, atualizaDelivery } from '../../service/apiDelivery';
+import { listarTickets, atualizaTicket } from '../../service/apiTicket';
 
 type ClienteResumo = {
   id: string;
@@ -65,6 +65,15 @@ type Insight = {
   value: string;
   help: string;
   icon: IconName;
+};
+
+type Pendencia = {
+  id: string;
+  titulo: string;
+  descricao: string;
+  tom: 'warning' | 'info' | 'neutral' | 'critical';
+  deliveryId?: string;
+  ticketNumbers?: string[];
 };
 
 type QuickAction = {
@@ -154,6 +163,13 @@ const getDeliveryTicketNumbers = (delivery: DeliveryResumo) => {
     .split(',')
     .map((item) => item.replace('#', '').trim())
     .filter(Boolean);
+};
+
+const isDeliveryOverdue = (deliveryData?: string) => {
+  if (!deliveryData) return false;
+  const deliveryTime = new Date(deliveryData).getTime();
+  const now = new Date().getTime();
+  return now > deliveryTime;
 };
 
 const normalizeDashboardData = (clientesRaw: any[], deliveriesRaw: any[], ticketsRaw: any[]): DashboardData => ({
@@ -263,6 +279,41 @@ const Home = () => {
     loadDashboard();
   }, []);
 
+  const handleMarcarEntregue = async (deliveryId: string, ticketNumbers: string[]) => {
+    try {
+      // Atualizar delivery para status entregue
+      const delivery = dashboard.deliveries.find((d) => d.id === deliveryId);
+      if (delivery) {
+        await atualizaDelivery(deliveryId, {
+          ...delivery,
+          statusEntrega: 'Entregue',
+        } as any);
+
+        // Atualizar tickets relacionados
+        for (const ticketNumber of ticketNumbers) {
+          const ticket = dashboard.tickets.find((t) => t.ticketNumber === ticketNumber);
+          if (ticket) {
+            await atualizaTicket({
+              ...ticket,
+              statusEntrega: 'Entregue',
+              dataEntrega: new Date().toISOString(),
+            } as any);
+          }
+        }
+
+        // Recarregar dashboard
+        const [clientesRaw, deliveriesRaw, ticketsRaw] = await Promise.all([
+          listarClientes(),
+          listarDelivery(),
+          listarTickets(),
+        ]);
+        setDashboard(normalizeDashboardData(clientesRaw as any[], deliveriesRaw as any[], ticketsRaw as any[]));
+      }
+    } catch (err) {
+      console.error('Erro ao marcar entrega como concluída:', err);
+    }
+  };
+
   const clientesById = new Map(dashboard.clientes.map((cliente) => [cliente.id, cliente]));
   const paidTickets = dashboard.tickets.filter((ticket) => ticket.estaPago === 'sim');
   const unpaidTickets = dashboard.tickets.filter((ticket) => ticket.estaPago !== 'sim');
@@ -305,7 +356,32 @@ const Home = () => {
 
   const entregasDoDia = operacoesDoDia.filter((operacao) => operacao.tipo === 'Entrega').slice(0, 4);
   const retiradasDoDia = operacoesDoDia.filter((operacao) => operacao.tipo === 'Retirada').slice(0, 4);
+
+  // Detectar entregas atrasadas
+  const entregasAtrasadas = dashboard.deliveries.filter((delivery) => {
+    return (
+      delivery.deliveryTipo === 'Entrega' &&
+      delivery.deliveryData &&
+      isDeliveryOverdue(delivery.deliveryData)
+    );
+  });
+
   const pendenciasOperacionais = [
+    // Entregas atrasadas - CRÍTICO
+    ...entregasAtrasadas.map((delivery) => {
+      const cliente = delivery.clienteId ? clientesById.get(delivery.clienteId) : undefined;
+      const ticketsRelacionados = getDeliveryTicketNumbers(delivery);
+      return {
+        id: `entrega-atrasada-${delivery.id}`,
+        titulo: `🚨 ENTREGA ATRASADA - ${cliente?.nome ?? 'Cliente desconhecido'}`,
+        descricao: `Desde ${formatDate(delivery.deliveryData)} | ${
+          ticketsRelacionados.length ? ticketsRelacionados.map((t) => `#${t}`).join(', ') : 'Sem ticket'
+        }`,
+        tom: 'critical',
+        deliveryId: delivery.id,
+        ticketNumbers: ticketsRelacionados,
+      };
+    }),
     ...operacoesDoDia
       .filter((operacao) => operacao.tipo === 'Entrega' && operacao.tickets.length === 0)
       .map((operacao) => ({
