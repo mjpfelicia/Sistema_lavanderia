@@ -1,12 +1,9 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Workflow para deploy de React no GitHub Pages
+name: Deploy React App to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 permissions:
@@ -31,14 +28,12 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 18   # use versão LTS
 
-      - name: Clean install (fix rolldown bug)
-        run: |
-          rm -rf node_modules package-lock.json
-          npm install
+      - name: Instalar dependências
+        run: npm install
 
-      - name: Build project
+      - name: Build projeto
         run: npm run build
 
       - name: Setup Pages
@@ -47,8 +42,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./dist"
+          path: build   # <-- ajuste aqui
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
