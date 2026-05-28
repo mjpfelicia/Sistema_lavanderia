@@ -246,6 +246,63 @@
   font-size: 0.92rem;
 }
 
+.relatorio-tickets-cell {
+  display: flex;
+  align-items: center;
+  min-height: 2rem;
+}
+
+.relatorio-tickets-numbers {
+  display: inline-block;
+  padding: 0.4rem 0.7rem;
+  background: linear-gradient(135deg, rgba(191, 219, 254, 0.6), rgba(147, 197, 253, 0.4));
+  color: #1e40af;
+  border-radius: 8px;
+  border-left: 3px solid #1e40af;
+  font-size: 0.95rem;
+  font-weight: 700;
+  word-break: break-word;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.1);
+}
+
+.relatorio-no-tickets {
+  color: #e11d48;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.relatorio-empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 3rem 2rem;
+  color: #64748b;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.8), rgba(241, 245, 249, 0.8));
+  border-radius: 0 0 18px 18px;
+}
+
+.relatorio-empty-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.relatorio-empty-state strong {
+  color: #334155;
+  font-size: 1.1rem;
+}
+
+.relatorio-empty-state p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.95rem;
+  max-width: 50ch;
+}
+
 .relatorio-state,
 .relatorio-empty,
 .relatorio-empty-column {

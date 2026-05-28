@@ -347,16 +347,30 @@ const Relatorio = () => {
                       <span>Status operacional</span>
                     </div>
 
-                    {boardEntries.map((entry) => (
-                      <div key={`grid-${entry.id}`} className="relatorio-grid-row">
-                        <strong>{entry.horario}</strong>
-                        <span>{entry.tipo}</span>
-                        <span>{entry.clienteNome}</span>
-                        <span>{entry.tickets.length ? entry.tickets.map((ticket) => `#${ticket}`).join(', ') : 'Sem ticket'}</span>
-                        <span>{entry.totalPecas}</span>
-                        <span>{entry.status}</span>
+                    {boardEntries.length > 0 ? (
+                      boardEntries.map((entry) => (
+                        <div key={`grid-${entry.id}`} className="relatorio-grid-row">
+                          <strong>{entry.horario}</strong>
+                          <span>{entry.tipo}</span>
+                          <span>{entry.clienteNome}</span>
+                          <span className="relatorio-tickets-cell">
+                            {entry.tickets.length ? (
+                              <strong className="relatorio-tickets-numbers">{entry.tickets.map((ticket) => `#${ticket}`).join(', ')}</strong>
+                            ) : (
+                              <span className="relatorio-no-tickets">Nenhum ticket</span>
+                            )}
+                          </span>
+                          <span>{entry.totalPecas}</span>
+                          <span>{entry.status}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="relatorio-empty-state">
+                        <span className="relatorio-empty-icon">📭</span>
+                        <strong>Nenhuma operação agendada</strong>
+                        <p>Não há entregas ou retiradas programadas para {new Date(selectedDate + 'T00:00:00').toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' })}.</p>
                       </div>
-                    ))}
+                    )}
                   </div>
                 </section>
               </>

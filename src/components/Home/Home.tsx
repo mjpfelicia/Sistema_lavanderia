@@ -489,7 +489,14 @@ const Home = () => {
                         </div>
                         <strong>{operacao.clienteNome}</strong>
                         <span>{operacao.telefone}</span>
-                        <small>{operacao.tickets.length ? operacao.tickets.map((ticket) => `#${ticket}`).join(', ') : 'Sem ticket vinculado'}</small>
+                        {operacao.tickets.length ? (
+                          <div className="operation-tickets">
+                            <span className="tickets-label">Tickets:</span>
+                            <strong className="tickets-numbers">{operacao.tickets.map((ticket) => `#${ticket}`).join(', ')}</strong>
+                          </div>
+                        ) : (
+                          <small className="no-tickets">Sem ticket vinculado</small>
+                        )}
                       </div>
                     )) : <p className="empty-state">Nenhuma entrega agendada para hoje.</p>}
                   </div>
@@ -509,7 +516,14 @@ const Home = () => {
                         </div>
                         <strong>{operacao.clienteNome}</strong>
                         <span>{operacao.telefone}</span>
-                        <small>{operacao.tickets.length ? operacao.tickets.map((ticket) => `#${ticket}`).join(', ') : 'Nova coleta sem ticket'}</small>
+                        {operacao.tickets.length ? (
+                          <div className="operation-tickets">
+                            <span className="tickets-label">Tickets:</span>
+                            <strong className="tickets-numbers">{operacao.tickets.map((ticket) => `#${ticket}`).join(', ')}</strong>
+                          </div>
+                        ) : (
+                          <small className="no-tickets">Nova coleta sem ticket</small>
+                        )}
                       </div>
                     )) : <p className="empty-state">Nenhuma retirada agendada para hoje.</p>}
                   </div>
