@@ -97,6 +97,39 @@
   min-width: 150px;
 }
 
+/* Estilo para o seletor de período */
+.periodo-selector .filtros-group {
+  min-width: auto;
+}
+
+.periodo-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-periodo {
+  padding: 10px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  color: var(--color-texto);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.btn-periodo:hover {
+  border-color: var(--colorBtnCadastra);
+  background: rgba(183, 110, 77, 0.05);
+}
+
+.btn-periodo.ativo {
+  background: linear-gradient(135deg, #b76e4d 0%, #cf8d68 100%);
+  border-color: #b76e4d;
+  color: white;
+}
+
 .filtros-group label {
   font-weight: 600;
   color: var(--color-texto);

@@ -22,7 +22,11 @@ interface ResumoFinanceiro {
   ticketMedio: number;
 }
 
+type PeriodoTipo = 'dia' | 'mes';
+
 const RelatorioFinanceiro: React.FC = () => {
+  const [periodoTipo, setPeriodoTipo] = useState<PeriodoTipo>('mes');
+  const [dia, setDia] = useState<number>(new Date().getDate());
   const [mes, setMes] = useState<number>(new Date().getMonth());
   const [ano, setAno] = useState<number>(new Date().getFullYear());
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -35,9 +39,16 @@ const RelatorioFinanceiro: React.FC = () => {
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
 
+  // Gerar dias do mês atual (considerando anos bissextos)
+  const getDiasDoMes = () => {
+    return new Date(ano, mes + 1, 0).getDate();
+  };
+
+  const dias = Array.from({ length: getDiasDoMes() }, (_, i) => i + 1);
+
   useEffect(() => {
     carregarDados();
-  }, [mes, ano]);
+  }, [periodoTipo, dia, mes, ano, filtroStatus]);
 
   const carregarDados = async () => {
     try {
@@ -45,10 +56,19 @@ const RelatorioFinanceiro: React.FC = () => {
       const response = await axios.get(`${config.apiUrl}/tickets`);
       let todosTickets = response.data;
 
-      // Filtrar por mês e ano
+      // Filtrar por período (dia ou mês) e ano
       let ticketsFiltrados = todosTickets.filter((t: any) => {
         const dataEntrada = new Date(t.dataEntrada);
-        return dataEntrada.getMonth() === mes && dataEntrada.getFullYear() === ano;
+        const mesMatch = dataEntrada.getMonth() === mes;
+        const anoMatch = dataEntrada.getFullYear() === ano;
+        
+        if (periodoTipo === 'dia') {
+          const diaMatch = dataEntrada.getDate() === dia;
+          return diaMatch && mesMatch && anoMatch;
+        }
+        
+        // Se for mês, filtra apenas por mês e ano
+        return mesMatch && anoMatch;
       });
 
       // Aplicar filtro de status
@@ -107,7 +127,12 @@ const RelatorioFinanceiro: React.FC = () => {
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `relatorio_financeiro_${meses[mes]}_${ano}.csv`;
+    
+    const nomeArquivo = periodoTipo === 'dia'
+      ? `relatorio_financeiro_dia_${dia}_${meses[mes]}_${ano}.csv`
+      : `relatorio_financeiro_${meses[mes]}_${ano}.csv`;
+    
+    link.download = nomeArquivo;
     link.click();
   };
 
@@ -137,6 +162,38 @@ const RelatorioFinanceiro: React.FC = () => {
       <div className="relatorio-content">
         {/* Filtros */}
         <section className="filtros-section no-print">
+          {/* Tipo de Período */}
+          <div className="filtros-group periodo-selector">
+            <label>Período:</label>
+            <div className="periodo-buttons">
+              <button 
+                className={`btn-periodo ${periodoTipo === 'dia' ? 'ativo' : ''}`}
+                onClick={() => setPeriodoTipo('dia')}
+              >
+                📅 Por Dia
+              </button>
+              <button 
+                className={`btn-periodo ${periodoTipo === 'mes' ? 'ativo' : ''}`}
+                onClick={() => setPeriodoTipo('mes')}
+              >
+                📆 Por Mês
+              </button>
+            </div>
+          </div>
+
+          {/* Seletor de Dia (apenas quando período é dia) */}
+          {periodoTipo === 'dia' && (
+            <div className="filtros-group">
+              <label>Dia:</label>
+              <select value={dia} onChange={(e) => setDia(Number(e.target.value))}>
+                {dias.map(d => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Seletor de Mês (sempre visível) */}
           <div className="filtros-group">
             <label>Mês:</label>
             <select value={mes} onChange={(e) => setMes(Number(e.target.value))}>
@@ -230,7 +287,10 @@ const RelatorioFinanceiro: React.FC = () => {
           <div className="tabela-header">
             <h2>Detalhamento dos Tickets</h2>
             <span className="periodo-info">
-              {meses[mes]} de {ano}
+              {periodoTipo === 'dia' 
+                ? `Dia ${dia} de ${meses[mes]} de ${ano}`
+                : `${meses[mes]} de ${ano}`
+              }
             </span>
           </div>
 
