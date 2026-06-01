@@ -19,16 +19,19 @@ export type Ticket = {
   id?: string;
   clienteId: string;
   ticketNumber: string;
-  estaPago: "sim" | "não";
+  estaPago: 'sim' | 'nao' | 'não' | 'nÃ£o';
   totalPago: number;
   items: TicketItem[];
   total: number;
   dataCriacao?: string;
   dataEntrega: string;
-  tipoAtendimento?: "Entrega" | "Retirada";
+  dataBaixa?: string;
+  tipoAtendimento?: 'Entrega' | 'Retirada';
   formaPagamento?: string;
   statusPagamentoDescricao?: string;
-  statusEntrega?: "Aguardando retirada" | "Em producao" | "Pronto" | "Liberado";
+  statusEntrega?: 'Aguardando retirada' | 'Em producao' | 'Pronto' | 'Liberado' | 'Entregue';
+  valorRecebido?: number;
+  observacaoBaixa?: string;
   cliente?: Cliente;
 };
 
@@ -67,7 +70,7 @@ export const buscarTicket = async (ticketNumber: string): Promise<Ticket | null>
 };
 
 export const criarTicket = async (ticket: Ticket): Promise<Ticket> => {
-  console.info("API Ticket - criar Ticket ");
+  console.info('API Ticket - criar Ticket ');
   return api
     .post<Ticket>('/', ticket)
     .then(response => response.data)
@@ -75,7 +78,7 @@ export const criarTicket = async (ticket: Ticket): Promise<Ticket> => {
 };
 
 export const listarTickets = async (): Promise<Ticket[]> => {
-  console.info("API Ticket - listar Tickets ");
+  console.info('API Ticket - listar Tickets ');
   return api
     .get<Ticket[]>('/', {
       params: {
@@ -87,7 +90,7 @@ export const listarTickets = async (): Promise<Ticket[]> => {
 };
 
 export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
-  console.info("API Ticket - getTicket ");
+  console.info('API Ticket - getTicket ');
   return api
     .get<Ticket[]>('/', {
       params: {
@@ -103,7 +106,7 @@ export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
       });
 
       if (!ticketMaisRecente) {
-        throw new Error('Ticket nÃ£o encontrado.');
+        throw new Error('Ticket nao encontrado.');
       }
 
       return ticketMaisRecente;
@@ -112,9 +115,31 @@ export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
 };
 
 export const atualizaTicket = async (ticket: Ticket): Promise<Ticket> => {
-  console.info("API Ticket - atualiza Ticket ", { ticket });
+  console.info('API Ticket - atualiza Ticket ', { ticket });
   return api
     .patch<Ticket>(`/${ticket.id}`, ticket)
     .then(response => response.data)
     .catch(handleError);
+};
+
+export const registrarBaixaTicket = async (
+  ticket: Ticket,
+  extras?: {
+    valorRecebido?: number;
+    observacaoBaixa?: string;
+  },
+): Promise<Ticket> => {
+  if (!ticket.id) {
+    throw new Error('Ticket sem identificador para registrar baixa.');
+  }
+
+  const payload: Ticket = {
+    ...ticket,
+    statusEntrega: 'Entregue',
+    dataBaixa: new Date().toISOString(),
+    valorRecebido: extras?.valorRecebido ?? ticket.valorRecebido ?? ticket.total,
+    observacaoBaixa: extras?.observacaoBaixa ?? ticket.observacaoBaixa,
+  };
+
+  return atualizaTicket(payload);
 };

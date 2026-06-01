@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { atualizaTicket, buscarTicket, Ticket } from '../../../service/apiTicket';
+import { atualizaTicket, buscarTicket, registrarBaixaTicket, Ticket } from '../../../service/apiTicket';
 import styles from './BuscaTicket.module.css';
 
 interface VisualizarTicketProps {
@@ -37,6 +37,7 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
   const [ticket, setTicket] = useState<Ticket | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [processandoBaixa, setProcessandoBaixa] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchTicket = async () => {
@@ -100,6 +101,27 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
     }
   };
 
+  const handleBaixaEntrega = async () => {
+    if (!ticket) {
+      return;
+    }
+
+    if (!window.confirm(`Registrar baixa do ticket #${ticket.ticketNumber} como entregue?`)) {
+      return;
+    }
+
+    try {
+      setProcessandoBaixa(true);
+      const ticketBaixado = await registrarBaixaTicket(ticket);
+      setTicket(ticketBaixado);
+      setError(null);
+    } catch (err: any) {
+      setError(err.message || 'Nao foi possivel registrar a baixa do ticket.');
+    } finally {
+      setProcessandoBaixa(false);
+    }
+  };
+
   const handleDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = e.target.value;
     const currentTime = ticket?.dataEntrega?.split('T')[1] || '00:00:00.000Z';
@@ -127,6 +149,7 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
   const totalPecas = ticket.items.reduce((acc, item) => acc + item.quantidade, 0);
   const pagamentoStatus = ticket.estaPago === 'sim' ? 'Pagamento confirmado' : 'Pagamento pendente';
   const entregaStatus = ticket.statusEntrega || 'Em produção';
+  const dataBaixa = ticket.dataBaixa ? formatDateTime(ticket.dataBaixa) : null;
 
   return (
     <section className={styles.ticketWorkspace}>
@@ -222,11 +245,26 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
               <span>Status atual</span>
               <strong>{entregaStatus}</strong>
             </div>
+            {dataBaixa && (
+              <div className={styles.deliveryInfoRow}>
+                <span>Baixa registrada</span>
+                <strong>{dataBaixa}</strong>
+              </div>
+            )}
           </div>
 
-          <button className={styles.primaryButton} onClick={handleLiberarPecas}>
-            Liberar peças na conferência
-          </button>
+          <div className={styles.actionButtons}>
+            <button
+              className={styles.primaryButton}
+              onClick={handleLiberarPecas}
+              disabled={processandoBaixa || ticket.statusEntrega === 'Entregue'}
+            >
+              Liberar peças na conferência
+            </button>
+            <button className={styles.secondaryButton} onClick={handleBaixaEntrega} disabled={processandoBaixa || ticket.statusEntrega === 'Entregue'}>
+              {processandoBaixa ? 'Registrando baixa...' : ticket.statusEntrega === 'Entregue' ? 'Baixa já registrada' : 'Dar baixa na entrega'}
+            </button>
+          </div>
         </article>
       </div>
 

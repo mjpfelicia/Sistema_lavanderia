@@ -222,6 +222,13 @@
   flex-wrap: wrap;
 }
 
+.actionButtons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
 .primaryButton,
 .secondaryButton {
   min-height: 48px;

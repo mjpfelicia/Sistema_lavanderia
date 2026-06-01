@@ -95,7 +95,7 @@ const getEntryStatus = (delivery: Delivery, tickets: Ticket[]) => {
     return 'Entrega sem ticket localizado';
   }
 
-  const hasPending = tickets.some((ticket) => ticket.statusEntrega !== 'Liberado');
+  const hasPending = tickets.some((ticket) => ticket.statusEntrega !== 'Liberado' && ticket.statusEntrega !== 'Entregue');
   return hasPending ? 'Pronto para separar e expedir' : 'Tickets ja liberados';
 };
 

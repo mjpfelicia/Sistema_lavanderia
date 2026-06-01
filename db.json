@@ -335,6 +335,35 @@
       "deliveryTipo": "Retirada",
       "deliveryData": "2026-05-28T19:00:00.000Z",
       "id": "rgm8evW"
+    },
+    {
+      "clienteId": "3",
+      "ticketNumber": "181558, 680211, 983095, 438630",
+      "ticketNumbers": [
+        "181558",
+        "680211",
+        "983095",
+        "438630"
+      ],
+      "deliveryTipo": "Entrega",
+      "deliveryData": "2026-05-28T19:00:00.000Z",
+      "id": "d9G1Y3J"
+    },
+    {
+      "clienteId": "772a",
+      "ticketNumber": "338367",
+      "ticketNumbers": [
+        "338367"
+      ],
+      "deliveryTipo": "Entrega",
+      "deliveryData": "2026-06-01T18:00:00.000Z",
+      "id": "pZLEi7O"
+    },
+    {
+      "clienteId": "772a",
+      "deliveryTipo": "Retirada",
+      "deliveryData": "2026-06-01T18:00:00.000Z",
+      "id": "7KP_6Y3"
     }
   ],
   "peca": [
@@ -835,7 +864,11 @@
       "total": 803.6,
       "totalPago": 803.6,
       "dataCriacao": "2024-12-13T16:02:16.832Z",
-      "dataEntrega": "2024-12-20T16:02:00.000Z"
+      "dataEntrega": "2024-12-20T16:02:00.000Z",
+      "cliente": [],
+      "statusEntrega": "Entregue",
+      "dataBaixa": "2026-06-01T17:27:48.256Z",
+      "valorRecebido": 803.6
     },
     {
       "id": "7e1e",

@@ -1,121 +1,163 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './RelatorioFinanceiro.css';
 import BackToHome from '../../buttons/BackToHome';
-import axios from 'axios';
-import { config } from '../../../config';
+import { listarTickets, Ticket } from '../../../service/apiTicket';
 
-interface Ticket {
-  id: number;
-  cliente: string;
-  valor: number;
-  status: string;
-  dataEntrada: string;
-  dataPrevista: string;
-  formaPagamento?: string;
-}
+type FormaPagamentoResumo = {
+  forma: string;
+  quantidade: number;
+  total: number;
+};
 
-interface ResumoFinanceiro {
-  totalFaturado: number;
-  totalPago: number;
-  totalPendente: number;
-  totalTickets: number;
-  ticketMedio: number;
-}
+const formatCurrency = (value: number) =>
+  new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(value);
+
+const getToday = () => {
+  const now = new Date();
+  return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+};
+
+const isSameDay = (value?: string, selectedDate?: string) => {
+  if (!value || !selectedDate) {
+    return false;
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return false;
+  }
+
+  const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  return localDate === selectedDate;
+};
+
+const getPaymentMethod = (ticket: Ticket) => {
+  const payment = (ticket.formaPagamento || ticket.statusPagamentoDescricao || '').trim();
+
+  if (!payment) {
+    return ticket.estaPago === 'sim' ? 'Nao informado' : 'Pendente';
+  }
+
+  const normalized = payment.toLowerCase();
+
+  if (normalized.includes('dinheiro')) {
+    return 'Dinheiro';
+  }
+
+  if (normalized.includes('pix')) {
+    return 'Pix';
+  }
+
+  if (normalized.includes('credito')) {
+    return 'Cartao de Credito';
+  }
+
+  if (normalized.includes('debito')) {
+    return 'Cartao de Debito';
+  }
+
+  return payment;
+};
 
 const RelatorioFinanceiro: React.FC = () => {
-  const [mes, setMes] = useState<number>(new Date().getMonth());
-  const [ano, setAno] = useState<number>(new Date().getFullYear());
+  const [selectedDate, setSelectedDate] = useState(getToday);
   const [tickets, setTickets] = useState<Ticket[]>([]);
-  const [resumo, setResumo] = useState<ResumoFinanceiro | null>(null);
   const [loading, setLoading] = useState(true);
-  const [filtroStatus, setFiltroStatus] = useState<string>('todos');
-
-  const meses = [
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-  ];
+  const [error, setError] = useState('');
+  const [dinheiroContado, setDinheiroContado] = useState('');
+  const [observacaoConferencia, setObservacaoConferencia] = useState('');
 
   useEffect(() => {
-    carregarDados();
-  }, [mes, ano]);
-
-  const carregarDados = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(`${config.apiUrl}/tickets`);
-      let todosTickets = response.data;
-
-      // Filtrar por mês e ano
-      let ticketsFiltrados = todosTickets.filter((t: any) => {
-        const dataEntrada = new Date(t.dataEntrada);
-        return dataEntrada.getMonth() === mes && dataEntrada.getFullYear() === ano;
-      });
-
-      // Aplicar filtro de status
-      if (filtroStatus !== 'todos') {
-        ticketsFiltrados = ticketsFiltrados.filter((t: any) => 
-          t.status.toLowerCase() === filtroStatus.toLowerCase()
-        );
+    const carregarDados = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        const ticketsData = await listarTickets();
+        setTickets(ticketsData);
+      } catch (requestError) {
+        console.error(requestError);
+        setError('Nao foi possivel carregar o fechamento de caixa. Verifique se a API local esta ativa.');
+      } finally {
+        setLoading(false);
       }
+    };
 
-      setTickets(ticketsFiltrados);
+    carregarDados();
+  }, []);
 
-      // Calcular resumo
-      const totalFaturado = ticketsFiltrados.reduce((acc: number, t: any) => 
-        acc + (t.valorTotal || t.valor || 0), 0
-      );
+  const ticketsBaixados = useMemo(
+    () =>
+      tickets
+        .filter((ticket) => ticket.statusEntrega === 'Entregue')
+        .filter((ticket) => isSameDay(ticket.dataBaixa || ticket.dataEntrega || ticket.dataCriacao, selectedDate))
+        .sort((a, b) => new Date(b.dataBaixa || b.dataEntrega || 0).getTime() - new Date(a.dataBaixa || a.dataEntrega || 0).getTime()),
+    [selectedDate, tickets],
+  );
 
-      const ticketsPagos = ticketsFiltrados.filter((t: any) => 
-        t.status === 'Entregue' || t.status === 'Liberado'
-      );
-      const totalPago = ticketsPagos.reduce((acc: number, t: any) => 
-        acc + (t.valorTotal || t.valor || 0), 0
-      );
+  const resumo = useMemo(() => {
+    const totalRecebido = ticketsBaixados.reduce((acc, ticket) => acc + (ticket.valorRecebido ?? ticket.totalPago ?? ticket.total), 0);
+    const ticketsPagos = ticketsBaixados.filter((ticket) => ticket.estaPago === 'sim');
+    const ticketsNaoPagos = ticketsBaixados.filter((ticket) => ticket.estaPago !== 'sim');
 
-      const totalPendente = totalFaturado - totalPago;
-
-      setResumo({
-        totalFaturado,
-        totalPago,
-        totalPendente,
-        totalTickets: ticketsFiltrados.length,
-        ticketMedio: ticketsFiltrados.length > 0 ? totalFaturado / ticketsFiltrados.length : 0
+    const formasPagamento = ticketsBaixados.reduce((acc, ticket) => {
+      const forma = getPaymentMethod(ticket);
+      const current = acc.get(forma) ?? { forma, quantidade: 0, total: 0 };
+      acc.set(forma, {
+        forma,
+        quantidade: current.quantidade + 1,
+        total: current.total + (ticket.valorRecebido ?? ticket.totalPago ?? ticket.total),
       });
+      return acc;
+    }, new Map<string, FormaPagamentoResumo>());
 
-      setLoading(false);
-    } catch (error) {
-      console.error('Erro ao carregar dados:', error);
-      setLoading(false);
-    }
+    const dinheiroEsperado = ticketsBaixados
+      .filter((ticket) => getPaymentMethod(ticket) === 'Dinheiro')
+      .reduce((acc, ticket) => acc + (ticket.valorRecebido ?? ticket.totalPago ?? ticket.total), 0);
+
+    return {
+      totalRecebido,
+      ticketsPagos,
+      ticketsNaoPagos,
+      dinheiroEsperado,
+      dinheiroContadoValor: Number(dinheiroContado.replace(',', '.')) || 0,
+      diferencaCaixa: (Number(dinheiroContado.replace(',', '.')) || 0) - dinheiroEsperado,
+      formasPagamento: [...formasPagamento.values()].sort((a, b) => b.total - a.total),
+    };
+  }, [dinheiroContado, ticketsBaixados]);
+
+  const exportarCSV = () => {
+    const headers = ['Ticket', 'Cliente', 'Baixa', 'Pagamento', 'Valor', 'Observacao'];
+    const csvContent = [
+      headers.join(';'),
+      ...ticketsBaixados.map((ticket) => [
+        `#${ticket.ticketNumber}`,
+        ticket.cliente?.nome || 'Cliente nao informado',
+        new Date(ticket.dataBaixa || ticket.dataEntrega || '').toLocaleString('pt-BR'),
+        getPaymentMethod(ticket),
+        formatCurrency(ticket.valorRecebido ?? ticket.totalPago ?? ticket.total),
+        ticket.observacaoBaixa || '',
+      ].join(';')),
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `fechamento_caixa_${selectedDate}.csv`;
+    link.click();
   };
 
   const exportarPDF = () => {
     window.print();
   };
 
-  const exportarExcel = () => {
-    const headers = ['ID', 'Cliente', 'Valor', 'Status', 'Data Entrada', 'Data Prevista'];
-    const csvContent = [
-      headers.join(';'),
-      ...tickets.map(t => 
-        [t.id, t.cliente, t.valor.toFixed(2), t.status, 
-         new Date(t.dataEntrada).toLocaleDateString('pt-BR'),
-         new Date(t.dataPrevista).toLocaleDateString('pt-BR')].join(';')
-      )
-    ].join('\n');
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `relatorio_financeiro_${meses[mes]}_${ano}.csv`;
-    link.click();
-  };
-
   if (loading) {
     return (
       <div className="relatorio-loading">
         <div className="spinner"></div>
-        <p>Carregando relatório...</p>
+        <p>Carregando fechamento de caixa...</p>
       </div>
     );
   }
@@ -123,147 +165,178 @@ const RelatorioFinanceiro: React.FC = () => {
   return (
     <div className="relatorio-financeiro">
       <header className="relatorio-header no-print">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="header-title">
           <BackToHome variant="icon" />
           <div className="header-content">
-            <h1>💰 Relatório Financeiro</h1>
-            <p>Faturamento mensal e análise financeira</p>
+            <h1>Fechamento de caixa</h1>
+            <p>Tickets baixados, valores recebidos e conferencia do dinheiro do dia</p>
           </div>
         </div>
+
         <div className="header-actions">
+          <button className="btn-refresh" onClick={() => window.location.reload()}>
+            Atualizar
+          </button>
+          <button className="btn-export pdf" onClick={exportarPDF}>
+            PDF
+          </button>
+          <button className="btn-export excel" onClick={exportarCSV}>
+            CSV
+          </button>
         </div>
       </header>
 
       <div className="relatorio-content">
-        {/* Filtros */}
         <section className="filtros-section no-print">
           <div className="filtros-group">
-            <label>Mês:</label>
-            <select value={mes} onChange={(e) => setMes(Number(e.target.value))}>
-              {meses.map((m, i) => (
-                <option key={i} value={i}>{m}</option>
-              ))}
-            </select>
+            <label>Data do caixa</label>
+            <input type="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
           </div>
 
           <div className="filtros-group">
-            <label>Ano:</label>
-            <select value={ano} onChange={(e) => setAno(Number(e.target.value))}>
-              {[2023, 2024, 2025, 2026].map(a => (
-                <option key={a} value={a}>{a}</option>
-              ))}
-            </select>
+            <label>Dinheiro contado</label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              value={dinheiroContado}
+              onChange={(e) => setDinheiroContado(e.target.value)}
+              placeholder="0,00"
+            />
           </div>
 
-          <div className="filtros-group">
-            <label>Status:</label>
-            <select value={filtroStatus} onChange={(e) => setFiltroStatus(e.target.value)}>
-              <option value="todos">Todos</option>
-              <option value="pendente">Pendentes</option>
-              <option value="em produção">Em Produção</option>
-              <option value="pronto">Prontos</option>
-              <option value="liberado">Liberados</option>
-              <option value="entregue">Entregues</option>
-            </select>
-          </div>
-
-          <div className="filtros-actions">
-            <button onClick={carregarDados} className="btn-filtrar">
-              🔍 Filtrar
-            </button>
-            <button onClick={exportarPDF} className="btn-export pdf">
-              📄 PDF
-            </button>
-            <button onClick={exportarExcel} className="btn-export excel">
-              📊 Excel
-            </button>
+          <div className="filtros-group filtros-group-wide">
+            <label>Observacao da conferencia</label>
+            <input
+              type="text"
+              value={observacaoConferencia}
+              onChange={(e) => setObservacaoConferencia(e.target.value)}
+              placeholder="Ex.: conferido com a gaveta principal"
+            />
           </div>
         </section>
 
-        {/* Cards de Resumo */}
-        {resumo && (
-          <section className="resumo-cards">
-            <div className="resumo-card destaque">
-              <div className="resumo-icon">💰</div>
-              <div className="resumo-info">
-                <h3>Total Faturado</h3>
-                <p className="valor">R$ {resumo.totalFaturado.toFixed(2)}</p>
+        {error ? <section className="relatorio-alert no-print">{error}</section> : null}
+
+        <section className="resumo-cards">
+          <article className="resumo-card destaque">
+            <span>Tickets baixados</span>
+            <strong>{ticketsBaixados.length}</strong>
+            <small>Entregas registradas na data selecionada</small>
+          </article>
+
+          <article className="resumo-card pago">
+            <span>Valor recebido</span>
+            <strong>{formatCurrency(resumo.totalRecebido)}</strong>
+            <small>Soma dos tickets entregues e pagos</small>
+          </article>
+
+          <article className="resumo-card caixa">
+            <span>Dinheiro esperado</span>
+            <strong>{formatCurrency(resumo.dinheiroEsperado)}</strong>
+            <small>Somente tickets recebidos em dinheiro</small>
+          </article>
+
+          <article className={`resumo-card ${resumo.diferencaCaixa === 0 ? 'positivo' : 'alerta'}`}>
+            <span>Diferença de caixa</span>
+            <strong>{formatCurrency(resumo.diferencaCaixa)}</strong>
+            <small>Comparacao entre contado e esperado</small>
+          </article>
+        </section>
+
+        <section className="conferencia-grid">
+          <article className="conferencia-card">
+            <div className="card-title">
+              <div>
+                <span className="kicker">Conferencia</span>
+                <h2>Fechamento em dinheiro</h2>
               </div>
             </div>
 
-            <div className="resumo-card pago">
-              <div className="resumo-icon">✅</div>
-              <div className="resumo-info">
-                <h3>Total Pago</h3>
-                <p className="valor">R$ {resumo.totalPago.toFixed(2)}</p>
+            <div className="cash-summary">
+              <div>
+                <span>Dinheiro contado</span>
+                <strong>{dinheiroContado ? formatCurrency(Number(dinheiroContado.replace(',', '.')) || 0) : 'R$ 0,00'}</strong>
+              </div>
+              <div>
+                <span>Tickets pagos</span>
+                <strong>{resumo.ticketsPagos.length}</strong>
+              </div>
+              <div>
+                <span>Tickets pendentes</span>
+                <strong>{resumo.ticketsNaoPagos.length}</strong>
+              </div>
+              <div>
+                <span>Diferença atual</span>
+                <strong>{formatCurrency(resumo.diferencaCaixa)}</strong>
+              </div>
+              <div>
+                <span>Observacao</span>
+                <p>{observacaoConferencia || 'Sem observacao'}</p>
+              </div>
+            </div>
+          </article>
+
+          <article className="conferencia-card">
+            <div className="card-title">
+              <div>
+                <span className="kicker">Resumo por forma</span>
+                <h2>Entradas do dia</h2>
               </div>
             </div>
 
-            <div className="resumo-card pendente">
-              <div className="resumo-icon">⏳</div>
-              <div className="resumo-info">
-                <h3>Pendente</h3>
-                <p className="valor">R$ {resumo.totalPendente.toFixed(2)}</p>
-              </div>
+            <div className="forma-list">
+              {resumo.formasPagamento.length ? (
+                resumo.formasPagamento.map((forma) => (
+                  <div key={forma.forma} className="forma-item">
+                    <div>
+                      <strong>{forma.forma}</strong>
+                      <span>{forma.quantidade} ticket(s)</span>
+                    </div>
+                    <strong>{formatCurrency(forma.total)}</strong>
+                  </div>
+                ))
+              ) : (
+                <div className="empty-state">Nenhum ticket baixado para esta data.</div>
+              )}
             </div>
+          </article>
+        </section>
 
-            <div className="resumo-card">
-              <div className="resumo-icon">🎫</div>
-              <div className="resumo-info">
-                <h3>Tickets</h3>
-                <p className="valor">{resumo.totalTickets}</p>
-              </div>
-            </div>
-
-            <div className="resumo-card">
-              <div className="resumo-icon">📈</div>
-              <div className="resumo-info">
-                <h3>Ticket Médio</h3>
-                <p className="valor">R$ {resumo.ticketMedio.toFixed(2)}</p>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Tabela de Tickets */}
         <section className="tabela-section">
           <div className="tabela-header">
-            <h2>Detalhamento dos Tickets</h2>
-            <span className="periodo-info">
-              {meses[mes]} de {ano}
-            </span>
+            <h2>Tickets baixados do dia</h2>
+            <span className="periodo-info">{new Date(selectedDate + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
           </div>
 
           <div className="tabela-container">
-            {tickets.length === 0 ? (
-              <div className="sem-dados">
-                <p>Nenhum ticket encontrado para este período.</p>
-              </div>
+            {ticketsBaixados.length === 0 ? (
+              <div className="sem-dados">Nenhum ticket baixado foi encontrado para este dia.</div>
             ) : (
               <table>
                 <thead>
                   <tr>
-                    <th>ID</th>
+                    <th>Ticket</th>
                     <th>Cliente</th>
+                    <th>Baixa</th>
+                    <th>Pagamento</th>
                     <th>Valor</th>
                     <th>Status</th>
-                    <th>Data Entrada</th>
-                    <th>Data Prevista</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {tickets.map((ticket) => (
+                  {ticketsBaixados.map((ticket) => (
                     <tr key={ticket.id}>
-                      <td>#{ticket.id}</td>
-                      <td>{ticket.cliente}</td>
-                      <td className="valor-cell">R$ {ticket.valor.toFixed(2)}</td>
+                      <td>#{ticket.ticketNumber}</td>
+                      <td>{ticket.cliente?.nome || 'Cliente nao informado'}</td>
+                      <td>{new Date(ticket.dataBaixa || ticket.dataEntrega || '').toLocaleString('pt-BR')}</td>
+                      <td>{getPaymentMethod(ticket)}</td>
+                      <td className="valor-cell">{formatCurrency(ticket.valorRecebido ?? ticket.totalPago ?? ticket.total)}</td>
                       <td>
-                        <span className={`status-badge status-${ticket.status.toLowerCase().replace(' ', '-')}`}>
-                          {ticket.status}
+                        <span className={`status-badge ${ticket.estaPago === 'sim' ? 'status-pago' : 'status-pendente'}`}>
+                          {ticket.estaPago === 'sim' ? 'Recebido' : 'Pendente'}
                         </span>
                       </td>
-                      <td>{new Date(ticket.dataEntrada).toLocaleDateString('pt-BR')}</td>
-                      <td>{new Date(ticket.dataPrevista).toLocaleDateString('pt-BR')}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -271,12 +344,6 @@ const RelatorioFinanceiro: React.FC = () => {
             )}
           </div>
         </section>
-
-        {/* Rodapé do Relatório */}
-        <footer className="relatorio-footer print-only">
-          <p>Relatório gerado em {new Date().toLocaleString('pt-BR')}</p>
-          <p>Lavanderia - Sistema de Gestão</p>
-        </footer>
       </div>
     </div>
   );

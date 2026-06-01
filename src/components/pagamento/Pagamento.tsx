@@ -153,6 +153,7 @@ const Pagamento: React.FC<PagamentoProps> = ({ total, quantidade, ticketNumber, 
               >
                 <option value="Retirada">Retirada</option>
                 <option value="Entrega">Entrega</option>
+
               </select>
             </label>
 
