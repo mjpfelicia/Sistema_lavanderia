@@ -9,6 +9,17 @@ type FormaPagamentoResumo = {
   total: number;
 };
 
+type CaixaDiaResumo = {
+  totalRecebido: number;
+  totalPendente: number;
+  dinheiroEsperado: number;
+  dinheiroContadoValor: number;
+  diferencaCaixa: number;
+  ticketsPagos: Ticket[];
+  ticketsNaoPagos: Ticket[];
+  formasPagamento: FormaPagamentoResumo[];
+};
+
 const formatCurrency = (value: number) =>
   new Intl.NumberFormat('pt-BR', {
     style: 'currency',
@@ -62,6 +73,19 @@ const getPaymentMethod = (ticket: Ticket) => {
   return payment;
 };
 
+const getReceivedAmount = (ticket: Ticket) =>
+  ticket.estaPago === 'sim'
+    ? ticket.valorRecebido ?? ticket.totalPago ?? ticket.total
+    : 0;
+
+const getPendingAmount = (ticket: Ticket) => {
+  if (ticket.pagamentoPendente) {
+    return ticket.valorPendente ?? ticket.total;
+  }
+
+  return ticket.estaPago === 'sim' ? 0 : ticket.valorPendente ?? ticket.total;
+};
+
 const RelatorioFinanceiro: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(getToday);
   const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -97,8 +121,9 @@ const RelatorioFinanceiro: React.FC = () => {
     [selectedDate, tickets],
   );
 
-  const resumo = useMemo(() => {
-    const totalRecebido = ticketsBaixados.reduce((acc, ticket) => acc + (ticket.valorRecebido ?? ticket.totalPago ?? ticket.total), 0);
+  const resumo = useMemo<CaixaDiaResumo>(() => {
+    const totalRecebido = ticketsBaixados.reduce((acc, ticket) => acc + getReceivedAmount(ticket), 0);
+    const totalPendente = ticketsBaixados.reduce((acc, ticket) => acc + getPendingAmount(ticket), 0);
     const ticketsPagos = ticketsBaixados.filter((ticket) => ticket.estaPago === 'sim');
     const ticketsNaoPagos = ticketsBaixados.filter((ticket) => ticket.estaPago !== 'sim');
 
@@ -108,17 +133,18 @@ const RelatorioFinanceiro: React.FC = () => {
       acc.set(forma, {
         forma,
         quantidade: current.quantidade + 1,
-        total: current.total + (ticket.valorRecebido ?? ticket.totalPago ?? ticket.total),
+        total: current.total + getReceivedAmount(ticket),
       });
       return acc;
     }, new Map<string, FormaPagamentoResumo>());
 
     const dinheiroEsperado = ticketsBaixados
       .filter((ticket) => getPaymentMethod(ticket) === 'Dinheiro')
-      .reduce((acc, ticket) => acc + (ticket.valorRecebido ?? ticket.totalPago ?? ticket.total), 0);
+      .reduce((acc, ticket) => acc + getReceivedAmount(ticket), 0);
 
     return {
       totalRecebido,
+      totalPendente,
       ticketsPagos,
       ticketsNaoPagos,
       dinheiroEsperado,
@@ -237,6 +263,12 @@ const RelatorioFinanceiro: React.FC = () => {
             <small>Somente tickets recebidos em dinheiro</small>
           </article>
 
+          <article className="resumo-card pendente">
+            <span>Valor pendente</span>
+            <strong>{formatCurrency(resumo.totalPendente)}</strong>
+            <small>Entregas baixadas com recebimento em aberto</small>
+          </article>
+
           <article className={`resumo-card ${resumo.diferencaCaixa === 0 ? 'positivo' : 'alerta'}`}>
             <span>Diferença de caixa</span>
             <strong>{formatCurrency(resumo.diferencaCaixa)}</strong>
@@ -265,6 +297,10 @@ const RelatorioFinanceiro: React.FC = () => {
               <div>
                 <span>Tickets pendentes</span>
                 <strong>{resumo.ticketsNaoPagos.length}</strong>
+              </div>
+              <div>
+                <span>Valor em aberto</span>
+                <strong>{formatCurrency(resumo.totalPendente)}</strong>
               </div>
               <div>
                 <span>Diferença atual</span>
@@ -321,6 +357,7 @@ const RelatorioFinanceiro: React.FC = () => {
                     <th>Baixa</th>
                     <th>Pagamento</th>
                     <th>Valor</th>
+                    <th>Pendente</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -331,10 +368,11 @@ const RelatorioFinanceiro: React.FC = () => {
                       <td>{ticket.cliente?.nome || 'Cliente nao informado'}</td>
                       <td>{new Date(ticket.dataBaixa || ticket.dataEntrega || '').toLocaleString('pt-BR')}</td>
                       <td>{getPaymentMethod(ticket)}</td>
-                      <td className="valor-cell">{formatCurrency(ticket.valorRecebido ?? ticket.totalPago ?? ticket.total)}</td>
+                      <td className="valor-cell">{formatCurrency(getReceivedAmount(ticket))}</td>
+                      <td>{formatCurrency(getPendingAmount(ticket))}</td>
                       <td>
                         <span className={`status-badge ${ticket.estaPago === 'sim' ? 'status-pago' : 'status-pendente'}`}>
-                          {ticket.estaPago === 'sim' ? 'Recebido' : 'Pendente'}
+                          {ticket.estaPago === 'sim' ? 'Recebido' : 'A receber'}
                         </span>
                       </td>
                     </tr>

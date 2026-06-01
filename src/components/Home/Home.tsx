@@ -28,6 +28,14 @@ type TicketResumo = {
   total: number;
   dataCriacao?: string;
   dataEntrega?: string;
+  dataBaixa?: string;
+  dataPagamento?: string;
+  formaPagamento?: string;
+  statusPagamentoDescricao?: string;
+  valorRecebido?: number;
+  valorPendente?: number;
+  pagamentoPendente?: boolean;
+  statusEntrega?: string;
 };
 
 type DashboardData = {
@@ -186,7 +194,7 @@ const normalizeDashboardData = (clientesRaw: any[], deliveriesRaw: any[], ticket
     ticketNumber: typeof delivery.ticketNumber === 'string' ? delivery.ticketNumber : undefined,
     ticketNumbers: Array.isArray(delivery.ticketNumbers) ? delivery.ticketNumbers.map((item: unknown) => String(item)) : undefined,
   })),
-  tickets: ticketsRaw.map((ticket) => ({
+    tickets: ticketsRaw.map((ticket) => ({
     id: String(ticket.id ?? ''),
     ticketNumber: String(ticket.ticketNumber ?? '---'),
     clienteId: ticket.clienteId ? String(ticket.clienteId) : undefined,
@@ -194,6 +202,14 @@ const normalizeDashboardData = (clientesRaw: any[], deliveriesRaw: any[], ticket
     total: Number(ticket.total ?? 0),
     dataCriacao: ticket.dataCriacao,
     dataEntrega: ticket.dataEntrega,
+    dataBaixa: ticket.dataBaixa,
+    dataPagamento: ticket.dataPagamento,
+    formaPagamento: ticket.formaPagamento,
+    statusPagamentoDescricao: ticket.statusPagamentoDescricao,
+    valorRecebido: Number(ticket.valorRecebido ?? 0),
+    valorPendente: Number(ticket.valorPendente ?? 0),
+    pagamentoPendente: Boolean(ticket.pagamentoPendente),
+    statusEntrega: ticket.statusEntrega,
   })),
 });
 
@@ -254,29 +270,37 @@ const Home = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [lastUpdated, setLastUpdated] = useState<string>('');
+
+  const carregarDashboard = async () => {
+    try {
+      setLoading(true);
+      setError('');
+
+      const [clientesRaw, deliveriesRaw, ticketsRaw] = await Promise.all([
+        listarClientes(),
+        listarDelivery(),
+        listarTickets(),
+      ]);
+
+      setDashboard(normalizeDashboardData(clientesRaw as any[], deliveriesRaw as any[], ticketsRaw as any[]));
+      setLastUpdated(new Date().toLocaleTimeString('pt-BR'));
+    } catch (err) {
+      console.error(err);
+      setError('N\u00e3o foi poss\u00edvel carregar os indicadores. Verifique se a API local est\u00e1 ativa na porta 3008.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const loadDashboard = async () => {
-      try {
-        setLoading(true);
-        setError('');
+    carregarDashboard();
 
-        const [clientesRaw, deliveriesRaw, ticketsRaw] = await Promise.all([
-          listarClientes(),
-          listarDelivery(),
-          listarTickets(),
-        ]);
+    const interval = window.setInterval(() => {
+      carregarDashboard();
+    }, 15000);
 
-        setDashboard(normalizeDashboardData(clientesRaw as any[], deliveriesRaw as any[], ticketsRaw as any[]));
-      } catch (err) {
-        console.error(err);
-        setError('N\u00e3o foi poss\u00edvel carregar os indicadores. Verifique se a API local est\u00e1 ativa na porta 3008.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadDashboard();
+    return () => window.clearInterval(interval);
   }, []);
 
   const handleMarcarEntregue = async (deliveryId: string, ticketNumbers: string[]) => {
@@ -315,10 +339,10 @@ const Home = () => {
   };
 
   const clientesById = new Map(dashboard.clientes.map((cliente) => [cliente.id, cliente]));
-  const paidTickets = dashboard.tickets.filter((ticket) => ticket.estaPago === 'sim');
-  const unpaidTickets = dashboard.tickets.filter((ticket) => ticket.estaPago !== 'sim');
-  const revenue = paidTickets.reduce((sum, ticket) => sum + ticket.total, 0);
-  const averageTicket = dashboard.tickets.length ? revenue / dashboard.tickets.length : 0;
+  const ticketsEmAberto = dashboard.tickets.filter((ticket) => ticket.statusEntrega !== 'Entregue');
+  const ticketsBaixados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Entregue');
+  const ticketsPendentesPagamento = ticketsEmAberto.filter((ticket) => ticket.estaPago !== 'sim');
+  const ticketsEntreguesHoje = ticketsBaixados.filter((ticket) => isSameDay(ticket.dataBaixa || ticket.dataPagamento || ticket.dataEntrega, today));
 
   const today = getToday();
   const operacoesDoDia: OperacaoResumo[] = [...dashboard.deliveries]
@@ -398,13 +422,14 @@ const Home = () => {
         descricao: `${operacao.horario} | ${operacao.tickets.map((ticket) => `#${ticket}`).join(', ')}`,
         tom: 'info',
       })),
-    ...unpaidTickets.slice(0, 3).map((ticket) => {
+    ...ticketsEmAberto.slice(0, 3).map((ticket) => {
       const cliente = ticket.clienteId ? clientesById.get(ticket.clienteId) : undefined;
+      const pagamentoTexto = ticket.estaPago === 'sim' ? 'Pago' : ticket.pagamentoPendente ? 'Pendente de recebimento' : 'A receber';
       return {
         id: `ticket-aberto-${ticket.id}`,
-        titulo: `Ticket #${ticket.ticketNumber} em aberto`,
-        descricao: `${cliente?.nome ?? 'Cliente vinculado no ticket'} | ${formatCurrency(ticket.total)}`,
-        tom: 'neutral',
+        titulo: `Ticket #${ticket.ticketNumber} em andamento`,
+        descricao: `${cliente?.nome ?? 'Cliente vinculado no ticket'} | ${pagamentoTexto}`,
+        tom: ticket.pagamentoPendente ? 'warning' : 'neutral',
       };
     }),
   ].slice(0, 5);
@@ -422,20 +447,26 @@ const Home = () => {
     },
     {
       label: 'Tickets em aberto',
-      value: String(unpaidTickets.length),
-      help: 'Pedidos pendentes de pagamento ou fechamento.',
+      value: String(ticketsEmAberto.length),
+      help: 'Pedidos ainda na fila da operação.',
       icon: 'ticket',
     },
     {
-      label: 'Faturamento confirmado',
-      value: formatCurrency(revenue),
-      help: 'Total j\u00e1 marcado como pago nos tickets registrados.',
-      icon: 'money',
+      label: 'Tickets baixados',
+      value: String(ticketsBaixados.length),
+      help: 'Atendimentos que sairam da fila operacional.',
+      icon: 'delivery',
     },
     {
-      label: 'Ticket m\u00e9dio',
-      value: formatCurrency(averageTicket),
-      help: 'Ajuda a acompanhar valor m\u00e9dio por atendimento.',
+      label: 'Entregues hoje',
+      value: String(ticketsEntreguesHoje.length),
+      help: 'Saidas que acabaram de ser conferidas.',
+      icon: 'reports',
+    },
+    {
+      label: 'Pendencias de recebimento',
+      value: String(ticketsPendentesPagamento.length),
+      help: 'Tickets ja baixados, mas com valor a receber.',
       icon: 'insight',
     },
   ];
@@ -518,14 +549,14 @@ const Home = () => {
                 <small>Fluxo total monitorado em tempo real</small>
               </div>
               <div className="hero-badge">
-                <span className="metric-label">Movimentos de delivery</span>
-                <strong>{dashboard.deliveries.length}</strong>
-                <small>Rotas de retirada e entrega do dia</small>
+                <span className="metric-label">Caixa recebido</span>
+                <strong>{formatCurrency(revenue)}</strong>
+                <small>Somente valores ja confirmados</small>
               </div>
               <div className="hero-badge">
-                <span className="metric-label">Pedidos pagos</span>
-                <strong>{paidTickets.length}</strong>
-                <small>Status financeiro consolidado</small>
+                <span className="metric-label">Valor em aberto</span>
+                <strong>{formatCurrency(pendingRevenue)}</strong>
+                <small>O que ainda falta receber</small>
               </div>
             </div>
           </section>
@@ -690,13 +721,16 @@ const Home = () => {
                   <span>Ticket</span>
                   <span>Cliente</span>
                   <span>Entrega</span>
-                  <span>Status</span>
+                  <span>Financeiro</span>
+                  <span>Recebido</span>
                   <span>Total</span>
                 </div>
 
                 {recentTickets.length ? recentTickets.map((ticket) => {
                   const cliente = ticket.clienteId ? clientesById.get(ticket.clienteId) : undefined;
                   const paid = ticket.estaPago === 'sim';
+                  const receivedAmount = getReceivedAmount(ticket);
+                  const pendingAmount = getPendingAmount(ticket);
 
                   return (
                     <div key={ticket.id} className="ticket-table-row">
@@ -704,12 +738,97 @@ const Home = () => {
                       <span>{cliente?.nome ?? 'Cliente vinculado no ticket'}</span>
                       <span>{formatDate(ticket.dataEntrega)}</span>
                       <span className={paid ? 'status-pill status-paid' : 'status-pill status-open'}>
-                        {paid ? 'Pago' : 'Em aberto'}
+                        {paid ? 'Pago' : ticket.pagamentoPendente ? 'Pendente' : 'A receber'}
+                      </span>
+                      <span>
+                        {paid ? formatCurrency(receivedAmount) : formatCurrency(pendingAmount)}
                       </span>
                       <span>{formatCurrency(ticket.total)}</span>
                     </div>
                   );
                 }) : <p className="empty-state">Nenhum ticket encontrado.</p>}
+              </div>
+            </article>
+
+            <article className="dashboard-card dashboard-card-wide finance-card">
+              <div className="card-heading">
+                <div>
+                  <span className="card-eyebrow">Caixa</span>
+                  <h3>Gráficos financeiros da operação</h3>
+                </div>
+                <Link to="/admin/financeiro" className="text-link">Abrir fechamento</Link>
+              </div>
+
+              <div className="finance-grid">
+                <div className="finance-chart-card">
+                  <div className="finance-chart-header">
+                    <strong>Recebido x pendente</strong>
+                    <span>{dashboard.tickets.length} ticket(s)</span>
+                  </div>
+                  <div className="finance-bars">
+                    <div className="finance-bar-group">
+                      <div className="finance-bar-label">
+                        <span>Recebido</span>
+                        <strong>{formatCurrency(revenue)}</strong>
+                      </div>
+                      <div className="finance-bar-track">
+                        <div
+                          className="finance-bar finance-bar-received"
+                          style={{ width: `${revenue + pendingRevenue > 0 ? Math.max((revenue / (revenue + pendingRevenue)) * 100, 8) : 0}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="finance-bar-group">
+                      <div className="finance-bar-label">
+                        <span>Pendente</span>
+                        <strong>{formatCurrency(pendingRevenue)}</strong>
+                      </div>
+                      <div className="finance-bar-track">
+                        <div
+                          className="finance-bar finance-bar-pending"
+                          style={{ width: `${revenue + pendingRevenue > 0 ? Math.max((pendingRevenue / (revenue + pendingRevenue)) * 100, 8) : 0}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="finance-chart-card">
+                  <div className="finance-chart-header">
+                    <strong>Últimos 7 dias</strong>
+                    <span>Entradas confirmadas</span>
+                  </div>
+                  <div className="finance-column-chart">
+                    {financialOverview.last7Days.map((day) => {
+                      const height = largestDailyRevenue > 0 ? Math.max((day.received / largestDailyRevenue) * 100, 8) : 8;
+                      return (
+                        <div key={day.date} className="finance-column-item">
+                          <div className="finance-column-track">
+                            <div className="finance-column-fill" style={{ height: `${height}%` }} />
+                          </div>
+                          <strong>{formatCurrency(day.received)}</strong>
+                          <span>{day.label}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              <div className="finance-method-list">
+                {financialOverview.byMethod.length ? financialOverview.byMethod.map((method) => (
+                  <div key={method.method} className="finance-method-item">
+                    <div>
+                      <strong>{method.method}</strong>
+                      <span>{method.quantity} ticket(s)</span>
+                    </div>
+                    <div className="finance-method-values">
+                      <span>Recebido: {formatCurrency(method.received)}</span>
+                      <span>Pendente: {formatCurrency(method.pending)}</span>
+                    </div>
+                  </div>
+                )) : <p className="empty-state">Sem registros financeiros para montar os gráficos.</p>}
               </div>
             </article>
 
