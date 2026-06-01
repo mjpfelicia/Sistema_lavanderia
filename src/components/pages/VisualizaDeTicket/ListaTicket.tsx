@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { atualizaTicket, buscarTicket, registrarBaixaTicket, Ticket } from '../../../service/apiTicket';
+import { atualizaTicket, buscarTicket, registrarBaixaTicket, regularizarPagamentoTicket, Ticket } from '../../../service/apiTicket';
 import styles from './BuscaTicket.module.css';
 
 interface VisualizarTicketProps {
@@ -38,6 +38,10 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [processandoBaixa, setProcessandoBaixa] = useState<boolean>(false);
+  const [formaPagamentoBaixa, setFormaPagamentoBaixa] = useState<string>('Dinheiro');
+  const [valorRecebidoBaixa, setValorRecebidoBaixa] = useState<string>('');
+  const [observacaoBaixa, setObservacaoBaixa] = useState<string>('');
+  const [modoBaixaFinanceira, setModoBaixaFinanceira] = useState<'receber-agora' | 'deixar-pendente'>('receber-agora');
 
   useEffect(() => {
     const fetchTicket = async () => {
@@ -68,6 +72,17 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
 
     fetchTicket();
   }, [ticketNumber]);
+
+  useEffect(() => {
+    if (!ticket) {
+      return;
+    }
+
+    setFormaPagamentoBaixa(ticket.formaPagamento?.trim() || 'Dinheiro');
+    setValorRecebidoBaixa(String(ticket.valorRecebido ?? ticket.total ?? 0));
+    setObservacaoBaixa(ticket.observacaoBaixa || '');
+    setModoBaixaFinanceira(ticket.estaPago === 'sim' ? 'receber-agora' : 'deixar-pendente');
+  }, [ticket]);
 
   const handleUpdate = async (field: string, value: string) => {
     if (!ticket) {
@@ -106,17 +121,79 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
       return;
     }
 
+    const precisaRegistrarPagamento = modoBaixaFinanceira === 'receber-agora';
+    const valorNumerico = Number(String(valorRecebidoBaixa).replace(',', '.'));
+
+    if (precisaRegistrarPagamento) {
+      if (!formaPagamentoBaixa.trim()) {
+        setError('Informe a forma de pagamento para concluir a baixa.');
+        return;
+      }
+
+      if (!Number.isFinite(valorNumerico) || valorNumerico <= 0) {
+        setError('Informe o valor recebido para concluir a baixa.');
+        return;
+      }
+    }
+
     if (!window.confirm(`Registrar baixa do ticket #${ticket.ticketNumber} como entregue?`)) {
       return;
     }
 
     try {
       setProcessandoBaixa(true);
-      const ticketBaixado = await registrarBaixaTicket(ticket);
+      const ticketBaixado = await registrarBaixaTicket(
+        ticket,
+        precisaRegistrarPagamento
+          ? {
+              marcarComoPago: true,
+              formaPagamento: formaPagamentoBaixa,
+              valorRecebido: valorNumerico,
+              observacaoBaixa: observacaoBaixa.trim() || undefined,
+            }
+          : {
+              deixarPendente: true,
+              valorRecebido: ticket.total,
+              observacaoBaixa: observacaoBaixa.trim() || undefined,
+            },
+      );
       setTicket(ticketBaixado);
       setError(null);
     } catch (err: any) {
       setError(err.message || 'Nao foi possivel registrar a baixa do ticket.');
+    } finally {
+      setProcessandoBaixa(false);
+    }
+  };
+
+  const handleRegularizarPagamento = async () => {
+    if (!ticket) {
+      return;
+    }
+
+    const valorNumerico = Number(String(valorRecebidoBaixa).replace(',', '.'));
+
+    if (!formaPagamentoBaixa.trim()) {
+      setError('Informe a forma de pagamento para regularizar a pendencia.');
+      return;
+    }
+
+    if (!Number.isFinite(valorNumerico) || valorNumerico <= 0) {
+      setError('Informe o valor recebido para regularizar a pendencia.');
+      return;
+    }
+
+    try {
+      setProcessandoBaixa(true);
+      const ticketAtualizado = await regularizarPagamentoTicket(ticket, {
+        formaPagamento: formaPagamentoBaixa,
+        valorRecebido: valorNumerico,
+        observacaoBaixa: observacaoBaixa.trim() || undefined,
+      });
+      setTicket(ticketAtualizado);
+      setError(null);
+    } catch (err: any) {
+      setError(err.message || 'Nao foi possivel regularizar o pagamento.');
     } finally {
       setProcessandoBaixa(false);
     }
@@ -253,6 +330,88 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
             )}
           </div>
 
+          {ticket.estaPago !== 'sim' && (
+            <div className={styles.baixaFinanceira}>
+              <div className={styles.baixaFinanceiraHeader}>
+                <span className={styles.sectionEyebrow}>Recebimento</span>
+                <strong>Ticket ainda nao pago</strong>
+              </div>
+              <p className={styles.baixaFinanceiraNota}>
+                Para dar baixa, precisamos registrar o pagamento agora e alimentar o caixa do dia com a forma de recebimento.
+              </p>
+              <div className={styles.baixaModoToggle}>
+                <label className={`${styles.baixaModoOption} ${modoBaixaFinanceira === 'receber-agora' ? styles.baixaModoActive : ''}`}>
+                  <input
+                    type="radio"
+                    name="modoBaixaFinanceira"
+                    checked={modoBaixaFinanceira === 'receber-agora'}
+                    onChange={() => setModoBaixaFinanceira('receber-agora')}
+                  />
+                  <span>Receber agora</span>
+                  <small>Fecha o caixa e registra a forma de pagamento.</small>
+                </label>
+                <label className={`${styles.baixaModoOption} ${modoBaixaFinanceira === 'deixar-pendente' ? styles.baixaModoActive : ''}`}>
+                  <input
+                    type="radio"
+                    name="modoBaixaFinanceira"
+                    checked={modoBaixaFinanceira === 'deixar-pendente'}
+                    onChange={() => setModoBaixaFinanceira('deixar-pendente')}
+                  />
+                  <span>Deixar pendente</span>
+                  <small>Baixa a entrega agora e o recebimento fica para depois.</small>
+                </label>
+              </div>
+              <div className={styles.baixaFinanceiraGrid}>
+                {modoBaixaFinanceira === 'receber-agora' ? (
+                  <>
+                    <label className={styles.fieldGroup}>
+                      <span>Forma de pagamento</span>
+                      <div className={styles.inputWrap}>
+                        <select value={formaPagamentoBaixa} onChange={(e) => setFormaPagamentoBaixa(e.target.value)}>
+                          <option value="Dinheiro">Dinheiro</option>
+                          <option value="Pix">Pix</option>
+                          <option value="Cartao de Credito">Cartao de Credito</option>
+                          <option value="Cartao de Debito">Cartao de Debito</option>
+                        </select>
+                      </div>
+                    </label>
+
+                    <label className={styles.fieldGroup}>
+                      <span>Valor recebido</span>
+                      <div className={styles.inputWrap}>
+                        <input
+                          type="number"
+                          step="0.01"
+                          min="0"
+                          value={valorRecebidoBaixa}
+                          onChange={(e) => setValorRecebidoBaixa(e.target.value)}
+                        />
+                      </div>
+                    </label>
+                  </>
+                ) : (
+                  <div className={styles.baixaPendenteResumo}>
+                    <strong>Valor pendente</strong>
+                    <span>{`R$ ${ticket.total.toFixed(2)}`}</span>
+                    <p>O ticket sera baixado na entrega, mas o valor entrara como pendente para receber em outro momento.</p>
+                  </div>
+                )}
+              </div>
+
+              <label className={styles.fieldGroup}>
+                <span>Observacao da baixa</span>
+                <div className={styles.inputWrap}>
+                  <input
+                    type="text"
+                    value={observacaoBaixa}
+                    onChange={(e) => setObservacaoBaixa(e.target.value)}
+                    placeholder="Ex.: pago no balcao, conferido com a frente"
+                  />
+                </div>
+              </label>
+            </div>
+          )}
+
           <div className={styles.actionButtons}>
             <button
               className={styles.primaryButton}
@@ -264,6 +423,11 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
             <button className={styles.secondaryButton} onClick={handleBaixaEntrega} disabled={processandoBaixa || ticket.statusEntrega === 'Entregue'}>
               {processandoBaixa ? 'Registrando baixa...' : ticket.statusEntrega === 'Entregue' ? 'Baixa já registrada' : 'Dar baixa na entrega'}
             </button>
+            {ticket.statusEntrega === 'Entregue' && ticket.estaPago !== 'sim' && (
+              <button className={styles.secondaryButton} onClick={handleRegularizarPagamento} disabled={processandoBaixa}>
+                {processandoBaixa ? 'Regularizando...' : 'Receber pendencia'}
+              </button>
+            )}
           </div>
         </article>
       </div>

@@ -26,11 +26,14 @@ export type Ticket = {
   dataCriacao?: string;
   dataEntrega: string;
   dataBaixa?: string;
+  dataPagamento?: string;
   tipoAtendimento?: 'Entrega' | 'Retirada';
   formaPagamento?: string;
   statusPagamentoDescricao?: string;
   statusEntrega?: 'Aguardando retirada' | 'Em producao' | 'Pronto' | 'Liberado' | 'Entregue';
   valorRecebido?: number;
+  valorPendente?: number;
+  pagamentoPendente?: boolean;
   observacaoBaixa?: string;
   cliente?: Cliente;
 };
@@ -125,6 +128,9 @@ export const atualizaTicket = async (ticket: Ticket): Promise<Ticket> => {
 export const registrarBaixaTicket = async (
   ticket: Ticket,
   extras?: {
+    marcarComoPago?: boolean;
+    deixarPendente?: boolean;
+    formaPagamento?: string;
     valorRecebido?: number;
     observacaoBaixa?: string;
   },
@@ -137,9 +143,56 @@ export const registrarBaixaTicket = async (
     ...ticket,
     statusEntrega: 'Entregue',
     dataBaixa: new Date().toISOString(),
-    valorRecebido: extras?.valorRecebido ?? ticket.valorRecebido ?? ticket.total,
     observacaoBaixa: extras?.observacaoBaixa ?? ticket.observacaoBaixa,
   };
 
+  if (extras?.deixarPendente) {
+    const valorPendente = extras.valorRecebido ?? ticket.valorPendente ?? ticket.total;
+
+    payload.estaPago = 'nao';
+    payload.formaPagamento = ticket.formaPagamento || 'Pendente';
+    payload.statusPagamentoDescricao = 'Pendente';
+    payload.totalPago = 0;
+    payload.valorRecebido = 0;
+    payload.valorPendente = valorPendente;
+    payload.pagamentoPendente = true;
+
+    return atualizaTicket(payload);
+  }
+
+  if (extras?.marcarComoPago) {
+    const formaPagamento = extras.formaPagamento?.trim();
+    const valorRecebido = extras.valorRecebido ?? ticket.valorRecebido ?? ticket.total;
+
+    payload.estaPago = 'sim';
+    payload.formaPagamento = formaPagamento || ticket.formaPagamento || 'Nao informado';
+    payload.statusPagamentoDescricao = `Pago com ${payload.formaPagamento}`;
+    payload.totalPago = valorRecebido;
+    payload.valorRecebido = valorRecebido;
+    payload.valorPendente = 0;
+    payload.pagamentoPendente = false;
+    payload.dataPagamento = new Date().toISOString();
+  }
+
   return atualizaTicket(payload);
+};
+
+export const regularizarPagamentoTicket = async (
+  ticket: Ticket,
+  extras: {
+    formaPagamento: string;
+    valorRecebido: number;
+    observacaoBaixa?: string;
+  },
+): Promise<Ticket> => {
+  if (!ticket.id) {
+    throw new Error('Ticket sem identificador para regularizar pagamento.');
+  }
+
+  return registrarBaixaTicket(ticket, {
+    marcarComoPago: true,
+    formaPagamento: extras.formaPagamento,
+    valorRecebido: extras.valorRecebido,
+    observacaoBaixa: extras.observacaoBaixa,
+  });
 };
