@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { atualizaTicket, buscarTicket, registrarBaixaTicket, regularizarPagamentoTicket, Ticket } from '../../../service/apiTicket';
+import { atualizaTicket, buscarTicket, criarTicket, registrarBaixaTicket, regularizarPagamentoTicket, Ticket } from '../../../service/apiTicket';
 import styles from './BuscaTicket.module.css';
 
 interface VisualizarTicketProps {
@@ -42,6 +42,7 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
   const [valorRecebidoBaixa, setValorRecebidoBaixa] = useState<string>('');
   const [observacaoBaixa, setObservacaoBaixa] = useState<string>('');
   const [modoBaixaFinanceira, setModoBaixaFinanceira] = useState<'receber-agora' | 'deixar-pendente'>('receber-agora');
+  const [criandoEmProducao, setCriandoEmProducao] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchTicket = async () => {
@@ -199,6 +200,40 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
     }
   };
 
+  const handleCriarEmProducao = async () => {
+    if (!ticketNumber.trim()) {
+      return;
+    }
+
+    try {
+      setCriandoEmProducao(true);
+      const ticketCriado = await criarTicket({
+        clienteId: '',
+        ticketNumber: ticketNumber.trim(),
+        estaPago: 'nao',
+        totalPago: 0,
+        items: [],
+        total: 0,
+        dataCriacao: new Date().toISOString(),
+        dataEntrega: '',
+        tipoAtendimento: 'Retirada',
+        statusEntrega: 'Em producao',
+        formaPagamento: '',
+        statusPagamentoDescricao: 'Em producao',
+      });
+
+      setTicket({
+        ...ticketCriado,
+        items: ticketCriado.items || [],
+      });
+      setError(null);
+    } catch (err: any) {
+      setError(err.message || 'Nao foi possivel criar o ticket em producao.');
+    } finally {
+      setCriandoEmProducao(false);
+    }
+  };
+
   const handleDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = e.target.value;
     const currentTime = ticket?.dataEntrega?.split('T')[1] || '00:00:00.000Z';
@@ -216,7 +251,24 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
   }
 
   if (error && !ticket) {
-    return <div className={styles.errorMessage}>{error}</div>;
+    const notFound = error.toLowerCase().includes('nao encontrado');
+
+    return (
+      <section className={styles.ticketWorkspace}>
+        <div className={styles.errorSurface}>
+          <div className={styles.errorMessage}>{error}</div>
+          {notFound && (
+            <div className={styles.errorActionPanel}>
+              <strong>O ticket ainda nao existe na base.</strong>
+              <p>Voce pode criar um ticket em producao agora para continuar a operacao e ajustar os dados depois.</p>
+              <button className={styles.primaryButton} onClick={handleCriarEmProducao} disabled={criandoEmProducao}>
+                {criandoEmProducao ? 'Criando ticket...' : 'Criar ticket em producao'}
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+    );
   }
 
   if (!ticket) {

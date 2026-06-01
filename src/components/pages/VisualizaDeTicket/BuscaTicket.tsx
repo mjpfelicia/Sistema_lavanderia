@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import VisualizarTicket from "./ListaTicket";
 import styles from './BuscaTicket.module.css';
 
 const VisualizarTicketPage = () => {
+  const { ticketNumber: ticketNumberParam } = useParams<{ ticketNumber?: string }>();
   const [ticketNumber, setTicketNumber] = useState("");
   const [searchTicketNumber, setSearchTicketNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const normalizedParam = ticketNumberParam?.trim();
+
+    if (normalizedParam) {
+      setTicketNumber(normalizedParam);
+      setSearchTicketNumber(normalizedParam);
+      setErrorMessage("");
+    }
+  }, [ticketNumberParam]);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

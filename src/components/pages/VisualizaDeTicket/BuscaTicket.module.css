@@ -373,6 +373,30 @@
   color: #b91c1c;
 }
 
+.errorSurface {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.errorActionPanel {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(239, 246, 255, 0.92);
+  border: 1px solid rgba(59, 130, 246, 0.16);
+}
+
+.errorActionPanel strong {
+  color: #0f172a;
+}
+
+.errorActionPanel p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
+}
+
 .infoBanner {
   background: rgba(239, 246, 255, 0.86);
   border: 1px solid rgba(96, 165, 250, 0.2);

@@ -339,12 +339,11 @@ const Home = () => {
   };
 
   const clientesById = new Map(dashboard.clientes.map((cliente) => [cliente.id, cliente]));
+  const today = getToday();
   const ticketsEmAberto = dashboard.tickets.filter((ticket) => ticket.statusEntrega !== 'Entregue');
   const ticketsBaixados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Entregue');
   const ticketsPendentesPagamento = ticketsEmAberto.filter((ticket) => ticket.estaPago !== 'sim');
   const ticketsEntreguesHoje = ticketsBaixados.filter((ticket) => isSameDay(ticket.dataBaixa || ticket.dataPagamento || ticket.dataEntrega, today));
-
-  const today = getToday();
   const operacoesDoDia: OperacaoResumo[] = [...dashboard.deliveries]
     .filter((delivery) => isSameDay(delivery.deliveryData, today))
     .map((delivery) => {
@@ -511,7 +510,7 @@ const Home = () => {
           <div className="saas-brand-mark">L</div>
           <div>
             <strong>Sistema de Lavanderia</strong>
-            <span>Operations Suite</span>
+            <span>Painel da loja</span>
           </div>
         </div>
 
@@ -535,10 +534,10 @@ const Home = () => {
         <main className="home-dashboard">
           <section className="hero-panel">
             <div className="hero-copy">
-              <span className="hero-kicker">{'Opera\u00e7\u00e3o da lavanderia'}</span>
-              <h2>{'Painel moderno para acompanhar pedidos, clientes e entregas em um s\u00f3 lugar'}</h2>
+              <span className="hero-kicker">{'Painel da loja'}</span>
+              <h2>{'Acompanhe pedidos, baixas e saídas do dia em um só lugar'}</h2>
               <p>
-                {'A home funciona como um centro operacional de alto n\u00edvel: exibe a sa\u00fade do neg\u00f3cio, oferece atalhos do dia e antecipa os pr\u00f3ximos compromissos da equipe.'}
+                {'A tela principal foi pensada para o balc\u00e3o: mostra o que est\u00e1 em andamento, o que j\u00e1 saiu e o que ainda precisa de aten\u00e7\u00e3o da equipe.'}
               </p>
             </div>
 
@@ -549,20 +548,21 @@ const Home = () => {
                 <small>Fluxo total monitorado em tempo real</small>
               </div>
               <div className="hero-badge">
-                <span className="metric-label">Caixa recebido</span>
-                <strong>{formatCurrency(revenue)}</strong>
-                <small>Somente valores ja confirmados</small>
+                <span className="metric-label">Tickets em aberto</span>
+                <strong>{ticketsEmAberto.length}</strong>
+                <small>Pedidos que ainda estao na operacao</small>
               </div>
               <div className="hero-badge">
-                <span className="metric-label">Valor em aberto</span>
-                <strong>{formatCurrency(pendingRevenue)}</strong>
-                <small>O que ainda falta receber</small>
+                <span className="metric-label">Entregues hoje</span>
+                <strong>{ticketsEntreguesHoje.length}</strong>
+                <small>Saidas que ja foram baixadas</small>
               </div>
             </div>
           </section>
 
           {error ? <section className="feedback-banner error-banner">{error}</section> : null}
           {loading ? <section className="feedback-banner">Carregando indicadores do sistema...</section> : null}
+          {!loading && lastUpdated ? <section className="feedback-banner">Atualizado em {lastUpdated}</section> : null}
 
           <section className="insights-grid">
             {insights.map((insight) => (
@@ -581,7 +581,7 @@ const Home = () => {
             <article className="dashboard-card dashboard-card-wide operations-card">
               <div className="card-heading">
                 <div>
-                  <span className="card-eyebrow">Operacao de hoje</span>
+                  <span className="card-eyebrow">Rotina do dia</span>
                   <h3>Entregas e retiradas em destaque</h3>
                 </div>
                 <Link to="/Relatorio" className="text-link">Ver quadro completo</Link>
@@ -667,7 +667,7 @@ const Home = () => {
               <div className="card-heading">
                 <div>
                   <span className="card-eyebrow">Prioridades</span>
-                  <h3>Pendencias da operacao</h3>
+                  <h3>Pendências da loja</h3>
                 </div>
                 <Link to="/Relatorio" className="text-link">Ir para o quadro</Link>
               </div>
@@ -711,7 +711,7 @@ const Home = () => {
               <div className="card-heading">
                 <div>
                   <span className="card-eyebrow">Atendimento</span>
-                  <h3>Tickets recentes</h3>
+                  <h3>Tickets recentes da loja</h3>
                 </div>
                 <Link to="/BuscarTicket" className="text-link">Ver todos</Link>
               </div>
@@ -721,16 +721,13 @@ const Home = () => {
                   <span>Ticket</span>
                   <span>Cliente</span>
                   <span>Entrega</span>
-                  <span>Financeiro</span>
-                  <span>Recebido</span>
-                  <span>Total</span>
+                  <span>Status operacional</span>
+                  <span>Atualizado</span>
                 </div>
 
                 {recentTickets.length ? recentTickets.map((ticket) => {
                   const cliente = ticket.clienteId ? clientesById.get(ticket.clienteId) : undefined;
                   const paid = ticket.estaPago === 'sim';
-                  const receivedAmount = getReceivedAmount(ticket);
-                  const pendingAmount = getPendingAmount(ticket);
 
                   return (
                     <div key={ticket.id} className="ticket-table-row">
@@ -738,97 +735,12 @@ const Home = () => {
                       <span>{cliente?.nome ?? 'Cliente vinculado no ticket'}</span>
                       <span>{formatDate(ticket.dataEntrega)}</span>
                       <span className={paid ? 'status-pill status-paid' : 'status-pill status-open'}>
-                        {paid ? 'Pago' : ticket.pagamentoPendente ? 'Pendente' : 'A receber'}
+                        {ticket.statusEntrega === 'Entregue' ? 'Baixado' : ticket.pagamentoPendente ? 'Pendente' : 'Em aberto'}
                       </span>
-                      <span>
-                        {paid ? formatCurrency(receivedAmount) : formatCurrency(pendingAmount)}
-                      </span>
-                      <span>{formatCurrency(ticket.total)}</span>
+                      <span>{formatDate(ticket.dataBaixa || ticket.dataPagamento || ticket.dataEntrega)}</span>
                     </div>
                   );
                 }) : <p className="empty-state">Nenhum ticket encontrado.</p>}
-              </div>
-            </article>
-
-            <article className="dashboard-card dashboard-card-wide finance-card">
-              <div className="card-heading">
-                <div>
-                  <span className="card-eyebrow">Caixa</span>
-                  <h3>Gráficos financeiros da operação</h3>
-                </div>
-                <Link to="/admin/financeiro" className="text-link">Abrir fechamento</Link>
-              </div>
-
-              <div className="finance-grid">
-                <div className="finance-chart-card">
-                  <div className="finance-chart-header">
-                    <strong>Recebido x pendente</strong>
-                    <span>{dashboard.tickets.length} ticket(s)</span>
-                  </div>
-                  <div className="finance-bars">
-                    <div className="finance-bar-group">
-                      <div className="finance-bar-label">
-                        <span>Recebido</span>
-                        <strong>{formatCurrency(revenue)}</strong>
-                      </div>
-                      <div className="finance-bar-track">
-                        <div
-                          className="finance-bar finance-bar-received"
-                          style={{ width: `${revenue + pendingRevenue > 0 ? Math.max((revenue / (revenue + pendingRevenue)) * 100, 8) : 0}%` }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="finance-bar-group">
-                      <div className="finance-bar-label">
-                        <span>Pendente</span>
-                        <strong>{formatCurrency(pendingRevenue)}</strong>
-                      </div>
-                      <div className="finance-bar-track">
-                        <div
-                          className="finance-bar finance-bar-pending"
-                          style={{ width: `${revenue + pendingRevenue > 0 ? Math.max((pendingRevenue / (revenue + pendingRevenue)) * 100, 8) : 0}%` }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="finance-chart-card">
-                  <div className="finance-chart-header">
-                    <strong>Últimos 7 dias</strong>
-                    <span>Entradas confirmadas</span>
-                  </div>
-                  <div className="finance-column-chart">
-                    {financialOverview.last7Days.map((day) => {
-                      const height = largestDailyRevenue > 0 ? Math.max((day.received / largestDailyRevenue) * 100, 8) : 8;
-                      return (
-                        <div key={day.date} className="finance-column-item">
-                          <div className="finance-column-track">
-                            <div className="finance-column-fill" style={{ height: `${height}%` }} />
-                          </div>
-                          <strong>{formatCurrency(day.received)}</strong>
-                          <span>{day.label}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              <div className="finance-method-list">
-                {financialOverview.byMethod.length ? financialOverview.byMethod.map((method) => (
-                  <div key={method.method} className="finance-method-item">
-                    <div>
-                      <strong>{method.method}</strong>
-                      <span>{method.quantity} ticket(s)</span>
-                    </div>
-                    <div className="finance-method-values">
-                      <span>Recebido: {formatCurrency(method.received)}</span>
-                      <span>Pendente: {formatCurrency(method.pending)}</span>
-                    </div>
-                  </div>
-                )) : <p className="empty-state">Sem registros financeiros para montar os gráficos.</p>}
               </div>
             </article>
 
@@ -843,7 +755,7 @@ const Home = () => {
               <ul className="opportunity-list">
                 <li>
                   <SaasIcon name="money" />
-                  <span>Priorize os {unpaidTickets.length} tickets em aberto para acelerar o faturamento.</span>
+                  <span>Priorize os {ticketsPendentesPagamento.length} tickets com recebimento pendente para manter o caixa em ordem.</span>
                 </li>
                 <li>
                   <SaasIcon name="delivery" />
