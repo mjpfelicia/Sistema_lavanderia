@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import './RelatorioFinanceiro.css';
 import BackToHome from '../../buttons/BackToHome';
 import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { listarClientes, Cliente } from '../../../service/apiCliente';
 
 type FormaPagamentoResumo = {
   forma: string;
@@ -86,9 +87,15 @@ const getPendingAmount = (ticket: Ticket) => {
   return ticket.estaPago === 'sim' ? 0 : ticket.valorPendente ?? ticket.total;
 };
 
+const getClientName = (ticket: Ticket, clientesById: Map<string, Cliente>) =>
+  ticket.cliente?.nome ||
+  clientesById.get(String(ticket.clienteId))?.nome ||
+  'Cliente nao informado';
+
 const RelatorioFinanceiro: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(getToday);
   const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [dinheiroContado, setDinheiroContado] = useState('');
@@ -99,8 +106,12 @@ const RelatorioFinanceiro: React.FC = () => {
       try {
         setLoading(true);
         setError('');
-        const ticketsData = await listarTickets();
+        const [ticketsData, clientesData] = await Promise.all([
+          listarTickets(),
+          listarClientes(),
+        ]);
         setTickets(ticketsData);
+        setClientes(clientesData);
       } catch (requestError) {
         console.error(requestError);
         setError('Nao foi possivel carregar o fechamento de caixa. Verifique se a API local esta ativa.');
@@ -119,6 +130,11 @@ const RelatorioFinanceiro: React.FC = () => {
         .filter((ticket) => isSameDay(ticket.dataBaixa || ticket.dataEntrega || ticket.dataCriacao, selectedDate))
         .sort((a, b) => new Date(b.dataBaixa || b.dataEntrega || 0).getTime() - new Date(a.dataBaixa || a.dataEntrega || 0).getTime()),
     [selectedDate, tickets],
+  );
+
+  const clientesById = useMemo(
+    () => new Map(clientes.map((cliente) => [String(cliente.id), cliente])),
+    [clientes],
   );
 
   const resumo = useMemo<CaixaDiaResumo>(() => {
@@ -160,7 +176,7 @@ const RelatorioFinanceiro: React.FC = () => {
       headers.join(';'),
       ...ticketsBaixados.map((ticket) => [
         `#${ticket.ticketNumber}`,
-        ticket.cliente?.nome || 'Cliente nao informado',
+        getClientName(ticket, clientesById),
         new Date(ticket.dataBaixa || ticket.dataEntrega || '').toLocaleString('pt-BR'),
         getPaymentMethod(ticket),
         formatCurrency(ticket.valorRecebido ?? ticket.totalPago ?? ticket.total),
@@ -365,7 +381,7 @@ const RelatorioFinanceiro: React.FC = () => {
                   {ticketsBaixados.map((ticket) => (
                     <tr key={ticket.id}>
                       <td>#{ticket.ticketNumber}</td>
-                      <td>{ticket.cliente?.nome || 'Cliente nao informado'}</td>
+                      <td>{getClientName(ticket, clientesById)}</td>
                       <td>{new Date(ticket.dataBaixa || ticket.dataEntrega || '').toLocaleString('pt-BR')}</td>
                       <td>{getPaymentMethod(ticket)}</td>
                       <td className="valor-cell">{formatCurrency(getReceivedAmount(ticket))}</td>

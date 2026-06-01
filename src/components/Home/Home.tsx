@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import { listarClientes } from '../../service/apiCliente';
@@ -272,7 +272,7 @@ const Home = () => {
   const [error, setError] = useState('');
   const [lastUpdated, setLastUpdated] = useState<string>('');
 
-  const carregarDashboard = async () => {
+  const carregarDashboard = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
@@ -291,17 +291,36 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     carregarDashboard();
 
     const interval = window.setInterval(() => {
       carregarDashboard();
-    }, 15000);
+    }, 10000);
 
-    return () => window.clearInterval(interval);
-  }, []);
+    const atualizarAoFocar = () => {
+      carregarDashboard();
+    };
+
+    const atualizarAoVisibilizar = () => {
+      if (document.visibilityState === 'visible') {
+        carregarDashboard();
+      }
+    };
+
+    window.addEventListener('focus', atualizarAoFocar);
+    window.addEventListener('lavanderia:data-changed', atualizarAoFocar as EventListener);
+    document.addEventListener('visibilitychange', atualizarAoVisibilizar);
+
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener('focus', atualizarAoFocar);
+      window.removeEventListener('lavanderia:data-changed', atualizarAoFocar as EventListener);
+      document.removeEventListener('visibilitychange', atualizarAoVisibilizar);
+    };
+  }, [carregarDashboard]);
 
   const handleMarcarEntregue = async (deliveryId: string, ticketNumbers: string[]) => {
     try {
@@ -382,10 +401,13 @@ const Home = () => {
 
   // Detectar entregas atrasadas
   const entregasAtrasadas = dashboard.deliveries.filter((delivery) => {
+    const ticketsRelacionados = getDeliveryTicketNumbers(delivery);
+
     return (
       delivery.deliveryTipo === 'Entrega' &&
       delivery.deliveryData &&
-      isDeliveryOverdue(delivery.deliveryData)
+      isDeliveryOverdue(delivery.deliveryData) &&
+      ticketsRelacionados.length > 0
     );
   });
 

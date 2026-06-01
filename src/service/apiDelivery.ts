@@ -17,6 +17,14 @@ const api = axios.create({
   baseURL: `${config.apiUrl}/delivery`,
 });
 
+const notificarAtualizacaoDashboard = () => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  window.dispatchEvent(new Event('lavanderia:data-changed'));
+};
+
 const handleApiError = (error: unknown) => {
   if (axios.isAxiosError(error)) {
     console.error("[ERROR]", error.message);
@@ -67,10 +75,14 @@ export const buscarDelivery = async (clienteId: string): Promise<Delivery[]> => 
 
 export const atualizaDelivery = async (idDelivery: string, delivery: Delivery): Promise<Delivery> => {
   console.info("API Delivery - atualizaDelivery");
-  return postPutRequest<Delivery>(`/${idDelivery}`, delivery);
+  const response = await postPutRequest<Delivery>(`/${idDelivery}`, delivery);
+  notificarAtualizacaoDashboard();
+  return response;
 };
 
 export const criarDelivery = async (delivery: Delivery): Promise<Delivery> => {
   console.info("API Delivery - criarDelivery");
-  return postPutRequest<Delivery>('/', delivery);
+  const response = await postPutRequest<Delivery>('/', delivery);
+  notificarAtualizacaoDashboard();
+  return response;
 };

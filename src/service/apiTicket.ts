@@ -42,6 +42,14 @@ const api = axios.create({
   baseURL: `${config.apiUrl}/ticket`,
 });
 
+const notificarAtualizacaoDashboard = () => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  window.dispatchEvent(new Event('lavanderia:data-changed'));
+};
+
 const handleError = (error: AxiosError | any): never => {
   const errorMessage = error.response?.data?.message || error.message || 'Erro na API';
   console.error(`[Ticket ERROR][${error.config?.url}]`, errorMessage);
@@ -76,7 +84,10 @@ export const criarTicket = async (ticket: Ticket): Promise<Ticket> => {
   console.info('API Ticket - criar Ticket ');
   return api
     .post<Ticket>('/', ticket)
-    .then(response => response.data)
+    .then(response => {
+      notificarAtualizacaoDashboard();
+      return response.data;
+    })
     .catch(handleError);
 };
 
@@ -121,7 +132,10 @@ export const atualizaTicket = async (ticket: Ticket): Promise<Ticket> => {
   console.info('API Ticket - atualiza Ticket ', { ticket });
   return api
     .patch<Ticket>(`/${ticket.id}`, ticket)
-    .then(response => response.data)
+    .then(response => {
+      notificarAtualizacaoDashboard();
+      return response.data;
+    })
     .catch(handleError);
 };
 

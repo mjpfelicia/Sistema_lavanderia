@@ -37,12 +37,30 @@ const getPendingAmount = (ticket: Ticket) => {
   return ticket.estaPago === 'sim' ? 0 : ticket.valorPendente ?? ticket.total;
 };
 
+const getClientName = (ticket: Ticket, clientesById: Map<string, Cliente>) => {
+  const embeddedName = ticket.cliente?.nome?.trim();
+  if (embeddedName) {
+    return embeddedName;
+  }
+
+  const matchedName = clientesById.get(String(ticket.clienteId))?.nome?.trim();
+  if (matchedName) {
+    return matchedName;
+  }
+
+  return 'Cliente nao informado';
+};
+
 const PendenciasRecebimento: React.FC = () => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [busca, setBusca] = useState('');
+  const clientesById = useMemo(
+    () => new Map(clientes.map((cliente) => [String(cliente.id), cliente])),
+    [clientes],
+  );
 
   useEffect(() => {
     const carregarDados = async () => {
@@ -74,7 +92,6 @@ const PendenciasRecebimento: React.FC = () => {
 
   const pendencias = useMemo(() => {
     const search = busca.trim().toLowerCase();
-    const clientesById = new Map(clientes.map((cliente) => [String(cliente.id), cliente]));
 
     return tickets
       .filter((ticket) => ticket.estaPago !== 'sim' || ticket.pagamentoPendente)
@@ -85,14 +102,10 @@ const PendenciasRecebimento: React.FC = () => {
 
         return (
           ticket.ticketNumber.toLowerCase().includes(search) ||
-          (clientesById.get(String(ticket.clienteId))?.nome || ticket.cliente?.nome || '').toLowerCase().includes(search) ||
+          getClientName(ticket, clientesById).toLowerCase().includes(search) ||
           (ticket.statusPagamentoDescricao || '').toLowerCase().includes(search)
         );
       })
-      .map((ticket) => ({
-        ...ticket,
-        cliente: ticket.cliente || clientesById.get(String(ticket.clienteId)),
-      }))
       .sort((a, b) => getPendingAmount(b) - getPendingAmount(a));
   }, [busca, clientes, tickets]);
 
@@ -173,7 +186,7 @@ const PendenciasRecebimento: React.FC = () => {
                   <div className="pendencia-item-main">
                     <div>
                       <span className="pendencia-ticket">Ticket #{ticket.ticketNumber}</span>
-                      <h3>{ticket.cliente?.nome || 'Cliente nao informado'}</h3>
+                      <h3>{getClientName(ticket, clientesById)}</h3>
                       <p>{ticket.statusPagamentoDescricao || 'Pendente de recebimento'}</p>
                     </div>
                     <div className="pendencia-values">
