@@ -193,7 +193,11 @@ const AdminDashboard: React.FC = () => {
         <nav className="admin-nav">
           <Link to="/admin/financeiro" className="nav-card">
             <span className="nav-icon">💰</span>
-            <span className="nav-label">Relatório Financeiro</span>
+            <span className="nav-label">Fechamento de Caixa</span>
+          </Link>
+          <Link to="/admin/pendencias-recebimento" className="nav-card">
+            <span className="nav-icon">📌</span>
+            <span className="nav-label">Pendencias de Recebimento</span>
           </Link>
           <Link to="/admin/tickets" className="nav-card">
             <span className="nav-icon">🎫</span>

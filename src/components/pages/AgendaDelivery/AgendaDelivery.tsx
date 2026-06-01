@@ -79,7 +79,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
   }, [cliente.id]);
 
   const ticketsElegiveis = useMemo(
-    () => ticketsCliente.filter((ticket) => ticket.statusEntrega !== 'Liberado'),
+    () => ticketsCliente.filter((ticket) => ticket.statusEntrega !== 'Liberado' && ticket.statusEntrega !== 'Entregue'),
     [ticketsCliente],
   );
 

@@ -198,7 +198,8 @@
   position: relative;
 }
 
-.inputWrap input {
+.inputWrap input,
+.inputWrap select {
   width: 100%;
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 16px;
@@ -210,7 +211,8 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.inputWrap input:focus {
+.inputWrap input:focus,
+.inputWrap select:focus {
   border-color: rgba(59, 130, 246, 0.38);
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
   background: rgba(255, 255, 255, 0.98);
@@ -220,6 +222,105 @@
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.baixaFinanceira {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.95), rgba(248, 250, 252, 0.98));
+  border: 1px solid rgba(59, 130, 246, 0.16);
+}
+
+.baixaFinanceiraHeader {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.baixaFinanceiraHeader strong {
+  color: #0f172a;
+  font-size: 1rem;
+}
+
+.baixaFinanceiraNota {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.baixaFinanceiraGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.baixaModoToggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.baixaModoOption {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  cursor: pointer;
+}
+
+.baixaModoOption input {
+  margin-right: 0.45rem;
+}
+
+.baixaModoOption span {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.baixaModoOption small {
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.baixaModoActive {
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+}
+
+.baixaPendenteResumo {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 251, 235, 0.94);
+  border: 1px solid rgba(245, 158, 11, 0.18);
+}
+
+.baixaPendenteResumo strong {
+  color: #92400e;
+}
+
+.baixaPendenteResumo span {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.baixaPendenteResumo p {
+  margin: 0;
+  color: #78350f;
+  line-height: 1.6;
 }
 
 .primaryButton,
@@ -270,6 +371,30 @@
   background: rgba(254, 226, 226, 0.8);
   border: 1px solid rgba(248, 113, 113, 0.22);
   color: #b91c1c;
+}
+
+.errorSurface {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.errorActionPanel {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(239, 246, 255, 0.92);
+  border: 1px solid rgba(59, 130, 246, 0.16);
+}
+
+.errorActionPanel strong {
+  color: #0f172a;
+}
+
+.errorActionPanel p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
 }
 
 .infoBanner {
@@ -447,7 +572,9 @@
 
   .searchActions,
   .scheduleGrid,
-  .itemMetaGrid {
+  .itemMetaGrid,
+  .baixaFinanceiraGrid,
+  .baixaModoToggle {
     grid-template-columns: 1fr;
   }
 

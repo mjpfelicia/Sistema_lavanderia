@@ -14,6 +14,7 @@ import CloseButton from "../buttons/CloseButton";
 import AgendamentoEntrega from "./AgendaDelivery/AgendaDelivery";
 import AdminDashboard from "./Admin/AdminDashboard";
 import RelatorioFinanceiro from "./Admin/RelatorioFinanceiro";
+import PendenciasRecebimento from "./Admin/PendenciasRecebimento";
 import AdminPlaceholder from "./Admin/AdminPlaceholder";
 
 const Rotas = () => {
@@ -24,6 +25,7 @@ const Rotas = () => {
         <Route path="/Recepcao" element={<Recepcao />} />
         <Route path="/EntradaDePeca" element={<EntradaDePeca />} />
         <Route path="/BuscarTicket" element={<BuscarTicket />} />
+        <Route path="/BuscarTicket/:ticketNumber" element={<BuscarTicket />} />
         <Route path="/Delivery" element={<Delivery />} />
         <Route path="/DevolucaoDoDelivery" element={<DevolucaoDoDelivery />} />
         <Route path="/Mapa" element={<Mapa />} />
@@ -50,6 +52,7 @@ const Rotas = () => {
         {/* Rotas Administrativas */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/financeiro" element={<RelatorioFinanceiro />} />
+        <Route path="/admin/pendencias-recebimento" element={<PendenciasRecebimento />} />
         <Route path="/admin/tickets" element={<AdminPlaceholder title="Gestão de Tickets" description="Gerencie todos os tickets da lavanderia" icon="🎫" />} />
         <Route path="/admin/clientes" element={<AdminPlaceholder title="Clientes" description="Cadastro e histórico de clientes" icon="👥" />} />
         <Route path="/admin/delivery" element={<AdminPlaceholder title="Entregas" description="Controle de entregas e retiradas" icon="🚚" />} />
