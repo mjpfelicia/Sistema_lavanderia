@@ -626,14 +626,14 @@ const Home = () => {
 
             <div className="hero-badges">
               <div className="hero-badge">
-                <span className="metric-label">Tickets registrados</span>
-                <strong>{dashboard.tickets.length}</strong>
-                <small>Fluxo total monitorado em tempo real</small>
-              </div>
-              <div className="hero-badge">
                 <span className="metric-label">Tickets em aberto</span>
                 <strong>{ticketsEmAberto.length}</strong>
                 <small>Pedidos que ainda estao na operacao</small>
+              </div>
+              <div className="hero-badge">
+                <span className="metric-label">Tickets baixados</span>
+                <strong>{ticketsBaixados.length}</strong>
+                <small>Atendimentos que sairam da fila operacional</small>
               </div>
               <div className="hero-badge">
                 <span className="metric-label">Entregues hoje</span>
