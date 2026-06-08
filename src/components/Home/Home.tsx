@@ -359,25 +359,37 @@ const Home = () => {
 
   const clientesById = new Map(dashboard.clientes.map((cliente) => [cliente.id, cliente]));
   const today = getToday();
-  const ticketsEmAberto = dashboard.tickets.filter((ticket) => ticket.statusEntrega !== 'Entregue');
+  const ticketsEmAberto = dashboard.tickets.filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado');
   const ticketsBaixados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Entregue');
+  const ticketsApagados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Apagado');
   const ticketsPendentesPagamento = ticketsEmAberto.filter((ticket) => ticket.estaPago !== 'sim');
   const ticketsEntreguesHoje = ticketsBaixados.filter((ticket) => isSameDay(ticket.dataBaixa || ticket.dataPagamento || ticket.dataEntrega, today));
+
+  // Criar mapa de tickets por número para acesso rápido
+  const ticketsByNumber = new Map(dashboard.tickets.map((ticket) => [ticket.ticketNumber, ticket]));
+
   const operacoesDoDia: OperacaoResumo[] = [...dashboard.deliveries]
     .filter((delivery) => isSameDay(delivery.deliveryData, today))
     .map((delivery) => {
       const cliente = delivery.clienteId ? clientesById.get(delivery.clienteId) : undefined;
       const ticketsRelacionados = getDeliveryTicketNumbers(delivery);
-      const ticketsDoAtendimento = ticketsRelacionados
+
+      // Filtrar apenas tickets que ainda estão pendentes (não entregues e não apagados)
+      const ticketsPendentes = ticketsRelacionados.filter((ticketNumber) => {
+        const ticket = dashboard.tickets.find((t) => t.ticketNumber === ticketNumber);
+        return ticket && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado';
+      });
+
+      const ticketsDoAtendimento = ticketsPendentes
         .map((ticketNumber) => dashboard.tickets.find((ticket) => ticket.ticketNumber === ticketNumber))
         .filter((ticket): ticket is TicketResumo => Boolean(ticket));
       const totalPecas = ticketsDoAtendimento.length;
       const status =
         delivery.deliveryTipo === 'Retirada'
-          ? ticketsRelacionados.length
+          ? ticketsPendentes.length
             ? 'Retirada com tickets'
             : 'Nova coleta'
-          : ticketsRelacionados.length
+          : ticketsPendentes.length
             ? 'Separar e expedir'
             : 'Entrega sem ticket';
 
@@ -388,7 +400,7 @@ const Home = () => {
         tipo: delivery.deliveryTipo,
         clienteNome: cliente?.nome ?? 'Cliente nao encontrado',
         telefone: cliente?.telefone ?? 'Sem telefone',
-        tickets: ticketsRelacionados,
+        tickets: ticketsPendentes,
         totalPecas,
         status,
       };
@@ -399,17 +411,63 @@ const Home = () => {
   const entregasDoDia = operacoesDoDia.filter((operacao) => operacao.tipo === 'Entrega').slice(0, 4);
   const retiradasDoDia = operacoesDoDia.filter((operacao) => operacao.tipo === 'Retirada').slice(0, 4);
 
-  // Detectar entregas atrasadas
+  // Detectar entregas atrasadas - APENAS tickets que ainda estão em aberto (não entregues e não apagados)
   const entregasAtrasadas = dashboard.deliveries.filter((delivery) => {
     const ticketsRelacionados = getDeliveryTicketNumbers(delivery);
+
+    // Verificar se há tickets relacionados
+    if (ticketsRelacionados.length === 0) {
+      return false;
+    }
+
+    // Verificar se TODOS os tickets estão entregues ou apagados
+    const todosTicketsFinalizados = ticketsRelacionados.every((ticketNumber) => {
+      const ticket = ticketsByNumber.get(ticketNumber);
+      return ticket?.statusEntrega === 'Entregue' || ticket?.statusEntrega === 'Apagado';
+    });
+
+    // Se todos os tickets foram finalizados, esta entrega não deve aparecer como atrasada
+    if (todosTicketsFinalizados) {
+      return false;
+    }
 
     return (
       delivery.deliveryTipo === 'Entrega' &&
       delivery.deliveryData &&
-      isDeliveryOverdue(delivery.deliveryData) &&
-      ticketsRelacionados.length > 0
+      isDeliveryOverdue(delivery.deliveryData)
     );
   });
+
+  // Converter entregas atrasadas para o formato OperacaoResumo para exibição
+  const entregasAtrasadasFormatadas: OperacaoResumo[] = entregasAtrasadas
+    .map((delivery) => {
+      const cliente = delivery.clienteId ? clientesById.get(delivery.clienteId) : undefined;
+      const ticketsRelacionados = getDeliveryTicketNumbers(delivery);
+
+      // Filtrar apenas tickets que ainda estão pendentes (não entregues e não apagados)
+      const ticketsPendentes = ticketsRelacionados.filter((ticketNumber) => {
+        const ticket = ticketsByNumber.get(ticketNumber);
+        return ticket && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado';
+      });
+
+      const ticketsDoAtendimento = ticketsPendentes
+        .map((ticketNumber) => dashboard.tickets.find((ticket) => ticket.ticketNumber === ticketNumber))
+        .filter((ticket): ticket is TicketResumo => Boolean(ticket));
+      const totalPecas = ticketsDoAtendimento.length;
+
+      return {
+        id: delivery.id,
+        horario: formatHour(delivery.deliveryData),
+        horarioOrdenacao: new Date(delivery.deliveryData ?? '').getTime(),
+        tipo: delivery.deliveryTipo,
+        clienteNome: cliente?.nome ?? 'Cliente nao encontrado',
+        telefone: cliente?.telefone ?? 'Sem telefone',
+        tickets: ticketsPendentes,
+        totalPecas,
+        status: '🚨 ATRASADA',
+      };
+    })
+    .sort((a, b) => a.horarioOrdenacao - b.horarioOrdenacao);
 
   const pendenciasOperacionais = [
     // Entregas atrasadas - CRÍTICO
@@ -455,7 +513,10 @@ const Home = () => {
     }),
   ].slice(0, 5);
 
+  // Tickets recentes que ainda estão na loja (em aberto, não entregues e não apagados)
+  // Inclui: em produção, pronto, liberado - tanto pagos quanto não pagos
   const recentTickets = [...dashboard.tickets]
+    .filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado')
     .sort((a, b) => new Date(b.dataCriacao ?? '').getTime() - new Date(a.dataCriacao ?? '').getTime())
     .slice(0, 5);
 
@@ -612,11 +673,11 @@ const Home = () => {
               <div className="operations-overview">
                 <div className="operations-column">
                   <div className="operations-column-header entrega">
-                    <strong>Entregas</strong>
-                    <span>{entregasDoDia.length} no dia</span>
+                    <strong>Entregas Atrasadas</strong>
+                    <span>{entregasAtrasadasFormatadas.length} atrasadas</span>
                   </div>
                   <div className="operations-list">
-                    {entregasDoDia.length ? entregasDoDia.map((operacao) => (
+                    {entregasAtrasadasFormatadas.length ? entregasAtrasadasFormatadas.map((operacao) => (
                       <div key={operacao.id} className="operation-item">
                         <div className="operation-item-top">
                           <span className="operation-time">{operacao.horario}</span>
@@ -633,7 +694,7 @@ const Home = () => {
                           <small className="no-tickets">Sem ticket vinculado</small>
                         )}
                       </div>
-                    )) : <p className="empty-state">Nenhuma entrega agendada para hoje.</p>}
+                    )) : <p className="empty-state">Nenhuma entrega atrasada no momento.</p>}
                   </div>
                 </div>
 

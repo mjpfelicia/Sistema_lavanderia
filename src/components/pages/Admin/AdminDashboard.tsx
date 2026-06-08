@@ -76,7 +76,7 @@ const AdminDashboard: React.FC = () => {
       const hoje = new Date();
       const atrasados = tickets.filter((t: any) => {
         const dataPrevista = new Date(t.dataPrevista);
-        return dataPrevista < hoje && t.status !== 'Entregue';
+        return dataPrevista < hoje && t.status !== 'Entregue' && t.status !== 'Apagado';
       }).slice(0, 5);
 
       setTicketsAtrasados(atrasados);
