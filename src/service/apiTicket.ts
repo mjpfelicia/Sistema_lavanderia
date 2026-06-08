@@ -30,12 +30,35 @@ export type Ticket = {
   tipoAtendimento?: 'Entrega' | 'Retirada';
   formaPagamento?: string;
   statusPagamentoDescricao?: string;
-  statusEntrega?: 'Aguardando retirada' | 'Em producao' | 'Pronto' | 'Liberado' | 'Entregue';
+  statusEntrega?: 'Aguardando retirada' | 'Em producao' | 'Pronto' | 'Liberado' | 'Entregue' | 'Apagado';
   valorRecebido?: number;
   valorPendente?: number;
   pagamentoPendente?: boolean;
   observacaoBaixa?: string;
   cliente?: Cliente;
+};
+
+const getTicketReferenceTime = (ticket: Ticket) =>
+  new Date(ticket.dataBaixa || ticket.dataPagamento || ticket.dataEntrega || ticket.dataCriacao || 0).getTime();
+
+export const obterTicketsMaisRecentes = (tickets: Ticket[]): Ticket[] => {
+  const ticketsPorNumero = new Map<string, Ticket>();
+
+  tickets.forEach((ticket) => {
+    const numero = String(ticket.ticketNumber ?? '').trim();
+
+    if (!numero) {
+      return;
+    }
+
+    const ticketAtual = ticketsPorNumero.get(numero);
+
+    if (!ticketAtual || getTicketReferenceTime(ticket) >= getTicketReferenceTime(ticketAtual)) {
+      ticketsPorNumero.set(numero, ticket);
+    }
+  });
+
+  return [...ticketsPorNumero.values()];
 };
 
 const api = axios.create({

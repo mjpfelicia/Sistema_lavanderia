@@ -364,6 +364,29 @@
       "deliveryTipo": "Retirada",
       "deliveryData": "2026-06-01T18:00:00.000Z",
       "id": "7KP_6Y3"
+    },
+    {
+      "clienteId": "3",
+      "ticketNumber": "572420, 739116",
+      "ticketNumbers": [
+        "572420",
+        "739116"
+      ],
+      "deliveryTipo": "Entrega",
+      "deliveryData": "2026-06-02T19:00:00.000Z",
+      "id": "euSfvp6"
+    },
+    {
+      "clienteId": "3",
+      "ticketNumber": "572420, 739116, 680211",
+      "ticketNumbers": [
+        "572420",
+        "739116",
+        "680211"
+      ],
+      "deliveryTipo": "Entrega",
+      "deliveryData": "2026-06-02T19:00:00.000Z",
+      "id": "MbNgXmG"
     }
   ],
   "peca": [
@@ -712,7 +735,16 @@
       "total": 85.69999999999999,
       "totalPago": 85.69999999999999,
       "dataCriacao": "2024-11-04T17:34:48.151Z",
-      "dataEntrega": "2024-11-14T00:00:00.000Z"
+      "dataEntrega": "2024-11-14T00:00:00.000Z",
+      "cliente": [],
+      "statusEntrega": "Entregue",
+      "dataBaixa": "2026-06-08T18:24:57.368Z",
+      "formaPagamento": "Dinheiro",
+      "statusPagamentoDescricao": "Pago com Dinheiro",
+      "valorRecebido": 85.69999999999999,
+      "valorPendente": 0,
+      "pagamentoPendente": false,
+      "dataPagamento": "2026-06-08T18:24:57.368Z"
     },
     {
       "id": "0dbc",
@@ -1459,11 +1491,17 @@
       "totalPago": 89.9,
       "dataCriacao": "2026-05-18T12:59:55.594Z",
       "dataEntrega": "2026-05-20T14:00:00.000Z",
-      "statusEntrega": "Aguardando retirada",
+      "statusEntrega": "Entregue",
       "id": "lWvxkJk",
       "tipoAtendimento": "Entrega",
       "formaPagamento": "Dinheiro",
-      "statusPagamentoDescricao": "Pago com Dinheiro"
+      "statusPagamentoDescricao": "Pago com Dinheiro",
+      "cliente": [],
+      "dataBaixa": "2026-06-08T18:11:09.439Z",
+      "valorRecebido": 89.9,
+      "valorPendente": 0,
+      "pagamentoPendente": false,
+      "dataPagamento": "2026-06-08T18:11:09.439Z"
     },
     {
       "ticketNumber": "240631",
@@ -1517,12 +1555,17 @@
       "totalPago": 89.9,
       "dataCriacao": "2026-05-20T19:39:24.015Z",
       "dataEntrega": "2026-05-29T12:00:00.000Z",
-      "statusEntrega": "Liberado",
+      "statusEntrega": "Entregue",
       "id": "4uci4PZ",
       "tipoAtendimento": "Entrega",
       "formaPagamento": "Cartao de Credito",
       "statusPagamentoDescricao": "Pago com Cartao de Credito",
-      "cliente": []
+      "cliente": [],
+      "dataBaixa": "2026-06-08T18:24:10.203Z",
+      "valorRecebido": 89.9,
+      "valorPendente": 0,
+      "pagamentoPendente": false,
+      "dataPagamento": "2026-06-08T18:24:10.203Z"
     },
     {
       "ticketNumber": "581426",
@@ -1815,7 +1858,7 @@
     {
       "ticketNumber": "495927",
       "clienteId": "1be5",
-      "estaPago": "não",
+      "estaPago": "sim",
       "items": [
         {
           "pecaId": "bl1",
@@ -1833,23 +1876,17 @@
       "totalPago": 89.9,
       "dataCriacao": "2026-06-01T19:11:40.736Z",
       "dataEntrega": "2026-06-03T17:11:00.000Z",
-      "statusEntrega": "Aguardando retirada",
+      "statusEntrega": "Entregue",
       "id": "-HFVLA0",
-      "cliente": {
-        "id": "1be5",
-        "nome": "SANDRA  perfeito",
-        "email": "mjpfelicia@gmail.com",
-        "endereco": "Rua Francisco da Cruz Mellão",
-        "numero": "82",
-        "cep": "05782351",
-        "estado": "São Paulo",
-        "telefone": "(11)96415-1516",
-        "complemento": "ap teste",
-        "bairro": "Chácara Nossa Senhora do Bom Conselho"
-      },
+      "cliente": [],
       "tipoAtendimento": "Retirada",
       "formaPagamento": "Pagamento na retirada",
-      "statusPagamentoDescricao": "A pagar na retirada"
+      "statusPagamentoDescricao": "Pago com Pagamento na retirada",
+      "dataBaixa": "2026-06-02T13:09:16.631Z",
+      "valorRecebido": 89.9,
+      "valorPendente": 0,
+      "pagamentoPendente": false,
+      "dataPagamento": "2026-06-02T13:09:16.631Z"
     }
   ]
 }

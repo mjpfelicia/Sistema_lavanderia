@@ -95,8 +95,8 @@ const getEntryStatus = (delivery: Delivery, tickets: Ticket[]) => {
     return 'Entrega sem ticket localizado';
   }
 
-  const hasPending = tickets.some((ticket) => ticket.statusEntrega !== 'Liberado' && ticket.statusEntrega !== 'Entregue');
-  return hasPending ? 'Pronto para separar e expedir' : 'Tickets ja liberados';
+  const hasPending = tickets.some((ticket) => ticket.statusEntrega !== 'Liberado' && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado');
+  return hasPending ? 'Pronto para separar e expedir' : 'Todos os tickets ja foram finalizados';
 };
 
 const buildEntryDescription = (delivery: Delivery, tickets: Ticket[]) => {
@@ -165,7 +165,9 @@ const Relatorio = () => {
         const ticketNumbers = getDeliveryTicketNumbers(delivery);
         const relatedTickets = ticketNumbers
           .map((ticketNumber) => ticketsByNumber.get(ticketNumber))
-          .filter((ticket): ticket is Ticket => Boolean(ticket));
+          .filter((ticket): ticket is Ticket => Boolean(ticket))
+          // Excluir tickets já entregues, apagados ou com baixa - apenas tickets pendentes
+          .filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado');
         const rawDate = typeof delivery.deliveryData === 'string' ? delivery.deliveryData : String(delivery.deliveryData);
         const date = new Date(rawDate);
 
@@ -182,6 +184,19 @@ const Relatorio = () => {
           status: getEntryStatus(delivery, relatedTickets),
           descricao: buildEntryDescription(delivery, relatedTickets),
         } satisfies BoardEntry;
+      })
+      // Excluir entregas que não têm mais tickets pendentes (todos já foram entregues ou apagados)
+      .filter((entry) => {
+        if (entry.tipo === 'Entrega') {
+          // Para entregas, se não houver tickets pendentes, exclui
+          const temTicketsPendentes = entry.tickets.some((ticketNumber) => {
+            const ticket = ticketsByNumber.get(ticketNumber);
+            return ticket && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado';
+          });
+          return temTicketsPendentes;
+        }
+        // Retiradas aparecem mesmo sem tickets (são novas coletas)
+        return true;
       })
       .sort((a, b) => a.horarioOrdenacao - b.horarioOrdenacao);
   }, [clientesById, deliveries, selectedDate, ticketsByNumber]);
