@@ -100,8 +100,8 @@ const PendenciasRecebimento: React.FC = () => {
         const jaFoiBaixadoEPago = ticket.statusEntrega === 'Entregue' && ticket.estaPago === 'sim' && !ticket.pagamentoPendente;
         return !jaFoiBaixadoEPago;
       })
-      // Manter apenas tickets com pendência de pagamento
-      .filter((ticket) => ticket.estaPago !== 'sim' || ticket.pagamentoPendente)
+      // Manter apenas tickets com pendência de pagamento - APENAS tickets já baixados (entregues)
+      .filter((ticket) => ticket.statusEntrega === 'Entregue' && (ticket.estaPago !== 'sim' || ticket.pagamentoPendente))
       .filter((ticket) => {
         if (!search) {
           return true;
@@ -118,7 +118,6 @@ const PendenciasRecebimento: React.FC = () => {
 
   const totalPendente = pendencias.reduce((acc, ticket) => acc + getPendingAmount(ticket), 0);
   const entreguesPendente = pendencias.filter((ticket) => ticket.statusEntrega === 'Entregue').length;
-  const emProducao = pendencias.filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado').length;
 
   return (
     <div className="pendencias-shell">
@@ -150,10 +149,6 @@ const PendenciasRecebimento: React.FC = () => {
           <article className="pendencia-card">
             <span>Baixados sem receber</span>
             <strong>{entreguesPendente}</strong>
-          </article>
-          <article className="pendencia-card">
-            <span>Em producao</span>
-            <strong>{emProducao}</strong>
           </article>
         </section>
 
