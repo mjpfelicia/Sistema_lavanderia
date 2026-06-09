@@ -26,6 +26,17 @@ const formatCurrency = (value: number) =>
     style: 'currency',
     currency: 'BRL',
   }).format(value);
+type PeriodoTipo = 'dia' | 'mes';
+
+const RelatorioFinanceiro: React.FC = () => {
+  const [periodoTipo, setPeriodoTipo] = useState<PeriodoTipo>('mes');
+  const [dia, setDia] = useState<number>(new Date().getDate());
+  const [mes, setMes] = useState<number>(new Date().getMonth());
+  const [ano, setAno] = useState<number>(new Date().getFullYear());
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [resumo, setResumo] = useState<ResumoFinanceiro | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [filtroStatus, setFiltroStatus] = useState<string>('todos');
 
 const getToday = () => {
   const now = new Date();
@@ -36,6 +47,37 @@ const isSameDay = (value?: string, selectedDate?: string) => {
   if (!value || !selectedDate) {
     return false;
   }
+  // Gerar dias do mês atual (considerando anos bissextos)
+  const getDiasDoMes = () => {
+    return new Date(ano, mes + 1, 0).getDate();
+  };
+
+  const dias = Array.from({ length: getDiasDoMes() }, (_, i) => i + 1);
+
+  useEffect(() => {
+    carregarDados();
+  }, [periodoTipo, dia, mes, ano, filtroStatus]);
+
+  const carregarDados = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${config.apiUrl}/tickets`);
+      let todosTickets = response.data;
+
+      // Filtrar por período (dia ou mês) e ano
+      let ticketsFiltrados = todosTickets.filter((t: any) => {
+        const dataEntrada = new Date(t.dataEntrada);
+        const mesMatch = dataEntrada.getMonth() === mes;
+        const anoMatch = dataEntrada.getFullYear() === ano;
+        
+        if (periodoTipo === 'dia') {
+          const diaMatch = dataEntrada.getDate() === dia;
+          return diaMatch && mesMatch && anoMatch;
+        }
+        
+        // Se for mês, filtra apenas por mês e ano
+        return mesMatch && anoMatch;
+      });
 
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) {
@@ -188,6 +230,12 @@ const RelatorioFinanceiro: React.FC = () => {
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = `fechamento_caixa_${selectedDate}.csv`;
+    
+    const nomeArquivo = periodoTipo === 'dia'
+      ? `relatorio_financeiro_dia_${dia}_${meses[mes]}_${ano}.csv`
+      : `relatorio_financeiro_${meses[mes]}_${ano}.csv`;
+    
+    link.download = nomeArquivo;
     link.click();
   };
 
@@ -230,6 +278,38 @@ const RelatorioFinanceiro: React.FC = () => {
 
       <div className="relatorio-content">
         <section className="filtros-section no-print">
+          {/* Tipo de Período */}
+          <div className="filtros-group periodo-selector">
+            <label>Período:</label>
+            <div className="periodo-buttons">
+              <button 
+                className={`btn-periodo ${periodoTipo === 'dia' ? 'ativo' : ''}`}
+                onClick={() => setPeriodoTipo('dia')}
+              >
+                📅 Por Dia
+              </button>
+              <button 
+                className={`btn-periodo ${periodoTipo === 'mes' ? 'ativo' : ''}`}
+                onClick={() => setPeriodoTipo('mes')}
+              >
+                📆 Por Mês
+              </button>
+            </div>
+          </div>
+
+          {/* Seletor de Dia (apenas quando período é dia) */}
+          {periodoTipo === 'dia' && (
+            <div className="filtros-group">
+              <label>Dia:</label>
+              <select value={dia} onChange={(e) => setDia(Number(e.target.value))}>
+                {dias.map(d => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Seletor de Mês (sempre visível) */}
           <div className="filtros-group">
             <label>Data do caixa</label>
             <input type="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
@@ -359,6 +439,13 @@ const RelatorioFinanceiro: React.FC = () => {
           <div className="tabela-header">
             <h2>Tickets baixados do dia</h2>
             <span className="periodo-info">{new Date(selectedDate + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
+            <h2>Detalhamento dos Tickets</h2>
+            <span className="periodo-info">
+              {periodoTipo === 'dia' 
+                ? `Dia ${dia} de ${meses[mes]} de ${ano}`
+                : `${meses[mes]} de ${ano}`
+              }
+            </span>
           </div>
 
           <div className="tabela-container">

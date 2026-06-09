@@ -381,6 +381,8 @@ const Home = () => {
   })));
   
   const ticketsPendentesPagamento = ticketsEmAberto.filter((ticket) => ticket.estaPago !== 'sim');
+  // Tickets com pagamento pendente são APENAS os que já foram baixados (entregues) mas não pagos
+  const ticketsPendentesPagamento = ticketsBaixados.filter((ticket) => ticket.estaPago !== 'sim');
   const ticketsEntreguesHoje = ticketsBaixados.filter((ticket) => isSameDay(ticket.dataBaixa || ticket.dataPagamento || ticket.dataEntrega, today));
 
   // Criar mapa de tickets por número para acesso rápido
@@ -644,14 +646,14 @@ const Home = () => {
 
             <div className="hero-badges">
               <div className="hero-badge">
-                <span className="metric-label">Tickets registrados</span>
-                <strong>{dashboard.tickets.length}</strong>
-                <small>Fluxo total monitorado em tempo real</small>
-              </div>
-              <div className="hero-badge">
                 <span className="metric-label">Tickets em aberto</span>
                 <strong>{ticketsEmAberto.length}</strong>
                 <small>Pedidos que ainda estao na operacao</small>
+              </div>
+              <div className="hero-badge">
+                <span className="metric-label">Tickets baixados</span>
+                <strong>{ticketsBaixados.length}</strong>
+                <small>Atendimentos que sairam da fila operacional</small>
               </div>
               <div className="hero-badge">
                 <span className="metric-label">Entregues hoje</span>
