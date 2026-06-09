@@ -294,6 +294,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    // Recarregar dados imediatamente ao montar o componente
     carregarDashboard();
 
     const interval = window.setInterval(() => {
@@ -301,11 +302,13 @@ const Home = () => {
     }, 10000);
 
     const atualizarAoFocar = () => {
+      console.log('DEBUG Home - Atualizando ao focar');
       carregarDashboard();
     };
 
     const atualizarAoVisibilizar = () => {
       if (document.visibilityState === 'visible') {
+        console.log('DEBUG Home - Atualizando ao visibilizar');
         carregarDashboard();
       }
     };
@@ -389,6 +392,29 @@ const Home = () => {
   const ticketsBaixados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Entregue');
   const ticketsApagados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Apagado');
   
+  const ticketsEmAberto = dashboard.tickets.filter((ticket) => 
+    ticket.statusEntrega && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado'
+  );
+  const ticketsBaixados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Entregue');
+  const ticketsApagados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Apagado');
+  
+  // DEBUG: Log para verificar filtro
+  console.log('DEBUG Home - Total de tickets:', dashboard.tickets.length);
+  console.log('DEBUG Home - Tickets em aberto:', ticketsEmAberto.length);
+  console.log('DEBUG Home - Tickets baixados (Entregue):', ticketsBaixados.length);
+  console.log('DEBUG Home - Todos os status únicos:', [...new Set(dashboard.tickets.map(t => t.statusEntrega))]);
+  console.log('DEBUG Home - DETALHE COMPLETO:', dashboard.tickets.map(t => ({ 
+    numero: t.ticketNumber, 
+    status: t.statusEntrega || 'SEM_STATUS',
+    dataBaixa: t.dataBaixa,
+    estaPago: t.estaPago
+  })));
+  
+  const ticketsPendentesPagamento = ticketsEmAberto.filter((ticket) => ticket.estaPago !== 'sim');
+  // Tickets com pagamento pendente são APENAS os que já foram baixados (entregues) mas não pagos
+  const ticketsPendentesPagamento = ticketsBaixados.filter((ticket) => ticket.estaPago !== 'sim');
+  const ticketsEntreguesHoje = ticketsBaixados.filter((ticket) => isSameDay(ticket.dataBaixa || ticket.dataPagamento || ticket.dataEntrega, today));
+
   // Criar mapa de tickets por número para acesso rápido
   const ticketsByNumber = new Map(dashboard.tickets.map((ticket) => [ticket.ticketNumber, ticket]));
 
@@ -495,18 +521,18 @@ const Home = () => {
 
   const pendenciasOperacionais = [
     // Entregas atrasadas - CRÍTICO
-    ...entregasAtrasadas.map((delivery) => {
-      const cliente = delivery.clienteId ? clientesById.get(delivery.clienteId) : undefined;
-      const ticketsRelacionados = getDeliveryTicketNumbers(delivery);
+    ...entregasAtrasadasFormatadas.map((entregaFormatada) => {
+      const delivery = entregasAtrasadas.find((d) => String(d.id) === entregaFormatada.id);
+      const cliente = delivery?.clienteId ? clientesById.get(String(delivery.clienteId)) : undefined;
       return {
-        id: `entrega-atrasada-${delivery.id}`,
+        id: `entrega-atrasada-${entregaFormatada.id}`,
         titulo: `🚨 ENTREGA ATRASADA - ${cliente?.nome ?? 'Cliente desconhecido'}`,
-        descricao: `Desde ${formatDate(delivery.deliveryData)} | ${
-          ticketsRelacionados.length ? ticketsRelacionados.map((t) => `#${t}`).join(', ') : 'Sem ticket'
+        descricao: `Desde ${formatDate(delivery?.deliveryData)} | ${
+          entregaFormatada.tickets.length ? entregaFormatada.tickets.map((t) => `#${t}`).join(', ') : 'Sem ticket'
         }`,
         tom: 'critical',
-        deliveryId: delivery.id,
-        ticketNumbers: ticketsRelacionados,
+        deliveryId: entregaFormatada.id,
+        ticketNumbers: entregaFormatada.tickets,
       };
     }),
     ...operacoesDoDia
@@ -664,6 +690,21 @@ const Home = () => {
                   <small>Agendados para entrega/retirada hoje</small>
                 </div>
               </Link>
+              <div className="hero-badge">
+                <span className="metric-label">Tickets em aberto</span>
+                <strong>{ticketsEmAberto.length}</strong>
+                <small>Pedidos que ainda estao na operacao</small>
+              </div>
+              <div className="hero-badge">
+                <span className="metric-label">Tickets baixados</span>
+                <strong>{ticketsBaixados.length}</strong>
+                <small>Atendimentos que sairam da fila operacional</small>
+              </div>
+              <div className="hero-badge">
+                <span className="metric-label">Entregues hoje</span>
+                <strong>{ticketsEntreguesHoje.length}</strong>
+                <small>Saidas que ja foram baixadas</small>
+              </div>
             </div>
           </section>
 
@@ -842,9 +883,9 @@ const Home = () => {
                       <span>{cliente?.nome ?? 'Cliente vinculado no ticket'}</span>
                       <span>{formatDate(ticket.dataEntrega)}</span>
                       <span className={paid ? 'status-pill status-paid' : 'status-pill status-open'}>
-                        {ticket.statusEntrega === 'Entregue' ? 'Baixado' : ticket.pagamentoPendente ? 'Pendente' : 'Em aberto'}
+                        {ticket.pagamentoPendente ? 'Pendente de receber' : 'Em producao'}
                       </span>
-                      <span>{formatDate(ticket.dataBaixa || ticket.dataPagamento || ticket.dataEntrega)}</span>
+                      <span>{formatDate(ticket.dataCriacao || ticket.dataEntrega)}</span>
                     </div>
                   );
                 }) : <p className="empty-state">Nenhum ticket encontrado.</p>}

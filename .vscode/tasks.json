@@ -21,6 +21,14 @@
         "kind": "build",
         "isDefault": false
       }
+    },
+    {
+      "label": "Auto Git Pull + NPM Install + Start",
+      "type": "shell",
+      "command": "git pull && npm install && npm start",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
     }
   ]
 }

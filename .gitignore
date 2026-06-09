@@ -1,8 +1,9 @@
-```
+```gitignore
 # Dependencies
 node_modules/
 
 # Build artifacts
+# Build outputs
 dist/
 build/
 target/
@@ -23,22 +24,40 @@ venv/
 
 # Logs
 *.log
+*.js.map
+*.ts.map
 
 # Environment variables
 .env
 .env.local
-.env.*
+*.env.*
 
+# IDE
 # IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+*.tmp
 
-# OS generated files
+# OS
 .DS_Store
 Thumbs.db
+
+# Coverage
+
+# Logs
+*.log
+
+# Python (if applicable)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
 
 # Coverage reports
 coverage/
@@ -68,4 +87,11 @@ htmlcov/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
+# Temporary files
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+Thumbs.db
 ```
