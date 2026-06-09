@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "prisma.prisma",
+    "streetsidesoftware.code-spell-checker",
+    "ms-vscode.vscode-typescript-next"
+  ]
+}

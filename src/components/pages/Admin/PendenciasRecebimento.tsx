@@ -94,12 +94,8 @@ const PendenciasRecebimento: React.FC = () => {
     const search = busca.trim().toLowerCase();
 
     return tickets
-      .filter((ticket) => ticket.statusEntrega !== 'Apagado')
-      // Excluir tickets que já foram entregues, pagos e sem pendência (saíram de tudo)
-      .filter((ticket) => {
-        const jaFoiBaixadoEPago = ticket.statusEntrega === 'Entregue' && ticket.estaPago === 'sim' && !ticket.pagamentoPendente;
-        return !jaFoiBaixadoEPago;
-      })
+      // Excluir tickets já entregues (baixados) e apagados - mostrar apenas os pendentes de produção
+      .filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado')
       // Manter apenas tickets com pendência de pagamento
       .filter((ticket) => ticket.estaPago !== 'sim' || ticket.pagamentoPendente)
       .filter((ticket) => {
@@ -117,7 +113,6 @@ const PendenciasRecebimento: React.FC = () => {
   }, [busca, clientes, tickets]);
 
   const totalPendente = pendencias.reduce((acc, ticket) => acc + getPendingAmount(ticket), 0);
-  const entreguesPendente = pendencias.filter((ticket) => ticket.statusEntrega === 'Entregue').length;
   const emProducao = pendencias.filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado').length;
 
   return (
@@ -146,10 +141,6 @@ const PendenciasRecebimento: React.FC = () => {
           <article className="pendencia-card">
             <span>Total em aberto</span>
             <strong>{formatCurrency(totalPendente)}</strong>
-          </article>
-          <article className="pendencia-card">
-            <span>Baixados sem receber</span>
-            <strong>{entreguesPendente}</strong>
           </article>
           <article className="pendencia-card">
             <span>Em producao</span>
@@ -186,7 +177,6 @@ const PendenciasRecebimento: React.FC = () => {
           <section className="pendencias-list">
             {pendencias.map((ticket) => {
               const pendente = getPendingAmount(ticket);
-              const statusOperacional = ticket.statusEntrega === 'Entregue' ? 'Baixado' : 'Em andamento';
 
               return (
                 <article key={ticket.id} className="pendencia-item">
@@ -198,7 +188,7 @@ const PendenciasRecebimento: React.FC = () => {
                     </div>
                     <div className="pendencia-values">
                       <strong>{formatCurrency(pendente)}</strong>
-                      <span>{statusOperacional}</span>
+                      <span>Em producao</span>
                     </div>
                   </div>
 
