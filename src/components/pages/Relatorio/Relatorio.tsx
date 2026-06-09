@@ -166,7 +166,7 @@ const Relatorio = () => {
         const relatedTickets = ticketNumbers
           .map((ticketNumber) => ticketsByNumber.get(ticketNumber))
           .filter((ticket): ticket is Ticket => Boolean(ticket))
-          // Excluir tickets já entregues, apagados ou com baixa - apenas tickets pendentes
+          // Excluir tickets já entregues, apagados ou com baixa - apenas tickets pendentes de produção (statusEntrega)
           .filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado');
         const rawDate = typeof delivery.deliveryData === 'string' ? delivery.deliveryData : String(delivery.deliveryData);
         const date = new Date(rawDate);
