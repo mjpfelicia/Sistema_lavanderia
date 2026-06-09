@@ -16,6 +16,11 @@ import AdminDashboard from "./Admin/AdminDashboard";
 import RelatorioFinanceiro from "./Admin/RelatorioFinanceiro";
 import PendenciasRecebimento from "./Admin/PendenciasRecebimento";
 import AdminPlaceholder from "./Admin/AdminPlaceholder";
+import TicketsEntreguesHoje from "./TicketsEntreguesHoje/TicketsEntreguesHoje";
+import TicketsBaixados from "./TicketsBaixados/TicketsBaixados";
+import TicketsPendentes from "./TicketsPendentes/TicketsPendentes";
+import PecasEmAtraso from "./PecasEmAtraso/PecasEmAtraso";
+import ParaEntregarHoje from "./ParaEntregarHoje/ParaEntregarHoje";
 
 const Rotas = () => {
   return (
@@ -48,6 +53,11 @@ const Rotas = () => {
             complemento: ""
           },
         }}/>} />
+        <Route path="/tickets-em-aberto" element={<TicketsPendentes />} />
+        <Route path="/tickets-baixados" element={<TicketsBaixados />} />
+        <Route path="/tickets-entregues-hoje" element={<TicketsEntreguesHoje />} />
+        <Route path="/pecas-em-atraso" element={<PecasEmAtraso />} />
+        <Route path="/para-entregar-hoje" element={<ParaEntregarHoje />} />
         
         {/* Rotas Administrativas */}
         <Route path="/admin" element={<AdminDashboard />} />

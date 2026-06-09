@@ -2,6 +2,7 @@
 # Dependencies
 node_modules/
 
+# Build artifacts
 # Build outputs
 dist/
 build/
@@ -18,6 +19,8 @@ venv/
 .venv/
 .ENV
 .python-version
+.pytest_cache/
+.mypy_cache/
 
 # Logs
 *.log
@@ -35,6 +38,7 @@ venv/
 .idea/
 *.swp
 *.swo
+*~
 *.tmp
 
 # OS
