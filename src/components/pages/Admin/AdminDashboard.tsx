@@ -45,7 +45,7 @@ const AdminDashboard: React.FC = () => {
   const carregarDados = async () => {
     try {
       setLoading(true);
-      
+
       // Buscar tickets
       const responseTickets = await axios.get(`${config.apiUrl}/tickets`);
       const tickets = responseTickets.data;
@@ -55,12 +55,12 @@ const AdminDashboard: React.FC = () => {
       const ticketsProntos = tickets.filter((t: any) => t.status === 'Pronto').length;
       const ticketsEntregues = tickets.filter((t: any) => t.status === 'Entregue').length;
       const ticketsPendentes = tickets.filter((t: any) => t.status === 'Pendente' || t.status === 'Em produção').length;
-      
+
       // Faturamento do mês atual
       const agora = new Date();
       const mesAtual = agora.getMonth();
       const anoAtual = agora.getFullYear();
-      
+
       const ticketsMes = tickets.filter((t: any) => {
         const dataEntrada = new Date(t.dataEntrada);
         return dataEntrada.getMonth() === mesAtual && dataEntrada.getFullYear() === anoAtual;
@@ -195,9 +195,14 @@ const AdminDashboard: React.FC = () => {
             <span className="nav-icon">💰</span>
             <span className="nav-label">Fechamento de Caixa</span>
           </Link>
+
+           <Link to="/admin/tickets-baixados-pendencia" className="nav-card">
+            <span className="nav-icon">📋</span>
+            <span className="nav-label">Pendências de Recebimento </span>
+          </Link>
           <Link to="/admin/pendencias-recebimento" className="nav-card">
             <span className="nav-icon">📌</span>
-            <span className="nav-label">Pendencias de Recebimento</span>
+            <span className="nav-label">Entregas Atrasadas</span>
           </Link>
           <Link to="/admin/tickets" className="nav-card">
             <span className="nav-icon">🎫</span>
@@ -317,8 +322,8 @@ const AdminDashboard: React.FC = () => {
                 <div className="bar-chart">
                   {dadosGrafico.map((item, index) => (
                     <div key={index} className="bar-item">
-                      <div 
-                        className="bar" 
+                      <div
+                        className="bar"
                         style={{ height: `${Math.max((item.valor / Math.max(...dadosGrafico.map(d => d.valor))) * 100, 5)}%` }}
                         title={`R$ ${item.valor.toFixed(2)}`}
                       ></div>
@@ -342,9 +347,9 @@ const AdminDashboard: React.FC = () => {
                         <span className="status-count">{item.quantidade}</span>
                       </div>
                       <div className="status-bar-container">
-                        <div 
-                          className="status-bar" 
-                          style={{ 
+                        <div
+                          className="status-bar"
+                          style={{
                             width: `${(item.quantidade / ticketsRecentes.length) * 100}%`,
                             backgroundColor: getStatusColor(item.status)
                           }}
