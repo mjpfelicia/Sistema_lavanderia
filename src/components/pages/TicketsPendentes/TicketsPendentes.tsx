@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { isTicketFinalizado, listarTickets, Ticket } from '../../../service/apiTicket';
 import { listarClientes, Cliente } from '../../../service/apiCliente';
 import BackToHome from '../../../components/buttons/BackToHome';
 import './TicketsPendentes.css';
@@ -56,7 +56,7 @@ const TicketsPendentes: React.FC = () => {
 
   // Filtra apenas tickets em aberto (não entregues e não apagados)
   const ticketsPendentes = tickets
-    .filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado')
+    .filter((ticket) => !isTicketFinalizado(ticket))
     .sort((a, b) => new Date(b.dataCriacao ?? '').getTime() - new Date(a.dataCriacao ?? '').getTime());
 
   const getClienteNome = (ticket: Ticket) =>

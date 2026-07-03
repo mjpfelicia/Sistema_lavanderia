@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { criarDelivery, Delivery, DeliveryTipo } from '../../../service/apiDelivery';
 import { Cliente } from '../../../service/apiCliente';
-import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { isTicketFinalizado, listarTickets, Ticket } from '../../../service/apiTicket';
 import classes from "../AgendaDelivery/AgendaDelivery.module.css";
 
 interface AgendaDeliveryProps {
@@ -79,7 +79,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
   }, [cliente.id]);
 
   const ticketsElegiveis = useMemo(
-    () => ticketsCliente.filter((ticket) => ticket.statusEntrega !== 'Liberado' && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado'),
+    () => ticketsCliente.filter((ticket) => ticket.statusEntrega !== 'Liberado' && !isTicketFinalizado(ticket)),
     [ticketsCliente],
   );
 

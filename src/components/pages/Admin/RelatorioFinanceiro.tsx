@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './RelatorioFinanceiro.css';
 import BackToHome from '../../buttons/BackToHome';
-import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { isTicketBaixado, listarTickets, Ticket } from '../../../service/apiTicket';
 import { listarClientes, Cliente } from '../../../service/apiCliente';
 
 type FormaPagamentoResumo = {
@@ -151,7 +151,7 @@ const RelatorioFinanceiro: React.FC = () => {
       const ticketsBaixados = useMemo(
         () =>
           tickets
-            .filter((ticket) => ticket.statusEntrega === 'Entregue')
+            .filter((ticket) => isTicketBaixado(ticket))
             .filter((ticket) => isSameDay(ticket.dataBaixa || ticket.dataEntrega || ticket.dataCriacao, selectedDate))
             .sort((a, b) => new Date(b.dataBaixa || b.dataEntrega || 0).getTime() - new Date(a.dataBaixa || a.dataEntrega || 0).getTime()),
         [selectedDate, tickets],
@@ -480,6 +480,5 @@ const RelatorioFinanceiro: React.FC = () => {
 }
 
 export default RelatorioFinanceiro;
-
 
 

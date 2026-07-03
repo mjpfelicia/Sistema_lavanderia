@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { isTicketBaixado, listarTickets, Ticket } from '../../../service/apiTicket';
 import { listarClientes, Cliente } from '../../../service/apiCliente';
 import BackToHome from '../../../components/buttons/BackToHome';
 import './TicketsBaixados.css';
@@ -55,7 +55,7 @@ const TicketsBaixados: React.FC = () => {
 
   // Filtra apenas tickets entregues (baixados)
   const ticketsBaixados = tickets
-    .filter((ticket) => ticket.statusEntrega === 'Entregue')
+    .filter((ticket) => isTicketBaixado(ticket))
     .sort((a, b) => new Date(b.dataBaixa || b.dataEntrega || '').getTime() - new Date(a.dataBaixa || a.dataEntrega || '').getTime());
 
   const getClienteNome = (ticket: Ticket) =>

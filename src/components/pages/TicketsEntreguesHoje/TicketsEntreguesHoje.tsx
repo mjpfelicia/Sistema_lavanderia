@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { isTicketBaixado, listarTickets, Ticket } from '../../../service/apiTicket';
 import { listarClientes, Cliente } from '../../../service/apiCliente';
 import BackToHome from '../../../components/buttons/BackToHome';
 import './TicketsEntreguesHoje.css';
@@ -78,7 +78,7 @@ const TicketsEntreguesHoje: React.FC = () => {
   // Filtra apenas tickets entregues HOJE
   const ticketsEntreguesHoje = tickets
     .filter((ticket) =>
-      ticket.statusEntrega === 'Entregue' &&
+      isTicketBaixado(ticket) &&
       isSameDay(ticket.dataBaixa || ticket.dataEntrega, today)
     )
     .sort((a, b) => new Date(b.dataBaixa || b.dataEntrega || '').getTime() - new Date(a.dataBaixa || a.dataEntrega || '').getTime());

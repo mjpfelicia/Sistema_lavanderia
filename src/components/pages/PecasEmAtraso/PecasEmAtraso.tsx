@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { isTicketFinalizado, listarTickets, Ticket } from '../../../service/apiTicket';
 import { listarClientes, Cliente } from '../../../service/apiCliente';
 import BackToHome from '../../../components/buttons/BackToHome';
 import './PecasEmAtraso.css';
@@ -66,7 +66,7 @@ const PecasEmAtraso: React.FC = () => {
   // Filtra apenas tickets em aberto com data de entrega anterior a hoje (ATRASADOS)
   const ticketsEmAtraso = tickets
     .filter((ticket) => {
-      if (ticket.statusEntrega === 'Entregue' || ticket.statusEntrega === 'Apagado') return false;
+      if (isTicketFinalizado(ticket)) return false;
       if (!ticket.dataEntrega) return false;
       const dataEntrega = new Date(ticket.dataEntrega);
       dataEntrega.setHours(0, 0, 0, 0);

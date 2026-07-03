@@ -1887,6 +1887,105 @@
       "valorPendente": 0,
       "pagamentoPendente": false,
       "dataPagamento": "2026-06-02T13:09:16.631Z"
+    },
+    {
+      "ticketNumber": "282705",
+      "clienteId": "3",
+      "estaPago": "sim",
+      "items": [
+        {
+          "pecaId": "bl1",
+          "subTipo": "BLAZER ESPECIAL",
+          "quantidade": 1,
+          "total": 89.9,
+          "cores": "Azul",
+          "estampa": "Poa",
+          "marca": "Marca L",
+          "defeitos": "Partes soltas",
+          "servicos": "Lavagem"
+        }
+      ],
+      "total": 89.9,
+      "totalPago": 89.9,
+      "dataCriacao": "2026-07-03T18:09:18.511Z",
+      "dataEntrega": "2026-07-06T14:00:00.000Z",
+      "statusEntrega": "Entregue",
+      "id": "A4a955w",
+      "cliente": [],
+      "tipoAtendimento": "Entrega",
+      "formaPagamento": "Dinheiro",
+      "statusPagamentoDescricao": "Pago com Dinheiro",
+      "dataBaixa": "2026-07-03T18:32:30.151Z",
+      "valorRecebido": 89.9,
+      "valorPendente": 0,
+      "pagamentoPendente": false,
+      "dataPagamento": "2026-07-03T18:32:30.151Z"
+    },
+    {
+      "ticketNumber": "752765",
+      "clienteId": "772a",
+      "estaPago": "sim",
+      "items": [
+        {
+          "pecaId": "cm2",
+          "subTipo": "CAMISA SOCIAL",
+          "quantidade": 1,
+          "total": 19.9,
+          "cores": "Laranja, Azul Claro, Chartreuse",
+          "estampa": "Florido",
+          "marca": "Marca P",
+          "defeitos": "Costura solta",
+          "servicos": "Higienização"
+        }
+      ],
+      "total": 19.9,
+      "totalPago": 19.9,
+      "dataCriacao": "2026-07-03T18:42:04.112Z",
+      "dataEntrega": "2026-07-06T14:00:00.000Z",
+      "statusEntrega": "Entregue",
+      "id": "JVUnLr8",
+      "cliente": [],
+      "tipoAtendimento": "Entrega",
+      "formaPagamento": "Dinheiro",
+      "statusPagamentoDescricao": "Pago com Dinheiro",
+      "dataBaixa": "2026-07-03T18:42:42.498Z",
+      "valorRecebido": 19.9,
+      "valorPendente": 0,
+      "pagamentoPendente": false,
+      "dataPagamento": "2026-07-03T18:42:46.498Z"
+    },
+    {
+      "ticketNumber": "697327",
+      "clienteId": "1be5",
+      "estaPago": "sim",
+      "items": [
+        {
+          "pecaId": "1",
+          "subTipo": "CALÇA ESPECIAL",
+          "quantidade": 1,
+          "total": 35,
+          "cores": "Rosa",
+          "estampa": "Animal print",
+          "marca": "Marca M",
+          "defeitos": "Elasticidade perdida",
+          "servicos": "so lavar"
+        }
+      ],
+      "total": 35,
+      "totalPago": 35,
+      "dataCriacao": "2026-07-03T18:46:26.874Z",
+      "dataEntrega": "2026-07-06T15:00:00.000Z",
+      "statusEntrega": "Entregue",
+      "id": "_Bw2xIW",
+      "cliente": [],
+      "tipoAtendimento": "Retirada",
+      "formaPagamento": "Cartao de Credito",
+      "statusPagamentoDescricao": "Pago com Cartao de Credito",
+      "dataBaixa": "2026-07-03T18:47:12.872Z",
+      "valorRecebido": 35,
+      "valorPendente": 0,
+      "pagamentoPendente": false,
+      "dataPagamento": "2026-07-03T18:47:25.959Z"
     }
   ]
 }

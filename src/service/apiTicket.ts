@@ -41,6 +41,32 @@ export type Ticket = {
 const getTicketReferenceTime = (ticket: Ticket) =>
   new Date(ticket.dataBaixa || ticket.dataPagamento || ticket.dataEntrega || ticket.dataCriacao || 0).getTime();
 
+type TicketStatusInfo = {
+  statusEntrega?: string;
+  dataBaixa?: string | null;
+};
+
+export const isTicketBaixado = (ticket: TicketStatusInfo): boolean => {
+  const statusEntrega = ticket.statusEntrega?.trim().toLowerCase();
+  return Boolean(ticket.dataBaixa) || statusEntrega === 'entregue';
+};
+
+export const isTicketFinalizado = (ticket: TicketStatusInfo): boolean => {
+  const statusEntrega = ticket.statusEntrega?.trim().toLowerCase();
+  return isTicketBaixado(ticket) || statusEntrega === 'apagado';
+};
+
+const compareTicketAtualidade = (candidate: Ticket, current: Ticket) => {
+  const candidateFinalizado = isTicketFinalizado(candidate);
+  const currentFinalizado = isTicketFinalizado(current);
+
+  if (candidateFinalizado !== currentFinalizado) {
+    return candidateFinalizado ? 1 : -1;
+  }
+
+  return getTicketReferenceTime(candidate) - getTicketReferenceTime(current);
+};
+
 export const obterTicketsMaisRecentes = (tickets: Ticket[]): Ticket[] => {
   const ticketsPorNumero = new Map<string, Ticket>();
 
@@ -53,7 +79,7 @@ export const obterTicketsMaisRecentes = (tickets: Ticket[]): Ticket[] => {
 
     const ticketAtual = ticketsPorNumero.get(numero);
 
-    if (!ticketAtual || getTicketReferenceTime(ticket) >= getTicketReferenceTime(ticketAtual)) {
+    if (!ticketAtual || compareTicketAtualidade(ticket, ticketAtual) >= 0) {
       ticketsPorNumero.set(numero, ticket);
     }
   });
@@ -92,11 +118,7 @@ export const buscarTicket = async (ticketNumber: string): Promise<Ticket | null>
       },
     })
     .then(response => {
-      const [ticketMaisRecente] = [...response.data].sort((a, b) => {
-        const dataA = new Date(a.dataCriacao || 0).getTime();
-        const dataB = new Date(b.dataCriacao || 0).getTime();
-        return dataB - dataA;
-      });
+      const [ticketMaisRecente] = obterTicketsMaisRecentes(response.data);
 
       return ticketMaisRecente || null;
     })
@@ -122,7 +144,7 @@ export const listarTickets = async (): Promise<Ticket[]> => {
         _embed: 'cliente',
       },
     })
-    .then(response => response.data)
+    .then(response => obterTicketsMaisRecentes(response.data))
     .catch(handleError);
 };
 
@@ -136,11 +158,7 @@ export const getTicket = async (ticketNumber: string): Promise<Ticket> => {
       },
     })
     .then(response => {
-      const [ticketMaisRecente] = [...response.data].sort((a, b) => {
-        const dataA = new Date(a.dataCriacao || 0).getTime();
-        const dataB = new Date(b.dataCriacao || 0).getTime();
-        return dataB - dataA;
-      });
+      const [ticketMaisRecente] = obterTicketsMaisRecentes(response.data);
 
       if (!ticketMaisRecente) {
         throw new Error('Ticket nao encontrado.');
@@ -226,10 +244,26 @@ export const regularizarPagamentoTicket = async (
     throw new Error('Ticket sem identificador para regularizar pagamento.');
   }
 
-  return registrarBaixaTicket(ticket, {
-    marcarComoPago: true,
-    formaPagamento: extras.formaPagamento,
+  const formaPagamento = extras.formaPagamento.trim() || ticket.formaPagamento || 'Nao informado';
+
+  const payload: Ticket = {
+    ...ticket,
+    estaPago: 'sim',
+    formaPagamento,
+    statusPagamentoDescricao: `Pago com ${formaPagamento}`,
+    totalPago: extras.valorRecebido,
     valorRecebido: extras.valorRecebido,
-    observacaoBaixa: extras.observacaoBaixa,
-  });
+    valorPendente: 0,
+    pagamentoPendente: false,
+    dataPagamento: new Date().toISOString(),
+    observacaoBaixa: extras.observacaoBaixa ?? ticket.observacaoBaixa,
+  };
+
+  // Preserve the original data de baixa when the ticket was already baixado.
+  if (ticket.dataBaixa) {
+    payload.dataBaixa = ticket.dataBaixa;
+    payload.statusEntrega = ticket.statusEntrega;
+  }
+
+  return atualizaTicket(payload);
 };

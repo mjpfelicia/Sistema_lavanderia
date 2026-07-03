@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BackToHome from '../../buttons/BackToHome';
-import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { isTicketBaixado, listarTickets, Ticket } from '../../../service/apiTicket';
 import { listarClientes, Cliente } from '../../../service/apiCliente';
 import './PendenciasRecebimento.css';
 
@@ -95,17 +95,17 @@ const PendenciasRecebimento: React.FC = () => {
 
     return tickets
       // Excluir tickets já entregues (baixados) e apagados - mostrar apenas os pendentes de produção
-      .filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado')
+      .filter((ticket) => isTicketBaixado(ticket))
       // Manter apenas tickets com pendência de pagamento
       .filter((ticket) => ticket.estaPago !== 'sim' || ticket.pagamentoPendente)
       .filter((ticket) => ticket.statusEntrega !== 'Apagado')
       // Excluir tickets que já foram entregues, pagos e sem pendência (saíram de tudo)
       .filter((ticket) => {
-        const jaFoiBaixadoEPago = ticket.statusEntrega === 'Entregue' && ticket.estaPago === 'sim' && !ticket.pagamentoPendente;
+        const jaFoiBaixadoEPago = isTicketBaixado(ticket) && ticket.estaPago === 'sim' && !ticket.pagamentoPendente;
         return !jaFoiBaixadoEPago;
       })
       // Manter apenas tickets com pendência de pagamento - APENAS tickets já baixados (entregues)
-      .filter((ticket) => ticket.statusEntrega === 'Entregue' && (ticket.estaPago !== 'sim' || ticket.pagamentoPendente))
+      .filter((ticket) => isTicketBaixado(ticket) && (ticket.estaPago !== 'sim' || ticket.pagamentoPendente))
       .filter((ticket) => {
         if (!search) {
           return true;
@@ -121,8 +121,8 @@ const PendenciasRecebimento: React.FC = () => {
   }, [busca, clientes, tickets]);
 
   const totalPendente = pendencias.reduce((acc, ticket) => acc + getPendingAmount(ticket), 0);
-  const emProducao = pendencias.filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado').length;
-  const entreguesPendente = pendencias.filter((ticket) => ticket.statusEntrega === 'Entregue').length;
+  const emProducao = 0;
+  const entreguesPendente = pendencias.filter((ticket) => isTicketBaixado(ticket)).length;
 
   return (
     <div className="pendencias-shell">

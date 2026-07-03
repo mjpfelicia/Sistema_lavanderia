@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { atualizaTicket, buscarTicket, criarTicket, registrarBaixaTicket, regularizarPagamentoTicket, Ticket } from '../../../service/apiTicket';
+import { atualizaTicket, buscarTicket, criarTicket, isTicketBaixado, registrarBaixaTicket, regularizarPagamentoTicket, Ticket } from '../../../service/apiTicket';
 import styles from './BuscaTicket.module.css';
 
 interface VisualizarTicketProps {
@@ -33,12 +33,21 @@ const getEntregaTone = (status?: Ticket['statusEntrega']) => {
   }
 };
 
+const formasPagamentoValidas = ['Dinheiro', 'Pix', 'Cartao de Credito', 'Cartao de Debito'];
+
+const paymentMethods = ['Dinheiro', 'Pix', 'Cartao de Credito', 'Cartao de Debito'];
+
+const getFormaPagamentoInicial = (formaPagamento?: string) => {
+  const forma = formaPagamento?.trim();
+  return forma && formasPagamentoValidas.includes(forma) ? forma : '';
+};
+
 const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => {
   const [ticket, setTicket] = useState<Ticket | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [processandoBaixa, setProcessandoBaixa] = useState<boolean>(false);
-  const [formaPagamentoBaixa, setFormaPagamentoBaixa] = useState<string>('Dinheiro');
+  const [formaPagamentoBaixa, setFormaPagamentoBaixa] = useState<string>('');
   const [valorRecebidoBaixa, setValorRecebidoBaixa] = useState<string>('');
   const [observacaoBaixa, setObservacaoBaixa] = useState<string>('');
   const [modoBaixaFinanceira, setModoBaixaFinanceira] = useState<'receber-agora' | 'deixar-pendente'>('receber-agora');
@@ -79,10 +88,13 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
       return;
     }
 
-    setFormaPagamentoBaixa(ticket.formaPagamento?.trim() || 'Dinheiro');
-    setValorRecebidoBaixa(String(ticket.valorRecebido ?? ticket.total ?? 0));
+    const ticketJaBaixado = isTicketBaixado(ticket);
+    const valorParaReceber = ticket.valorPendente && ticket.valorPendente > 0 ? ticket.valorPendente : ticket.total;
+
+    setFormaPagamentoBaixa(getFormaPagamentoInicial(ticket.formaPagamento));
+    setValorRecebidoBaixa(String(ticket.estaPago === 'sim' ? ticket.valorRecebido ?? ticket.total ?? 0 : valorParaReceber ?? 0));
     setObservacaoBaixa(ticket.observacaoBaixa || '');
-    setModoBaixaFinanceira(ticket.estaPago === 'sim' ? 'receber-agora' : 'deixar-pendente');
+    setModoBaixaFinanceira(ticket.estaPago === 'sim' || ticketJaBaixado ? 'receber-agora' : 'deixar-pendente');
   }, [ticket]);
 
   const handleUpdate = async (field: string, value: string) => {
@@ -279,6 +291,7 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
   const pagamentoStatus = ticket.estaPago === 'sim' ? 'Pagamento confirmado' : 'Pagamento pendente';
   const entregaStatus = ticket.statusEntrega || 'Em produção';
   const dataBaixa = ticket.dataBaixa ? formatDateTime(ticket.dataBaixa) : null;
+  const ticketJaBaixado = isTicketBaixado(ticket);
 
   return (
     <section className={styles.ticketWorkspace}>
@@ -389,41 +402,47 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
                 <strong>Ticket ainda nao pago</strong>
               </div>
               <p className={styles.baixaFinanceiraNota}>
-                Para dar baixa, precisamos registrar o pagamento agora e alimentar o caixa do dia com a forma de recebimento.
+                {ticketJaBaixado
+                  ? 'A entrega ja foi baixada. Registre a forma de pagamento para tirar esta pendencia do financeiro.'
+                  : 'Para dar baixa, precisamos registrar o pagamento agora e alimentar o caixa do dia com a forma de recebimento.'}
               </p>
-              <div className={styles.baixaModoToggle}>
-                <label className={`${styles.baixaModoOption} ${modoBaixaFinanceira === 'receber-agora' ? styles.baixaModoActive : ''}`}>
-                  <input
-                    type="radio"
-                    name="modoBaixaFinanceira"
-                    checked={modoBaixaFinanceira === 'receber-agora'}
-                    onChange={() => setModoBaixaFinanceira('receber-agora')}
-                  />
-                  <span>Receber agora</span>
-                  <small>Fecha o caixa e registra a forma de pagamento.</small>
-                </label>
-                <label className={`${styles.baixaModoOption} ${modoBaixaFinanceira === 'deixar-pendente' ? styles.baixaModoActive : ''}`}>
-                  <input
-                    type="radio"
-                    name="modoBaixaFinanceira"
-                    checked={modoBaixaFinanceira === 'deixar-pendente'}
-                    onChange={() => setModoBaixaFinanceira('deixar-pendente')}
-                  />
-                  <span>Deixar pendente</span>
-                  <small>Baixa a entrega agora e o recebimento fica para depois.</small>
-                </label>
-              </div>
+              {!ticketJaBaixado && (
+                <div className={styles.baixaModoToggle}>
+                  <label className={`${styles.baixaModoOption} ${modoBaixaFinanceira === 'receber-agora' ? styles.baixaModoActive : ''}`}>
+                    <input
+                      type="radio"
+                      name="modoBaixaFinanceira"
+                      checked={modoBaixaFinanceira === 'receber-agora'}
+                      onChange={() => setModoBaixaFinanceira('receber-agora')}
+                    />
+                    <span>Receber agora</span>
+                    <small>Fecha o caixa e registra a forma de pagamento.</small>
+                  </label>
+                  <label className={`${styles.baixaModoOption} ${modoBaixaFinanceira === 'deixar-pendente' ? styles.baixaModoActive : ''}`}>
+                    <input
+                      type="radio"
+                      name="modoBaixaFinanceira"
+                      checked={modoBaixaFinanceira === 'deixar-pendente'}
+                      onChange={() => setModoBaixaFinanceira('deixar-pendente')}
+                    />
+                    <span>Deixar pendente</span>
+                    <small>Baixa a entrega agora e o recebimento fica para depois.</small>
+                  </label>
+                </div>
+              )}
               <div className={styles.baixaFinanceiraGrid}>
-                {modoBaixaFinanceira === 'receber-agora' ? (
+                {ticketJaBaixado || modoBaixaFinanceira === 'receber-agora' ? (
                   <>
                     <label className={styles.fieldGroup}>
                       <span>Forma de pagamento</span>
                       <div className={styles.inputWrap}>
                         <select value={formaPagamentoBaixa} onChange={(e) => setFormaPagamentoBaixa(e.target.value)}>
-                          <option value="Dinheiro">Dinheiro</option>
-                          <option value="Pix">Pix</option>
-                          <option value="Cartao de Credito">Cartao de Credito</option>
-                          <option value="Cartao de Debito">Cartao de Debito</option>
+                          <option value="">Selecione</option>
+                          {paymentMethods.map((method) => (
+                            <option key={method} value={method}>
+                              {method}
+                            </option>
+                          ))}
                         </select>
                       </div>
                     </label>
@@ -468,14 +487,14 @@ const VisualizarTicket: React.FC<VisualizarTicketProps> = ({ ticketNumber }) => 
             <button
               className={styles.primaryButton}
               onClick={handleLiberarPecas}
-              disabled={processandoBaixa || ticket.statusEntrega === 'Entregue'}
+              disabled={processandoBaixa || ticketJaBaixado}
             >
               Liberar peças na conferência
             </button>
-            <button className={styles.secondaryButton} onClick={handleBaixaEntrega} disabled={processandoBaixa || ticket.statusEntrega === 'Entregue'}>
-              {processandoBaixa ? 'Registrando baixa...' : ticket.statusEntrega === 'Entregue' ? 'Baixa já registrada' : 'Dar baixa na entrega'}
+            <button className={styles.secondaryButton} onClick={handleBaixaEntrega} disabled={processandoBaixa || ticketJaBaixado}>
+              {processandoBaixa ? 'Registrando baixa...' : isTicketBaixado(ticket) ? 'Baixa já registrada' : 'Dar baixa na entrega'}
             </button>
-            {ticket.statusEntrega === 'Entregue' && ticket.estaPago !== 'sim' && (
+            {isTicketBaixado(ticket) && ticket.estaPago !== 'sim' && (
               <button className={styles.secondaryButton} onClick={handleRegularizarPagamento} disabled={processandoBaixa}>
                 {processandoBaixa ? 'Regularizando...' : 'Receber pendencia'}
               </button>

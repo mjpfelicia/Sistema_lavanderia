@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PageFrame from '../../layouts/PageFrame';
 import { listarClientes, Cliente } from '../../../service/apiCliente';
 import { listarDelivery, Delivery } from '../../../service/apiDelivery';
-import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { isTicketFinalizado, listarTickets, Ticket } from '../../../service/apiTicket';
 import './Relatorio.css';
 
 type BoardEntry = {
@@ -95,7 +95,7 @@ const getEntryStatus = (delivery: Delivery, tickets: Ticket[]) => {
     return 'Entrega sem ticket localizado';
   }
 
-  const hasPending = tickets.some((ticket) => ticket.statusEntrega !== 'Liberado' && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado');
+  const hasPending = tickets.some((ticket) => ticket.statusEntrega !== 'Liberado' && !isTicketFinalizado(ticket));
   return hasPending ? 'Pronto para separar e expedir' : 'Todos os tickets ja foram finalizados';
 };
 
@@ -167,7 +167,7 @@ const Relatorio = () => {
           .map((ticketNumber) => ticketsByNumber.get(ticketNumber))
           .filter((ticket): ticket is Ticket => Boolean(ticket))
           // Excluir tickets já entregues, apagados ou com baixa - apenas tickets pendentes de produção (statusEntrega)
-          .filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado');
+          .filter((ticket) => !isTicketFinalizado(ticket));
         const rawDate = typeof delivery.deliveryData === 'string' ? delivery.deliveryData : String(delivery.deliveryData);
         const date = new Date(rawDate);
 
@@ -191,7 +191,7 @@ const Relatorio = () => {
           // Para entregas, se não houver tickets pendentes, exclui
           const temTicketsPendentes = entry.tickets.some((ticketNumber) => {
             const ticket = ticketsByNumber.get(ticketNumber);
-            return ticket && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado';
+            return ticket && !isTicketFinalizado(ticket);
           });
           return temTicketsPendentes;
         }

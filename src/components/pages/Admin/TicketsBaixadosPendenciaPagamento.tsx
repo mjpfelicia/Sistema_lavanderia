@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BackToHome from '../../buttons/BackToHome';
-import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { isTicketBaixado, listarTickets, Ticket } from '../../../service/apiTicket';
 import { listarClientes, Cliente } from '../../../service/apiCliente';
 import './TicketsBaixadosPendenciaPagamento.css';
 
@@ -101,7 +101,7 @@ const TicketsBaixadosPendenciaPagamento: React.FC = () => {
 
     return tickets
       // Filtrar apenas tickets baixados (entregues)
-      .filter((ticket) => ticket.statusEntrega === 'Entregue')
+      .filter((ticket) => isTicketBaixado(ticket))
       // Filtrar apenas tickets com pendência de pagamento
       .filter((ticket) => ticket.estaPago !== 'sim' || ticket.pagamentoPendente)
       // Excluir tickets apagados

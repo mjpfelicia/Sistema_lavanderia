@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Home.css';
 import { listarClientes } from '../../service/apiCliente';
 import { listarDelivery, atualizaDelivery } from '../../service/apiDelivery';
-import { listarTickets, atualizaTicket } from '../../service/apiTicket';
+import { isTicketBaixado, isTicketFinalizado, listarTickets, atualizaTicket } from '../../service/apiTicket';
 
 type ClienteResumo = {
   id: string;
@@ -364,7 +364,7 @@ const Home = () => {
   const today = getToday();
 
   // Filtra tickets em aberto (não entregues e não apagados)
-  const ticketsEmAberto = dashboard.tickets.filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado');
+  const ticketsEmAberto = dashboard.tickets.filter((ticket) => !isTicketFinalizado(ticket));
 
   // 🚨 PEÇAS EM ATRASO: Tickets em aberto com data de entrega anterior a hoje
   const pecasEmAtraso = ticketsEmAberto.filter((ticket) => {
@@ -386,7 +386,7 @@ const Home = () => {
   const retiradasAgendadas = ticketsParaEntregarHoje;
 
   // Tickets baixados (entregues) - apenas para referência interna, não exibidos na home
-  const ticketsBaixados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Entregue');
+  const ticketsBaixados = dashboard.tickets.filter((ticket) => isTicketBaixado(ticket));
 
 
 
@@ -418,7 +418,7 @@ const Home = () => {
       // Filtrar apenas tickets que ainda estão pendentes (não entregues e não apagados)
       const ticketsPendentes = ticketsRelacionados.filter((ticketNumber) => {
         const ticket = dashboard.tickets.find((t) => t.ticketNumber === ticketNumber);
-        return ticket && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado';
+        return ticket && !isTicketFinalizado(ticket);
       });
 
       const ticketsDoAtendimento = ticketsPendentes
@@ -464,7 +464,7 @@ const Home = () => {
     // Verificar se TODOS os tickets estão entregues ou apagados
     const todosTicketsFinalizados = ticketsRelacionados.every((ticketNumber) => {
       const ticket = ticketsByNumber.get(ticketNumber);
-      return ticket?.statusEntrega === 'Entregue' || ticket?.statusEntrega === 'Apagado';
+      return !ticket || isTicketFinalizado(ticket);
     });
 
     // Se todos os tickets foram finalizados, esta entrega não deve aparecer como atrasada
@@ -488,7 +488,7 @@ const Home = () => {
       // Filtrar apenas tickets que ainda estão pendentes (não entregues e não apagados)
       const ticketsPendentes = ticketsRelacionados.filter((ticketNumber) => {
         const ticket = ticketsByNumber.get(ticketNumber);
-        return ticket && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado';
+        return ticket && !isTicketFinalizado(ticket);
       });
 
       const ticketsDoAtendimento = ticketsPendentes
@@ -557,7 +557,7 @@ const Home = () => {
   // Tickets recentes que ainda estão na loja (em aberto, não entregues e não apagados)
   // Inclui: em produção, pronto, liberado - tanto pagos quanto não pagos
   const recentTickets = [...dashboard.tickets]
-    .filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado')
+    .filter((ticket) => !isTicketFinalizado(ticket))
     .sort((a, b) => new Date(b.dataCriacao ?? '').getTime() - new Date(a.dataCriacao ?? '').getTime())
     .slice(0, 5);
 

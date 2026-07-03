@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { listarTickets, Ticket } from '../../../service/apiTicket';
+import { isTicketFinalizado, listarTickets, Ticket } from '../../../service/apiTicket';
 import { listarClientes, Cliente } from '../../../service/apiCliente';
 import BackToHome from '../../../components/buttons/BackToHome';
 import './ParaEntregarHoje.css';
@@ -71,7 +71,7 @@ const ParaEntregarHoje: React.FC = () => {
   // Filtra apenas tickets em aberto com data de entrega igual a hoje
   const ticketsParaEntregarHoje = tickets
     .filter((ticket) => {
-      if (ticket.statusEntrega === 'Entregue' || ticket.statusEntrega === 'Apagado') return false;
+      if (isTicketFinalizado(ticket)) return false;
       if (!ticket.dataEntrega) return false;
       return isSameDay(ticket.dataEntrega, today);
     })
