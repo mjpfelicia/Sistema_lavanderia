@@ -185,6 +185,7 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(18px);
   box-shadow: 0 18px 34px rgba(15, 23, 42, 0.14);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .metric-label {
@@ -867,4 +868,14 @@
   .finance-method-values {
     text-align: left;
   }
+}
+
+.hero-badge-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.hero-badge-link:hover .hero-badge {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }

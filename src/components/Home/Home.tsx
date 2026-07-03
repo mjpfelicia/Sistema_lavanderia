@@ -362,25 +362,48 @@ const Home = () => {
 
   const clientesById = new Map(dashboard.clientes.map((cliente) => [cliente.id, cliente]));
   const today = getToday();
-  const ticketsEmAberto = dashboard.tickets.filter((ticket) => 
-    ticket.statusEntrega && ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado'
-  );
+
+  // Filtra tickets em aberto (não entregues e não apagados)
+  const ticketsEmAberto = dashboard.tickets.filter((ticket) => ticket.statusEntrega !== 'Entregue' && ticket.statusEntrega !== 'Apagado');
+
+  // 🚨 PEÇAS EM ATRASO: Tickets em aberto com data de entrega anterior a hoje
+  const pecasEmAtraso = ticketsEmAberto.filter((ticket) => {
+    if (!ticket.dataEntrega) return false;
+    return new Date(ticket.dataEntrega) < new Date(today);
+  });
+
+
+  // 📅 PARA ENTREGAR HOJE: Tickets em aberto com data de entrega igual a hoje
+  const ticketsParaEntregarHoje = ticketsEmAberto.filter((ticket) => {
+    if (!ticket.dataEntrega) return false;
+    return isSameDay(ticket.dataEntrega, today);
+  });
+
+  // 🛠️ PRODUÇÃO DO DIA (SEM DATA): Tickets em aberto sem data definida (precisam de atenção)
+  const ticketsProducaoSemData = ticketsEmAberto.filter((ticket) => !ticket.dataEntrega);
+
+  // 🚚 RETIRADAS AGENDADAS: Usando os tickets para entregar hoje como base para retiradas do dia
+  const retiradasAgendadas = ticketsParaEntregarHoje;
+
+  // Tickets baixados (entregues) - apenas para referência interna, não exibidos na home
   const ticketsBaixados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Entregue');
-  const ticketsApagados = dashboard.tickets.filter((ticket) => ticket.statusEntrega === 'Apagado');
-  
+
+
+
   // DEBUG: Log para verificar filtro
   console.log('DEBUG Home - Total de tickets:', dashboard.tickets.length);
   console.log('DEBUG Home - Tickets em aberto:', ticketsEmAberto.length);
   console.log('DEBUG Home - Tickets baixados (Entregue):', ticketsBaixados.length);
   console.log('DEBUG Home - Todos os status únicos:', [...new Set(dashboard.tickets.map(t => t.statusEntrega))]);
-  console.log('DEBUG Home - DETALHE COMPLETO:', dashboard.tickets.map(t => ({ 
-    numero: t.ticketNumber, 
+  console.log('DEBUG Home - DETALHE COMPLETO:', dashboard.tickets.map(t => ({
+    numero: t.ticketNumber,
     status: t.statusEntrega || 'SEM_STATUS',
     dataBaixa: t.dataBaixa,
     estaPago: t.estaPago
   })));
-  
-  const ticketsPendentesPagamento = ticketsEmAberto.filter((ticket) => ticket.estaPago !== 'sim');
+
+  // Tickets com pagamento pendente são APENAS os que já foram baixados (entregues) mas não pagos
+  const ticketsPendentesPagamento = ticketsBaixados.filter((ticket) => ticket.estaPago !== 'sim');
   const ticketsEntreguesHoje = ticketsBaixados.filter((ticket) => isSameDay(ticket.dataBaixa || ticket.dataPagamento || ticket.dataEntrega, today));
 
   // Criar mapa de tickets por número para acesso rápido
@@ -540,34 +563,28 @@ const Home = () => {
 
   const insights: Insight[] = [
     {
-      label: 'Clientes cadastrados',
-      value: String(dashboard.clientes.length),
-      help: 'Base ativa para novas coletas, entrega e relacionamento.',
-      icon: 'clients',
-    },
-    {
-      label: 'Tickets em aberto',
-      value: String(ticketsEmAberto.length),
-      help: 'Pedidos ainda na fila da operação.',
+      label: 'Peças em atraso',
+      value: String(pecasEmAtraso.length),
+      help: 'Tickets com data de entrega vencida que precisam de atenção imediata.',
       icon: 'ticket',
     },
     {
-      label: 'Tickets baixados',
-      value: String(ticketsBaixados.length),
-      help: 'Atendimentos que sairam da fila operacional.',
+      label: 'Para entregar hoje',
+      value: String(ticketsParaEntregarHoje.length),
+      help: 'Tickets agendados para entrega/retirada hoje.',
       icon: 'delivery',
     },
     {
-      label: 'Entregues hoje',
-      value: String(ticketsEntreguesHoje.length),
-      help: 'Saidas que acabaram de ser conferidas.',
-      icon: 'reports',
+      label: 'Produção sem data',
+      value: String(ticketsProducaoSemData.length),
+      help: 'Tickets em produção sem data definida - precisam de previsão.',
+      icon: 'piece',
     },
     {
-      label: 'Pendencias de recebimento',
-      value: String(ticketsPendentesPagamento.length),
-      help: 'Tickets ja baixados, mas com valor a receber.',
-      icon: 'insight',
+      label: 'Retiradas agendadas',
+      value: String(retiradasAgendadas.length),
+      help: 'Retiradas programadas para hoje.',
+      icon: 'reports',
     },
   ];
 
@@ -643,15 +660,36 @@ const Home = () => {
             </div>
 
             <div className="hero-badges">
-              <div className="hero-badge">
-                <span className="metric-label">Tickets registrados</span>
-                <strong>{dashboard.tickets.length}</strong>
-                <small>Fluxo total monitorado em tempo real</small>
-              </div>
+              <Link to="/tickets-em-aberto" className="hero-badge-link">
+                <div className="hero-badge">
+                  <span className="metric-label">Tickets em aberto</span>
+                  <strong>{ticketsEmAberto.length}</strong>
+                  <small>Pedidos que ainda estao na operacao</small>
+                </div>
+              </Link>
+              <Link to="/pecas-em-atraso" className="hero-badge-link">
+                <div className="hero-badge">
+                  <span className="metric-label">Peças em atraso</span>
+                  <strong>{pecasEmAtraso.length}</strong>
+                  <small>Entregas vencidas que precisam de atencao</small>
+                </div>
+              </Link>
+              <Link to="/para-entregar-hoje" className="hero-badge-link">
+                <div className="hero-badge">
+                  <span className="metric-label">Para entregar hoje</span>
+                  <strong>{ticketsParaEntregarHoje.length}</strong>
+                  <small>Agendados para entrega/retirada hoje</small>
+                </div>
+              </Link>
               <div className="hero-badge">
                 <span className="metric-label">Tickets em aberto</span>
                 <strong>{ticketsEmAberto.length}</strong>
                 <small>Pedidos que ainda estao na operacao</small>
+              </div>
+              <div className="hero-badge">
+                <span className="metric-label">Tickets baixados</span>
+                <strong>{ticketsBaixados.length}</strong>
+                <small>Atendimentos que sairam da fila operacional</small>
               </div>
               <div className="hero-badge">
                 <span className="metric-label">Entregues hoje</span>
@@ -855,8 +893,8 @@ const Home = () => {
 
               <ul className="opportunity-list">
                 <li>
-                  <SaasIcon name="money" />
-                  <span>Priorize os {ticketsPendentesPagamento.length} tickets com recebimento pendente para manter o caixa em ordem.</span>
+                  <SaasIcon name="ticket" />
+                  <span>Foque nas {pecasEmAtraso.length} pe\u00e7as em atraso para evitar insatisfa\u00e7\u00e3o dos clientes.</span>
                 </li>
                 <li>
                   <SaasIcon name="delivery" />

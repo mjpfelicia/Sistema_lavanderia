@@ -14,9 +14,15 @@ import CloseButton from "../buttons/CloseButton";
 import AgendamentoEntrega from "./AgendaDelivery/AgendaDelivery";
 import AdminDashboard from "./Admin/AdminDashboard";
 import RelatorioFinanceiro from "./Admin/RelatorioFinanceiro";
+
 import PendenciasRecebimento from "./Admin/PendenciasRecebimento";
 import TicketsBaixadosPendenciaPagamento from "./Admin/TicketsBaixadosPendenciaPagamento";
 import AdminPlaceholder from "./Admin/AdminPlaceholder";
+import TicketsEntreguesHoje from "./TicketsEntreguesHoje/TicketsEntreguesHoje";
+import TicketsBaixados from "./TicketsBaixados/TicketsBaixados";
+import TicketsPendentes from "./TicketsPendentes/TicketsPendentes";
+import PecasEmAtraso from "./PecasEmAtraso/PecasEmAtraso";
+import ParaEntregarHoje from "./ParaEntregarHoje/ParaEntregarHoje";
 
 const Rotas = () => {
   return (
@@ -49,10 +55,16 @@ const Rotas = () => {
             complemento: ""
           },
         }}/>} />
+        <Route path="/tickets-em-aberto" element={<TicketsPendentes />} />
+        <Route path="/tickets-baixados" element={<TicketsBaixados />} />
+        <Route path="/tickets-entregues-hoje" element={<TicketsEntreguesHoje />} />
+        <Route path="/pecas-em-atraso" element={<PecasEmAtraso />} />
+        <Route path="/para-entregar-hoje" element={<ParaEntregarHoje />} />
 
         {/* Rotas Administrativas */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/financeiro" element={<RelatorioFinanceiro />} />
+
         <Route path="/admin/pendencias-recebimento" element={<PendenciasRecebimento />} />
         <Route path="/admin/tickets-baixados-pendencia" element={<TicketsBaixadosPendenciaPagamento />} />
         <Route path="/admin/tickets" element={<AdminPlaceholder title="Gestão de Tickets" description="Gerencie todos os tickets da lavanderia" icon="🎫" />} />
