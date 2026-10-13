@@ -1,4 +1,4 @@
-import { Ticket } from '../../../service/apiTicket';
+import { isTicketBaixado, Ticket } from '../../../service/apiTicket';
 
 export type FormaPagamentoResumo = {
   forma: string;
@@ -45,7 +45,7 @@ export const getPendingAmount = (ticket: Ticket) =>
 
 export const getTicketsBaixadosNaData = (tickets: Ticket[], selectedDate: string) =>
   tickets
-    .filter((ticket) => Boolean(ticket.dataBaixa) || ticket.statusEntrega === 'Entregue')
+    .filter(isTicketBaixado)
     .filter((ticket) => isSameDay(ticket.dataBaixa || ticket.dataEntrega || ticket.dataCriacao, selectedDate))
     .sort((a, b) => new Date(b.dataBaixa || b.dataEntrega || 0).getTime() - new Date(a.dataBaixa || a.dataEntrega || 0).getTime());
 

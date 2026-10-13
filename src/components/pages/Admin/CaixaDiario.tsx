@@ -17,6 +17,7 @@ const CaixaDiario: React.FC = () => {
   const [observacao, setObservacao] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [saveMessage, setSaveMessage] = useState('');
   const storageKey = `lavanderia:caixa:${selectedDate}`;
 
   const carregarTickets = async () => {
@@ -36,10 +37,18 @@ const CaixaDiario: React.FC = () => {
 
   useEffect(() => {
     const saved = window.localStorage.getItem(storageKey);
-    const caixa: CaixaSalvo = saved ? JSON.parse(saved) : { abertura: '', contado: '', observacao: '' };
+    let caixa: CaixaSalvo = { abertura: '', contado: '', observacao: '' };
+
+    try {
+      caixa = saved ? JSON.parse(saved) : caixa;
+    } catch {
+      window.localStorage.removeItem(storageKey);
+    }
+
     setAbertura(caixa.abertura);
     setContado(caixa.contado);
     setObservacao(caixa.observacao);
+    setSaveMessage('');
   }, [storageKey]);
 
   const ticketsDoDia = useMemo(() => getTicketsBaixadosNaData(tickets, selectedDate), [selectedDate, tickets]);
@@ -51,6 +60,7 @@ const CaixaDiario: React.FC = () => {
 
   const salvarConferencia = () => {
     window.localStorage.setItem(storageKey, JSON.stringify({ abertura, contado, observacao }));
+    setSaveMessage('Conferência salva neste dispositivo.');
   };
 
   if (loading) return <div className="caixa-loading"><div className="spinner" /><p>Carregando caixa...</p></div>;
@@ -60,6 +70,7 @@ const CaixaDiario: React.FC = () => {
     <section className="caixa-content">
       <div className="caixa-controls"><label htmlFor="caixa-data">Data do caixa<input id="caixa-data" type="date" value={selectedDate} onChange={(event) => setSelectedDate(event.target.value)} /></label><label htmlFor="caixa-abertura">Fundo de troco<input id="caixa-abertura" type="number" min="0" step="0.01" value={abertura} onChange={(event) => setAbertura(event.target.value)} placeholder="0,00" /></label><label htmlFor="caixa-contado">Dinheiro contado<input id="caixa-contado" type="number" min="0" step="0.01" value={contado} onChange={(event) => setContado(event.target.value)} placeholder="0,00" /></label><label className="caixa-observacao" htmlFor="caixa-observacao">Observação<textarea id="caixa-observacao" value={observacao} onChange={(event) => setObservacao(event.target.value)} placeholder="Ex.: retirada para pagamento de fornecedor" /></label><button className="caixa-save" onClick={salvarConferencia}>Salvar conferência</button></div>
       {error && <p className="caixa-alert">{error}</p>}
+      {saveMessage && <p className="caixa-success" role="status">{saveMessage}</p>}
       <div className="caixa-summary"><article><span>Tickets baixados</span><strong>{ticketsDoDia.length}</strong></article><article><span>Recebido no dia</span><strong>{formatCurrency(resumo.totalRecebido)}</strong></article><article><span>Dinheiro esperado</span><strong>{formatCurrency(esperadoNoCaixa)}</strong><small>Troco + pagamentos em dinheiro</small></article><article className={diferenca === 0 ? 'is-balanced' : 'is-different'}><span>Diferença</span><strong>{formatCurrency(diferenca)}</strong><small>{diferenca === 0 ? 'Caixa conferido' : 'Revise a contagem'}</small></article></div>
       <section className="caixa-details"><div><h2>Entradas por forma de pagamento</h2>{resumo.formasPagamento.length ? resumo.formasPagamento.map((forma) => <p key={forma.forma}><span>{forma.forma} · {forma.quantidade} ticket(s)</span><strong>{formatCurrency(forma.total)}</strong></p>) : <p className="caixa-empty">Nenhuma baixa para esta data.</p>}</div><div><h2>Pagamentos pendentes</h2><strong className="caixa-pending">{formatCurrency(resumo.totalPendente)}</strong><p>Valores ainda em aberto nos tickets já entregues.</p></div></section>
     </section>

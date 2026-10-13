@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Navigate, Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from "../Home/Home";
 import Recepcao from "./Recepcao/Recepcao";
 import EntradaDePeca from "./EntradaDePeca/EntradaDePeca";
@@ -65,7 +65,8 @@ const Rotas = () => {
         {/* Rotas Administrativas */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/financeiro" element={<RelatorioFinanceiro />} />
-        <Route path="/Caixa" element={<CaixaDiario />} />
+        <Route path="/admin/caixa" element={<CaixaDiario />} />
+        <Route path="/Caixa" element={<Navigate to="/admin/caixa" replace />} />
 
         <Route path="/admin/pendencias-recebimento" element={<PendenciasRecebimento />} />
         <Route path="/admin/tickets-baixados-pendencia" element={<TicketsBaixadosPendenciaPagamento />} />
@@ -73,6 +74,7 @@ const Rotas = () => {
         <Route path="/admin/clientes" element={<AdminPlaceholder title="Clientes" description="Cadastro e histórico de clientes" icon="👥" />} />
         <Route path="/admin/delivery" element={<AdminPlaceholder title="Entregas" description="Controle de entregas e retiradas" icon="🚚" />} />
         <Route path="/admin/configuracoes" element={<AdminPlaceholder title="Configurações" description="Ajustes do sistema" icon="⚙️" />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

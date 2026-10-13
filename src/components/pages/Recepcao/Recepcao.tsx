@@ -232,9 +232,9 @@ const Recepcao = () => {
             {Icon(LuBell, { size: 18 })}
           </button>
 
-          <button type="button" className="icon-btn" aria-label="Configuracoes">
+          <Link to="/admin" className="icon-btn" aria-label="Gestão da loja" title="Gestão da loja">
             {Icon(LuSettings2, { size: 18 })}
-          </button>
+          </Link>
           <BackToHome variant="icon" />
         </div>
       </header>

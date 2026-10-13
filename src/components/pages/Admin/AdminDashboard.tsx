@@ -88,7 +88,7 @@ const AdminDashboard: React.FC = () => {
 
       <div className="admin-content">
         <nav className="admin-nav">
-          <Link to="/Caixa" className="nav-card"><span className="nav-icon">💰</span><span className="nav-label">Caixa do Dia</span></Link>
+          <Link to="/admin/caixa" className="nav-card"><span className="nav-icon">💰</span><span className="nav-label">Caixa do Dia</span></Link>
           <Link to="/admin/tickets-baixados-pendencia" className="nav-card"><span className="nav-icon">📋</span><span className="nav-label">Pendências de Recebimento</span></Link>
           <Link to="/pecas-em-atraso" className="nav-card"><span className="nav-icon">📌</span><span className="nav-label">Tickets Atrasados</span></Link>
           <Link to="/BuscarTicket" className="nav-card"><span className="nav-icon">🎫</span><span className="nav-label">Buscar Ticket</span></Link>

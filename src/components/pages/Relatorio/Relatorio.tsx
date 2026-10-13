@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageFrame from '../../layouts/PageFrame';
 import { listarClientes, Cliente } from '../../../service/apiCliente';
@@ -121,31 +121,29 @@ const Relatorio = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const loadBoard = async () => {
-      try {
-        setLoading(true);
-        setError('');
+  const loadBoard = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError('');
 
-        const [clientesData, deliveriesData, ticketsData] = await Promise.all([
-          listarClientes(),
-          listarDelivery(),
-          listarTickets(),
-        ]);
+      const [clientesData, deliveriesData, ticketsData] = await Promise.all([
+        listarClientes(),
+        listarDelivery(),
+        listarTickets(),
+      ]);
 
-        setClientes(clientesData);
-        setDeliveries(deliveriesData);
-        setTickets(ticketsData);
-      } catch (requestError) {
-        console.error(requestError);
-        setError('Nao foi possivel carregar o quadro operacional. Verifique se a API local esta ativa.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadBoard();
+      setClientes(clientesData);
+      setDeliveries(deliveriesData);
+      setTickets(ticketsData);
+    } catch (requestError) {
+      console.error(requestError);
+      setError('Nao foi possivel carregar o quadro operacional. Verifique se a API local esta ativa.');
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => { loadBoard(); }, [loadBoard]);
 
   const clientesById = useMemo(
     () => new Map(clientes.map((cliente) => [String(cliente.id), cliente])),
@@ -213,6 +211,7 @@ const Relatorio = () => {
       actions={
         <>
           <Link to="/Delivery" className="page-frame-chip">Agendar delivery</Link>
+          <button type="button" onClick={loadBoard} className="page-frame-chip">Atualizar</button>
           <Link to="/BuscarTicket" className="page-frame-chip is-primary">Buscar ticket</Link>
         </>
       }

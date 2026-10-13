@@ -180,13 +180,18 @@ const isDeliveryOverdue = (deliveryData?: string) => {
   return now > deliveryTime;
 };
 
-const normalizeDashboardData = (clientesRaw: any[], deliveriesRaw: any[], ticketsRaw: any[]): DashboardData => ({
-  clientes: clientesRaw.map((cliente) => ({
+const normalizeDashboardData = (clientesRaw: unknown, deliveriesRaw: unknown, ticketsRaw: unknown): DashboardData => {
+  const clientes = Array.isArray(clientesRaw) ? clientesRaw : [];
+  const deliveries = Array.isArray(deliveriesRaw) ? deliveriesRaw : [];
+  const tickets = Array.isArray(ticketsRaw) ? ticketsRaw : [];
+
+  return {
+  clientes: clientes.map((cliente: any) => ({
     id: String(cliente.id ?? ''),
     nome: cliente.nome ?? 'Cliente sem nome',
     telefone: cliente.telefone,
   })),
-  deliveries: deliveriesRaw.map((delivery) => ({
+  deliveries: deliveries.map((delivery: any) => ({
     id: String(delivery.id ?? ''),
     clienteId: delivery.clienteId ? String(delivery.clienteId) : undefined,
     deliveryTipo: delivery.deliveryTipo ?? 'Entrega',
@@ -194,7 +199,7 @@ const normalizeDashboardData = (clientesRaw: any[], deliveriesRaw: any[], ticket
     ticketNumber: typeof delivery.ticketNumber === 'string' ? delivery.ticketNumber : undefined,
     ticketNumbers: Array.isArray(delivery.ticketNumbers) ? delivery.ticketNumbers.map((item: unknown) => String(item)) : undefined,
   })),
-    tickets: ticketsRaw.map((ticket) => ({
+    tickets: tickets.map((ticket: any) => ({
     id: String(ticket.id ?? ''),
     ticketNumber: String(ticket.ticketNumber ?? '---'),
     clienteId: ticket.clienteId ? String(ticket.clienteId) : undefined,
@@ -210,8 +215,9 @@ const normalizeDashboardData = (clientesRaw: any[], deliveriesRaw: any[], ticket
     valorPendente: Number(ticket.valorPendente ?? 0),
     pagamentoPendente: Boolean(ticket.pagamentoPendente),
     statusEntrega: ticket.statusEntrega,
-  })),
-});
+    })),
+  };
+};
 
 const sidebarItems: SidebarItem[] = [
   { label: 'In\u00edcio', href: '/', icon: 'home' },
@@ -221,8 +227,8 @@ const sidebarItems: SidebarItem[] = [
   { label: 'Buscar Ticket', href: '/BuscarTicket', icon: 'ticket' },
   { label: 'Delivery', href: '/Delivery', icon: 'delivery' },
   { label: 'Relat\u00f3rios', href: '/relatorio', icon: 'reports' },
-  { label: 'Caixa do dia', href: '/Caixa', icon: 'money' },
-  { label: 'Configura\u00e7\u00f5es', href: '/admin', icon: 'settings' },
+  { label: 'Caixa do dia', href: '/admin/caixa', icon: 'money' },
+  { label: 'Gest\u00e3o da loja', href: '/admin', icon: 'settings' },
 ];
 
 const SaasIcon = ({ name }: { name: IconName }) => {
@@ -283,7 +289,7 @@ const Home = () => {
         listarTickets(),
       ]);
 
-      setDashboard(normalizeDashboardData(clientesRaw as any[], deliveriesRaw as any[], ticketsRaw as any[]));
+      setDashboard(normalizeDashboardData(clientesRaw, deliveriesRaw, ticketsRaw));
       setLastUpdated(new Date().toLocaleTimeString('pt-BR'));
     } catch (err) {
       console.error(err);
@@ -389,18 +395,6 @@ const Home = () => {
   const ticketsBaixados = dashboard.tickets.filter((ticket) => isTicketBaixado(ticket));
 
 
-
-  // DEBUG: Log para verificar filtro
-  console.log('DEBUG Home - Total de tickets:', dashboard.tickets.length);
-  console.log('DEBUG Home - Tickets em aberto:', ticketsEmAberto.length);
-  console.log('DEBUG Home - Tickets baixados (Entregue):', ticketsBaixados.length);
-  console.log('DEBUG Home - Todos os status únicos:', [...new Set(dashboard.tickets.map(t => t.statusEntrega))]);
-  console.log('DEBUG Home - DETALHE COMPLETO:', dashboard.tickets.map(t => ({
-    numero: t.ticketNumber,
-    status: t.statusEntrega || 'SEM_STATUS',
-    dataBaixa: t.dataBaixa,
-    estaPago: t.estaPago
-  })));
 
   // Tickets com pagamento pendente são APENAS os que já foram baixados (entregues) mas não pagos
   const ticketsPendentesPagamento = ticketsBaixados.filter((ticket) => ticket.estaPago !== 'sim');
@@ -615,7 +609,7 @@ const Home = () => {
     },
     {
       title: 'Fechamento de caixa',
-      href: '/Caixa',
+      href: '/admin/caixa',
       description: 'Conferir tickets baixados e valores recebidos do dia.',
       icon: 'money',
     },

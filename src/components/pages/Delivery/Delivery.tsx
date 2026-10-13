@@ -27,7 +27,7 @@ const Delivery: React.FC = () => {
       {!clienteSelecionado ? (
         <BuscaCliente onClienteSelecionado={setClienteSelecionado} />
       ) : (
-        <AgendaDelivery cliente={clienteSelecionado} />
+        <AgendaDelivery cliente={clienteSelecionado} onVoltarParaBusca={() => setClienteSelecionado(null)} />
       )}
     </PageFrame>
   );

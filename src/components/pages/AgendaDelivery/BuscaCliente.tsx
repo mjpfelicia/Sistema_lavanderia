@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { buscarCliente, Cliente } from '../../../service/apiCliente';
-import classes from "../FormularioValidacao/Formulario.module.css";
+import classes from './AgendaDelivery.module.css';
 
 interface BuscaClienteProps {
   onClienteSelecionado: (cliente: Cliente) => void;
@@ -70,45 +70,57 @@ const BuscaCliente: React.FC<BuscaClienteProps> = ({ onClienteSelecionado }) => 
   };
 
   return (
-    <div>
-      <form className={classes.formulario} onSubmit={handleSubmit}>
+    <div className={classes.deliverySearch}>
+      <div className={classes.deliverySearchIntro}>
+        <span className={classes.eyebrow}>Etapa inicial</span>
+        <h2>Localize quem vai receber ou enviar as peças</h2>
+        <p>Busque pelo nome ou WhatsApp. Você poderá confirmar a entrega, retirada e os tickets no próximo passo.</p>
+      </div>
+
+      <form className={classes.deliverySearchForm} onSubmit={handleSubmit}>
         <div className={classes.controle_de_campo}>
-          <label htmlFor="nome">Nome</label>
-          <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} />
+          <label htmlFor="nome">Nome do cliente</label>
+          <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} placeholder="Ex.: Maria Silva" />
         </div>
         <div className={classes.controle_de_campo}>
-          <label htmlFor="telefone">Telefone</label>
-          <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} />
+          <label htmlFor="telefone">Telefone ou WhatsApp</label>
+          <input type="tel" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="(00) 00000-0000" />
         </div>
-        <div className={classes.controle_de_campo}>
-          <button type="submit" className={classes.btn_enter} disabled={loading}>
-            {loading ? 'Buscando...' : 'Pesquisar'}
-          </button>
-        </div>
+        <button type="submit" className={classes.btn_enter} disabled={loading}>
+          {loading ? 'Buscando...' : 'Buscar cliente'}
+        </button>
       </form>
 
-      {loading && <Spinner animation="border" role="status"><span className="visually-hidden">Carregando...</span></Spinner>}
+      {loading && <div className={classes.deliveryLoading}><Spinner animation="border" role="status"><span className="visually-hidden">Carregando...</span></Spinner><span>Buscando clientes...</span></div>}
       {error && <p className={classes.error}>{error}</p>}
 
       {!loading && !error && confirmarCadastro && (
-        <div className={classes.confirmacao}>
-          <p>Cliente nao encontrado. Deseja cadastrar um novo cliente?</p>
-          <div className={classes.btn_group}>
-            <button onClick={handleCadastrarCliente} className={`${classes.btn_confirm} ${classes.btn}`}>Cadastrar</button>
-            <button onClick={() => setConfirmarCadastro(false)} className={`${classes.btn_cancel} ${classes.btn}`}>Revisar</button>
+        <div className={classes.deliveryEmptyState}>
+          <h3>Cliente não encontrado</h3>
+          <p>Não localizamos uma ficha com esses dados. Você pode cadastrar o cliente agora e voltar para o agendamento.</p>
+          <div className={classes.deliverySearchActions}>
+            <button type="button" onClick={handleCadastrarCliente} className={classes.btn_enter}>Cadastrar cliente</button>
+            <button type="button" onClick={() => setConfirmarCadastro(false)} className={classes.secondaryButton}>Revisar busca</button>
           </div>
         </div>
       )}
 
-      <div className={classes.box}>
+      <div className={classes.deliveryResults}>
         {clientes.length > 1 && (
-          <ul>
+          <>
+            <div className={classes.deliveryResultsHeader}><strong>Clientes encontrados</strong><span>{clientes.length} opções</span></div>
+            <ul className={classes.deliveryResultsList}>
             {clientes.map((cliente) => (
-              <li className={classes.li} key={cliente.id} onClick={() => onClienteSelecionado(cliente)}>
-                {cliente.nome} - {cliente.telefone}
+              <li key={cliente.id}>
+                <button type="button" className={classes.deliveryResultItem} onClick={() => onClienteSelecionado(cliente)}>
+                  <strong>{cliente.nome}</strong>
+                  <span>{cliente.telefone || 'Telefone não informado'}</span>
+                  <small>Selecionar para agendar</small>
+                </button>
               </li>
             ))}
-          </ul>
+            </ul>
+          </>
         )}
       </div>
     </div>

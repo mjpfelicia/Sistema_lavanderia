@@ -7,6 +7,7 @@ import classes from "../AgendaDelivery/AgendaDelivery.module.css";
 
 interface AgendaDeliveryProps {
   cliente: Cliente;
+  onVoltarParaBusca?: () => void;
 }
 
 type DeliveryAction = 'existing-ticket' | 'new-pickup';
@@ -23,7 +24,7 @@ const formatAddress = (cliente: Cliente) =>
     .filter(Boolean)
     .join(', ');
 
-const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
+const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente, onVoltarParaBusca }) => {
   const [deliveryData, setDeliveryData] = useState<string>('');
   const [deliveryHora, setDeliveryHora] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -254,6 +255,7 @@ const AgendaDelivery: React.FC<AgendaDeliveryProps> = ({ cliente }) => {
               <span>Status</span>
               <strong>{resumoTickets}</strong>
             </div>
+            {onVoltarParaBusca && <button type="button" className={classes.changeClientButton} onClick={onVoltarParaBusca}>Trocar cliente</button>}
           </div>
         </div>
 
