@@ -221,7 +221,7 @@ const sidebarItems: SidebarItem[] = [
   { label: 'Buscar Ticket', href: '/BuscarTicket', icon: 'ticket' },
   { label: 'Delivery', href: '/Delivery', icon: 'delivery' },
   { label: 'Relat\u00f3rios', href: '/relatorio', icon: 'reports' },
-  { label: 'Caixa do dia', href: '/admin/financeiro', icon: 'money' },
+  { label: 'Caixa do dia', href: '/Caixa', icon: 'money' },
   { label: 'Configura\u00e7\u00f5es', href: '/admin', icon: 'settings' },
 ];
 
@@ -615,7 +615,7 @@ const Home = () => {
     },
     {
       title: 'Fechamento de caixa',
-      href: '/admin/financeiro',
+      href: '/Caixa',
       description: 'Conferir tickets baixados e valores recebidos do dia.',
       icon: 'money',
     },

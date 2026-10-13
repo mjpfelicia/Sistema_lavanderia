@@ -1,169 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import './AdminDashboard.css';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import './AdminDashboard.css';
 import BackToHome from '../../buttons/BackToHome';
-import axios from 'axios';
-import { config } from '../../../config';
+import { isTicketFinalizado, listarTickets, Ticket } from '../../../service/apiTicket';
 
-interface KPI {
-  label: string;
-  value: string | number;
-  icon: string;
-  color: string;
-  trend?: string;
-}
+const formatCurrency = (value: number) =>
+  new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 
-interface TicketResumo {
-  id: number;
-  cliente: string;
-  status: string;
-  valor: number;
-  dataEntrada: string;
-  dataPrevista: string;
-}
+const formatDate = (value?: string) => {
+  if (!value) return 'Não informado';
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? 'Não informado' : date.toLocaleDateString('pt-BR');
+};
 
-interface DadosGrafico {
-  mes: string;
-  valor: number;
-}
+const isSameMonth = (value?: string) => {
+  if (!value) return false;
+  const date = new Date(value);
+  const now = new Date();
+  return !Number.isNaN(date.getTime()) && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+};
 
 const AdminDashboard: React.FC = () => {
-  const [kpis, setKpis] = useState<KPI[]>([]);
-  const [ticketsRecentes, setTicketsRecentes] = useState<TicketResumo[]>([]);
-  const [ticketsAtrasados, setTicketsAtrasados] = useState<TicketResumo[]>([]);
-  const [faturamentoMes, setFaturamentoMes] = useState<number>(0);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
   const [loading, setLoading] = useState(true);
-  const [dadosGrafico, setDadosGrafico] = useState<DadosGrafico[]>([]);
-  const [ticketsPorStatus, setTicketsPorStatus] = useState<{status: string, quantidade: number}[]>([]);
+  const [error, setError] = useState('');
+  const [lastUpdate, setLastUpdate] = useState('');
+
+  const carregarDados = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError('');
+      setTickets(await listarTickets());
+      setLastUpdate(new Date().toLocaleTimeString('pt-BR'));
+    } catch (requestError) {
+      console.error('Erro ao carregar painel administrativo:', requestError);
+      setError('Não foi possível carregar os indicadores. Verifique se a API local está ativa.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     carregarDados();
-    const interval = setInterval(carregarDados, 30000); // Atualiza a cada 30s
-    return () => clearInterval(interval);
-  }, []);
+    const interval = window.setInterval(carregarDados, 30000);
+    return () => window.clearInterval(interval);
+  }, [carregarDados]);
 
-  const carregarDados = async () => {
-    try {
-      setLoading(true);
+  const resumo = useMemo(() => {
+    const abertos = tickets.filter((ticket) => !isTicketFinalizado(ticket));
+    const prontos = abertos.filter((ticket) => ticket.statusEntrega === 'Pronto' || ticket.statusEntrega === 'Liberado');
+    const entreguesNoMes = tickets.filter((ticket) => ticket.dataBaixa && isSameMonth(ticket.dataBaixa));
+    const faturamento = entreguesNoMes
+      .filter((ticket) => ticket.estaPago === 'sim')
+      .reduce((total, ticket) => total + (ticket.valorRecebido ?? ticket.totalPago ?? ticket.total), 0);
+    const atrasados = abertos.filter((ticket) => {
+      if (!ticket.dataEntrega) return false;
+      const dataEntrega = new Date(ticket.dataEntrega);
+      return !Number.isNaN(dataEntrega.getTime()) && dataEntrega < new Date();
+    });
 
-      // Buscar tickets
-      const responseTickets = await axios.get(`${config.apiUrl}/tickets`);
-      const tickets = responseTickets.data;
+    return { abertos, prontos, entreguesNoMes, faturamento, atrasados };
+  }, [tickets]);
 
-      // Calcular KPIs
-      const totalTickets = tickets.length;
-      const ticketsProntos = tickets.filter((t: any) => t.status === 'Pronto').length;
-      const ticketsEntregues = tickets.filter((t: any) => t.status === 'Entregue').length;
-      const ticketsPendentes = tickets.filter((t: any) => t.status === 'Pendente' || t.status === 'Em produção').length;
-
-      // Faturamento do mês atual
-      const agora = new Date();
-      const mesAtual = agora.getMonth();
-      const anoAtual = agora.getFullYear();
-
-      const ticketsMes = tickets.filter((t: any) => {
-        const dataEntrada = new Date(t.dataEntrada);
-        return dataEntrada.getMonth() === mesAtual && dataEntrada.getFullYear() === anoAtual;
-      });
-
-      const faturamento = ticketsMes.reduce((acc: number, t: any) => {
-        return acc + (t.valorTotal || t.valor || 0);
-      }, 0);
-
-      setFaturamentoMes(faturamento);
-
-      // Tickets atrasados
-      const hoje = new Date();
-      const atrasados = tickets.filter((t: any) => {
-        const dataPrevista = new Date(t.dataPrevista);
-        return dataPrevista < hoje && t.status !== 'Entregue' && t.status !== 'Apagado';
-      }).slice(0, 5);
-
-      setTicketsAtrasados(atrasados);
-
-      // Tickets recentes
-      const recentes = tickets
-        .sort((a: any, b: any) => new Date(b.dataEntrada).getTime() - new Date(a.dataEntrada).getTime())
-        .slice(0, 10);
-
-      setTicketsRecentes(recentes);
-
-      // Dados para gráfico de faturamento mensal (últimos 6 meses)
-      const mesesNome = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-      const dadosGraficoFaturamento: DadosGrafico[] = [];
-      for (let i = 5; i >= 0; i--) {
-        const mesRef = new Date(anoAtual, mesAtual - i, 1);
-        const mesIndex = mesRef.getMonth();
-        const ticketsDoMes = tickets.filter((t: any) => {
-          const dataEntrada = new Date(t.dataEntrada);
-          return dataEntrada.getMonth() === mesIndex && dataEntrada.getFullYear() === mesRef.getFullYear();
-        });
-        const valorMes = ticketsDoMes.reduce((acc: number, t: any) => acc + (t.valorTotal || t.valor || 0), 0);
-        dadosGraficoFaturamento.push({
-          mes: `${mesesNome[mesIndex]}/${String(mesRef.getFullYear()).slice(-2)}`,
-          valor: parseFloat(valorMes.toFixed(2))
-        });
-      }
-      setDadosGrafico(dadosGraficoFaturamento);
-
-      // Dados para gráfico de tickets por status
-      const statusMap: Record<string, number> = {};
-      tickets.forEach((t: any) => {
-        const status = t.status || 'Desconhecido';
-        statusMap[status] = (statusMap[status] || 0) + 1;
-      });
-      const ticketsPorStatusData = Object.entries(statusMap).map(([status, quantidade]) => ({
-        status,
-        quantidade
-      }));
-      setTicketsPorStatus(ticketsPorStatusData);
-
-      // Definir KPIs
-      setKpis([
-        {
-          label: 'Faturamento Mensal',
-          value: `R$ ${faturamento.toFixed(2)}`,
-          icon: '💰',
-          color: '#4a9c9f',
-          trend: '+12%'
-        },
-        {
-          label: 'Tickets Ativos',
-          value: totalTickets,
-          icon: '🎫',
-          color: '#5faaa5',
-          trend: `${ticketsPendentes} pendentes`
-        },
-        {
-          label: 'Prontos para Entrega',
-          value: ticketsProntos,
-          icon: '✅',
-          color: '#7cb342',
-          trend: ''
-        },
-        {
-          label: 'Entregues (Mês)',
-          value: ticketsEntregues,
-          icon: '🚚',
-          color: '#ffa726',
-          trend: ''
-        }
-      ]);
-
-      setLoading(false);
-    } catch (error) {
-      console.error('Erro ao carregar dados:', error);
-      setLoading(false);
-    }
-  };
+  const ticketsRecentes = useMemo(
+    () => [...tickets].sort((a, b) => new Date(b.dataCriacao || 0).getTime() - new Date(a.dataCriacao || 0).getTime()).slice(0, 10),
+    [tickets],
+  );
 
   if (loading) {
-    return (
-      <div className="admin-dashboard-loading">
-        <div className="spinner"></div>
-        <p>Carregando dashboard...</p>
-      </div>
-    );
+    return <div className="admin-dashboard-loading"><div className="spinner" /><p>Carregando dashboard...</p></div>;
   }
 
   return (
@@ -172,212 +77,43 @@ const AdminDashboard: React.FC = () => {
         <div className="header-content">
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <BackToHome variant="icon" />
-            <div>
-              <h1>📊 Painel Administrativo</h1>
-              <p>Gestão completa da sua lavanderia</p>
-            </div>
+            <div><h1>Painel Administrativo</h1><p>Indicadores operacionais e financeiros da lavanderia</p></div>
           </div>
         </div>
         <div className="header-actions">
-          <span className="last-update">
-            Última atualização: {new Date().toLocaleTimeString('pt-BR')}
-          </span>
-          <button onClick={carregarDados} className="btn-refresh">
-            🔄 Atualizar
-          </button>
+          <span className="last-update">Atualizado: {lastUpdate || '—'}</span>
+          <button onClick={carregarDados} className="btn-refresh">Atualizar</button>
         </div>
       </header>
 
       <div className="admin-content">
-        {/* Menu de Navegação Rápida */}
         <nav className="admin-nav">
-          <Link to="/admin/financeiro" className="nav-card">
-            <span className="nav-icon">💰</span>
-            <span className="nav-label">Fechamento de Caixa</span>
-          </Link>
-
-           <Link to="/admin/tickets-baixados-pendencia" className="nav-card">
-            <span className="nav-icon">📋</span>
-            <span className="nav-label">Pendências de Recebimento </span>
-          </Link>
-          <Link to="/admin/pendencias-recebimento" className="nav-card">
-            <span className="nav-icon">📌</span>
-            <span className="nav-label">Entregas Atrasadas</span>
-          </Link>
-          <Link to="/admin/tickets" className="nav-card">
-            <span className="nav-icon">🎫</span>
-            <span className="nav-label">Gestão de Tickets</span>
-          </Link>
-          <Link to="/admin/clientes" className="nav-card">
-            <span className="nav-icon">👥</span>
-            <span className="nav-label">Clientes</span>
-          </Link>
-          <Link to="/admin/delivery" className="nav-card">
-            <span className="nav-icon">🚚</span>
-            <span className="nav-label">Entregas</span>
-          </Link>
-          <Link to="/admin/configuracoes" className="nav-card">
-            <span className="nav-icon">⚙️</span>
-            <span className="nav-label">Configurações</span>
-          </Link>
-          <Link to="/" className="nav-card nav-card-back">
-            <span className="nav-icon">🏠</span>
-            <span className="nav-label">Voltar ao Início</span>
-          </Link>
+          <Link to="/Caixa" className="nav-card"><span className="nav-icon">💰</span><span className="nav-label">Caixa do Dia</span></Link>
+          <Link to="/admin/tickets-baixados-pendencia" className="nav-card"><span className="nav-icon">📋</span><span className="nav-label">Pendências de Recebimento</span></Link>
+          <Link to="/pecas-em-atraso" className="nav-card"><span className="nav-icon">📌</span><span className="nav-label">Tickets Atrasados</span></Link>
+          <Link to="/BuscarTicket" className="nav-card"><span className="nav-icon">🎫</span><span className="nav-label">Buscar Ticket</span></Link>
+          <Link to="/Delivery" className="nav-card"><span className="nav-icon">🚚</span><span className="nav-label">Entregas</span></Link>
+          <Link to="/" className="nav-card nav-card-back"><span className="nav-icon">🏠</span><span className="nav-label">Voltar ao Início</span></Link>
         </nav>
 
-        {/* KPIs Cards */}
+        {error && <section className="alerts-section"><p>{error}</p></section>}
+
         <section className="kpi-section">
-          <h2>Indicadores do Mês</h2>
+          <h2>Indicadores do mês</h2>
           <div className="kpi-grid">
-            {kpis.map((kpi, index) => (
-              <div key={index} className="kpi-card" style={{ borderColor: kpi.color }}>
-                <div className="kpi-icon" style={{ backgroundColor: `${kpi.color}20` }}>
-                  {kpi.icon}
-                </div>
-                <div className="kpi-content">
-                  <h3>{kpi.label}</h3>
-                  <p className="kpi-value">{kpi.value}</p>
-                  {kpi.trend && <span className="kpi-trend">{kpi.trend}</span>}
-                </div>
-              </div>
-            ))}
+            <div className="kpi-card"><div className="kpi-content"><h3>Faturamento recebido</h3><p className="kpi-value">{formatCurrency(resumo.faturamento)}</p><span className="kpi-trend">Tickets baixados e pagos</span></div></div>
+            <div className="kpi-card"><div className="kpi-content"><h3>Tickets ativos</h3><p className="kpi-value">{resumo.abertos.length}</p><span className="kpi-trend">Ainda em atendimento</span></div></div>
+            <div className="kpi-card"><div className="kpi-content"><h3>Prontos para entrega</h3><p className="kpi-value">{resumo.prontos.length}</p><span className="kpi-trend">Prontos ou liberados</span></div></div>
+            <div className="kpi-card"><div className="kpi-content"><h3>Entregues no mês</h3><p className="kpi-value">{resumo.entreguesNoMes.length}</p><span className="kpi-trend">Com baixa registrada</span></div></div>
           </div>
         </section>
 
-        {/* Alerts Section */}
-        {ticketsAtrasados.length > 0 && (
-          <section className="alerts-section">
-            <h2>⚠️ Tickets Atrasados</h2>
-            <div className="alerts-list">
-              {ticketsAtrasados.map((ticket) => (
-                <div key={ticket.id} className="alert-item">
-                  <div className="alert-info">
-                    <strong>Ticket #{ticket.id}</strong>
-                    <span>{ticket.cliente}</span>
-                  </div>
-                  <div className="alert-details">
-                    <span className="alert-status">{ticket.status}</span>
-                    <span className="alert-date">
-                      Previsto: {new Date(ticket.dataPrevista).toLocaleDateString('pt-BR')}
-                    </span>
-                  </div>
-                  <Link to={`/BuscarTicket/${ticket.id}`} className="btn-view">
-                    Ver
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+        {resumo.atrasados.length > 0 && <section className="alerts-section"><h2>Tickets atrasados</h2><div className="alerts-list">{resumo.atrasados.slice(0, 5).map((ticket) => <div key={ticket.id} className="alert-item"><div className="alert-info"><strong>Ticket #{ticket.ticketNumber}</strong><span>Previsão: {formatDate(ticket.dataEntrega)}</span></div><Link to={`/BuscarTicket/${ticket.ticketNumber}`} className="btn-view">Ver</Link></div>)}</div></section>}
 
-        {/* Recent Tickets */}
-        <section className="recent-section">
-          <h2>📋 Tickets Recentes</h2>
-          <div className="tickets-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Cliente</th>
-                  <th>Status</th>
-                  <th>Valor</th>
-                  <th>Entrada</th>
-                  <th>Previsão</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ticketsRecentes.map((ticket) => (
-                  <tr key={ticket.id}>
-                    <td>#{ticket.id}</td>
-                    <td>{ticket.cliente}</td>
-                    <td>
-                      <span className={`status-badge status-${ticket.status.toLowerCase().replace(' ', '-')}`}>
-                        {ticket.status}
-                      </span>
-                    </td>
-                    <td>R$ {ticket.valor.toFixed(2)}</td>
-                    <td>{new Date(ticket.dataEntrada).toLocaleDateString('pt-BR')}</td>
-                    <td>{new Date(ticket.dataPrevista).toLocaleDateString('pt-BR')}</td>
-                    <td>
-                      <Link to={`/BuscarTicket/${ticket.id}`} className="btn-sm">
-                        Ver
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* Gráficos Section */}
-        <section className="charts-section">
-          <div className="charts-grid">
-            {/* Gráfico de Faturamento Mensal */}
-            <div className="chart-card">
-              <h3>📈 Faturamento dos Últimos 6 Meses</h3>
-              <div className="chart-container">
-                <div className="bar-chart">
-                  {dadosGrafico.map((item, index) => (
-                    <div key={index} className="bar-item">
-                      <div
-                        className="bar"
-                        style={{ height: `${Math.max((item.valor / Math.max(...dadosGrafico.map(d => d.valor))) * 100, 5)}%` }}
-                        title={`R$ ${item.valor.toFixed(2)}`}
-                      ></div>
-                      <span className="bar-label">{item.mes}</span>
-                      <span className="bar-value">R$ {item.valor.toFixed(2)}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Gráfico de Tickets por Status */}
-            <div className="chart-card">
-              <h3>🎫 Tickets por Status</h3>
-              <div className="chart-container">
-                <div className="status-chart">
-                  {ticketsPorStatus.map((item, index) => (
-                    <div key={index} className="status-item">
-                      <div className="status-info">
-                        <span className="status-name">{item.status}</span>
-                        <span className="status-count">{item.quantidade}</span>
-                      </div>
-                      <div className="status-bar-container">
-                        <div
-                          className="status-bar"
-                          style={{
-                            width: `${(item.quantidade / ticketsRecentes.length) * 100}%`,
-                            backgroundColor: getStatusColor(item.status)
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <section className="recent-section"><h2>Tickets recentes</h2><div className="tickets-table"><table><thead><tr><th>Ticket</th><th>Status</th><th>Valor</th><th>Criação</th><th>Previsão</th><th>Ações</th></tr></thead><tbody>{ticketsRecentes.map((ticket) => <tr key={ticket.id}><td>#{ticket.ticketNumber}</td><td><span className={`status-badge status-${(ticket.statusEntrega || 'em-producao').toLowerCase().replace(' ', '-')}`}>{ticket.statusEntrega || 'Em produção'}</span></td><td>{formatCurrency(ticket.total)}</td><td>{formatDate(ticket.dataCriacao)}</td><td>{formatDate(ticket.dataEntrega)}</td><td><Link to={`/BuscarTicket/${ticket.ticketNumber}`} className="btn-sm">Ver</Link></td></tr>)}</tbody></table></div></section>
       </div>
     </div>
   );
-};
-
-// Função auxiliar para cores dos status
-const getStatusColor = (status: string): string => {
-  const statusColors: Record<string, string> = {
-    'Pendente': '#ffc107',
-    'Em produção': '#2196f3',
-    'Pronto': '#4caf50',
-    'Liberado': '#9c27b0',
-    'Entregue': '#607d8b',
-    'Cancelado': '#f44336'
-  };
-  return statusColors[status] || '#757575';
 };
 
 export default AdminDashboard;

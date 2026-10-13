@@ -1,5 +1,34 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+  --font-sans: 'Poppins', Arial, sans-serif;
+  --font-display: 'Montserrat', Arial, sans-serif;
+  --brand-900: #172554;
+  --brand-800: #1e3a8a;
+  --brand-700: #1d4ed8;
+  --brand-600: #2563eb;
+  --brand-100: #dbeafe;
+  --brand-50: #eff6ff;
+  --surface-page: #f6f8fc;
+  --surface-card: #ffffff;
+  --text-strong: #172033;
+  --text-muted: #64748b;
+  --border-subtle: #dbe4f0;
+  --success: #15803d;
+  --warning: #c2410c;
+  --danger: #b91c1c;
+  --radius-lg: 24px;
+  --radius-md: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { color: var(--text-strong); background: var(--surface-page); }
+body, button, input, select, textarea { font-family: var(--font-sans); }
+h1, h2, h3, h4, h5, h6 { color: var(--text-strong); font-family: var(--font-display); letter-spacing: -0.02em; }
+.admin-header h1, .relatorio-header h1, .caixa-header h1 { color: #fff; }
+button, a, input, select, textarea { transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, transform .2s ease; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--brand-600) !important; box-shadow: 0 0 0 3px rgba(37, 99, 235, .14) !important; }
 body {
   margin: 0;
   padding: 0;

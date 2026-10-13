@@ -45,7 +45,7 @@ const getRequest = async <T>(url: string): Promise<T> => {
   }
 };
 
-const postPutRequest = async <T>(url: string, data: T): Promise<T> => {
+const postRequest = async <T>(url: string, data: T): Promise<T> => {
   try {
     const response = await api.post<T>(url, data);
     return response.data;
@@ -75,14 +75,19 @@ export const buscarDelivery = async (clienteId: string): Promise<Delivery[]> => 
 
 export const atualizaDelivery = async (idDelivery: string, delivery: Delivery): Promise<Delivery> => {
   console.info("API Delivery - atualizaDelivery");
-  const response = await postPutRequest<Delivery>(`/${idDelivery}`, delivery);
-  notificarAtualizacaoDashboard();
-  return response;
+  try {
+    const response = await api.patch<Delivery>(`/${idDelivery}`, delivery);
+    notificarAtualizacaoDashboard();
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+    throw error;
+  }
 };
 
 export const criarDelivery = async (delivery: Delivery): Promise<Delivery> => {
   console.info("API Delivery - criarDelivery");
-  const response = await postPutRequest<Delivery>('/', delivery);
+  const response = await postRequest<Delivery>('/', delivery);
   notificarAtualizacaoDashboard();
   return response;
 };

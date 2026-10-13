@@ -1,5 +1,6 @@
 .relatorio-financeiro {
   min-height: 100vh;
+  color: var(--text-strong);
   background:
     linear-gradient(180deg, rgba(247, 249, 252, 0.98) 0%, rgba(240, 245, 249, 1) 100%),
     radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.12), transparent 24%),
@@ -40,7 +41,7 @@
   align-items: center;
   gap: 1rem;
   padding: 1.2rem 1.5rem;
-  background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+  background: var(--gradient-brand);
   color: #fff;
   box-shadow: 0 18px 36px rgba(15, 23, 42, 0.18);
 }
@@ -112,7 +113,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   padding: 1.1rem;
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(148, 163, 184, 0.14);
   box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
@@ -168,7 +169,8 @@
   color: #475569;
 }
 
-.filtros-group input {
+.filtros-group input,
+.filtros-group select {
   width: 100%;
   border-radius: 14px;
   border: 1px solid rgba(148, 163, 184, 0.2);
@@ -254,7 +256,7 @@
 
 .conferencia-card,
 .tabela-section {
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid rgba(148, 163, 184, 0.14);
   box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);

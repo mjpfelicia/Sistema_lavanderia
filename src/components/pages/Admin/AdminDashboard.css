@@ -1,6 +1,7 @@
 .admin-dashboard {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--color-bg_menu) 0%, var(--color-bg-light) 100%);
+  background: var(--surface-page);
+  color: var(--text-strong);
   padding: 0;
 }
 
@@ -10,7 +11,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, var(--color-bg_menu) 0%, var(--color-bg-light) 100%);
+  background: var(--surface-page);
 }
 
 .spinner {

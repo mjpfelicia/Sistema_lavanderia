@@ -1,3 +1,4 @@
+// cSpell:ignore Entregues Entrega combinar carregar apenas
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { isTicketBaixado, listarTickets, Ticket } from '../../../service/apiTicket';
@@ -12,7 +13,7 @@ const formatCurrency = (value: number) =>
   }).format(value);
 
 const formatDate = (value?: string) => {
-  if (!value) return 'Não informado';
+  if (!value) return 'Não informado'; // cSpell:ignore informado
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return 'A combinar';
   return new Intl.DateTimeFormat('pt-BR', {
@@ -63,6 +64,7 @@ const TicketsEntreguesHoje: React.FC = () => {
         setClientes(clientesData);
       } catch (requestError) {
         console.error(requestError);
+        // cSpell:ignore possível Verifique ativa
         setError('Não foi possível carregar os tickets entregues hoje. Verifique se a API local está ativa.');
       } finally {
         setLoading(false);

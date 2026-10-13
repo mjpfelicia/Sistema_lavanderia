@@ -1,8 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+jest.mock('./service/apiCliente', () => ({
+  listarClientes: jest.fn().mockResolvedValue([]),
+}));
+
+jest.mock('./service/apiDelivery', () => ({
+  listarDelivery: jest.fn().mockResolvedValue([]),
+  atualizaDelivery: jest.fn(),
+}));
+
+jest.mock('./service/apiTicket', () => ({
+  listarTickets: jest.fn().mockResolvedValue([]),
+  atualizaTicket: jest.fn(),
+  isTicketFinalizado: jest.fn().mockReturnValue(false),
+  isTicketBaixado: jest.fn().mockReturnValue(false),
+}));
+
+test('renders the laundry dashboard', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/Sistema de Lavanderia/i)).toBeInTheDocument();
 });

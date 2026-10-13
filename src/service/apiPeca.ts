@@ -45,11 +45,11 @@ export const listarPeca = async (): Promise<Peca[]> => {
     });
 };
 
-export const getPeca = async (idPeca: number): Promise<Peca> => {
+export const getPeca = async (idPeca: string): Promise<Peca> => {
   console.info("API Peca - getPeca ");
 
   return api
-    .get<Peca>(`//${idPeca}`)
+    .get<Peca>(`/${idPeca}`)
     .then(response => response.data)
     .catch((error: AxiosError) => {
       console.error("[ERROR][getPeca]", error.message);
@@ -77,11 +77,11 @@ export const getPecaPorTipo = async (tipoPeca: TipoPeca): Promise<Peca[]> => {
 
 
 
-export const atualizaPeca = async (idPeca: string, Peca: Peca): Promise<Peca> => {
+export const atualizaPeca = async (idPeca: string, peca: Peca): Promise<Peca> => {
   console.info("API Peca - atualizaPeca ");
 
   return api
-    .put<Peca>(`//${idPeca}`, Peca)
+    .put<Peca>(`/${idPeca}`, peca)
     .then(response => response.data)
     .catch((error: AxiosError) => {
       console.error("[ERROR][atualizaPeca]", error.message);

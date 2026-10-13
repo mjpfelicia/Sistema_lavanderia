@@ -2,7 +2,7 @@
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  color: #0f172a;
+  color: var(--text-strong);
 }
 
 .page-frame-bg {
@@ -93,7 +93,7 @@
   padding: 0.42rem 0.8rem;
   border-radius: 999px;
   background: rgba(37, 99, 235, 0.1);
-  color: #2563eb;
+  color: var(--brand-600);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.08rem;
@@ -110,7 +110,7 @@
 .page-frame-copy p {
   margin: 0;
   max-width: 62ch;
-  color: #64748b;
+  color: var(--text-muted);
   line-height: 1.7;
 }
 
@@ -125,16 +125,16 @@
   min-height: 46px;
   padding: 0.85rem 1.1rem;
   border-radius: 14px;
-  background: linear-gradient(135deg, #eff6ff, #f8fafc);
+  background: linear-gradient(135deg, var(--brand-50), #f8fafc);
   border: 1px solid rgba(148, 163, 184, 0.16);
-  color: #1e293b;
+  color: var(--text-strong);
   font-weight: 700;
 }
 
 .page-frame-chip.is-primary {
   border: none;
   color: #fff;
-  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  background: linear-gradient(135deg, var(--brand-700), var(--brand-600));
   box-shadow: 0 14px 24px rgba(37, 99, 235, 0.18);
 }
 

@@ -14,6 +14,7 @@ import CloseButton from "../buttons/CloseButton";
 import AgendamentoEntrega from "./AgendaDelivery/AgendaDelivery";
 import AdminDashboard from "./Admin/AdminDashboard";
 import RelatorioFinanceiro from "./Admin/RelatorioFinanceiro";
+import CaixaDiario from "./Admin/CaixaDiario";
 
 import PendenciasRecebimento from "./Admin/PendenciasRecebimento";
 import TicketsBaixadosPendenciaPagamento from "./Admin/TicketsBaixadosPendenciaPagamento";
@@ -64,6 +65,7 @@ const Rotas = () => {
         {/* Rotas Administrativas */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/financeiro" element={<RelatorioFinanceiro />} />
+        <Route path="/Caixa" element={<CaixaDiario />} />
 
         <Route path="/admin/pendencias-recebimento" element={<PendenciasRecebimento />} />
         <Route path="/admin/tickets-baixados-pendencia" element={<TicketsBaixadosPendenciaPagamento />} />
